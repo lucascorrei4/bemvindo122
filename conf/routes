@@ -1,0 +1,43 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+%{ctx = play.configuration.getProperty('apache.context', '')}%
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     ${ctx}/                                       				Application.index
+
+# Home page
+POST    ${ctx}/save-new-children-chalkboard							ChalkBoardChildrenController.saveChalkBoardChildren
+GET    	${ctx}/como-funciona										Application.howItWorks
+GET    	${ctx}/contato												Application.contact
+POST	${ctx}/chalk-moip-response									Application.moipResponse
+
+# Admin
+GET		${ctx}/admin/chalkboard-children							ChalkBoardChildrenController.list
+GET		${ctx}/admin/chalkboard-children/new						ChalkBoardChildrenController.blank
+GET		${ctx}/admin/chalkboard-children/{id}						ChalkBoardChildrenController.show
+GET		${ctx}/admin/chalkboard-children/{id}/{field}				ChalkBoardChildrenController.attachment
+GET		${ctx}/admin/chalkboard-children/{id}/edit					ChalkBoardChildrenController.edit
+POST	${ctx}/admin/chalkboard-children							ChalkBoardChildrenController.create
+POST	${ctx}/admin/chalkboard-children/{id}						ChalkBoardChildrenController.save
+DELETE	${ctx}/admin/chalkboard-children/{id}						ChalkBoardChildrenController.delete
+
+# Import CRUD routes
+*       ${ctx}/admin                      			module:crud
+
+
+# Import Secure routes
+*      	${ctx}/                            			module:secure
+
+# Ignore favicon requests
+GET     ${ctx}/favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     ${ctx}/public/                                staticDir:public
+
+# Catch all
+*       ${ctx}/{controller}/{action}                  {controller}.{action}

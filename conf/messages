@@ -1,0 +1,290 @@
+# You can specialize this file for each language.
+# For example, for French create a messages.fr file
+#
+# ~~~~~~
+
+login.error=Usuário ou senha incorretos.
+secure.title=
+secure.username=E-mail:
+secure.password=Senha:
+secure.remember=Lembrar-me
+secure.signin=Entrar
+secure.error=Usuário ou senha incorretos.
+secure.logout=Você foi desconectado.
+
+
+crud.title=Seu Pedido
+crud.home=Início
+crud.blank=Novo
+crud.index.title=Administração
+crud.index.objectType=Clique abaixo para editar
+crud.index.action=Ação
+crud.index.add=Novo
+crud.add=Adicionar
+crud.list.title=&{%s}
+crud.list.size=%d &{%s}
+crud.list.totalSize=Total: %d
+crud.pagination.previous=« Anterior
+crud.pagination.next=Próximo »
+crud.pagination.last=Último »»
+crud.pagination.first=«« Primeiro
+crud.show.title=Editar
+crud.save=Salvar
+crud.saveAndContinue=Salvar e continuar editando
+crud.cancel=Cancelar
+crud.hasErrors=Favor, corrija os erros.
+crud.blank.title=Adicionar &{%s}
+crud.saveAndAddAnother=Salvar e criar outro
+crud.delete=Deletar
+crud.created=Objeto salvo com sucesso.
+crud.saved=O objeto foi salvo.
+crud.deleted=O ítem foi deletado.
+crud.delete.error=Não é possível excluir este objeto.
+crud.search=Pesquisar
+crud.none=(Nenhum)
+crud.selectValue=(Favor, selecione um valor.)
+crud.delete=Deletar
+
+crud.help.required=Obrigatório.
+crud.help.minlength=Tamanho mínimo: %d caracteres.
+crud.help.maxlength=Tamanho máximo: %d caracteres.
+crud.help.email=Formato de e-mail válido: nome@provedor.com.br
+crud.help.dateformat=Formato &{%s}.
+crud.help.numeric=Numérico.
+crud.help.min=Deve ser maior do que %d.
+crud.help.future=No futuro.
+crud.help.past=No passado.
+crud.help.after=Depois de %s.
+crud.help.before=Antes de %s.
+crud.help.range=Entre %d e %d
+crud.help.match=%s
+crud.help.equals=Deve ser igual %s
+
+#Validations
+validation.phone=Formato inválido. Favor preencha no formato: (99) 9999-9999.
+validation.somedate=Insira a data no formato 01/01/2001.
+validation.prayorders=Insira os pedidos de oração separados por ponto e vírgula (;).
+validation.required=Favor, preencha este campo.
+validation.maxSize=Tamanho máximo: %s caracteres.
+validation.matchAge=Ex.: 20-31 = Faixa etária de 20 a 31 anos.
+validation.matchAge.erro=Erro. Favor, preencha a faixa etária no formato: 16-29.
+validation.email=Formato de e-mail inválido.
+validation.incorrectValue=Valor inválido.
+validation.min=Preencha o campo. 
+validation.unique=Este ítem já foi cadastrado. Favor, insira outro.
+validation.object=Há erros no cadastro. Verifique suas informações.
+validation.invalid=Verifique os dados inseridos.
+
+secure.username=Seu e-mail:
+secure.password=Senha:
+secure.signin=Entrar
+
+
+downloadFile=Baixar arquivo                
+
+true=Sim
+false=Não
+
+#Controllers
+SocialMediaCRUD=Mídias Sociais
+EventsCRUD=Eventos
+VisitorsCRUD=Visitantes
+ConfigureTemplateCRUD=Configurar Templates
+EmailMarketingCRUD=Enviar E-mail Marketing
+InstitutionCRUD=Instituição
+IntercessorsCRUD=Intercessores
+EventsCRUD=Eventos
+UsersCRUD=Usuário
+MembersCRUD=Membros
+MembersGroupCRUD=Grupo de Membros
+VisitorsGroupCRUD=Grupo de Visitantes
+VisitorPrayOrderCRUD=Pedidos de Oração
+ChalkBoardChildrenController=ChalkBoards Infantis
+
+#Models
+ContactForm=Mensagens - Form. Contato
+ContactInfo=Informações de contato
+EmailExclusiveOffer=E-mails/Ofertas exclusivas
+HomePageItem=Ítens da Home
+MoreOffer=Mais ofertas
+Offer=Oferta
+Product=Produto
+ProductCategory=Categoria - Produto
+ProductSubCategory=Sub Categoria - Produto
+SocialMedia=Mídias Sociais
+Configuration=Configuração
+ConfigureTemplate=Configurar Novo Template
+Event=Evento
+Institution=Instituição
+User=Usuário
+Member=Membro
+Visitor=Visitante
+MemberGroup=Grupo de Membros
+VisitorGroup=Grupo de Visitantes
+VisitorPrayOrder=Pedido de Oração
+visitor=Visitante
+ChalkBoardChildren=ChalkBoard Infantil
+
+#Labels
+userName=Usuário
+mail=E-mail
+isPaid=Pago
+isDone=Feito
+name=Nome
+productCategory=Categoria
+imageSubCategory=Imagem
+company=Empresa
+phantasyName=Nome Fantasia
+description=Descrição
+address=Endereço
+city=Cidade
+cep=CEP
+state=Estado
+country=País
+email=E-mail
+localizationGPS=Coordenadas GPS
+isActive=Habilitado
+subject=Assunto
+googleApiKey=Google API Key
+googleMapsAddress=Endereço Google Maps  
+title=Título
+description=Descrição
+postedAt=Data de pub.
+image=Imagem
+formattedDate=Data de publicação
+price=Preço (R$)
+isSpecialOffer=Oferta Especial
+facebook=Facebook
+twitter=Twitter
+instagram=Instagram
+goooglePlus=Google+
+pinterest=Pinterest
+youtube=Youtube
+actions=Ações
+action=Ação
+lastName=Sobrenome
+eventDay=Evento
+gender=Sexo
+visitDay=Data da visita
+whoInvited=Quem convidou
+phone=Telefone
+age=Idade
+birthDate=Data de nascimento
+cellphone=Celular
+isFromSomeChurch=Frequenta igreja
+isReceiveVisitation=Quer receber visita
+isKnowChurch=Quer conhecer a igreja
+prayOrders=Pedidos de oração
+church=Igreja
+periodDays=Período
+weekDays=Dia da semana
+template=Template
+institution=Instituição
+logo=Logomarca
+website=Site
+slogan=Slogan
+phone1=Telefone 1
+phone2=Telefone 2
+phone3=Telefone 3
+phone4=Telefone 4
+neighborhood=Bairro
+title1=Título 1
+title2=Título 2
+title3=Título 3
+subTitle1=Subtítulo 1
+paragraph1=Parágrafo 1
+paragraph2=Parágrafo 2
+paragraph3=Parágrafo 3
+paragraph4=Parágrafo 4
+paragraph5=Parágrafo 5
+footer1=Mensagem Rodapé 1
+footer2=Mensagem Rodapé 2
+complement=Complemento:
+send.email=Enviar E-mail Marketing
+adultAge=Faixa etária Adultos. Ex.: 29-130
+youngAge=Faixa etária Jovens. Ex.: 16-28
+teenAge=Faixa etária Adolescentes. Ex.: 12-15
+childrenAge=Faixa etária Crianças. Ex.: 0-11
+attachment=Anexar arquivo
+maritalStatus=Estado civil
+cnpj=CNPJ
+userId=Id Usuário
+cpf=CPF
+password=Senha
+isAdmin=Administrador
+licenseDate=Vencimento
+institutionId=Id Instituição
+items.added=ítens encontrados.
+item.added=ítem encontrado.
+no.item.added=Nenhum ítem encontrado.
+memberSince=Membro desde
+members=Membros
+visitors=Visitantes
+userName=Solicitante
+mail=E-mail
+name=Nome
+birthDay=Data do aniversário
+age=Idade
+bornHeight=Comprimento (Nasc.)
+bornWeight=Peso (Nasc.)
+heightNow=Altura (atual)
+weightNow=Peso (atual)
+teeth=Dentes
+likeToDo1=Gosta de fazer (1)
+likeToDo2=Gosta de fazer (2)
+likeToDo3=Gosta de fazer (3)
+likeToDo4=Gosta de fazer (4)
+likeToWatch1=Gosta de assistir (1)
+likeToWatch2=Gosta de assistir (2)
+know1=Já sei (1)
+know2=Já sei (2)
+know3=Já sei (3)
+likeToEat1=Gosta de comer (1)
+likeToEat2=Gosta de comer (2)
+firstWord1=Primeiras palavras (1)
+firstWord2=Primeiras palavras (2)
+firstWord3=Primeiras palavras (3)
+nickName1=Apelido (1)
+nickName2=Apelido (2)
+nickName3=Apelido (3)
+orderCode=Cód. Pedido
+
+#Buttons
+btn.send=Enviar
+btn.reset=Limpar
+btn.save=Salvar
+btn.saveSend=Salvar e enviar
+btn.saveTemplate=Salvar template
+btn.finalizeSend=Finalizar e enviar
+btn.cancel=Cancelar
+
+email.marketing=Enviar E-mail Marketing
+send.email.visitors=Enviar E-mail Marketing - Visitantes
+send.email.members=Enviar E-mail Marketing - Membros
+sent.email.visitors=Enviados - E-mail Marketing - Visitantes
+sent.email.members=Enviados - E-mail Marketing - Membros
+sent.email.info=1. Escolha o template; 2. Edite as informações do template; 3. Defina a quem enviar; 4. Clique em 'Enviar'.
+sent.sms.info=1. Escreva a mensagem; 2. Defina a quem enviar; 3. Clique em 'Enviar'.
+
+validation.confirm=Confirmação
+validation.yes=Sim
+validation.no=Não
+validation.remove.question=Deseja mesmo remover o ítem?
+
+validation.msgEventSelect=Envie especificamente para os visitantes que estiveram no evento acima selecionado. Caso queira selecionar também por faixa etária, preencha o campo 'Idade'. Por fim, clique em 'Enviar'.
+validation.msgMultiSelectVisitors=Selecione mais de um visitante pressionando a tecla control (ctrl).
+validation.msgAllVisitors=Para enviar a todos os visitantes, clique no botão 'Enviar' abaixo. Caso queira enviar por faixa etária, preencha o campo 'Idade'. Por fim, clique em 'Enviar'.
+validation.msgMaritalStatusSelectVisitors=Para enviar aos visitantes de um estado civil específico, selecione selecionar o estado civil acima e depois clicar no botão 'Enviar'. Caso queira selecionar também por faixa etária, preencha o campo 'Idade'. Por fim, clique em 'Enviar'.
+validation.msgGenderSelectVisitors=Para enviar aos visitantes de um sexo específico, selecione o sexo acima e depois clicar no botão 'Enviar'. Caso queira selecionar também por faixa etária, preencha o campo 'Idade'. Por fim, clique em 'Enviar'.
+
+validation.msgMultiSelectMembers=Selecione mais de um membro pressionando a tecla control (ctrl).
+validation.msgAllMembers=Para enviar a todos os membros, clique no botão 'Enviar' abaixo. Caso queira enviar por faixa etária, preencha o campo 'Idade'. Por fim, clique em 'Enviar'.
+validation.msgMaritalStatusSelectMembers=Para enviar aos membros de um estado civil específico, selecione o estado civil acima e depois clicar no botão 'Enviar'. Caso queira selecionar também por faixa etária, preencha o campo 'Idade'. Por fim, clique em 'Enviar'.
+validation.msgGenderSelectMembers=Para enviar a todos os membros por um determinado sexo, selecione o sexo acima e depois clicar no botão 'Enviar'. Caso queira selecionar também por faixa etária, preencha o campo 'Idade'. Por fim, clique em 'Enviar'.
+
+info.isActive.true=Habilita o ítem atual para ser utilizado pelo sistema.
+info.isActive.false=Informa ao sistema que ítem atual será descartado.
+
+project.name=Seu Pedido
+project.link=http://twitter.com/lucascorrei4
+project.version=1.0 BETA

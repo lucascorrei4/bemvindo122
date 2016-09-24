@@ -1,0 +1,18 @@
+#{form action:@list().remove('page'), method:'GET'}
+    #{if _fields}
+        <input type="hidden" name="searchFields" value="${_fields.toString().substring(1, _fields.toString().length()-1).replace(',', '')}" />
+    #{/if}
+    <div class="form-group input-group">
+         <input type="text" name="search" class="form-control" value="${params.search?.escape()?.raw()}">
+         <span class="input-group-btn">
+             <button class="btn btn-default" type="submit" value="&{'crud.search'}"><i class="fa fa-search"></i>
+             </button>
+         </span>
+     </div>
+<!-- 	#{if _caller.params.search} -->
+<!--   		<div class="alert alert-info alert-dismissable"> -->
+<!--       		(<a href="@{list()}">&{'crud.list.totalSize', _caller.totalCount}</a>) -->
+<!-- 		</div> -->
+<!--   	#{/if} -->
+#{/form}
+

@@ -1,0 +1,85 @@
+<meta charset="utf-8" />
+
+<!-- JQueryUI JS -->
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="@{'public/templatebootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.js'}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
+
+<!-- DataTables JavaScript -->
+<script src="@{'public/templatebootstrap/bower_components/datatables/media/js/jquery.dataTables.min.js'}"></script>
+
+<!-- Bootstrap JS -->
+<script src="@{'public/templatebootstrap/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script>
+	$('.tooltip-demo').tooltip({
+		selector : "[data-toggle=tooltip]",
+		container : "body"
+	})
+
+	// popover demo
+	$("[data-toggle=popover]").popover()
+</script>
+
+<!-- Datepicker Bootstrap -->
+<script src="@{'public/bootstrapdatepicker/js/bootstrap-datepicker.js'}"></script>
+<script src="@{'public/bootstrapdatepicker/locales/bootstrap-datepicker.pt-BR.min.js'}" charset="UTF-8"></script>
+<script>
+	$('#sandbox-container .input-group.date').datepicker({
+		format : "dd/mm/yyyy",
+		todayBtn : "linked",
+		language : "pt-BR",
+		orientation : "top auto"
+	});
+</script>
+
+
+<!-- Datatable Bootstrap -->
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						$('#dataTables-example')
+								.dataTable(
+										{
+											paging : true,
+											searching : false,
+											destroy : true,
+											"oLanguage" : {
+												"sEmptyTable" : "Nenhum registro encontrado",
+												"sInfo" : "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+												"sInfoEmpty" : "Mostrando 0 até 0 de 0 registros",
+												"sInfoFiltered" : "(Filtrados de _MAX_ registros)",
+												"sInfoPostFix" : "",
+												"sInfoThousands" : ".",
+												"sLengthMenu" : "_MENU_ resultados por página",
+												"sLoadingRecords" : "Carregando...",
+												"sProcessing" : "Processando...",
+												"sZeroRecords" : "Nenhum registro encontrado",
+												"sSearch" : "Pesquisar",
+												"oPaginate" : {
+													"sNext" : "Próximo",
+													"sPrevious" : "Anterior",
+													"sFirst" : "Primeiro",
+													"sLast" : "Último"
+												},
+												"oAria" : {
+													"sSortAscending" : ": Ordenar colunas de forma ascendente",
+													"sSortDescending" : ": Ordenar colunas de forma descendente"
+												}
+											}
+										});
+					});
+</script>
+
+<!-- JQuery Mask -->
+#{include 'includes/jQueryMask.html' /}
+<!-- JQuery Mask -->

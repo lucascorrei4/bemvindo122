@@ -1,0 +1,8 @@
+#{field 'object.' + _name}
+	<label for="${field.id}"> &{_name} </label>
+	<div class="input-group date">
+		<input id="${field.id}" class="form-control ${field.errorClass}" type="text" name="${field.name}" value="${_value?.format()}" size="20" />
+	</div>
+#{ifError field.name}
+	<span class="error">${field.error.raw()}</span>
+#{/ifError} #{/field}

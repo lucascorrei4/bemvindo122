@@ -1,0 +1,853 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00000000025bc261, pid=6132, tid=8284
+#
+# JRE version: Java(TM) SE Runtime Environment (7.0_79-b15) (build 1.7.0_79-b15)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (24.79-b02 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# j  controllers.ChalkBoardChildrenController.saveChalkBoardChildren(Ljava/lang/String;)V+219
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000000cb0c800):  JavaThread "play-thread-1" [_thread_in_Java, id=8284, stack(0x000000000e600000,0x000000000e700000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x000000077ef15530
+
+Registers:
+RAX=0x000000077eeb0dc8, RBX=0x000000000000cabe, RCX=0x000000077eeaff00, RDX=0x0000000000000000
+RSP=0x000000000e6fe808, RBP=0x000000000e6fe850, RSI=0x00000000ef9624d2, RDI=0x00000007d6172a18
+R8 =0x0000000001a7b000, R9 =0x00000000002c8481, R10=0x00000000613710e0, R11=0x0000000001a7b000
+R12=0x0000000000000000, R13=0x000000077eeafd9f, R14=0x000000000e6fe8d0, R15=0x000000000cb0c800
+RIP=0x00000000025bc261, EFLAGS=0x0000000000010293
+
+Top of Stack: (sp=0x000000000e6fe808)
+0x000000000e6fe808:   00000007d61a2fb8 000000000e6fe810
+0x000000000e6fe818:   000000077eeafd93 000000000e6fe8d0
+0x000000000e6fe828:   000000077eeb0fb0 0000000000000000
+0x000000000e6fe838:   000000077eeafe80 0000000000000000
+0x000000000e6fe848:   000000000e6fe8d0 000000000e6fe9b0
+0x000000000e6fe858:   00000000025a061a 0000000000000000
+0x000000000e6fe868:   0000000000000000 0000000000000000
+0x000000000e6fe878:   0000000000000000 00000007d61a2fb8
+0x000000000e6fe888:   00000007d61a2ef8 0000000000000000
+0x000000000e6fe898:   0000000000000000 0000000000000000
+0x000000000e6fe8a8:   00000007d616f950 00000007d616d328
+0x000000000e6fe8b8:   00000007d616c9a8 00000007d616ab88
+0x000000000e6fe8c8:   00000007d6167530 0000000000000000
+0x000000000e6fe8d8:   0000000000000000 0000000000000000
+0x000000000e6fe8e8:   0000000000000000 0000000000000000
+0x000000000e6fe8f8:   0000000000000000 0000000000000000 
+
+Instructions: (pc=0x00000000025bc261)
+0x00000000025bc241:   83 ec 08 c5 fa 11 04 24 e9 19 00 00 00 83 fa 03
+0x00000000025bc251:   0f 85 0a 00 00 00 8b 44 d9 40 50 e9 06 00 00 00
+0x00000000025bc261:   48 8b 44 d9 40 50 41 0f b6 5d 03 49 83 c5 03 49
+0x00000000025bc271:   ba e0 18 37 61 00 00 00 00 41 ff 24 da 66 90 c0 
+
+
+Register to memory mapping:
+
+RAX=0x000000077eeb0dc8 is an oop
+[B 
+ - klass: {type array byte}
+ - length: 465
+RBX=0x000000000000cabe is an unknown value
+RCX=0x000000077eeaff00 is an oop
+{constant pool} 
+ - klass: {other class}
+ - holder: 0x000000077edca220
+ - cache: 0x000000077eeb0fb0
+ -   1 :  : 'controllers/ChalkBoardChildrenController' {0x7edca220}
+ -   2 :  : 'controllers/ChalkBoardChildrenController'
+ -   3 :  : 'controllers/CRUD'
+ -   4 :  : 'controllers/CRUD'
+ -   5 :  : '<init>'
+ -   6 :  : '()V'
+ -   7 :  : 'Code'
+ -   8 :  : klass_index=3 name_and_type_index=9
+ -   9 :  : name_index=5 signature_index=6
+ -  10 :  : 'LineNumberTable'
+ -  11 :  : 'LocalVariableTable'
+ -  12 :  : 'this'
+ -  13 :  : 'Lcontrollers/ChalkBoardChildrenController;'
+ -  14 :  : 'saveChalkBoardChildren'
+ -  15 :  : '(Ljava/lang/String;)V'
+ -  16 :  : klass_index=1 name_and_type_index=17
+ -  17 :  : name_index=18 signature_index=19
+ -  18 :  : 'request'
+ -  19 :  : 'Lplay/mvc/Http$Request;'
+ -  20 :  : klass_index=21 name_and_type_index=23
+ -  21 :  : 'play/mvc/Http$Request' {0x7d54d448}
+ -  22 :  : 'play/mvc/Http$Request'
+ -  23 :  : name_index=24 signature_index=25
+ -  24 :  : 'params'
+ -  25 :  : 'Lplay/mvc/Scope$Params;'
+ -  26 :  : klass_index=27 name_and_type_index=29
+ -  27 :  : 'play/mvc/Scope$Params'
+ -  28 :  : 'play/mvc/Scope$Params'
+ -  29 :  : name_index=30 signature_index=31
+ -  30 :  : 'data'
+ -  31 :  : 'Ljava/util/Map;'
+ -  32 :  : "body" {0x828ddc48}
+ -  33 :  : 'body'
+ -  34 :  : klass_index=35 name_and_type_index=37
+ -  35 :  : 'java/util/Map' {0x7ca40a20}
+ -  36 :  : 'java/util/Map'
+ -  37 :  : name_index=38 signature_index=39
+ -  38 :  : 'get'
+ -  39 :  : '(Ljava/lang/Object;)Ljava/lang/Object;'
+ -  40 :  : 'java/lang/String'[] {0x7cb0c018}
+ -  41 :  : '[Ljava/lang/String;'
+ -  42 :  : 'com/google/gson/GsonBuilder' {0x7ecd63a8}
+ -  43 :  : 'com/google/gson/GsonBuilder'
+ -  44 :  : klass_index=42 name_and_type_index=9
+ -  45 :  : klass_index=42 name_and_type_index=46
+ -  46 :  : name_index=47 signature_index=48
+ -  47 :  : 'create'
+ -  48 :  : '()Lcom/google/gson/Gson;'
+ -  49 :  : klass_index=1 name_and_type_index=50
+ -  50 :  : name_index=51 signature_index=52
+ -  51 :  : 'parse'
+ -  52 :  : '(Ljava/lang/String;)Ljava/util/HashMap;'
+ -  53 :  : 'controllers/ChalkBoardChildrenController$1' {0x7edecf58}
+ -  54 :  : 'controllers/ChalkBoardChildrenController$1'
+ -  55 :  : klass_index=53 name_and_type_index=9
+ -  56 :  : klass_index=53 name_and_type_index=57
+ -  57 :  : name_index=58 signature_index=59
+ -  58 :  : 'getType'
+ -  59 :  : '()Ljava/lang/reflect/Type;'
+ -  60 :  : klass_index=61 name_and_type_index=63
+ -  61 :  : 'com/google/gson/Gson' {0x7ecdfc10}
+ -  62 :  : 'com/google/gson/Gson'
+ -  63 :  : name_index=64 signature_index=65
+ -  64 :  : 'fromJson'
+ -  65 :  : '(Ljava/lang/String;Ljava/lang/reflect/Type;)Ljava/lang/Object;'
+ -  66 :  : 'controllers/ChalkBoardChildrenController$2'
+ -  67 :  : 'controllers/ChalkBoardChildrenController$2'
+ -  68 :  : klass_index=66 name_and_type_index=9
+ -  69 :  : klass_index=66 name_and_type_index=57
+ -  70 :  : 'models/ChalkBoardChildren'
+ -  71 :  : 'models/ChalkBoardChildren'
+ -  72 :  : klass_index=1 name_and_type_index=73
+ -  73 :  : name_index=74 signature_index=75
+ -  74 :  : 'validateForm'
+ -  75 :  : '(Lmodels/ChalkBoardChildren;)Z'
+ -  76 :  : 'java/lang/Object'
+ -  77 :  : 'java/lang/Object'
+ -  78 :  : klass_index=1 name_and_type_index=79
+ -  79 :  : name_index=80 signature_index=81
+ -  80 :  : 'render'
+ -  81 :  : '([Ljava/lang/Object;)V'
+ -  82 :  : 'json'
+ -  83 :  : 'Ljava/lang/String;'
+ -  84 :  : 'fields'
+ -  85 :  : 'gson'
+ -  86 :  : 'Lcom/google/gson/Gson;'
+ -  87 :  : 'maps'
+ -  88 :  : 'stringStringMap'
+ -  89 :  : 'Ljava/lang/reflect/Type;'
+ -  90 :  : 'map'
+ -  91 :  : 'type'
+ -  92 :  : 'chalkBoardChildren'
+ -  93 :  : 'Lmodels/ChalkBoardChildren;'
+ -  94 :  : 'LocalVariableTypeTable'
+ -  95 :  : 'Ljava/util/Map<Ljava/lang/String;[Ljava/lang/String;>;'
+ -  96 :  : 'StackMapTable'
+ -  97 :  : 'java/lang/String' {0x7ca0b010}
+ -  98 :  : 'java/lang/String'
+ -  99 :  : 'java/lang/reflect/Type'
+ - 100 :  : 'java/lang/reflect/Type'
+ - 101 :  : 'Signature'
+ - 102 :  : '(Ljava/lang/String;)Ljava/util/HashMap<Ljava/lang/String;Ljava/lang/Object;>;'
+ - 103 :  : 'com/google/gson/JsonParser' {0x7ed14c88}
+ - 104 :  : 'com/google/gson/JsonParser'
+ - 105 :  : klass_index=103 name_and_type_index=9
+ - 106 :  : klass_index=103 name_and_type_index=107
+ - 107 :  : name_index=51 signature_index=108
+ - 108 :  : '(Ljava/lang/String;)Lcom/google/gson/JsonElement;'
+ - 109 :  : 'com/google/gson/JsonObject' {0x7cf28f08}
+ - 110 :  : 'com/google/gson/JsonObject'
+ - 111 :  : klass_index=109 name_and_type_index=112
+ - 112 :  : name_index=113 signature_index=114
+ - 113 :  : 'entrySet'
+ - 114 :  : '()Ljava/util/Set;'
+ - 115 :  : klass_index=116 name_and_type_index=118
+ - 116 :  : 'java/util/Set' {0x7cade478}
+ - 117 :  : 'java/util/Set'
+ - 118 :  : name_index=119 signature_index=120
+ - 119 :  : 'iterator'
+ - 120 :  : '()Ljava/util/Iterator;'
+ - 121 :  : 'java/util/HashMap' {0x7cb12690}
+ - 122 :  : 'java/util/HashMap'
+ - 123 :  : klass_index=121 name_and_type_index=9
+ - 124 :  : klass_index=125 name_and_type_index=127
+ - 125 :  : 'java/util/Iterator' {0x7caef238}
+ - 126 :  : 'java/util/Iterator'
+ - 127 :  : name_index=128 signature_index=129
+ - 128 :  : 'next'
+ - 129 :  : '()Ljava/lang/Object;'
+ - 130 :  : 'java/util/Map$Entry' {0x7cad6e78}
+ - 131 :  : 'java/util/Map$Entry'
+ - 132 :  : klass_index=130 name_and_type_index=133
+ - 133 :  : name_index=134 signature_index=129
+ - 134 :  : 'getKey'
+ - 135 :  : klass_index=130 name_and_type_index=136
+ - 136 :  : name_index=137 signature_index=129
+ - 137 :  : 'getValue'
+ - 138 :  : 'com/google/gson/JsonElement' {0x7cf273d8}
+ - 139 :  : 'com/google/gson/JsonElement'
+ - 140 :  : klass_index=138 name_and_type_index=141
+ - 141 :  : name_index=142 signature_index=143
+ - 142 :  : 'isJsonPrimitive'
+ - 143 :  : '()Z'
+ - 144 :  : klass_index=97 name_and_type_index=9
+ - 145 :  : klass_index=138 name_and_type_index=146
+ - 146 :  : name_index=147 signature_index=148
+ - 147 :  : 'toString'
+ - 148 :  : '()Ljava/lang/String;'
+ - 149 :  : klass_index=150 name_and_type_index=152
+ - 150 :  : 'util/Utils'
+ - 151 :  : 'util/Utils'
+ - 152 :  : name_index=153 signature_index=154
+ - 153 :  : 'isNullOrEmpty'
+ - 154 :  : '(Ljava/lang/String;)Z'
+ - 155 :  : klass_index=121 name_and_type_index=156
+ - 156 :  : name_index=157 signature_index=158
+ - 157 :  : 'put'
+ - 158 :  : '(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;'
+ - 159 :  : klass_index=138 name_and_type_index=160
+ - 160 :  : name_index=161 signature_index=148
+ - 161 :  : 'getAsString'
+ - 162 :  : klass_index=125 name_and_type_index=163
+ - 163 :  : name_index=164 signature_index=143
+ - 164 :  : 'hasNext'
+ - 165 :  : 'parser'
+ - 166 :  : 'Lcom/google/gson/JsonParser;'
+ - 167 :  : 'object'
+ - 168 :  : 'Lcom/google/gson/JsonObject;'
+ - 169 :  : 'set'
+ - 170 :  : 'Ljava/util/Set;'
+ - 171 :  : 'Ljava/util/Iterator;'
+ - 172 :  : 'Ljava/util/HashMap;'
+ - 173 :  : 'entry'
+ - 174 :  : 'Ljava/util/Map$Entry;'
+ - 175 :  : 'key'
+ - 176 :  : 'value'
+ - 177 :  : 'Lcom/google/gson/JsonElement;'
+ - 178 :  : 'v'
+ - 179 :  : 'Ljava/util/Set<Ljava/util/Map$Entry<Ljava/lang/String;Lcom/google/gson/JsonElement;>;>;'
+ - 180 :  : 'Ljava/util/Iterator<Ljava/util/Map$Entry<Ljava/lang/String;Lcom/google/gson/JsonElement;>;>;'
+ - 181 :  : 'Ljava/util/HashMap<Ljava/lang/String;Ljava/lang/Object;>;'
+ - 182 :  : 'Ljava/util/Map$Entry<Ljava/lang/String;Lcom/google/gson/JsonElement;>;'
+ - 183 :  : klass_index=1 name_and_type_index=184
+ - 184 :  : name_index=185 signature_index=186
+ - 185 :  : 'validation'
+ - 186 :  : 'Lplay/data/validation/Validation;'
+ - 187 :  : klass_index=188 name_and_type_index=190
+ - 188 :  : 'play/data/validation/Validation'
+ - 189 :  : 'play/data/validation/Validation'
+ - 190 :  : name_index=191 signature_index=192
+ - 191 :  : 'valid'
+ - 192 :  : '(Ljava/lang/Object;)Lplay/data/validation/Validation$ValidationResult;'
+ - 193 :  : klass_index=188 name_and_type_index=194
+ - 194 :  : name_index=195 signature_index=143
+ - 195 :  : 'hasErrors'
+ - 196 :  : klass_index=188 name_and_type_index=197
+ - 197 :  : name_index=198 signature_index=6
+ - 198 :  : 'keep'
+ - 199 :  : klass_index=1 name_and_type_index=23
+ - 200 :  : klass_index=27 name_and_type_index=201
+ - 201 :  : name_index=202 signature_index=203
+ - 202 :  : 'flash'
+ - 203 :  : '([Ljava/lang/String;)V'
+ - 204 :  : "includes/formChildren.html" {0x82e10c50}
+ - 205 :  : 'includes/formChildren.html'
+ - 206 :  : klass_index=1 name_and_type_index=207
+ - 207 :  : name_index=208 signature_index=209
+ - 208 :  : 'renderTemplate'
+ - 209 :  : '(Ljava/lang/String;[Ljava/lang/Object;)V'
+ - 210 :  : 'retorno'
+ - 211 :  : 'Z'
+ - 212 :  : 'SourceFile'
+ - 213 :  : 'ChalkBoardChildrenController.java'
+ - 214 :  : 'RuntimeVisibleAnnotations'
+ - 215 :  : 'Lcontrollers/CRUD$For;'
+ - 216 :  : 'InnerClasses'
+ - 217 :  : 'Entry'
+ - 218 :  : 'play/data/validation/Validation$ValidationResult'
+ - 219 :  : 'play/data/validation/Validation$ValidationResult'
+ - 220 :  : 'ValidationResult'
+ - 221 :  : 'play/mvc/Http'
+ - 222 :  : 'play/mvc/Http'
+ - 223 :  : 'Request'
+ - 224 :  : 'play/mvc/Scope'
+ - 225 :  : 'play/mvc/Scope'
+ - 226 :  : 'Params'
+ - 227 :  : "Lplay/mvc/Http$Request;" {0x82ee7310}
+ - 228 :  : 'javassist/runtime/Desc'
+ - 229 :  : 'javassist/runtime/Desc' {0x7ecb19f0}
+ - 230 :  : '(Ljava/lang/String;)Ljava/lang/Class;'
+ - 231 :  : name_index=58 signature_index=230
+ - 232 :  : klass_index=229 name_and_type_index=231
+ - 233 :  : 'current'
+ - 234 :  : "current" {0x82d77708}
+ - 235 :  : 'play/utils/Java'
+ - 236 :  : 'play/utils/Java' {0x7dc6b368}
+ - 237 :  : 'invokeStatic'
+ - 238 :  : '(Ljava/lang/Class;Ljava/lang/String;)Ljava/lang/Object;'
+ - 239 :  : name_index=237 signature_index=238
+ - 240 :  : klass_index=236 name_and_type_index=239
+ - 241 :  : "Lplay/mvc/Http$Request;" {0x82ee7310}
+ - 242 :  : name_index=58 signature_index=230
+ - 243 :  : klass_index=229 name_and_type_index=242
+ - 244 :  : "current" {0x82d77708}
+ - 245 :  : name_index=237 signature_index=238
+ - 246 :  : klass_index=236 name_and_type_index=245
+ - 247 :  : 'play/classloading/enhancers/ControllersEnhancer$ControllerInstrumentation'
+ - 248 :  : 'play/classloading/enhancers/ControllersEnhancer$ControllerInstrumentation' {0x7ec0ae20}
+ - 249 :  : 'isActionCallAllowed'
+ - 250 :  : name_index=249 signature_index=143
+ - 251 :  : klass_index=248 name_and_type_index=250
+ - 252 :  : 'controllers.ChalkBoardChildrenController.saveChalkBoardChildren'
+ - 253 :  : "controllers.ChalkBoardChildrenController.saveChalkBoardChildren" {0xd6172a38}
+ - 254 :  : 'play/mvc/Controller'
+ - 255 :  : 'play/mvc/Controller'
+ - 256 :  : 'redirect'
+ - 257 :  : name_index=256 signature_index=209
+ - 258 :  : klass_index=255 name_and_type_index=257
+ - 259 :  : 'stopActionCall'
+ - 260 :  : name_index=259 signature_index=6
+ - 261 :  : klass_index=248 name_and_type_index=260
+ - 262 :  : "Lplay/data/validation/Validation;" {0x82ee72a0}
+ - 263 :  : name_index=58 signature_index=230
+ - 264 :  : klass_index=229 name_and_type_index=263
+ - 265 :  : "current" {0x82d77708}
+ - 266 :  : name_index=237 signature_index=238
+ - 267 :  : klass_index=236 name_and_type_index=266
+ - 268 :  : "Lplay/data/validation/Validation;" {0x82ee72a0}
+ - 269 :  : name_index=58 signature_index=230
+ - 270 :  : klass_index=229 name_and_type_index=269
+ - 271 :  : "current" {0x82d77708}
+ - 272 :  : name_index=237 signature_index=238
+ - 273 :  : klass_index=236 name_and_type_index=272
+ - 274 :  : "Lplay/data/validation/Validation;" {0x82ee72a0}
+ - 275 :  : name_index=58 signature_index=230
+ - 276 :  : klass_index=229 name_and_type_index=275
+ - 277 :  : "current" {0x82d77708}
+ - 278 :  : name_index=237 signature_index=238
+ - 279 :  : klass_index=236 name_and_type_index=278
+ - 280 :  : "Lplay/mvc/Scope$Params;" {0x82ee7248}
+ - 281 :  : name_index=58 signature_index=230
+ - 282 :  : klass_index=229 name_and_type_index=281
+ - 283 :  : "current" {0x82d77708}
+ - 284 :  : name_index=237 signature_index=238
+ - 285 :  : klass_index=236 name_and_type_index=284
+ - 286 :  : "data" {0x82d77220}
+ - 287 :  : 'play.mvc.Scope$Params'
+ - 288 :  : "play.mvc.Scope$Params" {0x82d2c738}
+ - 289 :  : 'controllers.ChalkBoardChildrenController.saveChalkBoardChildren, line 23'
+ - 290 :  : "controllers.ChalkBoardChildrenController.saveChalkBoardChildren, line 23" {0x830a6198}
+ - 291 :  : 'play/classloading/enhancers/PropertiesEnhancer$FieldAccessor'
+ - 292 :  : 'play/classloading/enhancers/PropertiesEnhancer$FieldAccessor' {0x7ddd5790}
+ - 293 :  : 'invokeReadProperty'
+ - 294 :  : '(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;'
+ - 295 :  : name_index=293 signature_index=294
+ - 296 :  : klass_index=292 name_and_type_index=295
+ - 297 :  : "data" {0x82d77220}
+ - 298 :  : "play.mvc.Scope$Params" {0x82d2c738}
+ - 299 :  : 'controllers.ChalkBoardChildrenController.saveChalkBoardChildren, line 28'
+ - 300 :  : "controllers.ChalkBoardChildrenController.saveChalkBoardChildren, line 28" {0x82f65d38}
+ - 301 :  : 'invokeWriteProperty'
+ - 302 :  : '(Ljava/lang/Object;Ljava/lang/String;Ljava/lang/Class;Ljava/lang/Object;Ljava/lang/String;Ljava/lang/String;)V'
+ - 303 :  : name_index=301 signature_index=302
+ - 304 :  : klass_index=292 name_and_type_index=303
+ - 305 :  : '$saveChalkBoardChildren1195259493'
+ - 306 :  : "json" {0x82ec88a8}
+ - 307 :  : 'play/classloading/enhancers/LocalvariablesNamesEnhancer$LocalVariablesNamesTracer'
+ - 308 :  : 'play/classloading/enhancers/LocalvariablesNamesEnhancer$LocalVariablesNamesTracer' {0x7dc03ef0}
+ - 309 :  : 'addVariable'
+ - 310 :  : '(Ljava/lang/String;Ljava/lang/Object;)V'
+ - 311 :  : name_index=309 signature_index=310
+ - 312 :  : klass_index=308 name_and_type_index=311
+ - 313 :  : "fields" {0x82ee70a0}
+ - 314 :  : name_index=309 signature_index=310
+ - 315 :  : klass_index=308 name_and_type_index=314
+ - 316 :  : "gson" {0x82ee7070}
+ - 317 :  : name_index=309 signature_index=310
+ - 318 :  : klass_index=308 name_and_type_index=317
+ - 319 :  : "maps" {0x82ee7040}
+ - 320 :  : name_index=309 signature_index=310
+ - 321 :  : klass_index=308 name_and_type_index=320
+ - 322 :  : "stringStringMap" {0x82ee6ff8}
+ - 323 :  : name_index=309 signature_index=310
+ - 324 :  : klass_index=308 name_and_type_index=323
+ - 325 :  : "map" {0x82874468}
+ - 326 :  : name_index=309 signature_index=310
+ - 327 :  : klass_index=308 name_and_type_index=326
+ - 328 :  : "type" {0x8283c968}
+ - 329 :  : name_index=309 signature_index=310
+ - 330 :  : klass_index=308 name_and_type_index=329
+ - 331 :  : "chalkBoardChildren" {0x82ee6f70}
+ - 332 :  : name_index=309 signature_index=310
+ - 333 :  : klass_index=308 name_and_type_index=332
+ - 334 :  : 'enter'
+ - 335 :  : name_index=334 signature_index=6
+ - 336 :  : klass_index=308 name_and_type_index=335
+ - 337 :  : 'exit'
+ - 338 :  : name_index=337 signature_index=6
+ - 339 :  : klass_index=308 name_and_type_index=338
+ - 340 :  : name_index=337 signature_index=6
+ - 341 :  : klass_index=308 name_and_type_index=340
+ - 342 :  : 'java/lang/Throwable'
+ - 343 :  : 'java/lang/Throwable'
+ - 344 :  : '$parse1195259493'
+ - 345 :  : "json" {0x82ec88a8}
+ - 346 :  : name_index=309 signature_index=310
+ - 347 :  : klass_index=308 name_and_type_index=346
+ - 348 :  : "parser" {0x82447f80}
+ - 349 :  : name_index=309 signature_index=310
+ - 350 :  : klass_index=308 name_and_type_index=349
+ - 351 :  : "object" {0x825368a8}
+ - 352 :  : name_index=309 signature_index=310
+ - 353 :  : klass_index=308 name_and_type_index=352
+ - 354 :  : "set" {0x822c0240}
+ - 355 :  : name_index=309 signature_index=310
+ - 356 :  : klass_index=308 name_and_type_index=355
+ - 357 :  : "iterator" {0x823dc3e0}
+ - 358 :  : name_index=309 signature_index=310
+ - 359 :  : klass_index=308 name_and_type_index=358
+ - 360 :  : "map" {0x82874468}
+ - 361 :  : name_index=309 signature_index=310
+ - 362 :  : klass_index=308 name_and_type_index=361
+ - 363 :  : "entry" {0x8248abb0}
+ - 364 :  : name_index=309 signature_index=310
+ - 365 :  : klass_index=308 name_and_type_index=364
+ - 366 :  : "key" {0x8246d830}
+ - 367 :  : name_index=309 signature_index=310
+ - 368 :  : klass_index=308 name_and_type_index=367
+ - 369 :  : "value" {0x822b20c8}
+ - 370 :  : name_index=309 signature_index=310
+ - 371 :  : klass_index=308 name_and_type_index=370
+ - 372 :  : "v" {0xd6172ae0}
+ - 373 :  : name_index=309 signature_index=310
+ - 374 :  : klass_index=308 name_and_type_index=373
+ - 375 :  : "v" {0xd6172ae0}
+ - 376 :  : name_index=309 signature_index=310
+ - 377 :  : klass_index=308 name_and_type_index=376
+ - 378 :  : "v" {0xd6172ae0}
+ - 379 :  : name_index=309 signature_index=310
+ - 380 :  : klass_index=308 name_and_type_index=379
+ - 381 :  : name_index=334 signature_index=6
+ - 382 :  : klass_index=308 name_and_type_index=381
+ - 383 :  : name_index=337 signature_index=6
+ - 384 :  : klass_index=308 name_and_type_index=383
+ - 385 :  : name_index=337 signature_index=6
+ - 386 :  : klass_index=308 name_and_type_index=385
+ - 387 :  : '$validateForm1184681422'
+ - 388 :  : "chalkBoardChildren" {0x82ee6f70}
+ - 389 :  : name_index=309 signature_index=310
+ - 390 :  : klass_index=308 name_and_type_index=389
+ - 391 :  : "retorno" {0x82ee6fc0}
+ - 392 :  : '(Ljava/lang/String;Z)V'
+ - 393 :  : name_index=309 signature_index=392
+ - 394 :  : klass_index=308 name_and_type_index=393
+ - 395 :  : "retorno" {0x82ee6fc0}
+ - 396 :  : name_index=309 signature_index=392
+ - 397 :  : klass_index=308 name_and_type_index=396
+ - 398 :  : "retorno" {0x82ee6fc0}
+ - 399 :  : name_index=309 signature_index=392
+ - 400 :  : klass_index=308 name_and_type_index=399
+ - 401 :  : name_index=334 signature_index=6
+ - 402 :  : klass_index=308 name_and_type_index=401
+ - 403 :  : name_index=337 signature_index=6
+ - 404 :  : klass_index=308 name_and_type_index=403
+ - 405 :  : name_index=337 signature_index=6
+ - 406 :  : klass_index=308 name_and_type_index=405
+ - 407 :  : "json" {0x82ec88a8}
+ - 408 :  : name_index=305 signature_index=41
+ - 409 :  : klass_index=1 name_and_type_index=408
+ - 410 :  : "json" {0x82ec88a8}
+ - 411 :  : name_index=344 signature_index=41
+ - 412 :  : klass_index=1 name_and_type_index=411
+ - 413 :  : "chalkBoardChildren" {0x82ee6f70}
+ - 414 :  : name_index=387 signature_index=41
+ - 415 :  : klass_index=1 name_and_type_index=414
+ - 416 :  : '<clinit>'
+ - 417 :  : name_index=5 signature_index=15
+ - 418 :  : klass_index=97 name_and_type_index=417
+ - 419 :  : "Lplay/mvc/Http$Request;" {0x82ee7310}
+ - 420 :  : "current" {0x82d77708}
+ - 421 :  : "Lplay/data/validation/Validation;" {0x82ee72a0}
+ - 422 :  : "Lplay/mvc/Scope$Params;" {0x82ee7248}
+ - 423 :  : "data" {0x82d77220}
+ - 424 :  : "play.mvc.Scope$Params" {0x82d2c738}
+ - 425 :  : "controllers.ChalkBoardChildrenController.saveChalkBoardChildren, line 23" {0x830a6198}
+ - 426 :  : "controllers.ChalkBoardChildrenController.saveChalkBoardChildren, line 28" {0x82f65d38}
+ - 427 :  : "json" {0x82ec88a8}
+ - 428 :  : "fields" {0x82ee70a0}
+ - 429 :  : "gson" {0x82ee7070}
+ - 430 :  : "maps" {0x82ee7040}
+ - 431 :  : "stringStringMap" {0x82ee6ff8}
+ - 432 :  : "map" {0x82874468}
+ - 433 :  : "type" {0x8283c968}
+ - 434 :  : "chalkBoardChildren" {0x82ee6f70}
+ - 435 :  : "parser" {0x82447f80}
+ - 436 :  : "object" {0x825368a8}
+ - 437 :  : "set" {0x822c0240}
+ - 438 :  : "iterator" {0x823dc3e0}
+ - 439 :  : "entry" {0x8248abb0}
+ - 440 :  : "key" {0x8246d830}
+ - 441 :  : "value" {0x822b20c8}
+ - 442 :  : "Lplay/mvc/Http$Request;" {0x82ee7310}
+ - 443 :  : "current" {0x82d77708}
+ - 444 :  : "Lplay/data/validation/Validation;" {0x82ee72a0}
+ - 445 :  : "Lplay/mvc/Scope$Params;" {0x82ee7248}
+ - 446 :  : "data" {0x82d77220}
+ - 447 :  : "play.mvc.Scope$Params" {0x82d2c738}
+ - 448 :  : "controllers.ChalkBoardChildrenController.saveChalkBoardChildren, line 23" {0x830a6198}
+ - 449 :  : "controllers.ChalkBoardChildrenController.saveChalkBoardChildren, line 28" {0x82f65d38}
+ - 450 :  : "json" {0x82ec88a8}
+ - 451 :  : "fields" {0x82ee70a0}
+ - 452 :  : "gson" {0x82ee7070}
+ - 453 :  : "maps" {0x82ee7040}
+ - 454 :  : "stringStringMap" {0x82ee6ff8}
+ - 455 :  : "map" {0x82874468}
+ - 456 :  : "type" {0x8283c968}
+ - 457 :  : "chalkBoardChildren" {0x82ee6f70}
+ - 458 :  : "parser" {0x82447f80}
+ - 459 :  : "object" {0x825368a8}
+ - 460 :  : "set" {0x822c0240}
+ - 461 :  : "iterator" {0x823dc3e0}
+ - 462 :  : "entry" {0x8248abb0}
+ - 463 :  : "key" {0x8246d830}
+ - 464 :  : "value" {0x822b20c8}
+
+RDX=0x0000000000000000 is an unknown value
+RSP=0x000000000e6fe808 is pointing into the stack for thread: 0x000000000cb0c800
+RBP=0x000000000e6fe850 is pointing into the stack for thread: 0x000000000cb0c800
+RSI=0x00000000ef9624d2 is an unknown value
+RDI=0x00000007d6172a18 is an oop
+java.util.HashMap$Entry 
+ - klass: 'java/util/HashMap$Entry'
+R8 =0x0000000001a7b000 is an unknown value
+R9 =0x00000000002c8481 is an unknown value
+R10=0x00000000613710e0 is an unknown value
+R11=0x0000000001a7b000 is an unknown value
+R12=0x0000000000000000 is an unknown value
+R13=0x000000077eeafd9f is pointing into object: 0x000000077eeafc78
+{constMethod} 
+ - klass: {other class}
+ - constants:       0x000000077eeaff00 constant pool [465] for 'controllers/ChalkBoardChildrenController' cache=0x000000077eeb0fb0
+ - stackmap data:       [B
+bci_from(000000077EEAFD9F) = 231; print_codes():
+R14=0x000000000e6fe8d0 is pointing into the stack for thread: 0x000000000cb0c800
+R15=0x000000000cb0c800 is a thread
+
+
+Stack: [0x000000000e600000,0x000000000e700000],  sp=0x000000000e6fe808,  free space=1018k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+j  controllers.ChalkBoardChildrenController.saveChalkBoardChildren(Ljava/lang/String;)V+219
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0x1cf7f3]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x000000000d58d800 JavaThread "pool-2-thread-24" [_thread_blocked, id=2248, stack(0x0000000013570000,0x0000000013670000)]
+  0x000000000d591000 JavaThread "pool-2-thread-23" [_thread_blocked, id=8340, stack(0x0000000013470000,0x0000000013570000)]
+  0x000000000d58c000 JavaThread "New I/O server worker #1-4" [_thread_blocked, id=2096, stack(0x0000000013370000,0x0000000013470000)]
+  0x000000000d593000 JavaThread "New I/O server worker #1-3" [_thread_blocked, id=6960, stack(0x0000000013270000,0x0000000013370000)]
+  0x000000000d58d000 JavaThread "New I/O server worker #1-2" [_thread_blocked, id=6992, stack(0x00000000120a0000,0x00000000121a0000)]
+  0x000000000d58f800 JavaThread "net.sf.ehcache.CacheManager@1a7d434d" daemon [_thread_blocked, id=7176, stack(0x0000000011ba0000,0x0000000011ca0000)]
+  0x000000000cea2800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#2" daemon [_thread_blocked, id=1940, stack(0x0000000010aa0000,0x0000000010ba0000)]
+  0x000000000d76f800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#1" daemon [_thread_blocked, id=3240, stack(0x00000000109a0000,0x0000000010aa0000)]
+  0x000000000cea6000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#0" daemon [_thread_blocked, id=8632, stack(0x00000000108a0000,0x00000000109a0000)]
+  0x000000000f05d000 JavaThread "Timer-0" daemon [_thread_blocked, id=6752, stack(0x00000000107a0000,0x00000000108a0000)]
+=>0x000000000cb0c800 JavaThread "play-thread-1" [_thread_in_Java, id=8284, stack(0x000000000e600000,0x000000000e700000)]
+  0x000000000d331800 JavaThread "JDWP Command Reader" daemon [_thread_in_native, id=8904, stack(0x000000000e400000,0x000000000e500000)]
+  0x00000000024a5000 JavaThread "DestroyJavaVM" [_thread_blocked, id=5820, stack(0x00000000021b0000,0x00000000022b0000)]
+  0x000000000cbb4000 JavaThread "New I/O server boss #1 ([id: 0x7761ef2b, /127.0.0.1:9000])" [_thread_in_native, id=2976, stack(0x000000000e300000,0x000000000e400000)]
+  0x000000000a8d7800 JavaThread "Service Thread" daemon [_thread_blocked, id=8416, stack(0x000000000c1f0000,0x000000000c2f0000)]
+  0x000000000a8ce800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=6796, stack(0x000000000c0f0000,0x000000000c1f0000)]
+  0x000000000a8c6800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=8980, stack(0x000000000bff0000,0x000000000c0f0000)]
+  0x000000000a8b9000 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=5476, stack(0x000000000bef0000,0x000000000bff0000)]
+  0x000000000a8b5800 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_blocked, id=1120, stack(0x000000000bdf0000,0x000000000bef0000)]
+  0x000000000a890000 JavaThread "Attach Listener" daemon [_thread_blocked, id=6440, stack(0x000000000bcf0000,0x000000000bdf0000)]
+  0x000000000a88c800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=7676, stack(0x000000000bbf0000,0x000000000bcf0000)]
+  0x000000000258b800 JavaThread "Finalizer" daemon [_thread_blocked, id=4572, stack(0x000000000baf0000,0x000000000bbf0000)]
+  0x0000000002583800 JavaThread "Reference Handler" daemon [_thread_blocked, id=2960, stack(0x000000000b9f0000,0x000000000baf0000)]
+
+Other Threads:
+  0x000000000a863000 VMThread [stack: 0x000000000b8f0000,0x000000000b9f0000] [id=9196]
+  0x000000000c320800 WatcherThread [stack: 0x000000000c6f0000,0x000000000c7f0000] [id=6080]
+
+VM state:synchronizing (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00000000024a2750] Safepoint_lock - owner thread: 0x000000000a863000
+[0x00000000024a2050] Threads_lock - owner thread: 0x000000000a863000
+
+Heap
+ PSYoungGen      total 31232K, used 4680K [0x00000007d5e80000, 0x00000007d8400000, 0x0000000800000000)
+  eden space 24064K, 13% used [0x00000007d5e80000,0x00000007d61b34b8,0x00000007d7600000)
+  from space 7168K, 19% used [0x00000007d7d00000,0x00000007d7e5eb70,0x00000007d8400000)
+  to   space 7168K, 0% used [0x00000007d7600000,0x00000007d7600000,0x00000007d7d00000)
+ ParOldGen       total 86016K, used 22918K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 26% used [0x0000000781c00000,0x0000000783261a68,0x0000000787000000)
+ PSPermGen       total 37888K, used 37578K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 99% used [0x000000077ca00000,0x000000077eeb2b98,0x000000077ef00000)
+
+Card table byte_map: [0x0000000005660000,0x0000000005a80000] byte_map_base: 0x0000000001a7b000
+
+Polling page: 0x00000000009e0000
+
+Code Cache  [0x00000000025a0000, 0x0000000002a70000, 0x00000000055a0000)
+ total_blobs=1409 nmethods=747 adapters=621 free_code_cache=44420Kb largest_free_block=45348224
+
+Compilation events (10 events):
+Event: 2103.450 Thread 0x000000000a8ce800  820             org.h2.value.ValueStringIgnoreCase::equals (30 bytes)
+Event: 2103.453 Thread 0x000000000a8ce800 nmethod 820 0x00000000029e4850 code [0x00000000029e49a0, 0x00000000029e4ba8]
+Event: 2104.314 Thread 0x000000000a8c6800 nmethod 818 0x0000000002a31290 code [0x0000000002a330e0, 0x0000000002a46ec8]
+Event: 2153.169 Thread 0x000000000a8ce800  821             java.lang.System$2::blockedOn (6 bytes)
+Event: 2153.174 Thread 0x000000000a8ce800 nmethod 821 0x00000000029e42d0 code [0x00000000029e4420, 0x00000000029e46f8]
+Event: 2282.641 Thread 0x000000000a8c6800  822             org.eclipse.jdt.core.compiler.CharOperation::replace (225 bytes)
+Event: 2282.678 Thread 0x000000000a8c6800 nmethod 822 0x00000000028caf10 code [0x00000000028cb0a0, 0x00000000028cc3c8]
+Event: 2296.180 Thread 0x000000000a8ce800  823   !         sun.nio.ch.WindowsSelectorImpl$SubSelector::processFDSet (374 bytes)
+Event: 2296.222 Thread 0x000000000a8ce800 nmethod 823 0x00000000028c88d0 code [0x00000000028c8b00, 0x00000000028c9ed0]
+Event: 2300.171 Thread 0x000000000a8c6800  824             com.google.gson.stream.JsonReader::nextString (197 bytes)
+
+GC Heap History (10 events):
+Event: 1508.777 GC heap before
+{Heap before GC invocations=22 (full 0):
+ PSYoungGen      total 26112K, used 26096K [0x00000007d5e80000, 0x00000007d8680000, 0x0000000800000000)
+  eden space 24576K, 100% used [0x00000007d5e80000,0x00000007d7680000,0x00000007d7680000)
+  from space 1536K, 99% used [0x00000007d7700000,0x00000007d787c310,0x00000007d7880000)
+  to   space 8192K, 0% used [0x00000007d7e80000,0x00000007d7e80000,0x00000007d8680000)
+ ParOldGen       total 86016K, used 20210K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 23% used [0x0000000781c00000,0x0000000782fbcba8,0x0000000787000000)
+ PSPermGen       total 37376K, used 36968K [0x000000077ca00000, 0x000000077ee80000, 0x0000000781c00000)
+  object space 37376K, 98% used [0x000000077ca00000,0x000000077ee1a360,0x000000077ee80000)
+Event: 1508.781 GC heap after
+Heap after GC invocations=22 (full 0):
+ PSYoungGen      total 31744K, used 1602K [0x00000007d5e80000, 0x00000007d8600000, 0x0000000800000000)
+  eden space 24064K, 0% used [0x00000007d5e80000,0x00000007d5e80000,0x00000007d7600000)
+  from space 7680K, 20% used [0x00000007d7e80000,0x00000007d8010858,0x00000007d8600000)
+  to   space 8192K, 0% used [0x00000007d7600000,0x00000007d7600000,0x00000007d7e00000)
+ ParOldGen       total 86016K, used 20731K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 24% used [0x0000000781c00000,0x000000078303efe8,0x0000000787000000)
+ PSPermGen       total 37376K, used 36968K [0x000000077ca00000, 0x000000077ee80000, 0x0000000781c00000)
+  object space 37376K, 98% used [0x000000077ca00000,0x000000077ee1a360,0x000000077ee80000)
+}
+Event: 1597.026 GC heap before
+{Heap before GC invocations=23 (full 0):
+ PSYoungGen      total 31744K, used 25666K [0x00000007d5e80000, 0x00000007d8600000, 0x0000000800000000)
+  eden space 24064K, 100% used [0x00000007d5e80000,0x00000007d7600000,0x00000007d7600000)
+  from space 7680K, 20% used [0x00000007d7e80000,0x00000007d8010858,0x00000007d8600000)
+  to   space 8192K, 0% used [0x00000007d7600000,0x00000007d7600000,0x00000007d7e00000)
+ ParOldGen       total 86016K, used 20731K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 24% used [0x0000000781c00000,0x000000078303efe8,0x0000000787000000)
+ PSPermGen       total 37888K, used 37464K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 98% used [0x000000077ca00000,0x000000077ee96060,0x000000077ef00000)
+Event: 1597.030 GC heap after
+Heap after GC invocations=23 (full 0):
+ PSYoungGen      total 26624K, used 2216K [0x00000007d5e80000, 0x00000007d8500000, 0x0000000800000000)
+  eden space 24064K, 0% used [0x00000007d5e80000,0x00000007d5e80000,0x00000007d7600000)
+  from space 2560K, 86% used [0x00000007d7600000,0x00000007d782a0b0,0x00000007d7880000)
+  to   space 7680K, 0% used [0x00000007d7d80000,0x00000007d7d80000,0x00000007d8500000)
+ ParOldGen       total 86016K, used 20780K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 24% used [0x0000000781c00000,0x000000078304b0b8,0x0000000787000000)
+ PSPermGen       total 37888K, used 37464K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 98% used [0x000000077ca00000,0x000000077ee96060,0x000000077ef00000)
+}
+Event: 1597.833 GC heap before
+{Heap before GC invocations=24 (full 0):
+ PSYoungGen      total 26624K, used 26280K [0x00000007d5e80000, 0x00000007d8500000, 0x0000000800000000)
+  eden space 24064K, 100% used [0x00000007d5e80000,0x00000007d7600000,0x00000007d7600000)
+  from space 2560K, 86% used [0x00000007d7600000,0x00000007d782a0b0,0x00000007d7880000)
+  to   space 7680K, 0% used [0x00000007d7d80000,0x00000007d7d80000,0x00000007d8500000)
+ ParOldGen       total 86016K, used 20780K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 24% used [0x0000000781c00000,0x000000078304b0b8,0x0000000787000000)
+ PSPermGen       total 37888K, used 37471K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 98% used [0x000000077ca00000,0x000000077ee97da0,0x000000077ef00000)
+Event: 1597.838 GC heap after
+Heap after GC invocations=24 (full 0):
+ PSYoungGen      total 30720K, used 1182K [0x00000007d5e80000, 0x00000007d8400000, 0x0000000800000000)
+  eden space 24064K, 0% used [0x00000007d5e80000,0x00000007d5e80000,0x00000007d7600000)
+  from space 6656K, 17% used [0x00000007d7d80000,0x00000007d7ea7a50,0x00000007d8400000)
+  to   space 7168K, 0% used [0x00000007d7600000,0x00000007d7600000,0x00000007d7d00000)
+ ParOldGen       total 86016K, used 22635K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 26% used [0x0000000781c00000,0x000000078321acd0,0x0000000787000000)
+ PSPermGen       total 37888K, used 37471K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 98% used [0x000000077ca00000,0x000000077ee97da0,0x000000077ef00000)
+}
+Event: 2282.440 GC heap before
+{Heap before GC invocations=25 (full 0):
+ PSYoungGen      total 30720K, used 25246K [0x00000007d5e80000, 0x00000007d8400000, 0x0000000800000000)
+  eden space 24064K, 100% used [0x00000007d5e80000,0x00000007d7600000,0x00000007d7600000)
+  from space 6656K, 17% used [0x00000007d7d80000,0x00000007d7ea7a50,0x00000007d8400000)
+  to   space 7168K, 0% used [0x00000007d7600000,0x00000007d7600000,0x00000007d7d00000)
+ ParOldGen       total 86016K, used 22635K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 26% used [0x0000000781c00000,0x000000078321acd0,0x0000000787000000)
+ PSPermGen       total 37888K, used 37547K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 99% used [0x000000077ca00000,0x000000077eeaae40,0x000000077ef00000)
+Event: 2282.443 GC heap after
+Heap after GC invocations=25 (full 0):
+ PSYoungGen      total 31232K, used 807K [0x00000007d5e80000, 0x00000007d8400000, 0x0000000800000000)
+  eden space 24064K, 0% used [0x00000007d5e80000,0x00000007d5e80000,0x00000007d7600000)
+  from space 7168K, 11% used [0x00000007d7600000,0x00000007d76c9d60,0x00000007d7d00000)
+  to   space 7168K, 0% used [0x00000007d7d00000,0x00000007d7d00000,0x00000007d8400000)
+ ParOldGen       total 86016K, used 22691K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 26% used [0x0000000781c00000,0x0000000783228cd0,0x0000000787000000)
+ PSPermGen       total 37888K, used 37547K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 99% used [0x000000077ca00000,0x000000077eeaae40,0x000000077ef00000)
+}
+Event: 2283.209 GC heap before
+{Heap before GC invocations=26 (full 0):
+ PSYoungGen      total 31232K, used 24871K [0x00000007d5e80000, 0x00000007d8400000, 0x0000000800000000)
+  eden space 24064K, 100% used [0x00000007d5e80000,0x00000007d7600000,0x00000007d7600000)
+  from space 7168K, 11% used [0x00000007d7600000,0x00000007d76c9d60,0x00000007d7d00000)
+  to   space 7168K, 0% used [0x00000007d7d00000,0x00000007d7d00000,0x00000007d8400000)
+ ParOldGen       total 86016K, used 22691K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 26% used [0x0000000781c00000,0x0000000783228cd0,0x0000000787000000)
+ PSPermGen       total 37888K, used 37548K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 99% used [0x000000077ca00000,0x000000077eeab340,0x000000077ef00000)
+Event: 2283.212 GC heap after
+Heap after GC invocations=26 (full 0):
+ PSYoungGen      total 31232K, used 1402K [0x00000007d5e80000, 0x00000007d8400000, 0x0000000800000000)
+  eden space 24064K, 0% used [0x00000007d5e80000,0x00000007d5e80000,0x00000007d7600000)
+  from space 7168K, 19% used [0x00000007d7d00000,0x00000007d7e5eb70,0x00000007d8400000)
+  to   space 7168K, 0% used [0x00000007d7600000,0x00000007d7600000,0x00000007d7d00000)
+ ParOldGen       total 86016K, used 22918K [0x0000000781c00000, 0x0000000787000000, 0x00000007d5e80000)
+  object space 86016K, 26% used [0x0000000781c00000,0x0000000783261a68,0x0000000787000000)
+ PSPermGen       total 37888K, used 37548K [0x000000077ca00000, 0x000000077ef00000, 0x0000000781c00000)
+  object space 37888K, 99% used [0x000000077ca00000,0x000000077eeab340,0x000000077ef00000)
+}
+
+Deoptimization events (10 events):
+Event: 2282.990 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2282.992 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2282.993 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2282.994 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2282.994 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2282.994 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2282.994 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2282.994 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2282.995 Thread 0x000000000cb0c800 Uncommon trap: reason=unhandled action=none pc=0x00000000026afed4 method=javassist.ClassPool.get(Ljava/lang/String;)Ljavassist/CtClass; @ 28
+Event: 2283.020 Thread 0x000000000cb0c800 Uncommon trap: reason=range_check action=none pc=0x0000000002643930 method=org.eclipse.jdt.internal.compiler.parser.Scanner.getNextToken()I @ 93
+
+Internal exceptions (10 events):
+Event: 1758.211 Thread 0x000000000cb0c800 Threw 0x00000007d6af12f0 at C:\re\jdk7u79\2331\hotspot\src\share\vm\interpreter\interpreterRuntime.cpp:362
+Event: 1758.211 Thread 0x000000000cb0c800 Threw 0x00000007d6af1410 at C:\re\jdk7u79\2331\hotspot\src\share\vm\runtime\reflection.cpp:1030
+Event: 1886.835 Thread 0x000000000cb0c800 Threw 0x00000007d6c6bda8 at C:\re\jdk7u79\2331\hotspot\src\share\vm\interpreter\interpreterRuntime.cpp:362
+Event: 1886.835 Thread 0x000000000cb0c800 Threw 0x00000007d6c6bec8 at C:\re\jdk7u79\2331\hotspot\src\share\vm\runtime\reflection.cpp:1030
+Event: 2259.698 Thread 0x000000000cb0c800 Threw 0x00000007d6d23338 at C:\re\jdk7u79\2331\hotspot\src\share\vm\interpreter\interpreterRuntime.cpp:362
+Event: 2259.698 Thread 0x000000000cb0c800 Threw 0x00000007d6d23458 at C:\re\jdk7u79\2331\hotspot\src\share\vm\runtime\reflection.cpp:1030
+Event: 2282.191 Thread 0x000000000cb0c800 Threw 0x00000007d704f3e8 at C:\re\jdk7u79\2331\hotspot\src\share\vm\interpreter\interpreterRuntime.cpp:347
+Event: 2282.443 Thread 0x000000000cb0c800 Threw 0x00000007d5e8d380 at C:\re\jdk7u79\2331\hotspot\src\share\vm\interpreter\interpreterRuntime.cpp:347
+Event: 2283.020 Thread 0x000000000cb0c800 Threw 0x00000007d7189660 at C:\re\jdk7u79\2331\hotspot\src\share\vm\interpreter\interpreterRuntime.cpp:347
+Event: 2283.407 Thread 0x000000000cb0c800 Threw 0x00000007d603b1a8 at C:\re\jdk7u79\2331\hotspot\src\share\vm\runtime\reflection.cpp:1030
+
+Events (10 events):
+Event: 2295.889 Executing VM operation: GetOrSetLocal
+Event: 2295.889 Executing VM operation: GetOrSetLocal done
+Event: 2295.890 Executing VM operation: GetOrSetLocal
+Event: 2295.890 Executing VM operation: GetOrSetLocal done
+Event: 2299.276 Executing VM operation: ChangeBreakpoints
+Event: 2299.276 Executing VM operation: ChangeBreakpoints done
+Event: 2299.290 Executing VM operation: ChangeBreakpoints
+Event: 2299.290 Executing VM operation: ChangeBreakpoints done
+Event: 2299.304 Executing VM operation: ChangeBreakpoints
+Event: 2299.304 Executing VM operation: ChangeBreakpoints done
+
+
+Dynamic libraries:
+0x00007ff7aae40000 - 0x00007ff7aae73000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\javaw.exe
+0x00007ff8ec0a0000 - 0x00007ff8ec261000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ff8e9760000 - 0x00007ff8e980d000 	C:\Windows\system32\KERNEL32.DLL
+0x00007ff8e87a0000 - 0x00007ff8e8988000 	C:\Windows\system32\KERNELBASE.dll
+0x00007ff8ebff0000 - 0x00007ff8ec097000 	C:\Windows\system32\ADVAPI32.dll
+0x00007ff8ebf50000 - 0x00007ff8ebfed000 	C:\Windows\system32\msvcrt.dll
+0x00007ff8e94a0000 - 0x00007ff8e94fb000 	C:\Windows\system32\sechost.dll
+0x00007ff8e9500000 - 0x00007ff8e961c000 	C:\Windows\system32\RPCRT4.dll
+0x00007ff8e9940000 - 0x00007ff8e9a96000 	C:\Windows\system32\USER32.dll
+0x00007ff8ebdc0000 - 0x00007ff8ebf46000 	C:\Windows\system32\GDI32.dll
+0x00007ff8df580000 - 0x00007ff8df7f4000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.10586.494_none_a2d8b04ea53e3145\COMCTL32.dll
+0x00007ff8e9aa0000 - 0x00007ff8e9d1d000 	C:\Windows\system32\combase.dll
+0x00007ff8e8a20000 - 0x00007ff8e8a8a000 	C:\Windows\system32\bcryptPrimitives.dll
+0x00007ff8ea160000 - 0x00007ff8ea19b000 	C:\Windows\system32\IMM32.DLL
+0x0000000061400000 - 0x00000000614d2000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\msvcr100.dll
+0x0000000060c20000 - 0x00000000613f5000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\server\jvm.dll
+0x00007ff8e9680000 - 0x00007ff8e9688000 	C:\Windows\system32\PSAPI.DLL
+0x00007ff8e6df0000 - 0x00007ff8e6e13000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ff8e57d0000 - 0x00007ff8e57d9000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ff8e9810000 - 0x00007ff8e987b000 	C:\Windows\system32\WS2_32.dll
+0x0000000000990000 - 0x00000000009bc000 	C:\Windows\SYSTEM32\WINMMBASE.dll
+0x00007ff8e8750000 - 0x00007ff8e8793000 	C:\Windows\system32\cfgmgr32.dll
+0x0000000060c10000 - 0x0000000060c1f000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\verify.dll
+0x0000000060be0000 - 0x0000000060c08000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\java.dll
+0x0000000060ba0000 - 0x0000000060bd5000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\jdwp.dll
+0x0000000060b70000 - 0x0000000060b93000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\instrument.dll
+0x0000000060b60000 - 0x0000000060b68000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\npt.dll
+0x0000000060b40000 - 0x0000000060b55000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\zip.dll
+0x0000000060b30000 - 0x0000000060b39000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\dt_socket.dll
+0x00007ff8e7f90000 - 0x00007ff8e7fec000 	C:\Windows\system32\mswsock.dll
+0x0000000060b10000 - 0x0000000060b2a000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\net.dll
+0x0000000060af0000 - 0x0000000060b01000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\nio.dll
+0x00007ff8e8040000 - 0x00007ff8e8057000 	C:\Windows\SYSTEM32\CRYPTSP.dll
+0x00007ff8e7cd0000 - 0x00007ff8e7d04000 	C:\Windows\system32\rsaenh.dll
+0x00007ff8e85f0000 - 0x00007ff8e8619000 	C:\Windows\SYSTEM32\bcrypt.dll
+0x00007ff8e7e20000 - 0x00007ff8e7e3f000 	C:\Windows\SYSTEM32\USERENV.dll
+0x00007ff8e8720000 - 0x00007ff8e8734000 	C:\Windows\system32\profapi.dll
+0x00007ff8e85e0000 - 0x00007ff8e85eb000 	C:\Windows\SYSTEM32\CRYPTBASE.dll
+0x00007ff8dbe40000 - 0x00007ff8dbe56000 	C:\Windows\system32\napinsp.dll
+0x00007ff8dbdf0000 - 0x00007ff8dbe0a000 	C:\Windows\system32\pnrpnsp.dll
+0x00007ff8e66c0000 - 0x00007ff8e66d8000 	C:\Windows\system32\NLAapi.dll
+0x00007ff8e7040000 - 0x00007ff8e70ea000 	C:\Windows\SYSTEM32\DNSAPI.dll
+0x00007ff8e9d20000 - 0x00007ff8e9d28000 	C:\Windows\system32\NSI.dll
+0x00007ff8dba90000 - 0x00007ff8dba9d000 	C:\Windows\System32\winrnr.dll
+0x00007ff8db750000 - 0x00007ff8db765000 	C:\Windows\System32\wshbth.dll
+0x00007ff8dd3c0000 - 0x00007ff8dd3ca000 	C:\Windows\System32\rasadhlp.dll
+0x00007ff8e0c30000 - 0x00007ff8e0c68000 	C:\Windows\SYSTEM32\IPHLPAPI.DLL
+0x00007ff8e02f0000 - 0x00007ff8e0357000 	C:\Windows\System32\fwpuclnt.dll
+0x00007ff8dfce0000 - 0x00007ff8dfcf6000 	C:\Windows\SYSTEM32\dhcpcsvc6.DLL
+0x00007ff8e0190000 - 0x00007ff8e01aa000 	C:\Windows\SYSTEM32\dhcpcsvc.DLL
+0x0000000060ae0000 - 0x0000000060aeb000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\management.dll
+0x0000000060aa0000 - 0x0000000060ac4000 	C:\Program Files\Java\jdk1.7.0_79\jre\bin\sunec.dll
+0x00007ff8e55d0000 - 0x00007ff8e575c000 	C:\Windows\SYSTEM32\dbghelp.dll
+
+VM Arguments:
+jvm_args: -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n -Dplay.debug=yes -Dplay.id= -Dapplication.path=C:\Users\Lucas Correia\Google Drive\Lucas\dev\playapps\chalkboardonline\chalkboardonline -Djava.endorsed.dirs=C:\Users\Lucas Correia\Google Drive\Lucas\dev\play-1.2.4/framework/endorsed -javaagent:C:\Users\Lucas Correia\Google Drive\Lucas\dev\play-1.2.4/framework/play-1.2.4.jar -Dfile.encoding=UTF-8 
+java_command: play.server.Server
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.7.0_79
+CLASSPATH=;C:\Program Files\Java\jdk1.7.0_79\lib;C:\Program Files\Java\jdk1.7.0_79\lib\tools.jar;C:\Program Files\Java\jdk1.7.0_79\lib\dt.jar;C:\Program Files\Java\jdk1.7.0_79\lib\htmlconverter.jar;C:\Program Files\Java\jdk1.7.0_79\jre\lib;C:\Program Files\Java\jdk1.7.0_79\jre\lib\rt.jar
+PATH=C:/Program Files/Java/jre1.8.0_101/bin/server;C:/Program Files/Java/jre1.8.0_101/bin;C:/Program Files/Java/jre1.8.0_101/lib/amd64;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk1.7.0_79\bin;C:\Users\Lucas Correia\Google Drive\Lucas\dev\play-1.2.4;C:\Program Files\TortoiseGit\bin;C:\Users\Lucas Correia\Google Drive\Lucas\dev\apache-tomcat-7.0.62;C:\Users\Lucas Correia\Google Drive\Lucas\dev\eclipse;
+USERNAME=Lucas Correia
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 58 Stepping 9, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 8.1 , 64 bit Build 9600 
+
+CPU:total 4 (2 cores per cpu, 2 threads per core) family 6 model 58 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, aes, erms, ht, tsc, tscinvbit, tscinv
+
+Memory: 4k page, physical 8271404k(4126112k free), swap 9778732k(3897144k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (24.79-b02) for windows-amd64 JRE (1.7.0_79-b15), built on Apr 10 2015 12:36:16 by "java_re" with unknown MS VC++:1600
+
+time: Sun Aug 21 23:04:52 2016
+elapsed time: 2300 seconds
+
