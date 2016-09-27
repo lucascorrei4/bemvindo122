@@ -237,18 +237,18 @@ ul.navig li a:after {
 .banner-bottom h1 {
 	color: #fff;
 	font-weight: 700;
-	font-size: 2.1em;
-	width: 60%;
+	font-size: 2.8em;
+	width: 90%;
 	margin: 0 auto;
 	line-height: 1.4em;
 }
 
 .banner-bottom p {
 	color: #fff;
-	font-size: 21px;
+	font-size: 27px;
 	font-weight: 400;
 	margin: 0 auto;
-	width: 53%;
+	width: 90%;
 	margin-top: 7px;
 	line-height: 1.4em;
 }
@@ -1313,7 +1313,7 @@ h2.marriage {
 /*--Account-Part-Ends-Here--*/
 .account {
 	padding: 2.5em 0px;
-	background: #3AA5D9;
+	background: #808000;
 }
 
 .account-main {
@@ -1323,12 +1323,12 @@ h2.marriage {
 .account-left p {
 	color: #fff;
 	font-size: 2em;
-	font-weight: 300;
+	font-weight: bold;
 }
 
 .account-right a {
 	color: #333333;
-	background: #00ccff;
+	background: #fff;
 	padding: 14px 17px;
 	font-size: 17px;
 	font-weight: 700;
@@ -1591,7 +1591,7 @@ h2.marriage {
 		margin-top: 18.5%;
 	}
 	.callbacks_tabs {
-		top: 210%;
+		top: 100%;
 	}
 }
 

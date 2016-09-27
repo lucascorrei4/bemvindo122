@@ -11,20 +11,20 @@
 GET     ${ctx}/                                       				Application.index
 
 # Home page
-POST    ${ctx}/save-new-children-chalkboard							ChalkBoardChildrenController.saveChalkBoardChildren
+POST    ${ctx}/savequickaccount										Application.saveQuickAccount
 GET    	${ctx}/como-funciona										Application.howItWorks
 GET    	${ctx}/contato												Application.contact
 POST	${ctx}/chalk-moip-response									Application.moipResponse
 
 # Admin
-GET		${ctx}/admin/chalkboard-children							ChalkBoardChildrenController.list
-GET		${ctx}/admin/chalkboard-children/new						ChalkBoardChildrenController.blank
-GET		${ctx}/admin/chalkboard-children/{id}						ChalkBoardChildrenController.show
-GET		${ctx}/admin/chalkboard-children/{id}/{field}				ChalkBoardChildrenController.attachment
-GET		${ctx}/admin/chalkboard-children/{id}/edit					ChalkBoardChildrenController.edit
-POST	${ctx}/admin/chalkboard-children							ChalkBoardChildrenController.create
-POST	${ctx}/admin/chalkboard-children/{id}						ChalkBoardChildrenController.save
-DELETE	${ctx}/admin/chalkboard-children/{id}						ChalkBoardChildrenController.delete
+GET		${ctx}/admin/seu-pedido								ClientController.list
+GET		${ctx}/admin/seu-pedido/new							ClientController.blank
+GET		${ctx}/admin/seu-pedido/{id}						ClientController.show
+GET		${ctx}/admin/seu-pedido/{id}/{field}				ClientController.attachment
+GET		${ctx}/admin/seu-pedido/{id}/edit					ClientController.edit
+POST	${ctx}/admin/seu-pedido								ClientController.create
+POST	${ctx}/admin/seu-pedido/{id}						ClientController.save
+DELETE	${ctx}/admin/seu-pedido/{id}						ClientController.delete
 
 # Import CRUD routes
 *       ${ctx}/admin                      			module:crud

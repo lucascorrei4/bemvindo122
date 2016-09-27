@@ -7,7 +7,7 @@
 	margin: 40px auto;
 	position: relative;
 	text-align:center;
-	border: 5px solid #00ccff;
+	border: 5px solid #808000;
 	border-radius: 15px;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
@@ -265,8 +265,8 @@ button::-moz-focus-inner {
   width: 100%; 
 }
 .login h3,.signup h3{
-	margin:1em 0;
-	color: #00ccff;
+	margin:0;
+	color: #808000;
 }
 .login input[type="text"], .login input[type="password"] {
 	width: 48%;
@@ -279,7 +279,7 @@ button::-moz-focus-inner {
 	border-bottom: 3px solid #999;
 }
 .login input[type="text"]:nth-child(2),.login input[type="password"]:nth-child(4) {
-	margin-right: 20px;
+	margin-right: 0px;
 }
 .signup input[type="text"]{
 	width:44.5%;
@@ -297,8 +297,8 @@ button::-moz-focus-inner {
 	outline: none;
 	color: #cacaca;
 }
-.login input[type="submit"], .signup input[type="submit"] {
-	background: #00ccff;
+.login input[type="submit"], .signup input[type="submit"], .login input[type="button"], .signup input[type="button"] {
+	background: #808000;
 	border: 0px;
 	padding: 9px 22px;
 	margin: 33px 10px 10px 10px;

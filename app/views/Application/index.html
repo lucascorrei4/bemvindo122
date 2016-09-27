@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>BemVindo - Mantenha Seus Visitantes Próximos!</title>
+<title>Seu pedido | O seu cliente paciente!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Atom Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -56,20 +56,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				      	<ul class="rslides" id="slider4">
 				        	<li>
 								<div class="banner-bottom">
-									<h1>Inteligência em E-mail Marketing</h1>
-									<p>É Flexível. Envie mensagens filtrando por faixa etária, estado civil, eventos, idade, sexo.</p>
+									<h1>Você trabalha tranquilo e o seu cliente aguarda pacientemente</h1>
+									<p>Gere um código para o seu cliente acompanhar o status de entrega</p>
 								</div>
 							</li>
 							<li>
 								<div class="banner-bottom">
-									<h1>Personalize os templates para se comunicar bem com seus visitantes ou membros</h1>
-									<p>Você escolhe o template de acordo com sua necessidade.</p>
+									<h1>Use a tecnologia para se comunicar bem com o seu cliente</h1>
+									<p>Seu cliente fica sabendo tudo sobre o pedido remotamente</p>
 								</div>
 							</li>
 							<li>
 								<div class="banner-bottom">
-									<h1>O sistema gerencia os pedidos de oração de seus visitantes</h1>
-									<p>Intercessores recebem notificações de pedidos de oração.</p>
+									<h1>Controle todos os seus serviços e clientes</h1>
+									<p>Não perca seu cliente de vista. Mantenha-o sempre perto.</p>
 								</div>
 							</li>
 				      	</ul>
@@ -392,28 +392,13 @@ $(function () {
 	</div>
 	<!--end-pricing-->
 	<!---pop-up-box---->
-					  <script type="text/javascript" src="@{'public/templatepublic/js/modernizr.custom.min.js'}"></script>    
-					<link href="@{'public/templatepublic/css/popup-box.css'}" rel="stylesheet" type="text/css" media="all"/>
-					<script src="@{'public/templatepublic/js/jquery.magnific-popup.js'}" type="text/javascript"></script>
-					<!---//pop-up-box---->
+				<script type="text/javascript" src="@{'public/templatepublic/js/modernizr.custom.min.js'}"></script>    
+				<link href="@{'public/templatepublic/css/popup-box.css'}" rel="stylesheet" type="text/css" media="all" />
+				<script src="@{'public/templatepublic/js/jquery.magnific-popup.js'}" type="text/javascript"></script>
+				<!---//pop-up-box---->
 				<div id="small-dialog" class="mfp-hide">
-						<div class="login">
-							<h3>Criar Nova Conta</h3>
-							<input type="text"  placeholder="Name" requird=""/>
-							<input type="text" placeholder="Email" requird="" />
-							<input type="password" placeholder="Password" requird=""/>
-							<input type="password" placeholder="Conform Password" requird=""/>
-							<input type="submit" value="Sign Up" />
-							<div class="lgn">
-								<h3>Login</h3>
-							<input type="text" placeholder="Email" requird="" />
-							<input type="password" placeholder="Password" requird="" />
-							<div class="ln-btn">
-								<input type="submit" value="Login" />
-							</div>
-							</div>
-						</div>
-					</div>
+					#{include 'includes/newQuickAccount.html' /}
+				</div>
 				 <script>
 						$(document).ready(function() {
 						$('.popup-with-zoom-anim').magnificPopup({
@@ -453,5 +438,75 @@ $(function () {
 	<!--start-footer-->
 	#{include 'includes/footerPublic.html' /}
 	<!--end-footer-->
+	<script type="text/javascript" src="@{'public/javascripts/jquery.mask.min.js'}"></script>
+	<script type="text/javascript">
+	  $(function() {
+	    $('.age').mask('00');
+	    $('.date').mask('00/00/0000');
+	    $('.time').mask('00:00:00');
+	    $('.date_time').mask('00/00/0000 00:00:00');
+	    $('.cep').mask('00000-000');
+	    $('.phone').mask('0000-0000');
+	    $('.phone_with_ddd').mask('(00) 0000-0000');
+	    $('.phone9_with_ddd').mask('(00) 00000-0000');
+	    $('.phone_us').mask('(000) 000-0000');
+	    $('.mixed').mask('AAA 000-S0S');
+	    $('.ip_address').mask('099.099.099.099');
+	    $('.percent').mask('##0,00%', {reverse: true});
+	    $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
+	    $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
+	    $('.fallback').mask("00r00r0000", {
+	      translation: {
+	        'r': {
+	          pattern: /[\/]/, 
+	          fallback: '/'
+	        }, 
+	        placeholder: "__/__/____"
+	      }
+	    });
+	
+	    $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
+	
+	    $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
+	        console.log('Mask is done!:', cep);
+	      },
+	       onKeyPress: function(cep, event, currentField, options){
+	        console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
+	      },
+	      onInvalid: function(val, e, field, invalid, options){
+	        var error = invalid[0];
+	        console.log ("Digit: ", error.v, " is invalid for the position: ", error.p, ". We expect something like: ", error.e);
+	      }
+	    });
+	
+	    $('.crazy_cep').mask('00000-000', {onKeyPress: function(cep, e, field, options){
+	      var masks = ['00000-000', '0-00-00-00'];
+	        mask = (cep.length>7) ? masks[1] : masks[0];
+	      $('.crazy_cep').mask(mask, options);
+	    }});
+	
+	    $('.cpf').mask('000.000.000-00', {reverse: true});
+	    $('.money').mask('#.##0,00', {reverse: true});
+	
+	    var SPMaskBehavior = function (val) {
+	      return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+	    },
+	    spOptions = {
+	      onKeyPress: function(val, e, field, options) {
+	          field.mask(SPMaskBehavior.apply({}, arguments), options);
+	        }
+	    };
+	
+	    $('.sp_celphones').mask(SPMaskBehavior, spOptions);
+	
+	    $(".bt-mask-it").click(function(){
+	      $(".mask-on-div").mask("000.000.000-00");
+	      $(".mask-on-div").fadeOut(500).fadeIn(500)
+	    })
+	
+	    $('pre').each(function(i, e) {hljs.highlightBlock(e)});
+	  });
+	</script>
+	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
 </body>
 </html>

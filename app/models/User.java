@@ -1,25 +1,21 @@
 package models;
 
 import java.text.ParseException;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-import play.data.binding.As;
+import controllers.CRUD.Hidden;
+import enumeration.GenderEnum;
 import play.data.validation.Email;
-import play.data.validation.Min;
 import play.data.validation.Password;
 import play.data.validation.Phone;
 import play.data.validation.Required;
 import play.data.validation.Unique;
 import play.db.jpa.Model;
 import util.Utils;
-import controllers.CRUD.Hidden;
-import enumeration.GenderEnum;
 
 @Entity
 public class User extends Model {
@@ -55,6 +51,7 @@ public class User extends Model {
 	
 	public String cpf;
 	
+	@Required
 	@Phone
 	public String phone1;
 	
@@ -67,6 +64,17 @@ public class User extends Model {
 	@Required
 	@Password
 	public String password;
+
+	@Transient
+	public String repeatPassword;
+
+	public String getRepeatPassword() {
+		return repeatPassword;
+	}
+
+	public void setRepeatPassword(String repeatPassword) {
+		this.repeatPassword = repeatPassword;
+	}
 
 	public boolean isAdmin;
 

@@ -2,13 +2,15 @@ package controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
-import enumeration.GenderEnum;
 import models.MoipNotification;
 import models.Service;
 import models.User;
@@ -30,7 +32,7 @@ public class Application extends Controller {
 		render();
 	}
 
-	public static void saveNewAccount(@Valid User user, String confirmPassword) {
+	public static void saveQuickAccount(@Valid User user, String confirmPassword) {
 		if (user.getName() != null) {
 			if (!validateForm(user, confirmPassword)) {
 				user.password = "";
@@ -124,5 +126,72 @@ public class Application extends Controller {
 		}
 		return HttpServletResponse.SC_PAYMENT_REQUIRED;
 	}
-
+	
+	public static void saveQuickAccount(String json) throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String order = null;
+		/* Get body content from client request */
+		String[] fields = request.params.data.get("body");
+		String decodedFields = URLDecoder.decode(fields[0], "UTF-8");
+		Gson gson = new GsonBuilder().create();
+		/* Parse form content to JSON element */
+		String jsonParam = transformQueryParamToJson(decodedFields);
+		JsonParser parser = new JsonParser();
+		JsonObject jsonElement = (JsonObject) parser.parse(jsonParam);
+		jsonElement.addProperty("id", Long.valueOf(0));
+		/* Save Client */
+		/* Create object parsing JSON element */
+		User user = new User();
+		user = gson.fromJson(jsonElement, User.class);
+		user.id = 0l;
+		user.willBeSaved = true;
+		/* Validate object before saving */
+		if (!validateObjectToSave(user)) {
+			response = "Preencha os campos obrigatórios!";
+			status = "ERROR";
+			render("includes/newquickaccount.html", user, response, status);
+		} else {
+			user.setAdmin(true);
+			user.setInstitutionId(0l);
+			user.save();
+			response = "Pronto! Cadastro criado com sucesso! Faça o login abaixo!";
+			status = "SUCCESS";
+			render("includes/newquickaccount.html", user, response, status, order);
+		}
+	}
+	
+	private static boolean validateObjectToSave(User user) {
+		validation.clear();
+		validation.valid(user);
+		if (validation.hasErrors()) {
+			for (play.data.validation.Error e : validation.errors()) {
+				System.out.println(e.message());
+			}
+			params.flash();
+			validation.keep();
+			return false;
+		}
+		return true;
+	}
+	
+	private static String transformQueryParamToJson(String queryParam) {
+		StringTokenizer st = new StringTokenizer(queryParam, "&");
+		String json = "{";
+		while (st.hasMoreTokens()) {
+			String str = st.nextToken();
+			String replaceKey = str.replace("user.", "");
+			int indexKey = replaceKey.indexOf("=");
+			String key = replaceKey.substring(0, indexKey);
+			String value = replaceKey.substring(indexKey + 1, replaceKey.length());
+			value = (Utils.isNullOrEmpty(value) ? "" : new String(value).replace("+", " ").trim());
+			json = json.concat("\"").concat(key).concat("\"").concat(":").concat("\"").concat(value).concat("\"");
+			if (st.hasMoreTokens()) {
+				json = json.concat(",");
+			}
+		}
+		json = json.concat("}");
+		return json;
+	}
+	
 }

@@ -1,0 +1,37 @@
+<meta charset="utf-8" />
+<div class="login">
+	<form action="/" method="get" id="formQuickAccount">
+		<h3>Criar Nova Conta</h3>
+		<div id="message"></div>
+		#{error 'user.name' /}
+		<input type="text" id="name" name="user.name" placeholder="Seu nome" value="${user?.name}" /> 
+		
+		#{error 'user.lastName' /}
+		<input type="text" id="lastName" name="user.lastName" placeholder="Seu sobrenome" value="${user?.lastName}" />
+		
+		#{error 'user.phone1' /}
+		<input type="text" id="phone" name="user.phone1" placeholder="Telefone (99) 9 9999-9999" class="sp_celphones"  /> 
+	
+		#{error 'user.mail' /}
+		<input type="text" id="mail" name="user.email" placeholder="Seu e-mail" value="${user?.email}" /> 
+			
+		#{error 'user.password' /}
+		<input type="password" id="password" name="user.password"  placeholder="Digite uma senha" value="${user?.password}" />
+		
+		#{error 'user.repeatPassword' /}
+		<input type="password" id="repeatPassword" name="user.repeatPassword" placeholder="Digite novamente a senha" value="${user?.repeatPassword}" /> 
+		
+		<input id="saveUser" type="button" value="Confirmar" onclick="saveQuickAccount()" />
+		
+		<div id="response"></div>
+		
+		<div class="lgn">
+			<h3>Login</h3>
+			<input type="text" placeholder="E-mail" /> <input type="password"
+				placeholder="Senha" />
+			<div class="ln-btn">
+				<input type="submit" value="Entrar" />
+			</div>
+		</div>
+	</form>
+</div>
