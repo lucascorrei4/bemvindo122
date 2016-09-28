@@ -2656,6 +2656,15 @@ h2.marriage {
 
 #message {
 	font-weight: bold;
-	font-size: 20px;
-	width: 75%;
+	width: 100%;
+    color: #999;
+    border: none;
+    outline: none !important;
+    outline: none;
+    text-align: center;
+    font-size: 17px;
+}
+
+.floating {
+	
 }

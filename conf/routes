@@ -15,6 +15,9 @@ POST    ${ctx}/savequickaccount										Application.saveQuickAccount
 GET    	${ctx}/como-funciona										Application.howItWorks
 GET    	${ctx}/contato												Application.contact
 POST	${ctx}/chalk-moip-response									Application.moipResponse
+GET     ${ctx}/novo			                     					Application.newAccount
+POST    ${ctx}/novo			       				 					Application.saveNewAccount
+POST    ${ctx}/primeiros-passos    				 					Application.saveNewInstitution
 
 # Admin
 GET		${ctx}/admin/seu-pedido								ClientController.list

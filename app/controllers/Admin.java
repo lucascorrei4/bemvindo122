@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import models.Institution;
@@ -77,6 +78,36 @@ public class Admin extends Controller {
 			}
 		}
 		return userInstitutionParameter;
+	}
+	
+	protected static void enableUserConditions(User user) {
+		if (enableMenu()) {
+			session.put("enableUser", "true");
+		} else {
+			session.put("enableUser", "false");
+		}
+		return;
+	}
+	
+	static boolean enableMenu() {
+		if (userBelongsToInstitution() && validateLicenseDate()) {
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean userBelongsToInstitution() {
+		if (getLoggedInstitution() == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	private static boolean validateLicenseDate() {
+		if (getLoggedUserInstitution().getInstitution().getLicenseDate().after(new Date()))
+			return true;
+		else
+			return false;
 	}
 
 }

@@ -18,7 +18,7 @@ function saveQuickAccount() {
 				formDataJSON[this.name] = this.value || '';
 			}
 		});
-		$('#message').load(
+		$('#formQuickAccount').load(
 				'/savequickaccount',
 				formDataJSON,
 				function(response, status) {
@@ -26,12 +26,9 @@ function saveQuickAccount() {
 					if ('SUCCESS' === status) {
 						$("#message").css("color", "gray");
 						$("#message").show();
-						$("#message").html(
-								$("#response").val()
-										+ '<br /> Código do Pedido: '
-										+ $("#orderCode").val() + '.');
-						$("#formChalkBoardChildren :input").attr("disabled",
-								true);
+						$("#message").html($("#response").val());
+						$("#saveUser").fadeOut();
+						$("#btnLogin").fadeIn();
 					} else {
 						$("#message").css("color", "red");
 						$("#message").show();

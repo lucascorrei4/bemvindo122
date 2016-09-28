@@ -278,6 +278,24 @@ public class Utils extends Controller {
 			render();
 		}
 	}
+	
+	public static boolean validateCPFOrCNPJ(String text) {
+		if (Utils.isNullOrEmpty(text)) {
+			return false;
+		}
+		String str = text.trim();
+		str = str.replace(".", "");
+		str = str.replace("-", "");
+		str = str.replace("/", "");
+		if (str.length() == 11) {
+			if (CPFCNPJ.isValidCPF(str))
+				return true;
+		} else if (str.length() == 14) {
+			if (CPFCNPJ.isValidCNPJ(str))
+				return true;
+		}
+		return false;
+	}
 
 
 }
