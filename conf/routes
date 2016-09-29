@@ -29,6 +29,15 @@ POST	${ctx}/admin/seu-pedido								ClientController.create
 POST	${ctx}/admin/seu-pedido/{id}						ClientController.save
 DELETE	${ctx}/admin/seu-pedido/{id}						ClientController.delete
 
+# Administration
+GET    	${ctx}/popular                     			PopulateDB.populate
+GET     ${ctx}/primeiros-passos						Admin.firstStep
+GET     ${ctx}/admin/?	                      		Admin.index
+GET     ${ctx}/admin/{id}                     		Admin.form
+POST    ${ctx}/admin/{id}                     		Admin.save
+GET     ${ctx}/admin/new                        	Admin.form
+POST    ${ctx}/admin/new                        	Admin.save
+
 # Import CRUD routes
 *       ${ctx}/admin                      			module:crud
 

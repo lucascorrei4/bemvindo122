@@ -14,62 +14,88 @@ import util.Utils;
 
 @Entity
 public class Service extends Model {
-	public String model;
-
-	public long clientId;
 
 	@Required(message = "Campo obrigatório.")
-	public String name;
+	public String title;
 
 	@Required(message = "Campo obrigatório.")
-	public String birthDay;
+	public String description;
 
 	@Required(message = "Campo obrigatório.")
-	public String age;
+	public String level1;
+
+	@Required(message = "Campo obrigatório.")
+	public String level2;
+
+	@Required(message = "Campo obrigatório.")
+	public String level3;
 
 	@Hidden
 	public String postedAt;
 
-	public String orderCode;
-
 	public boolean isPaid;
 
 	public boolean isDone;
+	
+	public boolean isActive;
 
-	public String paymentForm;
-
-	public String paymentType;
-
-	public String getPaymentForm() {
-		return paymentForm;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setPaymentForm(String paymentForm) {
-		this.paymentForm = paymentForm;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
-	public String getPaymentType() {
-		return paymentType;
+	@Hidden
+	public long institutionId;
+
+	public long getInstitutionId() {
+		return institutionId;
 	}
 
-	public void setPaymentType(String paymentType) {
-		this.paymentType = paymentType;
+	public void setInstitutionId(long institutionId) {
+		this.institutionId = institutionId;
 	}
 
-	public String getBirthDay() {
-		return birthDay;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setBirthDay(String birthDay) {
-		this.birthDay = birthDay;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getAge() {
-		return age;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setAge(String age) {
-		this.age = age;
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getLevel1() {
+		return level1;
+	}
+
+	public void setLevel1(String level1) {
+		this.level1 = level1;
+	}
+
+	public String getLevel2() {
+		return level2;
+	}
+
+	public void setLevel2(String level2) {
+		this.level2 = level2;
+	}
+
+	public String getLevel3() {
+		return level3;
+	}
+
+	public void setLevel3(String level3) {
+		this.level3 = level3;
 	}
 
 	public String getPostedAt() throws ParseException {
@@ -83,12 +109,8 @@ public class Service extends Model {
 		this.postedAt = postedAt;
 	}
 
-	public String getOrderCode() {
-		return orderCode;
-	}
-
-	public void setOrderCode(String orderCode) {
-		this.orderCode = orderCode;
+	public boolean isPaid() {
+		return isPaid;
 	}
 
 	public void setPaid(boolean isPaid) {
@@ -101,42 +123,6 @@ public class Service extends Model {
 
 	public void setDone(boolean isDone) {
 		this.isDone = isDone;
-	}
-
-	public boolean isPaid() {
-		return isPaid;
-	}
-
-	public String getModel() {
-		return model;
-	}
-
-	public void setModel(String model) {
-		this.model = model;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public long getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(long clientId) {
-		this.clientId = clientId;
 	}
 
 }

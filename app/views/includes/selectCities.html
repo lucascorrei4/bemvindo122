@@ -1,0 +1,9 @@
+<label for="object_cityId"> Cidade </label>
+#{ifError 'object.cityId'}
+    <label class="control-label-red" for="${object.cityId}">#{error 'object.cityId' /}</label>
+#{/ifError}
+#{select id:'object_cityId', name:'object.cityId', items:listCities, valueProperty:'id', labelProperty:'name', class:'form-control'}
+	#{if city != null}
+		<option value="${city.id}" selected="selected">${city.name}</option>
+	#{/if}
+#{/select}

@@ -1,0 +1,25 @@
+{
+	"users": [{
+		"id": 1,
+		"address": "",
+		"birthdate": "",
+		"cep": "",
+		"cityId": 0,
+		"complement": "",
+		"countryId": 0,
+		"cpf": "",
+		"email": "lucascorreiaevangelista@gmail.com",
+		"gender": "M",
+		"institutionId": 0,
+		"lastName": "Correia Evangelista",
+		"name": "Lucas",
+		"neighborhood": "",
+		"password": "bemvindo122",
+		"phone1": "",
+		"phone2": "",
+		"phone3": "",
+		"stateId": 0,
+		"isAdmin": true,
+		"isActive": true
+	}]
+}

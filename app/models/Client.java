@@ -28,6 +28,27 @@ public class Client extends Model {
 	@Hidden
 	public String postedAt;
 
+	@Hidden
+	public long institutionId;
+	
+	public boolean isActive;
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public long getInstitutionId() {
+		return institutionId;
+	}
+
+	public void setInstitutionId(long institutionId) {
+		this.institutionId = institutionId;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

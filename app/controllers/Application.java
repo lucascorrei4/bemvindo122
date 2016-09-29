@@ -75,8 +75,8 @@ public class Application extends Controller {
 	private static int updatePayment(Object object, MoipNotification moipNotification) {
 		if (object instanceof Service) {
 			Service service = (Service) object;
-			service.setPaymentForm(String.valueOf(moipNotification.getForma_pagamento()));
-			service.setPaymentType(moipNotification.getTipo_pagamento());
+			// service.setPaymentForm(String.valueOf(moipNotification.getForma_pagamento()));
+			// service.setPaymentType(moipNotification.getTipo_pagamento());
 			service.setPaid(true);
 			service.merge();
 			return HttpServletResponse.SC_OK;

@@ -1,0 +1,26 @@
+{
+	"institutions": [{
+		"id": 1,
+		"address": "Rua P24 Qd 15, Lt 18",
+		"cep": "75063-715",
+		"cityId": 898,
+		"cnpj": "28.364.677/0001-28",
+		"complement": "",
+		"countryId": 1,
+		"email": "ibrc.anapolis@gmail.com",
+		"googleApiKey": "",
+		"googleMapsAddress": "",
+		"institution": "Igreja Batista",
+		"institutionKey": "",
+		"localizationGPS": "",
+		"neighborhood": "Jardim Progresso",
+		"phone1": "(62) 9267-8877",
+		"phone2": "",
+		"phone3": "",
+		"publishedBy": 1,
+		"slogan": "Aqui \u00e9 uma ben\u00e7\u00e3o",
+		"stateId": 9,
+		"userId": 1,
+		"website": "http://igrejabatista.com"
+	}]
+}
