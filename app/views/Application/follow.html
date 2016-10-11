@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Acompanhamento de pedido | SeuPedido.online</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="@{'public/templatebootstrap/bower_components/bootstrap/dist/css/bootstrap.css'}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.css'}" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="@{'public/templatebootstrap/dist/css/timeline.css'}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="@{'public/templatebootstrap/dist/css/sb-admin-2.css'}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="@{'public/templatebootstrap/bower_components/morrisjs/morris.css'}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="@{'public/templatebootstrap/bower_components/font-awesome/css/font-awesome.min.css'}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js'} IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js'} doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js'}/1.4.2/respond.min.js'}"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <!-- Logo navbar -->
+           	#{include 'includes/logoNavBar.html' /}
+            <!-- Logo navbar -->
+            <!-- Menu Top Side -->
+           	#{include 'includes/menuPainelTop.html' /}
+            <!-- Menu Top Side -->
+            <!-- Menu Left Side -->
+           	#{include 'includes/menuPainelLeft.html' /}
+            <!-- Menu Left Side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Olá, <b>${orderOfService.client.name}</b>!</h1>
+                    <h5 style="text-align: right"><i>Serviço prestado por </i> <b>${orderOfService.client.institution.institution}</b></h5>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-group fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/painel/clientes">
+                            <div class="panel-footer">
+                                <span class="pull-left">Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-group fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/painel/ordens-de-servico">
+                            <div class="panel-footer">
+                                <span class="pull-left">Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-group fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/painel/clientes">
+                            <div class="panel-footer">
+                                <span class="pull-left">Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-edit fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/painel/servicos">
+                            <div class="panel-footer">
+                                <span class="pull-left">Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Últimos Clientes
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Últimas Ordens de Serviço
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Últimos Serviços
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                        © Copyright 2016 - BemVindo
+                        </div>
+                        <!-- /.panel-heading -->
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    
+    <!-- jQuery -->
+    <script src="@{'public/templatebootstrap/bower_components/jquery/dist/jquery.min.js'}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="@{'public/templatebootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.js'}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
+
+  	<!-- Flot Charts JavaScript -->
+	<script src="@{'/public/templatebootstrap/bower_components/flot/excanvas.min.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.pie.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.resize.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.time.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js'}"></script>
+	<script src="@{'/public/templatebootstrap/js/flot-data.js'}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+<meta charset="utf-8" />
+	<thead>
+		<tr>
+			<th>Descrição</th>
+			<th></th>
+		</tr>
+	</thead>
+<tbody id="orders-items" style="max-height: 300px; overflow: auto;">
+	#{list prayOrders, as:'pray'}
+	<tr>
+		<td><input id="description" name="description" type="text" class="form-control" value="${pray?.description}" /></td>
+		<td style="width: 53px"><button id="remove-order" class="btn btn-default" value="${pray?.description}">
+				<i class="fa fa-trash"></i>
+			</button></td>
+	</tr>
+	#{/list}
+</tbody>

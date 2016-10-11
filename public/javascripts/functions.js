@@ -38,3 +38,30 @@ function saveQuickAccount() {
 				});
 	}
 }
+
+function followordercode() {
+	if ($('#orderCode').val() == '') {
+		$("#message").show();
+		$("#message").html('Favor, insira o código do seu pedido!');
+		setTimeout('$("#message").hide()', 5000);
+		return;
+	} else {
+		var formData = $('#formFollow').serializeArray();
+		$('#formFollow').load(
+				'/follow',
+				formData,
+				function(response, status) {
+					var status = $("#status").val();
+					if ('SUCCESS' === status) {
+						$("#message").css("color", "gray");
+						$("#message").show();
+						$("#message").html($("#response").val());
+						$('#small-dialog1').magnificPopup('/acompanhe', 3);
+					} else {
+						$("#message").css("color", "red");
+						$("#message").show();
+						$("#message").html($("#response").val());
+					}
+				});
+	}
+}
