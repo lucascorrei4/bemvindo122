@@ -60,8 +60,10 @@ public class OrderOfService extends Model {
 	}
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
+		if (this.institutionId == 0f) {
+			setInstitutionId(Admin.getLoggedUserInstitution().getInstitution().getId());
+		}
+		return institutionId;
 	}
 
 	public void setInstitutionId(long institutionId) {

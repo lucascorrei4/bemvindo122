@@ -45,7 +45,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a href="#about" class="scroll">COMO FUNCIONA</a></li>
 							<li><a href="#testimonials" class="scroll">TESTEMUNHOS</a></li>
 							<li><a href="#pricing" class="scroll">PREÇOS</a></li>
-							<li><a href="#follow">ACOMPANHAR</a></li>
+							<li><a class="popup-with-zoom-anim" href="#small-dialog" onclick="document.getElementById('formQuickAccount').reset();">CRIE UMA CONTA</a></li>
 							<li><a href="/login" class="active">ENTRAR</a></li>
 						</ul>
 				</div>
@@ -114,11 +114,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="account">	
 		<div class="container">
 			<div class="account-main">
-				<div class="col-md-8 account-left">
+				<div class="col-md-6 account-left">
 					<p>Experimente por 30 dias grátis.</p>
 				</div>
-				<div class="col-md-4 account-right">
-					<a class="play-icon popup-with-zoom-anim" href="#small-dialog" onclick="document.getElementById('formQuickAccount').reset();"><span> </span>CRIE UMA CONTA</a>
+				<div class="col-md-3 account-right">
+					<a class="play-icon" href="#follow"><span> </span>ACOMPANHAR</a>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -426,7 +426,7 @@ $(function () {
 			</div>
 			<div class="contact-bottom">
 				<form action="/" method="get" id="formFollow">
-					<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase; width: 374px; font-size: 30px;" /> 
+					<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase; width: 205px; font-size: 30px;" /> 
 					<div id="message">
 						#{list errors, as:'error'}
 							<p>&{error.message()}</p>

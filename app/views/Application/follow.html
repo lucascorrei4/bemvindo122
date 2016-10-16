@@ -40,17 +40,17 @@
 </head>
 <body>
     <div id="wrapper">
-        <div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7;">
+        <div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Olá, <b>${clientName}</b>. Tudo tranquilo?!</h1>
+                    <h1 class="page-header">Olá, <b>${clientName.trim()}</b>. Tudo tranquilo?</h1>
                     <h5>Veja só! Aqui você pode acompanhar todos os detalhes do seu pedido!</h5>
                     <h4 style="text-align: right">Código <b>${orderOfService.orderCode}</b></h4>
                     <h5 style="text-align: right"><i>Serviço prestado por </i> <b>${company}</b></h5>
                     <h5 style="text-align: right"><i>Data do pedido </i> <b>${orderOfService.postedAt}</b></h5>
                 </div>
             </div>
-            <div class="container" style="width: auto">
+            <div class="container" style="width: auto; padding: 0;">
 				#{list items:mapOrderServiceSteps.keySet(), as:'key'}
 					<div class="row">
 						<div class="col-lg-12">
@@ -66,7 +66,7 @@
 					#{list mapOrderServiceSteps.get(key), as:'orderServiceStep'}
 						<div
 							class="col-xs-3 bs-wizard-step &{orderServiceStep.status.value == 'inprogress' ? 'active' : orderServiceStep.status.value == 'finished' ? 'complete' : orderServiceStep.status.value == 'notstarted' ? 'disabled' : 'complete'}">
-							<div class="text-center bs-wizard-stepnum">Fase ${orderServiceStep_index}</div>
+							<div class="text-center bs-wizard-stepnum" style="font-size: 13px; font-weight: bold">Fase ${orderServiceStep_index}</div>
 							<div class="progress">
 								<div class="progress-bar"></div>
 							</div>
