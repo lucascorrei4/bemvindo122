@@ -15,7 +15,7 @@ import play.mvc.With;
 @Check("admin")
 @CRUD.For(models.Institution.class)
 @With(Secure.class)
-public class InstitutionCRUD extends CRUD {
+public class InstitutionController extends CRUD {
 	public static void create() throws Exception {
         ObjectType type = ObjectType.get(getControllerClass());
         notFoundIfNull(type);

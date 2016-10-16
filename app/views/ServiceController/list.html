@@ -6,45 +6,26 @@
 	</div>
 	<div class="col-lg-6">
 	</div>
+	<div class="col-lg-6">
+		<a href="@{blank()}" class="btn btn-default" style="float: right">&{'crud.add', type.modelName}</a> 
+	</div>
 	<div class="col-lg-12 ${type.name}">
         <div class="panel panel-default">
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['client', 'orderCode', 'postedAt', 'userName', 'mail', 'isPaid', 'isDone', 'action']}
-			        	#{crud.custom 'client'}
-			         		<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.client.mail}</a>
+			        #{crud.table fields:['title', 'description', 'postedAt', 'action']}
+			        	#{crud.custom 'title'}
+			         		<a href="@{ServiceController.show(object.id)}">${object.title}</a>
 				        #{/crud.custom}
-			        	#{crud.custom 'orderCode'}
-			         		<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.orderCode}</a>
+			        	#{crud.custom 'description'}
+			         		<a href="@{ServiceController.show(object.id)}">${object.description}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'postedAt'}
-			         		<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.postedAt}</a>
-				        #{/crud.custom}
-				        #{crud.custom 'userName'}
-			         		<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.userName}</a>
-				        #{/crud.custom}
-				        #{crud.custom 'mail'}
-			         		<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.mail}</a>
-				        #{/crud.custom}
-			        	#{crud.custom 'isPaid'}
-					        #{if object.isPaid}
-						    	<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.isPaid='Sim'}</a>
-						    #{/if}
-						    #{else} 
-						    	<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.isPaid='Não'}</a>
-				            #{/else}
-				        #{/crud.custom}
-			        	#{crud.custom 'isDone'}
-					        #{if object.isDone}
-						    	<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.isDone='Sim'}</a>
-						    #{/if}
-						    #{else} 
-						    	<a href="@{ChalkBoardChildrenController.show(object.id)}">${object.isDone='Não'}</a>
-				            #{/else}
+			         		<a href="@{ServiceController.show(object.id)}">${object.postedAt}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
-				       		<a href="@{ChalkBoardChildrenController.show(object.id)}" class="btn btn-default"><i class="fa fa-edit"></i></a>
+				       		<a href="@{ServiceController.show(object.id)}" class="btn btn-default"><i class="fa fa-edit"></i></a>
 				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">

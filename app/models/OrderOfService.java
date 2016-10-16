@@ -1,33 +1,55 @@
 package models;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OrderBy;
+import javax.persistence.PostLoad;
+import javax.persistence.PostPersist;
 
+import controllers.Admin;
 import controllers.CRUD.Hidden;
 import play.db.jpa.Model;
 import util.Utils;
 
 @Entity
 public class OrderOfService extends Model {
+	@ManyToOne
+	public Client client;
+
+	@ManyToMany
+	@OrderBy("title ASC")
+	public List<Service> services;
+
+	@Hidden
 	public long institutionId;
 
-	public long cientId;
+	public Float qtd = 0f;
 
-	public long serviceId;
+	public Float discount = 0f;
 
-	public String description;
+	public Float unitPrice = 0f;
 
-	public Float discount;
-
-	public Float value;
+	@Hidden
+	public Float totalPrice = 0f;
 
 	public String orderCode;
 
 	@Hidden
 	public String postedAt;
 
-	public boolean isActive;
+	public boolean isActive = true;
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 	public boolean isActive() {
 		return isActive;
@@ -38,35 +60,12 @@ public class OrderOfService extends Model {
 	}
 
 	public long getInstitutionId() {
-		return institutionId;
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
 		this.institutionId = institutionId;
-	}
-
-	public long getCientId() {
-		return cientId;
-	}
-
-	public void setCientId(long cientId) {
-		this.cientId = cientId;
-	}
-
-	public long getServiceId() {
-		return serviceId;
-	}
-
-	public void setServiceId(long serviceId) {
-		this.serviceId = serviceId;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public Float getDiscount() {
@@ -77,15 +76,37 @@ public class OrderOfService extends Model {
 		this.discount = discount;
 	}
 
-	public Float getValue() {
-		return value;
+	public Float getQtd() {
+		return qtd;
 	}
 
-	public void setValue(Float value) {
-		this.value = value;
+	public void setQtd(Float qtd) {
+		this.qtd = qtd;
+	}
+
+	public Float getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(Float unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public Float getTotalPrice() {
+		setTotalPrice((unitPrice * qtd) - discount);
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Float totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	public String getOrderCode() {
+		if (this.orderCode == null) {
+			String initials = Admin.getLoggedInstitution().getInstitution().replaceAll(" ", "").toUpperCase()
+					.substring(0, 2).concat(Admin.getLoggedInstitution().getId().toString());
+			setOrderCode(initials.concat(String.valueOf(Utils.generateRandomId())));
+		}
 		return orderCode;
 	}
 
@@ -103,4 +124,13 @@ public class OrderOfService extends Model {
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
 	}
+
+	public List<Service> getServices() {
+		return services;
+	}
+
+	public void setServices(List<Service> services) {
+		this.services = services;
+	}
+
 }

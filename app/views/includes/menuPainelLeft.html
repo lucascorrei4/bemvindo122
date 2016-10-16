@@ -14,21 +14,23 @@
 			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
 			
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-edit fa-fw"></i> Serviços<span class="fa arrow"></span></a>
-				<ul class="nav nav-second-level">
-					<li><a href="@{ServiceController.list}">Cadastrar Novo Serviço</a></li>
-				</ul>
-			</li>
-
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-edit fa-fw"></i> Clientes<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="@{ClientController.list}">Cadastrar Novo Cliente</a></li>
+					<li><a href="@{ClientController.list}">Novo Cliente</a></li>
 				</ul>
 			</li>
 			
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{Application.generateServiceCode}"><i class="fa fa-edit fa-fw"></i> Gerar Código de Serviço</a>
+				<a href="#"><i class="fa fa-edit fa-fw"></i> Serviços<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ServiceController.list}">Novo Serviço</a></li>
+					<li><a href="@{StepController.list}">Etapas para Conclusão</a></li>
+				</ul>
+			</li>
+
+			
+			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+				<a href="@{OrderOfServiceController.list}"><i class="fa fa-edit fa-fw"></i> Gerar Código de Serviço</a>
 			</li>
 			
 			<li><a href="@{Secure.logout()}"><i class="fa fa-power-off fa-fw"></i> Sair</a></li>

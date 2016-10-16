@@ -86,13 +86,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						   </p>
 						#{/if}
 					</div>
-					<div class="contact-bottom">
+					<div class="contact-bottom" style="width: 50% !important; margin: 0 auto  !important;">
 						<p class="er">#{error 'user.name' /}</p>
 						<input type="text" id="name" placeholder="Nome, ex.: João" name="user.name"  value="${flash['user.name']}">
 						<p class="er">#{error 'user.lastName' /}</p>
 						<input type="text" id="lastName" placeholder="Sobrenome, ex.: Silva Sauro" name="user.lastName"  value="${flash['user.lastName']}">
 						<p class="er">#{error 'user.email' /}</p>
 						<input type="text" id="email" placeholder="E-mail, ex.: nome@provedor.com.br" name="user.email"  value="${flash['user.email']}">
+						<p class="er">#{error 'user.phone1' /}</p>
+						<input type="text" id="phone" name="user.phone1" placeholder="Telefone (99) 9 9999-9999" class="sp_celphones" value="${flash['user.phone1']}"  />
 						<p class="er">#{error 'user.password' /}</p>
 						<input type="password"  id="password" placeholder="Senha" name="user.password"  value="">
 						<p class="er">#{error 'confirmPassword' /}</p>

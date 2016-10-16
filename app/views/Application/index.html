@@ -45,7 +45,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<li><a href="#about" class="scroll">COMO FUNCIONA</a></li>
 							<li><a href="#testimonials" class="scroll">TESTEMUNHOS</a></li>
 							<li><a href="#pricing" class="scroll">PREÇOS</a></li>
-							<li><a href="@{Application.newAccount}">NOVA CONTA</a></li>
+							<li><a href="#follow">ACOMPANHAR</a></li>
 							<li><a href="/login" class="active">ENTRAR</a></li>
 						</ul>
 				</div>
@@ -111,7 +111,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!--End-slider-script-->	
 	<!--end-banner-->
 	<!--start-account-->
-	<div class="account">
+	<div class="account">	
 		<div class="container">
 			<div class="account-main">
 				<div class="col-md-8 account-left">
@@ -417,20 +417,27 @@ $(function () {
 				</script>					
 		<!--End-pop-up-box-->
 	<!--start-contact-->
-	<div class="contact" id="contact">
+	<div class="contact" id="follow">
 		<div class="container">
 			<div class="contact-top">
 				<img src="@{'public/templatepublic/images/spl.png'}" alt="" />
-				<h3>Nova conta</h3>
-				<p>Crie sua conta e experimente por 15 dias gratuitamente.</p>
+				<h3>Acompanhe seu pedido</h3>
+				<p>Insira o código que você recebeu e acompanhe em que pé está.</p>
 			</div>
 			<div class="contact-bottom">
-				<input type="text" value="Your Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Name';}"/>
-				<input type="text" value="Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Email';}"/>
-				<textarea value="Your Message" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Message';}">Your Message</textarea>
-				<div class="contact-but">
-					<input type="submit" value="ENVIAR" />
-				</div>
+				<form action="/" method="get" id="formFollow">
+					<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase; width: 374px; font-size: 30px;" /> 
+					<div id="message">
+						#{list errors, as:'error'}
+							<p>&{error.message()}</p>
+						#{/list}		
+					</div>
+					<div class="contact-but">
+						<input id="followOrderCode" type="button" value="Acompanhar" onclick="return followordercode()" />
+					</div>
+					<input type="hidden" id="response" name="response" value="${response}" /> 
+					<input type="hidden" id="status" name="status" value="${status}" /> 
+				</form>
 			</div>
 		</div>
 	</div>

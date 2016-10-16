@@ -18,16 +18,53 @@ POST	${ctx}/chalk-moip-response									Application.moipResponse
 GET     ${ctx}/novo			                     					Application.newAccount
 POST    ${ctx}/novo			       				 					Application.saveNewAccount
 POST    ${ctx}/primeiros-passos    				 					Application.saveNewInstitution
+POST    ${ctx}/follow	 		   				 					Application.follow
+GET    	${ctx}/follow	 		   				 					Application.follow
+GET     ${ctx}/acompanhe	 		   				 				Application.followAdmin
 
-# Admin
-GET		${ctx}/admin/seu-pedido								ClientController.list
-GET		${ctx}/admin/seu-pedido/new							ClientController.blank
-GET		${ctx}/admin/seu-pedido/{id}						ClientController.show
-GET		${ctx}/admin/seu-pedido/{id}/{field}				ClientController.attachment
-GET		${ctx}/admin/seu-pedido/{id}/edit					ClientController.edit
-POST	${ctx}/admin/seu-pedido								ClientController.create
-POST	${ctx}/admin/seu-pedido/{id}						ClientController.save
-DELETE	${ctx}/admin/seu-pedido/{id}						ClientController.delete
+# Admin Clients
+
+GET		${ctx}/admin/clientes								ClientController.list
+GET		${ctx}/admin/clientes/new							ClientController.blank
+GET		${ctx}/admin/clientes/{id}							ClientController.show
+GET		${ctx}/admin/clientes/{id}/{field}					ClientController.attachment
+GET		${ctx}/admin/clientes/{id}/edit						ClientController.edit
+POST	${ctx}/admin/clientes								ClientController.create
+POST	${ctx}/admin/clientes/{id}							ClientController.save
+DELETE	${ctx}/admin/clientes/{id}							ClientController.delete
+
+# Admin Services
+
+GET		${ctx}/admin/servicos								ServiceController.list
+GET		${ctx}/admin/servicos/new							ServiceController.blank
+GET		${ctx}/admin/servicos/{id}							ServiceController.show
+GET		${ctx}/admin/servicos/{id}/{field}					ServiceController.attachment
+GET		${ctx}/admin/servicos/{id}/edit						ServiceController.edit
+POST	${ctx}/admin/servicos								ServiceController.create
+POST	${ctx}/admin/servicos/{id}							ServiceController.save
+DELETE	${ctx}/admin/servicos/{id}							ServiceController.delete
+
+# Admin Steps
+
+GET		${ctx}/admin/etapas-dos-servicos								StepController.list
+GET		${ctx}/admin/etapas-dos-servicos/new							StepController.blank
+GET		${ctx}/admin/etapas-dos-servicos/{id}							StepController.show
+GET		${ctx}/admin/etapas-dos-servicos/{id}/{field}					StepController.attachment
+GET		${ctx}/admin/etapas-dos-servicos/{id}/edit						StepController.edit
+POST	${ctx}/admin/etapas-dos-servicos								StepController.create
+POST	${ctx}/admin/etapas-dos-servicos/{id}							StepController.save
+DELETE	${ctx}/admin/etapas-dos-servicos/{id}							StepController.delete
+
+# Admin Order of Services
+
+GET		${ctx}/admin/ordens-de-servico								OrderOfServiceController.list
+GET		${ctx}/admin/ordens-de-servico/new							OrderOfServiceController.blank
+GET		${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.show
+GET		${ctx}/admin/ordens-de-servico/{id}/{field}					OrderOfServiceController.attachment
+GET		${ctx}/admin/ordens-de-servico/{id}/edit					OrderOfServiceController.edit
+POST	${ctx}/admin/ordens-de-servico								OrderOfServiceController.create
+POST	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.save
+DELETE	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.delete
 
 # Administration
 GET    	${ctx}/popular                     			PopulateDB.populate

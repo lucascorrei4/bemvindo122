@@ -57,7 +57,6 @@ public class Institution extends Model {
 	public String neighborhood;
 	public String cep;
 
-	@Required
 	public String cnpj;
 	@Required
 	@Email

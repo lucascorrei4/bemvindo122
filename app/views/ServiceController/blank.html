@@ -11,37 +11,6 @@
                	<div class="col-lg-6">
 					#{form action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
-	    					#{crud.custom 'cep'}
-								<div class="form-group">
-									<label for="object_cep"> CEP </label>
-									<input id="object_cep" class="form-control cep" type="text" size="50" name="object.cep" value="${object.cep}">
-								</div>
-							#{/crud.custom}
-	    					#{crud.custom 'phone'}
-								<div class="form-group">
-									<label for="object_phone"> Telefone </label>
-									<input id="object_phone" class="form-control sp_celphones" type="text" size="50" name="object.phone" value="${object.phone}">
-								</div>
-							#{/crud.custom}
-	    					#{crud.custom 'cellphone'}
-								<div class="form-group">
-									<label for="object_cellphone"> Celular </label>
-									<input id="object_cellphone" class="form-control sp_celphones" type="text" size="50" name="object.cellphone" value="${object.cellphone}">
-								</div>
-							#{/crud.custom}
-							#{crud.custom 'countryId'}
-								<input id="object_countryId" type="hidden" name="object.countryId" value="1">
-							#{/crud.custom}
-	    					#{crud.custom 'stateId'}
-								<div class="form-group">
-									#{include 'includes/selectStates.html' /}
-								</div>
-							#{/crud.custom}
-	    					#{crud.custom 'cityId'}
-								<div class="form-group">
-									#{include 'includes/selectCities.html' /}
-								</div>
-							#{/crud.custom}
 							#{crud.custom 'isActive'}
 								<div class="form-group">
 									<label> Habilitar </label> 
@@ -64,7 +33,6 @@
 							<button type="submit" class="btn btn-default" name="_saveAndAddAnother" >&{'crud.saveAndAddAnother', type.modelName}</button>
 						</div>
 					#{/form}
-						#{include 'includes/scriptCep.html' /}
 				</div>
 				<div class="col-lg-6">
 					<a href="@{list()}" class="btn btn-default" style="float: right">&{'crud.cancel', type.modelName}</a>

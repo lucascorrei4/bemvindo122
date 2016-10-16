@@ -3,7 +3,9 @@ package controllers;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,13 +17,15 @@ import com.google.gson.JsonParser;
 
 import models.Institution;
 import models.MoipNotification;
+import models.OrderOfService;
+import models.OrderOfServiceStep;
 import models.Service;
 import models.User;
+import play.data.validation.Error;
 import play.data.validation.Valid;
 import play.mvc.Controller;
 import util.UserInstitutionParameter;
 import util.Utils;
-import play.data.validation.Error;
 
 public class Application extends Controller {
 
@@ -77,11 +81,58 @@ public class Application extends Controller {
 			Service service = (Service) object;
 			// service.setPaymentForm(String.valueOf(moipNotification.getForma_pagamento()));
 			// service.setPaymentType(moipNotification.getTipo_pagamento());
-			service.setPaid(true);
 			service.merge();
 			return HttpServletResponse.SC_OK;
 		}
 		return HttpServletResponse.SC_PAYMENT_REQUIRED;
+	}
+
+	public static void saveNewAccount(@Valid User user, String confirmPassword) {
+		if (user.getName() != null) {
+			if (!validateForm(user, confirmPassword)) {
+				user.password = "";
+				confirmPassword = "";
+				render("@newAccount", user);
+				return;
+			} else {
+				user.setAdmin(true);
+				user.setActive(true);
+				user.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+				user.setInstitutionId(0);
+				user.save();
+				flash.clear();
+				validation.errors().clear();
+				flash.success("Cadastro realizado com sucesso! Você está quase lá, " + user.getName()
+						+ "! Para entrar, preencha os campos abaixo. :)", "");
+				redirect("/login");
+			}
+		}
+		render("@newAccount");
+	}
+
+	private static boolean validateForm(User user, String confirmPassword) {
+		boolean ret = false;
+		validation.required(user.getName()).message("Favor, insira o seu nome.").key("user.name");
+		validation.required(user.getLastName()).message("Favor, insira o seu sobrenome.").key("user.lastName");
+		validation.required(user.getEmail()).message("Favor, insira o seu e-mail.").key("user.email");
+		validation.email(user.getEmail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
+				.key("user.email");
+		validation.isTrue(User.verifyByEmail(user.getEmail()) == null).message("Já existe um usuário com este e-mail.")
+				.key("user.email");
+		validation.required(user.getPassword()).message("Favor, insira uma senha.").key("user.password");
+		validation.required(confirmPassword).message("Favor, digite novamente a senha.").key("confirmPassword");
+		validation.isTrue(validatePassword(user.getPassword(), confirmPassword))
+				.message("As senhas digitadas devem ser iguais.").key("confirmPassword");
+		params.flash();
+		validation.keep();
+		if (!validation.hasErrors())
+			ret = true;
+		else {
+			for (play.data.validation.Error error : validation.errors()) {
+				System.out.println(error.getKey() + " " + error.message());
+			}
+		}
+		return ret;
 	}
 
 	public static void saveQuickAccount(String json) throws UnsupportedEncodingException {
@@ -119,7 +170,7 @@ public class Application extends Controller {
 			render("includes/newquickaccount.html", user, response, status);
 		}
 	}
-	
+
 	private static boolean validateObjectToSave(User user) {
 		validation.clear();
 		validation.valid(user);
@@ -133,7 +184,8 @@ public class Application extends Controller {
 		}
 		return true;
 	}
-	
+
+	@SuppressWarnings("unused")
 	private static boolean validateForm(User user) {
 		boolean ret = false;
 		validation.required(user.getName()).message("Favor, insira o seu nome.").key("user.name");
@@ -144,7 +196,8 @@ public class Application extends Controller {
 		validation.isTrue(User.verifyByEmail(user.getEmail()) == null).message("Já existe um usuário com este e-mail.")
 				.key("user.email");
 		validation.required(user.getPassword()).message("Favor, insira uma senha.").key("user.password");
-		validation.required(user.getRepeatPassword()).message("Favor, digite novamente a senha.").key("confirmPassword");
+		validation.required(user.getRepeatPassword()).message("Favor, digite novamente a senha.")
+				.key("confirmPassword");
 		validation.isTrue(validatePassword(user.getPassword(), user.getRepeatPassword()))
 				.message("As senhas digitadas devem ser iguais.").key("confirmPassword");
 		params.flash();
@@ -213,18 +266,18 @@ public class Application extends Controller {
 		boolean ret = false;
 		validation.required(institution.getInstitution()).message("Favor, insira o nome da Instituição.")
 				.key("institution.institution");
-		validation.required(institution.getSlogan()).message("Favor, insira o slogan.").key("institution.slogan");
 		validation.required(institution.getEmail()).message("Favor, insira o e-mail.").key("institution.email");
 		validation.email(institution.getEmail()).message("Favor, insira o e-mail no formato nome@provedor.com.br.")
 				.key("institution.email");
 		validation.required(institution.getLogo()).message("Favor, insira a logomarca.").key("institution.logo");
 		validation.isTrue(Institution.verifyByEmail(institution.getEmail()) == null)
 				.message("Já existe uma instituição com este e-mail.").key("institution.email");
-		validation.required(institution.getCnpj()).message("Favor, insira o CNPJ.").key("institution.cnpj");
-		validation.isTrue(Utils.validateCPFOrCNPJ(institution.getCnpj())).message("CNPJ inválido.")
-				.key("institution.cnpj");
-		validation.isTrue(Institution.verifyByCnpj(institution.getCnpj()) == null)
-				.message("Já existe uma Instituição com este CNPJ.").key("institution.cnpj");
+		if (!Utils.isNullOrEmpty(institution.getCnpj())) {
+			validation.isTrue(Utils.validateCPFOrCNPJ(institution.getCnpj())).message("CNPJ inválido.")
+					.key("institution.cnpj");
+			validation.isTrue(Institution.verifyByCnpj(institution.getCnpj()) == null)
+					.message("Já existe uma Instituição com este CNPJ.").key("institution.cnpj");
+		}
 		validation.required(institution.getAddress()).message("Favor, digite o endereço.").key("institution.address");
 		validation.required(institution.getNeighborhood()).message("Favor, informe o bairro.")
 				.key("institution.neighborhood");
@@ -240,6 +293,37 @@ public class Application extends Controller {
 			}
 		}
 		return ret;
+	}
+
+	public static void follow(String orderCode) throws UnsupportedEncodingException, InterruptedException {
+		String response = null;
+		String status = null;
+		if (orderCode != null) {
+			OrderOfService orderOfService = OrderOfService.find("orderCode", orderCode).first();
+			/* Validate object before saving */
+			if (orderOfService == null) {
+				List<Error> errors = validation.errors();
+				response = "Código não encontrado! :(";
+				status = "ERROR";
+				render("includes/formFollow.html", response, status, errors);
+			} else {
+				response = "Redirecionando... :)";
+				status = "SUCCESS";
+				String clientName = orderOfService.getClient().getName();
+				Institution institution = Institution.find("id", orderOfService.institutionId).first(); 
+				String company = institution.getInstitution();
+				List<Service> services = orderOfService.getServices();
+				Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
+				for (Service service : services) {
+					List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep
+							.find("service_id = " + service.getId() + " and orderOfService_id = "
+									+ orderOfService.getId() + " and isActive = true")
+							.fetch();
+					mapOrderServiceSteps.put(service, orderOfServiceStep);
+				}
+				render(clientName, company, orderOfService, mapOrderServiceSteps);
+			}
+		}
 	}
 
 }

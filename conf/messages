@@ -100,6 +100,10 @@ MembersGroupCRUD=Grupo de Membros
 VisitorsGroupCRUD=Grupo de Visitantes
 VisitorPrayOrderCRUD=Pedidos de Oração
 ChalkBoardChildrenController=ChalkBoards Infantis
+ClientController=Clientes
+ServiceController=Serviços
+OrderOfServiceController=Ordens de Serviço
+StepController=Etapas para conclusão
 
 #Models
 ContactForm=Mensagens - Form. Contato
@@ -124,6 +128,10 @@ VisitorGroup=Grupo de Visitantes
 VisitorPrayOrder=Pedido de Oração
 visitor=Visitante
 ChalkBoardChildren=ChalkBoard Infantil
+Client=Cliente
+Service=Serviço
+OrderOfService=Ordem de Serviço
+Step=Etapa para conclusão
 
 #Labels
 userName=Usuário
@@ -248,6 +256,18 @@ nickName1=Apelido (1)
 nickName2=Apelido (2)
 nickName3=Apelido (3)
 orderCode=Cód. Pedido
+birthdate=Data de nascimento
+estimatedDuration=Duração estimada (em horas)
+service=Serviço
+client=Cliente
+value=Valor Total
+discount=Desconto
+qtd=Quantidade
+unitPrice=Valor unitário
+totalPrice=Valor total
+orderService=Ordem de Serviço
+services=Serviços
+position=Posição
 
 #Buttons
 btn.send=Enviar

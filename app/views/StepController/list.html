@@ -12,7 +12,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'service', 'title', 'description', 'estimatedDuration', 'isActive', 'action']}
+			        #{crud.table fields:['postedAt', 'service', 'title', 'description', 'estimatedDuration', 'position', 'isActive', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{StepController.show(object.id)}">${object.postedAt}</a>
 				        #{/crud.custom}
@@ -27,6 +27,9 @@
 				        #{/crud.custom}
 				        #{crud.custom 'estimatedDuration'}
 			         		<a href="@{StepController.show(object.id)}">${object.estimatedDuration}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'position'}
+			         		<a href="@{StepController.show(object.id)}">${object.position}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
 					        #{if object.isActive}

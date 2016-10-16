@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Transient;
 
+import controllers.Admin;
 import controllers.CRUD.Hidden;
 import enumeration.GenderEnum;
 import play.data.validation.Email;
@@ -21,43 +22,43 @@ import util.Utils;
 public class User extends Model {
 	@Required
 	public String name;
-	
+
 	@Required
 	public String lastName;
-	
+
 	@Email
 	@Required
 	@Unique
 	public String email;
-	
+
 	public String birthdate;
 
 	public long countryId;
 
 	public long stateId;
-	
+
 	@Enumerated(EnumType.STRING)
 	public GenderEnum gender = GenderEnum.M;
 
 	public long cityId;
 
 	public String address;
-	
+
 	public String complement;
-	
+
 	public String neighborhood;
-	
+
 	public String cep;
-	
+
 	public String cpf;
-	
+
 	@Required
 	@Phone
 	public String phone1;
-	
+
 	@Phone
 	public String phone2;
-	
+
 	@Phone
 	public String phone3;
 
@@ -78,16 +79,17 @@ public class User extends Model {
 
 	public boolean isAdmin;
 
-	public boolean isActive;
+	public boolean isActive = true;
 
 	@Hidden
 	public long institutionId;
-	
+
 	@Hidden
 	public String postedAt;
 
-	public User(){}
-	
+	public User() {
+	}
+
 	public User(String email, String password, String lastName) {
 		this.email = email;
 		this.password = password;

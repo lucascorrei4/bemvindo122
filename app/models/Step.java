@@ -14,6 +14,9 @@ import util.Utils;
 @Entity
 public class Step extends Model {
 
+	@ManyToOne
+	public Service service;
+
 	@Required
 	public String title;
 
@@ -21,12 +24,20 @@ public class Step extends Model {
 
 	public int estimatedDuration;
 
-	@ManyToOne
-	public Service service;
+	public int position= 0;
+
+	public boolean isActive = true;
 	
 	@Hidden
 	public long institutionId;
 
+	@Hidden
+	public String postedAt;
+	
+	public String toString() {
+		return title;
+	}
+	
 	public Service getService() {
 		return service;
 	}
@@ -34,11 +45,6 @@ public class Step extends Model {
 	public void setService(Service service) {
 		this.service = service;
 	}
-
-	public boolean isActive = true;
-
-	@Hidden
-	public String postedAt;
 
 	public String getTitle() {
 		return title;
@@ -84,11 +90,19 @@ public class Step extends Model {
 	}
 	
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution().getId();
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
 		this.institutionId = institutionId;
+	}
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
 	}
 
 }

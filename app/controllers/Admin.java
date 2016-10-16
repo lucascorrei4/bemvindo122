@@ -91,9 +91,10 @@ public class Admin extends Controller {
 		if (userInstitutionParameter == null)
 			userInstitutionParameter = new UserInstitutionParameter();
 		if (userInstitutionParameter.getUser() == null || userInstitutionParameter.getInstitution() == null) {
-			if (getLoggedUser() != null) {
-				userInstitutionParameter.setUser(getLoggedUser());
-				if (getLoggedUser().getInstitutionId() > 0) {
+			User loggedUser = getLoggedUser();
+			if (loggedUser != null) {
+				userInstitutionParameter.setUser(loggedUser);
+				if (loggedUser.getInstitutionId() > 0) {
 					userInstitutionParameter.setInstitution(getLoggedInstitution());
 				}
 			}
