@@ -100,6 +100,9 @@ public class Client extends Model {
 	}
 
 	public String getName() {
+		if (this.name == null) {
+			setName("");
+		}
 		return name;
 	}
 
@@ -108,6 +111,9 @@ public class Client extends Model {
 	}
 
 	public String getLastName() {
+		if (this.lastName == null) {
+			setLastName("");
+		}
 		return lastName;
 	}
 

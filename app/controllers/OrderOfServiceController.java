@@ -1,7 +1,9 @@
 package controllers;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import controllers.CRUD.ObjectType;
 import models.Institution;
@@ -92,6 +94,24 @@ public class OrderOfServiceController extends CRUD {
 				orderServiceStep.save();
 				i++;
 			}
+		}
+	}
+
+	public static void updateOrder() {
+		List<OrderOfService> listOrderOfService = OrderOfService.find("institutionId = "
+				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by id desc").fetch();
+		for (OrderOfService orderOfService : listOrderOfService) {
+			String clientName = orderOfService.getClient().getName();
+			Institution institution = Institution.find("id", orderOfService.institutionId).first();
+			String company = institution.getInstitution();
+			List<Service> services = orderOfService.getServices();
+			Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
+			for (Service service : services) {
+				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId()
+						+ " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
+				mapOrderServiceSteps.put(service, orderOfServiceStep);
+			}
+			render(listOrderOfService, clientName, company, orderOfService, mapOrderServiceSteps);
 		}
 	}
 

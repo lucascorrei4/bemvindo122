@@ -103,7 +103,7 @@ ChalkBoardChildrenController=ChalkBoards Infantis
 ClientController=Clientes
 ServiceController=Serviços
 OrderOfServiceController=Ordens de Serviço
-StepController=Etapas para conclusão
+StepController=Etapas do Serviço
 
 #Models
 ContactForm=Mensagens - Form. Contato
