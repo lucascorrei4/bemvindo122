@@ -1,14 +1,16 @@
 package models;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
-import javax.persistence.PostLoad;
-import javax.persistence.PostPersist;
+import javax.persistence.Transient;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
@@ -42,6 +44,9 @@ public class OrderOfService extends Model {
 	public String postedAt;
 
 	public boolean isActive = true;
+	
+	@Transient
+	Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
 
 	public Client getClient() {
 		return client;
@@ -133,6 +138,14 @@ public class OrderOfService extends Model {
 
 	public void setServices(List<Service> services) {
 		this.services = services;
+	}
+
+	public Map<Service, List<OrderOfServiceStep>> getMapOrderServiceSteps() {
+		return mapOrderServiceSteps;
+	}
+
+	public void setMapOrderServiceSteps(Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps) {
+		this.mapOrderServiceSteps = mapOrderServiceSteps;
 	}
 
 }

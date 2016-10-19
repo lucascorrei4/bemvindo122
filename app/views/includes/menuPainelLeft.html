@@ -21,23 +21,23 @@
 <!-- 			</li> -->
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{ClientController.list}"><i class="fa fa-user-plus fa-fw"></i> 1º Adicionar Novo Cliente</a>
+				<a href="@{ClientController.list}"><i class="fa fa-user-plus fa-fw"></i> 1º. Adicionar Novo Cliente</a>
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{ServiceController.list}"><i class="fa fa-wrench fa-fw"></i> 2º Adicionar Novo Serviço</a>
+				<a href="@{ServiceController.list}"><i class="fa fa-wrench fa-fw"></i> 2º. Adicionar Novo Serviço</a>
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{StepController.list}"><i class="fa fa-edit fa-fw"></i> 3º Adicionar Etapas do Serviço</a>
+				<a href="@{StepController.list}"><i class="fa fa-sort-numeric-asc fa-fw"></i> 3º. Adicionar Etapas do Serviço</a>
 			</li>
 			
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceController.list}"><i class="fa fa-edit fa-fw"></i> 4º Gerar Código de Serviço</a>
+				<a href="@{OrderOfServiceController.list}"><i class="fa fa-qrcode fa-fw"></i> 4º. Gerar Código de Serviço</a>
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceController.updateOrder}"><i class="fa fa-battery-half fa-fw"></i> 5º Atualizar Pedidos</a>
+				<a href="@{OrderOfServiceController.updateOrder}"><i class="fa fa-battery-half fa-fw"></i> 5º. Atualizar Pedidos</a>
 			</li>
 			
 			<li><a href="@{Secure.logout()}"><i class="fa fa-power-off fa-fw"></i> Sair</a></li>

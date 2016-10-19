@@ -4,6 +4,9 @@ import java.text.ParseException;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import com.mysql.jdbc.Util;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
@@ -33,6 +36,9 @@ public class Step extends Model {
 
 	@Hidden
 	public String postedAt;
+	
+	@Transient	
+	public String titleParsed;
 	
 	public String toString() {
 		return title;
@@ -103,6 +109,15 @@ public class Step extends Model {
 
 	public void setPosition(int position) {
 		this.position = position;
+	}
+	
+	public String getTitleParsed() {
+		String titleParsed = title.replace(" ", "-").toLowerCase(); 
+		return Utils.semAcento(titleParsed);
+	}
+
+	public void setTitleParsed(String titleParsed) {
+		this.titleParsed = titleParsed;
 	}
 
 }

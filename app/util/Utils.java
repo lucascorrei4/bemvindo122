@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TimeZone;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -147,7 +149,7 @@ public class Utils extends Controller {
 		return dateFormat.format(cal.getTime());
 	}
 
-	public static void mains(String[] args) {
+	public static void main(String[] args) {
 		int randomNum = 0;
 		randomNum = 1 + (int) (Math.random() * 1000);
 		System.out.println(randomNum);
@@ -169,10 +171,6 @@ public class Utils extends Controller {
 	    return ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(generateRandomId());
-	}
-
 	public static String getJsonFileContent(File jsonFile) {
 		try {
 			String jsonContent = "";
@@ -296,6 +294,14 @@ public class Utils extends Controller {
 		}
 		return false;
 	}
+	
+
+
+    public static String semAcento(String str) {
+        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(nfdNormalizedString).replaceAll("");
+    }
 
 
 }

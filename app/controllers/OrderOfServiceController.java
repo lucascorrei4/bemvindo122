@@ -101,18 +101,16 @@ public class OrderOfServiceController extends CRUD {
 		List<OrderOfService> listOrderOfService = OrderOfService.find("institutionId = "
 				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by id desc").fetch();
 		for (OrderOfService orderOfService : listOrderOfService) {
-			String clientName = orderOfService.getClient().getName();
-			Institution institution = Institution.find("id", orderOfService.institutionId).first();
-			String company = institution.getInstitution();
 			List<Service> services = orderOfService.getServices();
 			Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
 			for (Service service : services) {
 				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId()
 						+ " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
 				mapOrderServiceSteps.put(service, orderOfServiceStep);
+				orderOfService.setMapOrderServiceSteps(mapOrderServiceSteps);
 			}
-			render(listOrderOfService, clientName, company, orderOfService, mapOrderServiceSteps);
 		}
+		render(listOrderOfService);
 	}
 
 }
