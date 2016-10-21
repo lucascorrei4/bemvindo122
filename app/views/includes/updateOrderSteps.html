@@ -1,0 +1,48 @@
+<meta charset="utf-8" />
+		<input type="hidden" id="response" name="response" value="${response}" /> 
+		<input type="hidden" id="status" name="status" value="${status}" />
+		#{list items:listOrderOfService, as:'orderOfService'}
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapse&{orderOfService.orderCode}" aria-expanded="false" class="collapsed"><b>&{orderOfService.orderCode}</b> ✷  ${orderOfService.postedAt} ✷  &{orderOfService.client.toString()} ✷  &{orderOfService.client.phone} ✷  &{orderOfService.client.mail}</a>
+					</h4>
+				</div>
+				<div id="collapse&{orderOfService.orderCode}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+					#{list items:orderOfService.mapOrderServiceSteps.keySet(), as:'key'}
+						<div class="col-lg-12">
+							<h4 style="color: #33AFE5; text-align: center;">
+								<b>&{key.getTitle()}</b>
+							</h4>
+							<h5 style="color: gray; text-align: center;">
+								<b>&{key.getDescription()}</b>
+							</h5>
+						</div>
+						<div class="panel-body">
+							#{list orderOfService.mapOrderServiceSteps.get(key), as:'orderServiceStep'}
+                                         Fase ${orderServiceStep_index} <label>&{orderServiceStep.step.title}</label> 
+                                         <code>
+                                         	O status atual é: <label style="font-style: italic; color: red;">&{orderServiceStep.status.label}</label>
+                                         </code>
+                                         <blockquote id="option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}">
+											<div class="form-group">
+												#{list orderServiceStep.status.values(), as:'status'}
+		                                       		<label class="radio-inline">
+		                                                <input name="option-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" id="radio-${UUID.randomUUID().toString()}-${status_index}" #{if String.valueOf(status.value).equals(String.valueOf(orderServiceStep.status.value))}checked="checked"#{/if} value="&{status.value}" type="radio" onchange="updateRadioValue(this.name, this.value);">&{status.label}
+		                                            </label>
+												#{/list}
+		                                       </div>
+		                                    <div class="form-group">
+		                                    	<label>Observação</label>
+		                                        <input class="form-control" placeholder="Caso haja algum imprevisto nesta fase, deixe o seu cliente informado.">
+		                                        
+		                                    	<div id="message-option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}"></div>
+		                                    </div>
+                                      </blockquote>
+							#{/list}
+						</div>
+					#{/list}
+				</div>
+			</div>
+		#{/list}
+	

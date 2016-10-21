@@ -24,6 +24,7 @@ GET     ${ctx}/acompanhe	 		   				 				Application.followAdmin
 
 # Admin Update Order
 GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceController.updateOrder
+POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceController.updateRadioValue
 
 # Admin Clients
 
