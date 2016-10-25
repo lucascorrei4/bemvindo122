@@ -148,12 +148,43 @@ public class OrderOfServiceController extends CRUD {
 			response = "Etapa do pedido ".concat(orderCode).concat(" atualizada com sucesso!");
 		} else {
 			status = "ERROR";
-			response = "Etapa do pedido ".concat(orderCode).concat(" atualizada com sucesso!");
+			response = "Houve um erro ao atualizar a etapa do pedido ".concat(orderCode).concat("!");
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status);
 	}
-
+	
+	public static void updateObsOrderStep() {
+		String response = null;
+		String status = null;
+		String name = params.get("name", String.class);
+		String obs = params.get("obs", String.class);
+		String[] nameSpplited = name.split("-");
+		String orderCode = nameSpplited[1];
+		String orderServiceStepId = nameSpplited[2];
+		String obsParam = obs;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		/* Find OrderOfServiceStep object to update object with newOrderStatus */
+		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep
+				.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() +" and isActive = true").first();
+		orderOfServiceStep.setObs(obsParam);
+		orderOfServiceStep.save();
+		/* Creating new object to do new search to see if object was saved correctly */
+		orderOfServiceStep = new OrderOfServiceStep();
+		orderOfServiceStep = OrderOfServiceStep
+				.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() +" and isActive = true").first();
+		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getObs()).equals(String.valueOf(obsParam));
+		if (isSavedOrderOfServiceStep) {
+			status = "SUCCESS";
+			response = "Observação do pedido ".concat(orderCode).concat(" inserida com sucesso!");
+		} else {
+			status = "ERROR";
+			response = "Erro ao inserir a observação do pedido ".concat(orderCode).concat(".");
+		}
+		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status);
+	}
+	
 	public static void main(String[] args) {
 		String[] spplited = "option-JV127680-7".split("-");
 		System.out.println("option-JV127680-7".split("-")[2]);

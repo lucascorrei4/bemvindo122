@@ -20,25 +20,27 @@
 						</div>
 						<div class="panel-body">
 							#{list orderOfService.mapOrderServiceSteps.get(key), as:'orderServiceStep'}
-                                         Fase ${orderServiceStep_index} <label>&{orderServiceStep.step.title}</label> 
-                                         <code>
-                                         	O status atual é: <label style="font-style: italic; color: red;">&{orderServiceStep.status.label}</label>
-                                         </code>
-                                         <blockquote id="option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}">
-											<div class="form-group">
-												#{list orderServiceStep.status.values(), as:'status'}
-		                                       		<label class="radio-inline">
-		                                                <input name="option-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" id="radio-${UUID.randomUUID().toString()}-${status_index}" #{if String.valueOf(status.value).equals(String.valueOf(orderServiceStep.status.value))}checked="checked"#{/if} value="&{status.value}" type="radio" onchange="updateRadioValue(this.name, this.value);">&{status.label}
-		                                            </label>
-												#{/list}
-		                                       </div>
-		                                    <div class="form-group">
-		                                    	<label>Observação</label>
-		                                        <input class="form-control" placeholder="Caso haja algum imprevisto nesta fase, deixe o seu cliente informado.">
-		                                        
-		                                    	<div id="message-option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}"></div>
-		                                    </div>
-                                      </blockquote>
+                            	Fase ${orderServiceStep_index} <label>&{orderServiceStep.step.title}</label> 
+                                <code>
+                                	O status atual é: <label style="font-style: italic; color: red;">&{orderServiceStep.status.label}</label>
+                                </code>
+                                <blockquote id="option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}">
+									<div class="form-group">
+										#{list orderServiceStep.status.values(), as:'status'}
+	                                    	<label class="radio-inline">
+	                                        	<input name="option-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" id="radio-${UUID.randomUUID().toString()}-${status_index}" #{if String.valueOf(status.value).equals(String.valueOf(orderServiceStep.status.value))}checked="checked"#{/if} value="&{status.value}" type="radio" onchange="updateRadioValue(this.name, this.value);">&{status.label}
+	                                        </label>
+										#{/list}
+	                                </div>
+	                                <div class="form-group">
+	                                	<label>Observação</label>
+	                                    <input class="form-control" id="obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" placeholder="Caso haja algum imprevisto nesta fase, deixe o seu cliente informado." value="&{orderServiceStep.obs}">
+	                                </div>
+	                                <div class="form-group">
+	                                    <input id="btnSaveObs" class="btn btn-default" type="button" value="Salvar observação" onclick="updateObsOrderStep(document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value);" />
+	                                </div>
+                                	<div id="message-option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}"></div>
+                                </blockquote>
 							#{/list}
 						</div>
 					#{/list}

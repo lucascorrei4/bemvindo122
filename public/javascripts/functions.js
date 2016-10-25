@@ -67,10 +67,32 @@ function followordercode() {
 }
 
 function updateRadioValue(name, value) {
-	console.log(name)
 	var data = jQuery.param({ name: name, value : value});
 	$('#accordion').load(
 			'/orderofservicecontroller/updateradiovalue',
+			data,
+			function(response, status) {
+				var status = $("#status").val();
+				if ('SUCCESS' === status) {
+					$("#message-" + name).css("color", "gray");
+					$("#message-" + name).show();
+					$("#message-" + name).html($("#response").val());
+					$("#message-" + name).fadeIn();
+					var spplittedName = name.split('-');
+					$("#collapse" + spplittedName[1]).collapse('show');
+				} else {
+					$("#message-" + name).css("color", "red");
+					$("#message-" + name).show();
+					$("#message-" + name).html($("#response").val());
+					setTimeout('$("#message").hide()', 10000);
+				}
+			});
+}
+
+function updateObsOrderStep(name, obs) {
+	var data = jQuery.param({ name: name, obs : obs});
+	$('#accordion').load(
+			'/orderofservicecontroller/updateobsorderstep',
 			data,
 			function(response, status) {
 				var status = $("#status").val();
