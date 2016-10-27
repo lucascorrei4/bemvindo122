@@ -18,9 +18,7 @@ function saveQuickAccount() {
 				formDataJSON[this.name] = this.value || '';
 			}
 		});
-		$('#formQuickAccount').load(
-				'/savequickaccount',
-				formDataJSON,
+		$('#formQuickAccount').load('/savequickaccount', formDataJSON,
 				function(response, status) {
 					var status = $("#status").val();
 					if ('SUCCESS' === status) {
@@ -47,30 +45,28 @@ function followordercode() {
 		return;
 	} else {
 		var formData = $('#formFollow').serializeArray();
-		$('#formFollow').load(
-				'/follow',
-				formData,
-				function(response, status) {
-					var status = $("#status").val();
-					if ('SUCCESS' === status) {
-						$("#message").css("color", "gray");
-						$("#message").show();
-						$("#message").html($("#response").val());
-						$('#small-dialog1').magnificPopup('/acompanhe', 3);
-					} else {
-						$("#message").css("color", "red");
-						$("#message").show();
-						$("#message").html($("#response").val());
-					}
-				});
+		$('#formFollow').load('/follow', formData, function(response, status) {
+			var status = $("#status").val();
+			if ('SUCCESS' === status) {
+				$("#message").css("color", "gray");
+				$("#message").show();
+				$("#message").html($("#response").val());
+				$('#small-dialog1').magnificPopup('/acompanhe', 3);
+			} else {
+				$("#message").css("color", "red");
+				$("#message").show();
+				$("#message").html($("#response").val());
+			}
+		});
 	}
 }
 
 function updateRadioValue(name, value) {
-	var data = jQuery.param({ name: name, value : value});
-	$('#accordion').load(
-			'/orderofservicecontroller/updateradiovalue',
-			data,
+	var data = jQuery.param({
+		name : name,
+		value : value
+	});
+	$('#accordion').load('/orderofservicecontroller/updateradiovalue', data,
 			function(response, status) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -90,10 +86,11 @@ function updateRadioValue(name, value) {
 }
 
 function updateObsOrderStep(name, obs) {
-	var data = jQuery.param({ name: name, obs : obs});
-	$('#accordion').load(
-			'/orderofservicecontroller/updateobsorderstep',
-			data,
+	var data = jQuery.param({
+		name : name,
+		obs : obs
+	});
+	$('#accordion').load('/orderofservicecontroller/updateobsorderstep', data,
 			function(response, status) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -110,4 +107,8 @@ function updateObsOrderStep(name, obs) {
 					setTimeout('$("#message").hide()', 10000);
 				}
 			});
+}
+
+function closeModal() {
+	$('#orderServiceModal').modal('hide');
 }
