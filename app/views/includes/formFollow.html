@@ -1,16 +1,11 @@
-<meta charset="utf-8" />
-<div class="login">
-	<form action="/" method="get" id="formFollow">
-		<h3>Insira o código do seu pedido</h3>
-		<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase" /> 
-		<div id="message">
-			#{list errors, as:'error'}
-				<p>&{error.message()}</p>
-			#{/list}		
-		</div>
-		<input id="followOrderCode" type="button" value="Acompanhar" onclick="return followordercode()" />
-
-		<input type="hidden" id="response" name="response" value="${response}" /> 
-		<input type="hidden" id="status" name="status" value="${status}" /> 
-	</form>
+<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase; width: 205px; font-size: 30px;" /> 
+<div id="message2">
+	#{list errors, as:'error'}
+		<p>&{error.message()}</p>
+	#{/list}		
 </div>
+<div class="contact-but">
+	<input id="followOrderCode" type="button" value="Acompanhar" onclick="return followordercode()" />
+</div>
+<input type="hidden" id="response2" name="response" value="${response}" /> 
+<input type="hidden" id="status2" name="status" value="${status}" /> 

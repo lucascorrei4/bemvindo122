@@ -149,7 +149,7 @@ public class Utils extends Controller {
 		return dateFormat.format(cal.getTime());
 	}
 
-	public static void main(String[] args) {
+	public static void mains(String[] args) {
 		int randomNum = 0;
 		randomNum = 1 + (int) (Math.random() * 1000);
 		System.out.println(randomNum);
@@ -165,12 +165,12 @@ public class Utils extends Controller {
 	public static String randomKey() {
 		return UUID.randomUUID().toString();
 	}
-	
+
 	public static int generateRandomId() {
-	    Random r = new Random( System.currentTimeMillis() );
-	    return ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
+		Random r = new Random(System.currentTimeMillis());
+		return ((1 + r.nextInt(2)) * 10000 + r.nextInt(10000));
 	}
-	
+
 	public static String getJsonFileContent(File jsonFile) {
 		try {
 			String jsonContent = "";
@@ -205,7 +205,7 @@ public class Utils extends Controller {
 		JsonArray jsonArray = (JsonArray) obj.get(arrayName);
 		return jsonArray;
 	}
-	
+
 	private static String[] parseMapBody(String[] fields) {
 		JsonParser parser = new JsonParser();
 		JsonObject object = (JsonObject) parser.parse(fields[0]);
@@ -264,7 +264,7 @@ public class Utils extends Controller {
 		}
 		return retorno;
 	}
-	
+
 	public static void saveChalkBoardChildren(String json) {
 		String[] fields = request.params.data.get("body");
 		String[] parsedBody = parseMapBody(fields);
@@ -276,7 +276,7 @@ public class Utils extends Controller {
 			render();
 		}
 	}
-	
+
 	public static boolean validateCPFOrCNPJ(String text) {
 		if (Utils.isNullOrEmpty(text)) {
 			return false;
@@ -294,14 +294,22 @@ public class Utils extends Controller {
 		}
 		return false;
 	}
+
+	public static String semAcento(String str) {
+		String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
+		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+		return pattern.matcher(nfdNormalizedString).replaceAll("");
+	}
+
+	public static String getCurrencyValue(Float value) {
+		DecimalFormat format = new DecimalFormat("##,###,###,##0.00");
+		format.setMinimumFractionDigits(2);
+		format.setParseBigDecimal(true);
+		return format.format(value);
+	}
 	
-
-
-    public static String semAcento(String str) {
-        String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD); 
-        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        return pattern.matcher(nfdNormalizedString).replaceAll("");
-    }
-
+	public static void main(String[] args) {
+		System.out.println(getCurrencyValue(42f));
+	}
 
 }

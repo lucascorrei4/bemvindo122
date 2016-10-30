@@ -39,8 +39,8 @@ function saveQuickAccount() {
 
 function followordercode() {
 	if ($('#orderCode').val() == '') {
-		$("#message").show();
-		$("#message").html('Favor, insira o código do seu pedido!');
+		$("#message2").show();
+		$("#message2").html('Favor, insira o código do seu pedido!');
 		setTimeout('$("#message").hide()', 5000);
 		return;
 	} else {
@@ -48,14 +48,13 @@ function followordercode() {
 		$('#formFollow').load('/follow', formData, function(response, status) {
 			var status = $("#status").val();
 			if ('SUCCESS' === status) {
-				$("#message").css("color", "gray");
-				$("#message").show();
-				$("#message").html($("#response").val());
-				$('#small-dialog1').magnificPopup('/acompanhe', 3);
+				$("#message2").css("color", "gray");
+				$("#message2").show();
+				$("#message2").html($("#response2").val());
 			} else {
-				$("#message").css("color", "red");
-				$("#message").show();
-				$("#message").html($("#response").val());
+				$("#message2").css("color", "red");
+				$("#message2").show();
+				$("#message2").html($("#response2").val());
 			}
 		});
 	}

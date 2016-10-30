@@ -3,7 +3,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Ordem de Serviço</title>
-<link rel="stylesheet" href="@{'public/templateinvoice/vendor.css'}">
 <link rel="stylesheet" href="@{'public/templateinvoice/invoice.css'}">
 <script type="text/javascript" src="@{'public/templateinvoice/qrcode.js'}"></script>
 <script type="text/javascript">
@@ -15,19 +14,24 @@
 </script>
 </head>
 <body class="ember-application">
-	<div id="ember363" class="ember-view" style="font-size: 9px;">
+	<div id="ember363" class="ember-view" style="font-size: 10px;">
 		<div id="app" style="padding: 0;">
-			<div id="invoice" style="width: 595.28px; height: 841.89px; pointer-events: none;">
+			<div id="invoice" style="width: 595.28px; height: 841.89px; pointer-events: none; padding: 0;">
 				<div class="alert alert-warning hidden-in-pdf" role="alert" style="display: none"></div>
 				<div class="row">
 					<div class="col-md-6">
 						<input id="ember436" class="invoice-from no-markers ember-view ember-text-field" type="text" value="De">
-
-						<textarea id="ember447" rows="5" cols="66" class="invoice-from-body no-markers ember-view ember-text-area flexible-textarea">
-						${institution?.institution} 
-						${institution?.email}
-						${institution?.phone1} 
-						</textarea>
+						<blockquote style="border: none; font-size: 10px; margin: 0 0 0 4px; padding-bottom: 5px; padding-right: 5px; padding-top: 5px;">
+							<p>
+							${order?.client.name} ${order?.client.lastName} 
+							</p> 
+							<p>
+							${order?.client.mail} 
+							</p> 
+							<p>
+							${order?.client.phone}
+							</p> 
+						</blockquote>
 					</div>
 					<div class="col-md-6">
 						<input id="ember448" class="invoice-title no-markers ember-view ember-text-field" type="text" value="PEDIDO ${order?.orderCode}" style="font-weight: bold; font-size: 30px;">
@@ -36,11 +40,17 @@
 				<div class="row row-m1em">
 					<div class="col-md-6">
 						<input id="ember449" class="invoice-to no-markers ember-view ember-text-field" type="text" value="Para">
-
-						<textarea id="ember450" rows="4" class="invoice-to-body no-markers ember-view ember-text-area flexible-textarea">
-						${order?.client.name} ${order?.client.lastName} 
-						${order?.client.mail} 
-						${order?.client.phone}</textarea>
+						<blockquote style="border: none; font-size: 10px; margin: 0 0 0 4px; padding-bottom: 5px; padding-right: 5px; padding-top: 5px;">
+							<p>
+							${institution?.institution}
+							</p> 
+							<p>
+							${institution?.email}
+							</p>
+							<p>
+							${institution?.phone1}
+							</p> 
+						</blockquote>
 					</div>
 					<div class="col-md-6">
 						<div class="row">
@@ -77,41 +87,33 @@
 									<th width="55%"><input id="ember457" class="no-markers ember-view ember-text-field" type="text" value="Descrição" style="font-size: 11px;"></th>
 									<th><input id="ember458" class="invoice-table-quantity no-markers ember-view ember-text-field" type="text" value="Vl. Unit." style="font-size: 11px;"></th>
 									<th><input id="ember459" class="invoice-table-rate no-markers ember-view ember-text-field" type="text" value="Qtd" style="font-size: 11px;"></th>
-									<th><input id="ember460" class="invoice-table-vat no-markers ember-view ember-text-field" type="text" value="Desc." style="font-size: 11px;"></th>
 									<th><input id="ember461" class="invoice-table-amount no-markers ember-view ember-text-field" type="text" value="Total" style="font-size: 11px;"></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>
-										<!----> <textarea id="ember463" placeholder="Item name/description" rows="1"
-											class="invoice-line-item-description no-markers ember-view ember-text-area flexible-textarea" style="font-size: 9px;">${order?.services}</textarea>
+										<!----> <p id="ember463" placeholder="Item name/description" rows="1"
+											class="invoice-line-item-description no-markers ember-view ember-text-area flexible-textarea" style="font-size: 10px;">${order?.services}</p>
 									</td>
 									<td>
 										<div id="ember472" class="invoice-line-item-rate no-markers ember-view">
 											<div class="input-group">
-												<input id="ember473" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="R$ ${order?.unitPrice}" style="font-size: 9px;">
+												<input id="ember473" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${order?.unitPriceCurrency}" style="font-size: 10px;">
 											</div>
 										</div>
 									</td>
 									<td>
 										<div id="ember474" class="invoice-line-item-rate no-markers ember-view">
 											<div class="input-group">
-												<input id="ember475" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${order?.qtd}" style="font-size: 9px;">
-											</div>
-										</div>
-									</td>
-									<td>
-										<div id="ember476" class="invoice-line-item-vat no-markers ember-view">
-											<div class="input-group">
-												<input id="ember477" class="invoice-line-item-vat no-markers ember-view ember-text-field" type="text" value="R$ ${order?.discount}" style="font-size: 9px;">
+												<input id="ember475" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${order?.qtd}" style="font-size: 10px;">
 											</div>
 										</div>
 									</td>
 									<td>
 										<div id="ember478" class="invoice-line-item-amount no-markers ember-view">
 											<div class="input-group">
-												<input id="ember479" disabled="" class="invoice-line-item-amount no-markers ember-view ember-text-field" type="text" value="R$ ${order?.totalPrice}" style="font-size: 9px;">
+												<input id="ember479" disabled="" class="invoice-line-item-amount no-markers ember-view ember-text-field" type="text" value="${order?.subTotalCurrency}" style="font-size: 10px;">
 											</div>
 										</div>
 									</td>
@@ -134,7 +136,7 @@
 							<div class="col-md-6 no-padding">
 								<div id="ember482" class="invoice-sub-total-body no-markers ember-view">
 									<div class="input-group">
-										<input id="ember483" disabled="" class="invoice-sub-total-body no-markers ember-view ember-text-field" type="text" value="R$ 10,00">
+										<input id="ember483" disabled="" class="invoice-sub-total-body no-markers ember-view ember-text-field" type="text" value="R$ ${order?.subTotalCurrency}">
 									</div>
 								</div>
 							</div>
@@ -146,19 +148,7 @@
 							<div class="col-md-6 no-padding">
 								<div id="ember493" class="invoice-discount-body no-markers ember-view">
 									<div class="input-group">
-										<input id="ember494" class="invoice-discount-body no-markers ember-view ember-text-field" type="text" value="R$ 13,00">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 no-padding">
-								<input id="ember495" class="invoice-shipping no-markers ember-view ember-text-field" type="text" value="Taxa adicional">
-							</div>
-							<div class="col-md-6 no-padding">
-								<div id="ember496" class="invoice-shipping-body no-markers ember-view">
-									<div class="input-group">
-										<input id="ember497" class="invoice-shipping-body no-markers ember-view ember-text-field" type="text" value="R$ 33,00">
+										<input id="ember494" class="invoice-discount-body no-markers ember-view ember-text-field" type="text" value="R$ ${order?.discountCurrency}">
 									</div>
 								</div>
 							</div>
@@ -170,7 +160,7 @@
 							<div class="col-md-6 no-padding">
 								<div id="ember499" class="invoice-tax-body no-markers ember-view">
 									<div class="input-group">
-										<input id="ember500" class="invoice-tax-body no-markers ember-view ember-text-field" type="text" value="R$ 300,00">
+										<input id="ember500" class="invoice-tax-body no-markers ember-view ember-text-field" type="text" value="R$ ${order?.totalPriceCurrency}">
 									</div>
 								</div>
 							</div>

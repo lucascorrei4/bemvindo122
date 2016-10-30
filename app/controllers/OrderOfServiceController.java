@@ -5,16 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ivy.Main;
-
-import controllers.CRUD.ObjectType;
 import models.Institution;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.Service;
 import models.Step;
 import play.data.binding.Binder;
-import play.data.binding.ParamNode;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import util.StatusEnum;
@@ -133,16 +129,22 @@ public class OrderOfServiceController extends CRUD {
 		String orderCode = nameSpplited[1];
 		String orderServiceStepId = nameSpplited[2];
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
-		/* Find OrderOfServiceStep object to update object with newOrderStatus */
-		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep
-				.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() +" and isActive = true").first();
+		/*
+		 * Find OrderOfServiceStep object to update object with newOrderStatus
+		 */
+		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
+				+ " and institutionId = " + institution.getId() + " and isActive = true").first();
 		orderOfServiceStep.setStatus(StatusEnum.getNameByValue(newOrderStatus));
 		orderOfServiceStep.save();
-		/* Creating new object to do new search to see if object was saved correctly */
+		/*
+		 * Creating new object to do new search to see if object was saved
+		 * correctly
+		 */
 		orderOfServiceStep = new OrderOfServiceStep();
-		orderOfServiceStep = OrderOfServiceStep
-				.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() +" and isActive = true").first();
-		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getStatus().getValue()).equals(String.valueOf(newOrderStatus));
+		orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
+				+ " and institutionId = " + institution.getId() + " and isActive = true").first();
+		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getStatus().getValue())
+				.equals(String.valueOf(newOrderStatus));
 		if (isSavedOrderOfServiceStep) {
 			status = "SUCCESS";
 			response = "Etapa do pedido ".concat(orderCode).concat(" atualizada com sucesso!");
@@ -153,7 +155,7 @@ public class OrderOfServiceController extends CRUD {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status);
 	}
-	
+
 	public static void updateObsOrderStep() {
 		String response = null;
 		String status = null;
@@ -164,16 +166,22 @@ public class OrderOfServiceController extends CRUD {
 		String orderServiceStepId = nameSpplited[2];
 		String obsParam = obs;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
-		/* Find OrderOfServiceStep object to update object with newOrderStatus */
-		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep
-				.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() +" and isActive = true").first();
+		/*
+		 * Find OrderOfServiceStep object to update object with newOrderStatus
+		 */
+		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
+				+ " and institutionId = " + institution.getId() + " and isActive = true").first();
 		orderOfServiceStep.setObs(obsParam);
 		orderOfServiceStep.save();
-		/* Creating new object to do new search to see if object was saved correctly */
+		/*
+		 * Creating new object to do new search to see if object was saved
+		 * correctly
+		 */
 		orderOfServiceStep = new OrderOfServiceStep();
-		orderOfServiceStep = OrderOfServiceStep
-				.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() +" and isActive = true").first();
-		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getObs()).equals(String.valueOf(obsParam));
+		orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
+				+ " and institutionId = " + institution.getId() + " and isActive = true").first();
+		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getObs())
+				.equals(String.valueOf(obsParam));
 		if (isSavedOrderOfServiceStep) {
 			status = "SUCCESS";
 			response = "Observação do pedido ".concat(orderCode).concat(" inserida com sucesso!");
@@ -184,7 +192,7 @@ public class OrderOfServiceController extends CRUD {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status);
 	}
-	
+
 	public static void main(String[] args) {
 		String[] spplited = "option-JV127680-7".split("-");
 		System.out.println("option-JV127680-7".split("-")[2]);

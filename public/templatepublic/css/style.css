@@ -746,9 +746,9 @@ ul.callbacks_tabs.callbacks2_tabs {
 
 .spl-one p {
 	color: #00ccff;
-	font-size: 3.5em;
-	font-weight: 300;
-	margin-top: 2%;
+    font-size: 45px;
+    font-weight: normal;
+    margin-top: 2%;
 }
 
 .col-md-3.spl-left {

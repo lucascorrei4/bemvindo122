@@ -36,6 +36,9 @@ public class OrderOfService extends Model {
 	public Float unitPrice = 0f;
 
 	@Hidden
+	public Float subTotal = 0f;
+
+	@Hidden
 	public Float totalPrice = 0f;
 
 	public String orderCode;
@@ -43,6 +46,8 @@ public class OrderOfService extends Model {
 	@Hidden
 	public String postedAt;
 
+	@Hidden
+	
 	public boolean isActive = true;
 	
 	@Transient
@@ -79,6 +84,10 @@ public class OrderOfService extends Model {
 		return discount;
 	}
 
+	public String getDiscountCurrency() {
+		return Utils.getCurrencyValue(discount);
+	}
+
 	public void setDiscount(Float discount) {
 		this.discount = discount;
 	}
@@ -95,6 +104,10 @@ public class OrderOfService extends Model {
 		return unitPrice;
 	}
 
+	public String getUnitPriceCurrency() {
+		return Utils.getCurrencyValue(unitPrice);
+	}
+
 	public void setUnitPrice(Float unitPrice) {
 		this.unitPrice = unitPrice;
 	}
@@ -102,6 +115,10 @@ public class OrderOfService extends Model {
 	public Float getTotalPrice() {
 		setTotalPrice((unitPrice * qtd) - discount);
 		return totalPrice;
+	}
+
+	public String getTotalPriceCurrency() {
+		return Utils.getCurrencyValue(totalPrice);
 	}
 
 	public void setTotalPrice(Float totalPrice) {
@@ -146,6 +163,19 @@ public class OrderOfService extends Model {
 
 	public void setMapOrderServiceSteps(Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps) {
 		this.mapOrderServiceSteps = mapOrderServiceSteps;
+	}
+
+	public Float getSubTotal() {
+		setSubTotal((unitPrice * qtd));
+		return subTotal;
+	}
+
+	public String getSubTotalCurrency() {
+		return Utils.getCurrencyValue(subTotal);
+	}
+
+	public void setSubTotal(Float subTotal) {
+		this.subTotal = subTotal;
 	}
 
 }
