@@ -1,7 +1,7 @@
 package util;
 
 public enum StatusEnum {
-	NotStarted("Não iniciado", "notstarted"), InProgress("Em progresso", "inprogress"), Finished("Finalizado", "finished"), Frozen("Congelado", "frozen");
+	NotStarted("Não iniciada", "notstarted"), InProgress("Em progresso", "inprogress"), Finished("Finalizada", "finished"), Frozen("Congelada", "frozen");
 
 	String label;
 	String value;

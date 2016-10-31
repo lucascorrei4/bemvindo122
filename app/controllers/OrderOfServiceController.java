@@ -9,6 +9,7 @@ import models.Institution;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.Service;
+import models.StatusSMS;
 import models.Step;
 import play.data.binding.Binder;
 import play.db.Model;
@@ -100,7 +101,8 @@ public class OrderOfServiceController extends CRUD {
 
 	public static void updateOrder() {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		render(listOrderOfService);
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		render(listOrderOfService, institution);
 	}
 
 	private static List<OrderOfService> loadListOrderOfService() {
@@ -153,7 +155,7 @@ public class OrderOfServiceController extends CRUD {
 			response = "Houve um erro ao atualizar a etapa do pedido ".concat(orderCode).concat("!");
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status);
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
 	}
 
 	public static void updateObsOrderStep() {
@@ -196,5 +198,19 @@ public class OrderOfServiceController extends CRUD {
 	public static void main(String[] args) {
 		String[] spplited = "option-JV127680-7".split("-");
 		System.out.println("option-JV127680-7".split("-")[2]);
+	}
+	
+	public static void sendSMS() {
+		String response = null;
+		String status = null;
+		String message = params.get("name", String.class);
+		String destination = params.get("obs", String.class);
+		String[] nameSpplited = message.split("-");
+		String orderCode = nameSpplited[1];
+		String orderServiceStepId = nameSpplited[2];
+		String sender = null;
+		StatusSMS statusSMS = new StatusSMS();
+		SMSController smsController = new SMSController();
+		smsController.sendSMS(destination, sender, message, statusSMS);
 	}
 }

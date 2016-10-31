@@ -311,5 +311,5 @@ public class Utils extends Controller {
 	public static void main(String[] args) {
 		System.out.println(getCurrencyValue(42f));
 	}
-
-}
+	
+	}
