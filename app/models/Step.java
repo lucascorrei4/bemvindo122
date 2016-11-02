@@ -113,7 +113,7 @@ public class Step extends Model {
 	
 	public String getTitleParsed() {
 		String titleParsed = title.replace(" ", "-").toLowerCase(); 
-		return Utils.semAcento(titleParsed);
+		return Utils.removeAccent(titleParsed);
 	}
 
 	public void setTitleParsed(String titleParsed) {

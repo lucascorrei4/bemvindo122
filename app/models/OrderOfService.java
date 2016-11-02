@@ -47,7 +47,6 @@ public class OrderOfService extends Model {
 	public String postedAt;
 
 	@Hidden
-	
 	public boolean isActive = true;
 	
 	@Transient

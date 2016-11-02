@@ -1,17 +1,15 @@
 package util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
+import play.Play;
+
 public class ApplicationConfiguration {
 	private static final Logger logger = Logger.getLogger(ApplicationConfiguration.class);
-	private static String confPath;
 	private static Properties properties;
 	private static ApplicationConfiguration instance;
 
@@ -25,20 +23,7 @@ public class ApplicationConfiguration {
 	}
 
 	private static Properties getProperties() {
-		logger.debug("####### ");
-		logger.info("Loading Bemvi App Properties.");
-		logger.debug("####### ");
-		if (properties == null) {
-			try {
-				properties = new Properties();
-				confPath = "C:\\Users\\Lucas\\Google Drive\\Lucas\\dev";
-				File propertyFile = new File(confPath + "\\bemvindo.properties");
-				FileInputStream inputStream = new FileInputStream(propertyFile);
-				properties.load(inputStream);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
+		properties = Play.configuration;
 		return properties;
 	}
 
@@ -133,7 +118,7 @@ public class ApplicationConfiguration {
 	public String getMailPassword() {
 		return getProperty("app.mail.password");
 	}
-	
+
 	public String getSMSUserId() {
 		return getProperty("app.sms.userId");
 	}
@@ -141,7 +126,7 @@ public class ApplicationConfiguration {
 	public String getSMSPwd() {
 		return getProperty("app.sms.pwd");
 	}
-	
+
 	public String getSMSApiKey() {
 		return getProperty("app.sms.apiKey");
 	}

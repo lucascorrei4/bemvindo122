@@ -69,7 +69,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-group fa-5x"></i>
+                                    <i class="fa fa-handshake-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
 	                                #{if contClients == 0}
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/painel/clientes">
+                        <a href="/admin/clientes">
                             <div class="panel-footer">
                                 <span class="pull-left">Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -103,7 +103,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-group fa-5x"></i>
+                                    <i class="fa fa-file-text-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     #{if contOrderOfServices == 0}
@@ -123,41 +123,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/painel/ordens-de-servico">
-                            <div class="panel-footer">
-                                <span class="pull-left">Detalhes</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-group fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    #{if contClients == 0}
-										<div class="huge">0</div>
-	                                    <div>Clientes</div>
-									#{/if}
-									#{if contClients > 0}
-										#{if contClients == 1}
-											<div class="huge">1</div>
-		                                    <div>Cliente</div>
-										#{/if}
-										#{else}
-											<div class="huge">&{contClients}</div>
-		                                    <div>Clientes</div>
-										#{/else}
-									#{/if}
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/painel/clientes">
+                        <a href="/admin/ordens-de-servico">
                             <div class="panel-footer">
                                 <span class="pull-left">Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -171,7 +137,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-edit fa-5x"></i>
+                                    <i class="fa fa-cogs fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                    #{if contServices == 0}
@@ -191,7 +157,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/painel/servicos">
+                        <a href="/admin/servicos">
                             <div class="panel-footer">
                                 <span class="pull-left">Detalhes</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -200,6 +166,41 @@
                         </a>
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-paper-plane-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    #{if contSentSMSs == 0}
+										<div class="huge">0</div>
+	                                    <div>Nenhuma SMS enviada</div>
+									#{/if}
+									#{if contSentSMSs > 0}
+										#{if contClients == 1}
+											<div class="huge">1</div>
+		                                    <div>SMS enviada</div>
+										#{/if}
+										#{else}
+											<div class="huge">&{contSentSMSs}</div>
+		                                    <div>SMSs enviadas</div>
+										#{/else}
+									#{/if}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/admin/smss-enviadas">
+                            <div class="panel-footer">
+                                <span class="pull-left">Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
             </div>
             <!-- /.row -->
             <div class="row">
@@ -221,7 +222,7 @@
                                     <tbody>
 	                                    #{list listClients, as:'client'}
 											<tr>
-												<td><a href="/painel/clientes">&{client.getName()} </a></td>
+												<td><a href="/admin/clientes">&{client.getName()} </a></td>
 											</tr>
 										#{/list}
                                     </tbody>
@@ -279,7 +280,7 @@
                                     <tbody>
                                        #{list listServices, as:'service'}
 											<tr>
-												<td><a href="/painel/servicos">${service.getTitle()}</a></td>
+												<td><a href="/admin/servicos">${service.getTitle()}</a></td>
 											</tr>
 										#{/list}
                                     </tbody>

@@ -1,61 +1,52 @@
 package models;
 
-import javax.persistence.Entity;
+import java.text.ParseException;
+import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+
+import org.joda.time.DateTime;
+
+import controllers.Admin;
 import controllers.CRUD.Hidden;
 import play.db.jpa.Model;
+import util.Utils;
 
 @Entity
 public class StatusSMS extends Model {
-	@Hidden
-	public long institutionId;
 
-	public boolean sent;
-	public boolean read;
-
+	@Lob
 	public String message;
+
 	public String destination;
+
 	public String sendDate;
 
-	public int msgId = 0;
+	public String clientName;
+
+	public long msgId = 0;
+
+	public boolean smsSent;
+	public boolean smsRead;
+
+	@Hidden
+	public long institutionId;
 
 	@Hidden
 	public String postedAt;
 
-	public String toStringJson() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		sb.append("\"sent\":" + sent + ",");
-		sb.append("\"read\":" + read + ",");
-		sb.append("\"sendDate\":\"" + sendDate + "\",");
-		sb.append("\"msgId\":" + msgId + "");
-		sb.append("}");
-
-		return sb.toString();
+	public String toString() {
+		return destination.concat(" ").concat(clientName);
 	}
 
 	public long getInstitutionId() {
-		return institutionId;
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
 		this.institutionId = institutionId;
-	}
-
-	public boolean isSent() {
-		return sent;
-	}
-
-	public void setSent(boolean sent) {
-		this.sent = sent;
-	}
-
-	public boolean isRead() {
-		return read;
-	}
-
-	public void setRead(boolean read) {
-		this.read = read;
 	}
 
 	public String getMessage() {
@@ -82,19 +73,51 @@ public class StatusSMS extends Model {
 		this.sendDate = sendDate;
 	}
 
-	public int getMsgId() {
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public long getMsgId() {
 		return msgId;
 	}
 
-	public void setMsgId(int msgId) {
+	public void setMsgId(long msgId) {
 		this.msgId = msgId;
 	}
 
-	public String getPostedAt() {
+	public String getPostedAt() throws ParseException {
+		if (this.postedAt == null) {
+			setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+		}
 		return postedAt;
 	}
 
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
 	}
+
+	public boolean isSmsRead() {
+		return smsRead;
+	}
+
+	public void setSmsRead(boolean smsRead) {
+		this.smsRead = smsRead;
+	}
+
+	public boolean isSmsSent() {
+		return smsSent;
+	}
+
+	public void setSmsSent(boolean smsSent) {
+		this.smsSent = smsSent;
+	}
+	
+	public Date getSendDateConverted() throws ParseException {
+		return Utils.parseDate(sendDate, "yyyy-MM-dd'T'HH:mm");
+	}
+
 }

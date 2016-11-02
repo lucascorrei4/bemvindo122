@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -192,7 +194,7 @@ public class OrderOfServiceController extends CRUD {
 			response = "Erro ao inserir a observação do pedido ".concat(orderCode).concat(".");
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status);
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
 	}
 
 	public static void main(String[] args) {
@@ -200,17 +202,43 @@ public class OrderOfServiceController extends CRUD {
 		System.out.println("option-JV127680-7".split("-")[2]);
 	}
 	
-	public static void sendSMS() {
+	public static void sendSMS() throws UnsupportedEncodingException {
 		String response = null;
 		String status = null;
-		String message = params.get("name", String.class);
-		String destination = params.get("obs", String.class);
-		String[] nameSpplited = message.split("-");
-		String orderCode = nameSpplited[1];
-		String orderServiceStepId = nameSpplited[2];
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String message = decodedValue;
 		String sender = null;
-		StatusSMS statusSMS = new StatusSMS();
-		SMSController smsController = new SMSController();
-		smsController.sendSMS(destination, sender, message, statusSMS);
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find(
+				"orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true")
+				.first();
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		if (!Utils.isNullOrEmpty(destination)) {
+			StatusSMS statusSMS = new StatusSMS();
+			SMSController smsController = new SMSController();
+			String sendResponse = smsController.sendSMS(destination, sender, message, statusSMS);
+			if ("SUCCESS".equals(sendResponse)) {
+				/* Save sms object */
+				statusSMS.setInstitutionId(institution.id);
+				statusSMS.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+				statusSMS.setClientName(orderOfService.client.toString());
+				statusSMS.willBeSaved = true;
+				statusSMS.id = 0l;
+				statusSMS.merge();
+				status = "SUCCESS";
+				response = "Notificação enviada com sucesso!";
+			} else {
+				status = "ERROR";
+				response = "Erro ao enviar a notificação! Tente novamente!";
+			}
+		} else {
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+		}
+		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
 	}
 }

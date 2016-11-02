@@ -45,13 +45,15 @@ public class SMSController {
 				}
 				/* Reading return */
 				String responseStatus = output.substring(output.indexOf("<Status>"), output.indexOf("</Status>")).replaceAll("<Status>", "");
+				status.message = msg;
+				status.destination = destination;
 				if ("SUCCESS".equals(responseStatus)) {
-					status.sent = true;
+					status.smsSent = true;
 					status.sendDate = Utils.getCurrentDateTime();
-					status.msgId = Integer.valueOf(output.substring(output.indexOf("<MsgId>"), output.indexOf("</MsgId>")).replaceAll("<MsgId>", ""));
+					status.msgId = Long.valueOf(output.substring(output.indexOf("<MsgId>"), output.indexOf("</MsgId>")).replaceAll("<MsgId>", ""));
 					return "SUCCESS";
 				} else if ("FAILED".equals(responseStatus)) {
-					status.sent = false;
+					status.smsSent = false;
 					status.msgId = 0;
 					return "FAILED";
 				}

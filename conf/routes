@@ -37,6 +37,10 @@ POST	${ctx}/admin/clientes								ClientController.create
 POST	${ctx}/admin/clientes/{id}							ClientController.save
 DELETE	${ctx}/admin/clientes/{id}							ClientController.delete
 
+# Admin StatusSMS
+
+GET		${ctx}/admin/smss-enviadas							StatusSMSController.list
+
 # Admin Services
 
 GET		${ctx}/admin/servicos								ServiceController.list

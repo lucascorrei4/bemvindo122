@@ -108,6 +108,30 @@ function updateObsOrderStep(name, obs) {
 			});
 }
 
+function sendSMS(id, value) {
+	var data = jQuery.param({
+		id : id,
+		value : value
+	});
+	$('#accordion').load('/orderofservicecontroller/sendsms', data,
+			function(response, status) {
+		var status = $("#status").val();
+		if ('SUCCESS' === status) {
+			$("#message-" + id).css("color", "gray");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#response").val());
+			$("#message-" + id).fadeIn();
+			var spplittedName = id.split('-');
+			$("#collapse" + spplittedName[1]).collapse('show');
+		} else {
+			$("#message-" + id).css("color", "red");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#response").val());
+			setTimeout('$("#message").hide()', 10000);
+		}
+	});
+}
+
 function closeModal() {
 	$('#orderServiceModal').modal('hide');
 }

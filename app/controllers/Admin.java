@@ -8,6 +8,7 @@ import models.Country;
 import models.Institution;
 import models.OrderOfService;
 import models.Service;
+import models.StatusSMS;
 import models.User;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -64,12 +65,13 @@ public class Admin extends Controller {
 				int contClients = Client.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
 				int contServices = Service.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
 				int contOrderOfServices = OrderOfService.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
+				int contSentSMSs = StatusSMS.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
 				List<Client> listClients = Client.find("institutionId = " + connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
 				List<Service> listServices = Service.find("institutionId = " + connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
 				List<OrderOfService> listOrderOfServices = OrderOfService.find("institutionId = " + connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
 				Institution connectedInstitution = Institution.find("byId", connectedUser.getInstitutionId()).first();
 				String institution = connectedInstitution.getInstitution();
-				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices, connectedUser, institution);
+				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices, connectedUser, institution, contSentSMSs);
 			} else {
 				/* Redirect to page of information about expired license */
 				render("@admin.expiredLicense", connectedUser);

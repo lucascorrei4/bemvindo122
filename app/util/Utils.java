@@ -295,21 +295,31 @@ public class Utils extends Controller {
 		return false;
 	}
 
-	public static String semAcento(String str) {
+	public static String removeAccent(String str) {
 		String nfdNormalizedString = Normalizer.normalize(str, Normalizer.Form.NFD);
 		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 		return pattern.matcher(nfdNormalizedString).replaceAll("");
 	}
-
+	
 	public static String getCurrencyValue(Float value) {
 		DecimalFormat format = new DecimalFormat("##,###,###,##0.00");
 		format.setMinimumFractionDigits(2);
 		format.setParseBigDecimal(true);
 		return format.format(value);
 	}
+
+	public static String replacePhoneNumberCaracteres(String text) {
+		String str = text.trim();
+		str = str.replace(" ", "");
+		str = str.replace("  ", "");
+		str = str.replace("(", "");
+		str = str.replace(")", "");
+		str = str.replace("-", "");
+		return str;
+	}
 	
 	public static void main(String[] args) {
-		System.out.println(getCurrencyValue(42f));
+		System.out.println(removeAccent("João,"));
 	}
-	
-	}
+
+}
