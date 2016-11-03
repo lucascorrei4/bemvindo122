@@ -15,19 +15,19 @@
             	<div class="dataTable_wrapper">
 			        #{crud.table fields:['msgId', 'destination', 'sendDate', 'message', 'smsSent']}
 			        	#{crud.custom 'msgId'}
-			         		<a href="@{StatusSMSController.show(object.id)}">${object.msgId}</a>
+			         		<a href="#">${object.msgId}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'destination'}
-			         		<a href="@{StatusSMSController.show(object.id)}">${object.destination} - ${object.clientName}</a>
+			         		<a href="#">${object.destination} - ${object.clientName}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'sendDate'}
-			         		<a href="@{StatusSMSController.show(object.id)}">${object.sendDateConverted.format("dd/MM/yyyy HH'h'mm")}</a>
+			         		<a href="#">${object.sendDateConverted.format("dd/MM/yyyy HH'h'mm")}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'message'}
-			         		<a href="@{StatusSMSController.show(object.id)}">${object.message}</a>
+			         		<a href="#">${object.message}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'smsSent'}
-			         		<a href="@{StatusSMSController.show(object.id)}">${object.smsSent ? 'Sim' : 'Não'}</a>
+			         		<a href="#">${object.smsSent ? 'Sim' : 'Não'}</a>
 				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">

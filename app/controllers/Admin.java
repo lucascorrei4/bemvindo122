@@ -69,9 +69,9 @@ public class Admin extends Controller {
 				List<Client> listClients = Client.find("institutionId = " + connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
 				List<Service> listServices = Service.find("institutionId = " + connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
 				List<OrderOfService> listOrderOfServices = OrderOfService.find("institutionId = " + connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
-				Institution connectedInstitution = Institution.find("byId", connectedUser.getInstitutionId()).first();
-				String institution = connectedInstitution.getInstitution();
-				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices, connectedUser, institution, contSentSMSs);
+				Institution institution = Institution.find("byId", connectedUser.getInstitutionId()).first();
+				String institutionName = institution.getInstitution();
+				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices, connectedUser, institutionName, contSentSMSs, institution);
 			} else {
 				/* Redirect to page of information about expired license */
 				render("@admin.expiredLicense", connectedUser);
@@ -124,6 +124,7 @@ public class Admin extends Controller {
 		if (getLoggedInstitution() == null) {
 			return false;
 		}
+		session.put("id", getLoggedInstitution().getId());
 		return true;
 	}
 	

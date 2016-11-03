@@ -24,11 +24,12 @@ public class SMSController {
 	public String STR_SMS_API_KEY = ApplicationConfiguration.getInstance().getSMSApiKey();
 
 	public String sendSMS(String destination, String sender, String message, StatusSMS status) {
+		String strUrl = null;
 		try {
 			String from = "DEFAULT";
 			String to = destination;
 			String msg = message;
-			String strUrl = STR_URL_SEND_SMS.concat("userid=").concat(STR_SMS_USER_ID).concat("&pwd=").concat(STR_SMS_PWD).concat("&apikey=").concat(STR_SMS_API_KEY).concat("&from=").concat(from).concat("&to=55").concat(to).concat("&msg=")
+			strUrl = STR_URL_SEND_SMS.concat("userid=").concat(STR_SMS_USER_ID).concat("&pwd=").concat(STR_SMS_PWD).concat("&apikey=").concat(STR_SMS_API_KEY).concat("&from=").concat(from).concat("&to=55").concat(to).concat("&msg=")
 					.concat(URLEncoder.encode(msg, "UTF-8"));
 			/* Preparing connection URL */
 			URL url = new URL(strUrl);
@@ -63,7 +64,7 @@ public class SMSController {
 			}
 			conn.disconnect();
 		} catch (Exception e) {
-			e.getStackTrace();
+			throw new RuntimeException("Erro ao enviar SMS: " + e.getMessage().concat(" Detalhe: " + String.valueOf(e.getLocalizedMessage()).concat(" URL: ").concat(strUrl)));
 		}
 		return "";
 	}

@@ -12,7 +12,6 @@ import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.With;
 
-@Check("admin")
 @CRUD.For(models.Institution.class)
 @With(Secure.class)
 public class InstitutionController extends CRUD {

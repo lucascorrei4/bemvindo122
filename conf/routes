@@ -74,6 +74,7 @@ POST	${ctx}/admin/ordens-de-servico								OrderOfServiceController.create
 POST	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.save
 DELETE	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.delete
 
+GET		${ctx}/admin/empresa/{id}							InstitutionController.show
 # Administration
 GET    	${ctx}/popular                     			PopulateDB.populate
 GET     ${ctx}/primeiros-passos						Admin.firstStep
