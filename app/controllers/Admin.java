@@ -107,6 +107,7 @@ public class Admin extends Controller {
 	protected static void enableUserConditions(User user) {
 		if (enableMenu()) {
 			session.put("enableUser", "true");
+			session.put("idu", user.getId());
 		} else {
 			session.put("enableUser", "false");
 		}

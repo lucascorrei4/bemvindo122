@@ -5,12 +5,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import controllers.CRUD.ObjectType;
 import util.ApplicationConfiguration;
 import util.Utils;
+import models.OrderOfService;
 import models.StatusSMS;
+import play.db.Model;
+import play.exceptions.TemplateNotFoundException;
 
 public class SMSController {
 
@@ -22,7 +27,7 @@ public class SMSController {
 	public String STR_SMS_USER_ID = ApplicationConfiguration.getInstance().getSMSUserId();
 	public String STR_SMS_PWD = ApplicationConfiguration.getInstance().getSMSPwd();
 	public String STR_SMS_API_KEY = ApplicationConfiguration.getInstance().getSMSApiKey();
-
+	
 	public String sendSMS(String destination, String sender, String message, StatusSMS status) {
 		String strUrl = null;
 		try {

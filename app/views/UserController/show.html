@@ -35,16 +35,22 @@
 									<input id="object_phone3" class="form-control sp_celphones" type="text" size="50" name="object.phone3" value="${object.phone3}">
 								</div>
 							#{/crud.custom}
-	    					#{crud.custom 'cnpj'}
+	    					#{crud.custom 'cpf'}
 								<div class="form-group">
-									<label for="object_cnpj"> CNPJ </label>
-									<input id="object_cnpj" class="form-control cnpj" type="text" size="50" name="object.cnpj" value="${object.cnpj}">
+									<label for="object_cpf"> CPF </label>
+									<input id="object_cpf" class="form-control cpf" type="text" size="50" name="object.cpf" value="${object.cpf}">
 								</div>
 							#{/crud.custom}
 							#{crud.custom 'email'}
 								<div class="form-group">
 									<label for="object_email"> E-mail </label>
 									<input id="object_email" class="form-control" type="text" size="50" name="object.email" value="${object.email}" disabled="disabled">
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'birthdate'}
+								<div class="form-group">
+									<label for="object_birthdate"> Data de Nascimento </label>
+									<input id="object_birthdate" class="form-control datemask" type="text" size="50" name="object.birthdate" value="${object.birthdate}">
 								</div>
 							#{/crud.custom}
 							#{crud.custom 'countryId'}
@@ -59,6 +65,36 @@
 	    					#{crud.custom 'cityId'}
 								<div class="form-group">
 									#{include 'includes/selectCities.html' /}
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Habilitar </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''} disabled="disabled"><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''} disabled="disabled"><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isAdmin'}
+								<div class="form-group">
+									<label> Administrador </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isAdmin" id="optionsRadiosInlin1" value="true" ${object.isAdmin?'checked=checked':''} disabled="disabled"><span title="&{'info.isAdmin.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isAdmin" id="optionsRadiosInlin2" value="false" ${!object.isAdmin?'checked=checked':''} disabled="disabled"><span title="&{'info.isAdmin.false'}">Não</span>
+										</label> 
+									</div>
 								</div>
 							#{/crud.custom}
 						#{/crud.form}

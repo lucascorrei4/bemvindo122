@@ -30,7 +30,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import controllers.Admin;
+import models.Institution;
 import models.Service;
+import models.User;
 import play.mvc.Controller;
 
 public class Utils extends Controller {
@@ -300,7 +303,7 @@ public class Utils extends Controller {
 		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 		return pattern.matcher(nfdNormalizedString).replaceAll("");
 	}
-	
+
 	public static String getCurrencyValue(Float value) {
 		DecimalFormat format = new DecimalFormat("##,###,###,##0.00");
 		format.setMinimumFractionDigits(2);
@@ -317,9 +320,30 @@ public class Utils extends Controller {
 		str = str.replace("-", "");
 		return str;
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(removeAccent("João,"));
+	}
+
+	public static boolean validateCompanySession(String id) {
+		Institution institution = Institution.findById(Long.valueOf(id).longValue());
+		Institution loggedInstitution = Admin.getLoggedUserInstitution().getInstitution();
+		if (institution != null) {
+			if (institution.id == loggedInstitution.id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean validateUserSession(String id) {
+		User user = User.findById(Long.valueOf(id).longValue());
+		User loggedUser = Admin.getLoggedUserInstitution().getUser();
+		if (user != null) {
+			if (user.id == loggedUser.id) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

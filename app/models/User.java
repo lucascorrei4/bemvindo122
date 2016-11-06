@@ -37,10 +37,10 @@ public class User extends Model {
 
 	public long stateId;
 
+	public long cityId;
+
 	@Enumerated(EnumType.STRING)
 	public GenderEnum gender = GenderEnum.M;
-
-	public long cityId;
 
 	public String address;
 
@@ -68,14 +68,6 @@ public class User extends Model {
 
 	@Transient
 	public String repeatPassword;
-
-	public String getRepeatPassword() {
-		return repeatPassword;
-	}
-
-	public void setRepeatPassword(String repeatPassword) {
-		this.repeatPassword = repeatPassword;
-	}
 
 	public boolean isAdmin;
 
@@ -277,6 +269,14 @@ public class User extends Model {
 
 	public void setBirthdate(String birthdate) {
 		this.birthdate = birthdate;
+	}
+	
+	public String getRepeatPassword() {
+		return repeatPassword;
+	}
+
+	public void setRepeatPassword(String repeatPassword) {
+		this.repeatPassword = repeatPassword;
 	}
 
 }

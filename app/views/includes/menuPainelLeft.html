@@ -23,7 +23,7 @@
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{StepController.list}"><i class="fa fa-sort-numeric-asc fa-fw"></i> 3º. Adicionar Etapas do Serviço</a>
+				<a href="@{StepController.list}"><i class="fa fa-sort-numeric-asc fa-fw"></i> 3º. Etapas do Serviço</a>
 			</li>
 			
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
@@ -42,7 +42,7 @@
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Configurações<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="/admin/empresa/${session.get("id")}">Dados da Empresa</a></li>
-					<li><a href="/admin/perfil/1">Meus dados</a></li>
+					<li><a href="/admin/usuario/${session.get("idu")}">Meus dados</a></li>
 					<li><a href="#">Financeiro</a></li>
 				</ul>
 			</li>

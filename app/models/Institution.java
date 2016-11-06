@@ -72,7 +72,11 @@ public class Institution extends Model {
 
 	@As("-16.570043, -49.313314")
 	public String localizationGPS;
+
+	@Hidden
 	public String googleApiKey;
+	
+	@Hidden
 	public String googleMapsAddress;
 
 	@Hidden
@@ -80,11 +84,13 @@ public class Institution extends Model {
 
 	@Hidden
 	public long publishedBy;
-
+	
+	@Hidden
 	@Temporal(TemporalType.TIMESTAMP)
 	@As("yyyy-MM-dd HH:mm:ss")
 	public Date licenseDate = new Date();
 
+	@Hidden
 	public String institutionKey;
 
 	public Date getLicenseDate() {

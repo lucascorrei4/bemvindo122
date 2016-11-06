@@ -4,6 +4,6 @@
 #{/ifError}
 #{select id:'object_stateId', name:'object.stateId', items:listStates, valueProperty:'id', labelProperty:'name', class:'form-control'}
 	#{if state != null}
-		<option value="${state.id}" selected="true">${state.name}</option>
+		<option value="${state.id}" selected="selected">${state.name}</option>
 	#{/if}
 #{/select}

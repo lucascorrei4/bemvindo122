@@ -12,12 +12,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['','postedAt', 'client', 'service', 'totalPrice', 'orderCode', 'isActive', 'orderService', 'action']}
-			        	#{crud.custom ''}
-			         		<div class="checkbox">
-							 	<label><input type="checkbox" value="${object.id}"></label>
-							</div>
-				        #{/crud.custom}
+			        #{crud.table fields:['postedAt', 'client', 'service', 'totalPrice', 'orderCode', 'isActive', 'orderService', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.postedAt}</a>
 				        #{/crud.custom}
@@ -51,11 +46,6 @@
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}
 	   				</div>
-   					<div class="col-lg-12" style="padding: 0;">
-	   					<div style="margin: 0 auto; float: right;">
-					   		<a id="selectItems" class="btn btn-default" title="Abrir ordem de serviço dos ítens selecionados">Abrir selecionados <i class="fa fa-list-ul"></i></a>
-	   					</div>
-   					</div>
    				</div>
    			</div>
    				<div class="col-lg-6">

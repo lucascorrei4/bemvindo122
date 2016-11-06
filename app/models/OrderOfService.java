@@ -46,8 +46,11 @@ public class OrderOfService extends Model {
 	@Hidden
 	public String postedAt;
 
-	@Hidden
 	public boolean isActive = true;
+	
+	public String toString () {
+		return orderCode;
+	}
 	
 	@Transient
 	Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
