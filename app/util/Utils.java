@@ -321,10 +321,6 @@ public class Utils extends Controller {
 		return str;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(removeAccent("João,"));
-	}
-
 	public static boolean validateCompanySession(String id) {
 		Institution institution = Institution.findById(Long.valueOf(id).longValue());
 		Institution loggedInstitution = Admin.getLoggedUserInstitution().getInstitution();
@@ -335,6 +331,7 @@ public class Utils extends Controller {
 		}
 		return false;
 	}
+
 	public static boolean validateUserSession(String id) {
 		User user = User.findById(Long.valueOf(id).longValue());
 		User loggedUser = Admin.getLoggedUserInstitution().getUser();
@@ -346,4 +343,15 @@ public class Utils extends Controller {
 		return false;
 	}
 
+	public static Date addDays(Date date, int days) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.DATE, days);
+		return cal.getTime();
+	}
+
+	public static void main(String[] args) {
+		System.out.println(new Date());
+		System.out.println(addDays(new Date(), 30));
+	}
 }

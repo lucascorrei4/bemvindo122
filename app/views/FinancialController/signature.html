@@ -1,0 +1,107 @@
+<html lang="${lang}">
+<head>
+<meta charset="utf-8" />
+#{set title:'Primeiros passos' /} #{include 'includes/headCrud.html' /}
+<link href="@{'public/stylesheets/prettify.css'}" rel="stylesheet">
+</head>
+<body>
+	<div id="wrapper">
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			<!-- Logo navbar -->
+			#{include 'includes/logoNavBar.html' /}
+			<!-- Logo navbar -->
+			<!-- Menu Top Side -->
+			#{include 'includes/menuPainelTop.html' /}
+			<!-- Menu Top Side -->
+			<!-- Menu Left Side -->
+			#{include 'includes/menuPainelLeft.html' /}
+			<!-- Menu Left Side -->
+		</nav>
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Primeiros passos</h1>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<ol class="breadcrumb">
+				<li><a href="@{CRUD.index()}">&{'crud.home'}</a></li>
+				<li><a href="@{CRUD.index()}">Primeiros passos</a></li>
+			</ol>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<h4></h4>
+										<h4>
+											<b>${user.name}, você está usufruindo dos 30 dias de teste.</b>
+											<br> Esperamos que você esteja gostando. 
+											<br> Você se inscreveu no dia ${financial?.memberSinceDate}. 
+										</h4>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-6">
+									<h4></h4>
+									#{include 'includes/formInstitution.html' /}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+										<div class="panel-heading" style="text-align: center">&{'project.name'} © Copyright 2016 - Versão: &{'project.version'}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel"><i class="fa fa-warning"></i> &{'validation.confirm'}</h4>
+							</div>
+							<div class="modal-body">Deseja mesmo remover?</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">&{'validation.no'}</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="javascript:deleteMember()">&{'validation.yes'}</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- JQueryUI JS -->
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<!-- JQueryUI JS -->
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.js'}"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+
+	<!-- Custom Theme JavaScript -->
+	<script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
+	<!-- Custom Theme JavaScript -->
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="@{'public/templatebootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+
+	<!-- JQuery Mask -->
+	#{include 'includes/jQueryMask.html' /}
+	<!-- JQuery Mask -->
+
+</body>
+
+</html>
