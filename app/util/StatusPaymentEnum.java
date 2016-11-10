@@ -1,7 +1,7 @@
 package util;
 
 public enum StatusPaymentEnum {
-	Paid("Pago", "paid"), Pending("Pendente", "pending"), Free("Isento", "free"), Present("Vigente", "present");
+	Paid("Pago", "paid"), Pending("Pendente", "pending"), Free("Isento", "free"), Present("Aguardando", "present");
 
 	String label;
 	String value;

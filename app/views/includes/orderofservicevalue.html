@@ -1,0 +1,35 @@
+<meta charset="utf-8" />
+<div class="table-responsive">
+	<table class="table table-hover" id="members-table">
+		<thead>
+			<tr>
+				<th>Serviço</th>
+				<th>Qtd</th>
+				<th>Preço Unit.</th>
+				<th>Desconto</th>
+				<th>SubTotal</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			#{list orderOfServiceValue, as:'value'}
+				<tr>
+					<td><a href="#">${value.service?.name} </a></td>
+					<td><input name="value.qtd" value="${value.qtd}" onclick="this.select();"></td>
+					<td><input name="value.unitPrice" value="${value.unitPrice}" onclick="this.select();"></td>
+					<td><input name="value.discount" value="${value.discount}" onclick="this.select();"></td>
+					<td><input name="value.subTotal" value="${value.subTotal}" onclick="this.select();"></td>
+					<td><button id="delete_member" type="button" class="btn btn-danger btn-circle" value="${member.id}"  data-toggle="modal" data-target="#removeModal">
+							<i class="fa fa-times"></i>
+						</button></td>
+				</tr>
+			#{/list}
+		</tbody>
+	</table>
+
+	<select size="1" name="object.orderOfServiceValue.id" multiple="multiple" hidden="true">
+	    #{list orderOfServiceValue, as:'value'}
+	        <option value="${value.id}" selected="selected">${value.id}</option>
+	    #{/list}
+	</select>
+</div>

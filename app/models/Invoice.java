@@ -44,9 +44,13 @@ public class Invoice extends Model {
 	@Enumerated(EnumType.STRING)
 	public StatusPaymentEnum statusPayment = StatusPaymentEnum.Free;
 
-	public Float value;
+	public Float smsValue = 0f;
 
-	public Float additions;
+	public Float smsUnitPrice = 0f;
+
+	public long smsQtd = 0l;
+
+	public Float value = 0f;
 
 	@Hidden
 	public long userId;
@@ -124,19 +128,12 @@ public class Invoice extends Model {
 	}
 
 	public Float getValue() {
+		value = value + getSmsValue();
 		return value;
 	}
 
 	public void setValue(Float value) {
 		this.value = value;
-	}
-
-	public Float getAdditions() {
-		return additions;
-	}
-
-	public void setAdditions(Float additions) {
-		this.additions = additions;
 	}
 
 	public String getObs() {
@@ -161,6 +158,43 @@ public class Invoice extends Model {
 
 	public void setStatusInvoice(StatusInvoiceEnum statusInvoice) {
 		this.statusInvoice = statusInvoice;
+	}
+
+	public Float getSmsValue() {
+		setSmsValue(smsUnitPrice * smsQtd);
+		return smsValue;
+	}
+
+	public void setSmsValue(Float smsValue) {
+		this.smsValue = smsValue;
+	}
+
+	public long getSmsQtd() {
+		return smsQtd;
+	}
+
+	public void setSmsQtd(long smsQtd) {
+		this.smsQtd = smsQtd;
+	}
+
+	public Float getSmsUnitPrice() {
+		return smsUnitPrice;
+	}
+
+	public void setSmsUnitPrice(Float smsUnitPrice) {
+		this.smsUnitPrice = smsUnitPrice;
+	}
+	
+	public String getTotalCurrency() {
+		return Utils.getCurrencyValue(getValue());
+	}
+
+	public String getSMSTotalCurrency() {
+		return Utils.getCurrencyValue(getSmsValue());
+	}
+
+	public String getSMSUnitPriceCurrency() {
+		return Utils.getCurrencyValue(getSmsUnitPrice());
 	}
 
 }

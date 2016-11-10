@@ -11,22 +11,31 @@
                	<div class="col-lg-6">
 					#{form action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
-							#{crud.custom 'qtd'}
+							#{crud.custom 'services'}
 								<div class="form-group">
-									<label for="object_qtd"> Quantidade </label>
-									<input id="object_qtd" class="form-control number" type="text" size="50" name="object.qtd" value="${object.qtd}" onclick="this.select()">
+								    <label for="object_services">
+								        Selecione um serviço e adicione na lista abaixo
+								    </label>
+							        <input name="object.services.id" value="" type="hidden">
+							        #{select id:'object_services', name:'object.services.id', items:object.services, valueProperty:'id', labelProperty:'name', class:'form-control' /}
+								    <p class="help-block">
+								    </p>
+   								</div>
+    						#{/crud.custom}
+							#{crud.custom 'orderOfServiceValue'}
+								<div class="form-group">
+									<button id="add_member" type="button" class="btn btn-default" name="btn_adicionar">Adicionar</button>
 								</div>
-							#{/crud.custom}
-							#{crud.custom 'unitPrice'}
 								<div class="form-group">
-									<label for="object_unitPrice"> Valor unitário </label>
-									<input id="object_unitPrice" class="form-control number" type="text" size="50" name="object.unitPrice" value="${object.unitPrice}" onclick="this.select()">
+									<div id="message"></div>
 								</div>
-							#{/crud.custom}
-							#{crud.custom 'discount'}
 								<div class="form-group">
-									<label for="object_discount"> Desconto </label>
-									<input id="object_discount" class="form-control number" type="text" size="50" name="object.discount" value="${object.discount}" onclick="this.select()">
+				                    <div class="panel panel-default">
+				                    	<div class="panel-heading">Serviços adicionados</div>
+										<div class="panel-body">
+											#{include 'includes/orderofservicevalue.html' /}
+										</div>
+									</div>
 								</div>
 							#{/crud.custom}
 							#{crud.custom 'orderCode'}

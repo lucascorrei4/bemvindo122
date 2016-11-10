@@ -78,6 +78,8 @@ GET		${ctx}/admin/empresa/{id}							InstitutionController.show
 
 GET		${ctx}/admin/usuario/{id}							UserController.show
 
+GET		${ctx}/admin/financeiro/{id}							FinancialController.signature
+
 # Administration
 GET    	${ctx}/popular                     			PopulateDB.populate
 GET     ${ctx}/primeiros-passos						Admin.firstStep

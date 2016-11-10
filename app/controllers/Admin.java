@@ -144,10 +144,11 @@ public class Admin extends Controller {
 		Invoice financial = Invoice
 				.find("institutionId = " + institutionId + " and isActive = true order by postedAt desc").first();
 		if (financial != null) {
-			if (getLoggedUserInstitution().getInstitution().getLicenseDate().after(new Date()))
+			if (financial.getInvoiceDueDate().after(new Date())) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		} else {
 			saveNewPaymentInformation(userInstitutionParameter);
 			return true;
@@ -158,7 +159,7 @@ public class Admin extends Controller {
 		Invoice invoice = new Invoice();
 		invoice.setInstitutionId(userInstitutionParameter.getInstitution().getId());
 		invoice.setUserId(userInstitutionParameter.getUser().getId());
-		invoice.setMemberSinceDate(userInstitutionParameter.getInstitution().getLicenseDate());
+		invoice.setMemberSinceDate(new Date());
 	    Date dueDate = Utils.addDays(invoice.getMemberSinceDate(), 30);
 		invoice.setInvoiceGenerationDate(new Date());
 		invoice.setInvoiceDueDate(dueDate);
@@ -166,8 +167,10 @@ public class Admin extends Controller {
 		invoice.setActive(true);
 		invoice.setStatusInvoice(StatusInvoiceEnum.Current);
 		invoice.setStatusPayment(StatusPaymentEnum.Free);
+		invoice.setSmsQtd(0l);
+		invoice.setSmsUnitPrice(0f);
+		invoice.setSmsValue(0f);
 		invoice.setValue(60f);
-		invoice.setAdditions(0f);
 		invoice.willBeSaved = true;
 		invoice.merge();
 	}

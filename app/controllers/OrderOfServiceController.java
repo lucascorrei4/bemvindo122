@@ -3,13 +3,16 @@ package controllers;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import controllers.CRUD.ObjectType;
 import models.Institution;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
+import models.OrderOfServiceValue;
 import models.Service;
 import models.StatusSMS;
 import models.Step;
@@ -21,7 +24,26 @@ import util.Utils;
 
 @CRUD.For(models.OrderOfService.class)
 public class OrderOfServiceController extends CRUD {
-	
+
+	public static void blank() throws Exception {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
+		constructor.setAccessible(true);
+		OrderOfService object = (OrderOfService) constructor.newInstance();
+		List<Service> listService = Service.find("institutionId = "
+				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc")
+				.fetch();
+		object.services = new ArrayList<Service>();
+		object.services.addAll(listService);
+		object.orderOfServiceValue = new ArrayList<OrderOfServiceValue>();
+		try {
+			render(type, object);
+		} catch (TemplateNotFoundException e) {
+			render("CRUD/blank.html", type, object);
+		}
+	}
+
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
@@ -40,12 +62,15 @@ public class OrderOfServiceController extends CRUD {
 			render("OrderOfServiceController/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
 	}
-	
+
 	public static void show(String id) throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
-		// Filtro pelo usuário conectado para proteger os dados dos demais usuários
-		OrderOfService object = OrderOfService.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()).first();
+		// Filtro pelo usuário conectado para proteger os dados dos demais
+		// usuários
+		OrderOfService object = OrderOfService.find(
+				"id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId())
+				.first();
 		notFoundIfNull(object);
 		try {
 			render(type, object);
@@ -53,7 +78,6 @@ public class OrderOfServiceController extends CRUD {
 			render("CRUD/show.html", type, object);
 		}
 	}
-	
 
 	public static String orderId = null;
 
@@ -234,7 +258,7 @@ public class OrderOfServiceController extends CRUD {
 		String[] spplited = "option-JV127680-7".split("-");
 		System.out.println("option-JV127680-7".split("-")[2]);
 	}
-	
+
 	public static void sendSMS() throws UnsupportedEncodingException {
 		String response = null;
 		String status = null;

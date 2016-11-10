@@ -1,7 +1,7 @@
 package util;
 
 public enum StatusInvoiceEnum {
-	Won("Vencida", "won"), Current("Atual", "current"), Canceled("Cancelada", "canceled");
+	Won("Vencida", "won"), Current("Vigente", "current"), Canceled("Cancelada", "canceled");
 
 	String label;
 	String value;

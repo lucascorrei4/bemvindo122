@@ -35,15 +35,15 @@
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{StatusSMSController.list}"><i class="fa fa-paper-plane-o fa-fw"></i> 6º. SMSs Enviadas</a>
+				<a href="@{StatusSMSController.list}"><i class="fa fa-paper-plane-o fa-fw"></i> SMSs Enviadas</a>
 			</li>
 			
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Configurações<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="/admin/empresa/${session.get("id")}">Dados da Empresa</a></li>
-					<li><a href="/admin/usuario/${session.get("idu")}">Meus dados</a></li>
-					<li><a href="#">Financeiro</a></li>
+					<li><a href="/admin/empresa/${session.get('id')}">Dados da Empresa</a></li>
+					<li><a href="/admin/usuario/${session.get('idu')}">Meus dados</a></li>
+					<li><a href="/admin/financeiro/${session.get('id')}">Financeiro</a></li>
 				</ul>
 			</li>
 			

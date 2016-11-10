@@ -29,11 +29,8 @@ public class OrderOfService extends Model {
 	@Hidden
 	public long institutionId;
 
-	public Float qtd = 0f;
-
-	public Float discount = 0f;
-
-	public Float unitPrice = 0f;
+	@ManyToMany
+	public List<OrderOfServiceValue> orderOfServiceValue;
 
 	@Hidden
 	public Float subTotal = 0f;
@@ -47,11 +44,11 @@ public class OrderOfService extends Model {
 	public String postedAt;
 
 	public boolean isActive = true;
-	
-	public String toString () {
+
+	public String toString() {
 		return orderCode;
 	}
-	
+
 	@Transient
 	Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
 
@@ -80,51 +77,6 @@ public class OrderOfService extends Model {
 
 	public void setInstitutionId(long institutionId) {
 		this.institutionId = institutionId;
-	}
-
-	public Float getDiscount() {
-		return discount;
-	}
-
-	public String getDiscountCurrency() {
-		return Utils.getCurrencyValue(discount);
-	}
-
-	public void setDiscount(Float discount) {
-		this.discount = discount;
-	}
-
-	public Float getQtd() {
-		return qtd;
-	}
-
-	public void setQtd(Float qtd) {
-		this.qtd = qtd;
-	}
-
-	public Float getUnitPrice() {
-		return unitPrice;
-	}
-
-	public String getUnitPriceCurrency() {
-		return Utils.getCurrencyValue(unitPrice);
-	}
-
-	public void setUnitPrice(Float unitPrice) {
-		this.unitPrice = unitPrice;
-	}
-
-	public Float getTotalPrice() {
-		setTotalPrice((unitPrice * qtd) - discount);
-		return totalPrice;
-	}
-
-	public String getTotalPriceCurrency() {
-		return Utils.getCurrencyValue(totalPrice);
-	}
-
-	public void setTotalPrice(Float totalPrice) {
-		this.totalPrice = totalPrice;
 	}
 
 	public String getOrderCode() {
@@ -167,17 +119,37 @@ public class OrderOfService extends Model {
 		this.mapOrderServiceSteps = mapOrderServiceSteps;
 	}
 
-	public Float getSubTotal() {
-		setSubTotal((unitPrice * qtd));
-		return subTotal;
-	}
-
 	public String getSubTotalCurrency() {
 		return Utils.getCurrencyValue(subTotal);
 	}
 
 	public void setSubTotal(Float subTotal) {
 		this.subTotal = subTotal;
+	}
+
+	public Float getSubTotal() {
+		return subTotal;
+	}
+
+	public List<OrderOfServiceValue> getOrderOfServiceValue() {
+		return orderOfServiceValue;
+	}
+
+	public void setOrderOfServiceValue(List<OrderOfServiceValue> orderOfServiceValue) {
+		this.orderOfServiceValue = orderOfServiceValue;
+	}
+
+	public Float getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Float totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	
+	public String getTotalPriceCurrency() {
+		return Utils.getCurrencyValue(totalPrice);
 	}
 
 }
