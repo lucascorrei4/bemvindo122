@@ -8,7 +8,7 @@
         </div>
         <div class="panel-body">
            	<div class="row">
-               	<div class="col-lg-6">
+               	<div class="col-lg-8">
 					#{form action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
 							#{crud.custom 'services'}
@@ -24,7 +24,7 @@
     						#{/crud.custom}
 							#{crud.custom 'orderOfServiceValue'}
 								<div class="form-group">
-									<button id="add_member" type="button" class="btn btn-default" name="btn_adicionar">Adicionar</button>
+									<button id="addOrderOfService" type="button" class="btn btn-default" name="btn_adicionar" onclick="addOrderService();">Adicionar</button>
 								</div>
 								<div class="form-group">
 									<div id="message"></div>
@@ -67,6 +67,7 @@
 						</div>
 					#{/form}
 				</div>
+				#{include 'includes/scriptOrderOfService.html' /}
 				<div class="col-lg-6">
 					<a href="@{list()}" class="btn btn-default" style="float: right">&{'crud.cancel', type.modelName}</a>
 				</div>

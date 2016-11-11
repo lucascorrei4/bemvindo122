@@ -1,0 +1,18 @@
+<script type="text/javascript">
+	function addOrderService() {
+		var selectServices = document.getElementById('object_services');
+		var serviceName = selectServices.options[selectServices.selectedIndex].innerHTML;
+		var serviceId = selectServices.options[selectServices.selectedIndex].value;
+		var newRowContent = "<tr>"
+				+ "<td><span id=\"" + serviceId + "\">"
+				+ serviceName
+				+ "</span></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" value=\"0\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" value=\"0,00\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" value=\"0,00\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" value=\"0,00\" onclick=\"this.select()\" /></td>"
+				+ "<td><button id=\"removerItem\" type=\"button\" class=\"btn btn-danger btn-circle\" onclick=\"$(this).closest('tr').remove()\" />"
+				+ "<i class=\"fa fa-times\"></i></button></td>" + "</tr>";
+		$("#orderOfServiceTable tbody").append(newRowContent);
+	}
+</script>
