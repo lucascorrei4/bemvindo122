@@ -2,13 +2,11 @@ package models;
 
 import java.text.ParseException;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
-import play.data.validation.Email;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.Utils;
@@ -24,7 +22,12 @@ public class Service extends Model {
 	@Hidden
 	public String postedAt;
 
+	public String basePrice = "0,00";
+
 	public boolean isActive = true;
+	
+	@Transient
+	public String nameBasePrice;
 
 	public String toString() {
 		return title;
@@ -42,7 +45,8 @@ public class Service extends Model {
 	public long institutionId;
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
@@ -74,6 +78,18 @@ public class Service extends Model {
 
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
+	}
+
+	public String getBasePrice() {
+		return basePrice;
+	}
+
+	public void setBasePrice(String basePrice) {
+		this.basePrice = basePrice;
+	}
+	
+	public String getNameBasePrice() {
+		return title + " R$ " + basePrice;
 	}
 
 }

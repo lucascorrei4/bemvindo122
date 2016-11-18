@@ -51,6 +51,9 @@ public class OrderOfServiceValue extends Model {
 	}
 
 	public Float getUnitPrice() {
+		if (service != null) {
+			unitPrice = Float.valueOf(service.basePrice);
+		}
 		return unitPrice;
 	}
 

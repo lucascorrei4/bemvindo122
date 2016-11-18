@@ -12,7 +12,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'title', 'description', 'isActive', 'action']}
+			        #{crud.table fields:['postedAt', 'title', 'description', 'basePrice', 'isActive', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{ServiceController.show(object.id)}">${object.postedAt}</a>
 				        #{/crud.custom}
@@ -21,6 +21,9 @@
 				        #{/crud.custom}
 				        #{crud.custom 'description'}
 			         		<a href="@{ServiceController.show(object.id)}">${object.description}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'basePrice'}
+			         		<a href="@{ServiceController.show(object.id)}">${object.basePrice}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
 					    	<a href="@{ServiceController.show(object.id)}">${object.isActive? 'Sim' : 'Não'}</a>

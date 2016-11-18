@@ -279,6 +279,7 @@ message=Mensagem
 smsSent=Enviada
 smsRead=Lida
 institutionKey=Chave de Identificação
+basePrice=Preço Base
 
 #Buttons
 btn.send=Enviar

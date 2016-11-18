@@ -1,5 +1,6 @@
 <!-- JQuery Mask -->
 <script type="text/javascript" src="@{'public/javascripts/jquery.mask.min.js'}"></script>
+<script type="text/javascript" src="@{'public/javascripts/jquery.maskMoney.min.js'}"></script>
 <script type="text/javascript">
 	$(function() {
 		$('.age').mask('00');
@@ -13,6 +14,9 @@
 		$('.mixed').mask('AAA 000-S0S');
 		$('.ip_address').mask('099.099.099.099');
 		$('.number').mask('##0,00', {
+			reverse : true
+		});
+		$('.currency').mask('###0.00', {
 			reverse : true
 		});
 		$('.percent').mask('##0,00%', {
@@ -71,7 +75,7 @@
 		$('.cnpj').mask('00.000.000/0000-00', {
 			reverse : true
 		});
-		$('.money').mask('#.##0,00', {
+		$('.money').mask('#.##0.00', {
 			reverse : true
 		});
 
@@ -94,5 +98,6 @@
 		$('pre').each(function(i, e) {
 			hljs.highlightBlock(e)
 		});
+		
 	});
 </script>

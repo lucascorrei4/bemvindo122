@@ -1,8 +1,11 @@
 package controllers;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
+import controllers.CRUD.ObjectType;
 import models.Service;
+import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 
@@ -24,12 +27,15 @@ public class ServiceController extends CRUD {
 			render("ServiceController/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
 	}
-	
+
 	public static void show(String id) throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
-		// Filtro pelo usuário conectado para proteger os dados dos demais usuários
-		Service object = Service.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()).first();
+		// Filtro pelo usuário conectado para proteger os dados dos demais
+		// usuários
+		Service object = Service.find(
+				"id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId())
+				.first();
 		notFoundIfNull(object);
 		try {
 			render(type, object);
