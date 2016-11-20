@@ -17,7 +17,7 @@
 			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.postedAt}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'client'}
-			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.client.name} ${object.client.lastName}</a>
+			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.client?.name} ${object.client?.lastName}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'service'}
 			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.services}</a>

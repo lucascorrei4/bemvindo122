@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import controllers.CRUD.ObjectType;
 import models.Institution;
 import models.OrderOfService;
@@ -24,7 +27,7 @@ import util.Utils;
 
 @CRUD.For(models.OrderOfService.class)
 public class OrderOfServiceController extends CRUD {
-
+	
 	public static void blank() throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
@@ -107,7 +110,12 @@ public class OrderOfServiceController extends CRUD {
 		notFoundIfNull(type);
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
-		Model object = (Model) constructor.newInstance();
+		OrderOfService object = (OrderOfService) constructor.newInstance();
+		String[] name = params.get("object.orderOfServiceValue.id", String[].class);
+		for (String string : name) {
+			JsonParser parser = new JsonParser();
+			JsonObject obj = parser.parse(string).getAsJsonObject();
+		}
 		Binder.bindBean(params.getRootParamNode(), "object", object);
 		validation.valid(object);
 		if (validation.hasErrors()) {

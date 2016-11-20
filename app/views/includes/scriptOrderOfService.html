@@ -5,16 +5,68 @@
 		var service = serviceName.substring(0, serviceName.indexOf(" R$"));
 		var basePrice = serviceName.substring(serviceName.indexOf(" R$") + 4, serviceName.length);
 		var serviceId = selectServices.options[selectServices.selectedIndex].value;
-		var newRowContent = "<tr>"
-				+ "<td><span id=\"" + serviceId + "\">"
+		var newRowContent = "<tr style=\"width: 240px;\">"
+				+ "<td><span id=\"" + serviceId + "\" class=\"serviceId\">"
 				+ service
 				+ "</span></td>"
-				+ "<td><input type=\"text\" style=\"width: 60px\" value=\"1\" onclick=\"this.select()\" /></td>"
-				+ "<td><input type=\"text\" style=\"width: 60px\" value=\""+ basePrice +"\" onclick=\"this.select()\" /></td>"
-				+ "<td><input type=\"text\" style=\"width: 60px\" value=\"0,00\" onclick=\"this.select()\" /></td>"
-				+ "<td><input type=\"text\" style=\"width: 60px\" value=\"0,00\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"qtd\" value=\"1\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number basePrice\" value=\""+ basePrice +"\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number discount\" value=\"0,00\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number subTotal\" value=\""+ basePrice +"\" onclick=\"this.select()\" /></td>"
 				+ "<td><button id=\"removerItem\" type=\"button\" class=\"btn btn-danger btn-circle\" onclick=\"$(this).closest('tr').remove()\">"
 				+ "<i class=\"fa fa-times\"></i></button></td></tr>";
 		$("#orderOfServiceTable tbody").append(newRowContent);
+		calcInputs();
+	}
+	
+	function calcInputs() {
+		$('input').each(function() {
+			$(this).keyup(function() {
+				newSum.call(this);
+				addSelectOptions.call(this);
+			});
+		});
+	}
+
+	function newSum() {
+		var sum = 0;
+		var thisRow = $(this).closest('tr');
+		$(thisRow).find('td:not(.subTotal)').each(
+				function() {
+					var qtd = $(thisRow).find('.qtd').val();
+					var basePrice = $(thisRow).find('.basePrice').val();
+					var discount = $(thisRow).find('.discount').val();
+					sum = (parseFloat(basePrice) * parseInt(qtd))
+							- parseFloat(discount);
+					$(thisRow).find('.subTotal').val(
+							sum.toFixed(2).replace(".", ","));
+
+				});
+	}
+
+	function addSelectOptions() {
+		var thisRow = $(this).closest('tr');
+		var serviceId = $(thisRow).find('td span').attr('id');
+		var qtd = $(thisRow).find('td .qtd').val();
+		var basePrice = $(thisRow).find('td .basePrice').val();
+		var discount = $(thisRow).find('td .discount').val();
+		var jsonOption = '[{\'serviceId\':' + serviceId + ',\'qtd\':' + qtd
+				+ ',\'basePrice\':' + basePrice + ',\'discount\':' + discount
+				+ '}]';
+
+		console.log('jsonOption: ' + jsonOption)
+		var exists = false;
+		
+		$("[name='object.orderOfServiceValue.id'] option").each(function() {
+			if (this.value === jsonOption) {
+				exists = true;
+			}
+		});
+
+		if (!exists) {
+			$("[name='object.orderOfServiceValue.id']")
+					.append(
+							'<option value="' + jsonOption + '" selected=\"true\">*</option>');
+		}
 	}
 </script>

@@ -14,6 +14,9 @@ public class OrderOfServiceValue extends Model {
 	public Service service;
 
 	@Hidden
+	public long orderOfServiceId;
+
+	@Hidden
 	public long institutionId;
 
 	public Float qtd = 0f;
@@ -88,6 +91,30 @@ public class OrderOfServiceValue extends Model {
 	
 	public String getSubTotalPriceCurrency() {
 		return Utils.getCurrencyValue(subTotal);
+	}
+
+	public Service getService() {
+		return service;
+	}
+
+	public void setService(Service service) {
+		this.service = service;
+	}
+
+	public long getOrderOfServiceId() {
+		return orderOfServiceId;
+	}
+
+	public void setOrderOfServiceId(long orderOfServiceId) {
+		this.orderOfServiceId = orderOfServiceId;
+	}
+
+	public long getInstitutionId() {
+		return institutionId;
+	}
+
+	public void setInstitutionId(long institutionId) {
+		this.institutionId = institutionId;
 	}
 
 
