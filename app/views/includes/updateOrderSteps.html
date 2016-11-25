@@ -5,7 +5,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapse&{orderOfService.orderCode}" aria-expanded="false" class="collapsed"><b>&{orderOfService.orderCode}</b> ✷  ${orderOfService.postedAt} ✷  &{orderOfService.client.toString()} ✷  &{orderOfService.client.phone} ✷  &{orderOfService.client.mail}</a>
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapse&{orderOfService?.orderCode}" aria-expanded="false" class="collapsed"><b>&{orderOfService?.orderCode}</b> ✷  ${orderOfService?.postedAt} ✷  &{orderOfService?.client?.toString()} ✷  &{orderOfService?.client?.phone} ✷  &{orderOfService?.client?.mail}</a>
 					</h4>
 				</div>
 				<div id="collapse&{orderOfService.orderCode}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">

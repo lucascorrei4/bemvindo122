@@ -251,7 +251,7 @@
                                     <tbody>
                                        #{list listOrderOfServices, as:'order'}
 											<tr>
-												<td><a href="@{OrderOfServiceController.list}">${order.orderCode} | ${order.client.name} ${order.client.lastName} </a></td>
+												<td><a href="@{OrderOfServiceController.list}">${order.orderCode} | ${order.client?.name} ${order.client?.lastName} </a></td>
 											</tr>
 										#{/list}
                                     </tbody>

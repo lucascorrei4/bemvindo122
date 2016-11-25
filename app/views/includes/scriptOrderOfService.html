@@ -3,23 +3,30 @@
 		var selectServices = document.getElementById('object_services');
 		var serviceName = selectServices.options[selectServices.selectedIndex].innerHTML;
 		var service = serviceName.substring(0, serviceName.indexOf(" R$"));
-		var basePrice = serviceName.substring(serviceName.indexOf(" R$") + 4, serviceName.length);
+		var basePrice = serviceName.substring(serviceName.indexOf(" R$") + 4,
+				serviceName.length);
 		var serviceId = selectServices.options[selectServices.selectedIndex].value;
 		var newRowContent = "<tr style=\"width: 240px;\">"
 				+ "<td><span id=\"" + serviceId + "\" class=\"serviceId\">"
 				+ service
 				+ "</span></td>"
 				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"qtd\" value=\"1\" onclick=\"this.select()\" /></td>"
-				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number basePrice\" value=\""+ basePrice +"\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number basePrice\" value=\""
+				+ basePrice
+				+ "\" onclick=\"this.select()\" /></td>"
 				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number discount\" value=\"0,00\" onclick=\"this.select()\" /></td>"
-				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number subTotal\" value=\""+ basePrice +"\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number subTotal\" value=\""
+				+ basePrice
+				+ "\" onclick=\"this.select()\" /></td>"
 				+ "<td><button id=\"removerItem\" type=\"button\" class=\"btn btn-danger btn-circle\" onclick=\"$(this).closest('tr').remove();setTimeout(function() { resetTable() }, 500); \">"
 				+ "<i class=\"fa fa-times\"></i></button></td></tr>";
 		$("#orderOfServiceTable tbody").append(newRowContent);
 		calcInputs();
-		setTimeout(function() { resetTable() }, 500);
+		setTimeout(function() {
+			resetTable()
+		}, 500);
 	}
-	
+
 	function calcInputs() {
 		$('input').each(function() {
 			$(this).keyup(function() {
@@ -29,34 +36,39 @@
 	}
 
 	function newSum() {
-	  var sum = 0;
-	  var thisRow = $(this).closest('tr');
-	  $(thisRow).find('td:not(.subTotal)').each(function () {
-	    var qtd = $(thisRow).find('.qtd').val();
-	    var basePrice = $(thisRow).find('.basePrice').val();
-	    var discount = $(thisRow).find('.discount').val();
-	    sum = (parseFloat(basePrice) * parseInt(qtd))
-	    - parseFloat(discount);
-	    $(thisRow).find('.subTotal').val(sum.toFixed(2).replace('.', ','));
-	  });
-	}
-		
-	function resetTable() {
-	  $('[name=\'object.orderOfServiceValue.id\'] option').html('');
-	  var inputContent = [];
-	  $('#orderOfServiceTable > tbody  > tr').each(function () {
-		  $(this).find('td').each (function() {
-		      var obj = {
-		        serviceId: $(this).find('span').attr('id'),
-		        qtd: $(this).find('input.qtd').val(),
-		        basePrice: $(this).find('input.basePrice').val(),
-		        discount: $(this).find('input.discount').val(),
-		        subTotal: $(this).find('input.subTotal').val()
-		      };
-	 	  });
-	      inputContent.push(obj);
-	  	$('[name=\'object.orderOfServiceValue.id\']').append('<option value="' + inputContent + '" selected="true">*</option>');
-	  });
+		var sum = 0;
+		var thisRow = $(this).closest('tr');
+		$(thisRow).find('td:not(.subTotal)').each(
+				function() {
+					var qtd = $(thisRow).find('.qtd').val();
+					var basePrice = $(thisRow).find('.basePrice').val();
+					var discount = $(thisRow).find('.discount').val();
+					sum = (parseFloat(basePrice) * parseInt(qtd))
+							- parseFloat(discount);
+					$(thisRow).find('.subTotal').val(
+							sum.toFixed(2).replace('.', ','));
+				});
 	}
 
+	function resetTable() {
+		var inputContent = [];
+		var content;
+		var obj;
+		var i = 0;
+		$('#orderOfServiceTable tr').each(function() {
+			if (i > 0) {
+				var row = $(this);
+				obj = new Object();
+				obj.serviceId = row.find('.serviceId').attr('id');
+				obj.qtd = row.find('.qtd').val();
+				obj.basePrice = row.find('.basePrice').val();
+				obj.discount = row.find('.discount').val();
+				obj.subTotal = row.find('.subTotal').val();
+				inputContent.push(obj);
+			}
+			i++;
+		});
+		JSON.stringify(inputContent);
+		$("#object_orderOfServiceValue").val(JSON.stringify(inputContent));
+	}
 </script>

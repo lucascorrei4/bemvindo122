@@ -14,11 +14,13 @@ import javax.persistence.Transient;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.Utils;
 
 @Entity
 public class OrderOfService extends Model {
+	@Required
 	@ManyToOne
 	public Client client;
 

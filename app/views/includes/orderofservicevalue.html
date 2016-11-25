@@ -26,11 +26,6 @@
 			#{/list}
 		</tbody>
 	</table>
-
-	<select size="1" id="object_orderOfServiceValue" name="object.orderOfServiceValue.id" multiple="multiple" hidden="true">
-	    #{list orderOfServiceValue, as:'value'}
-	        <option value="${value.id}" selected="selected">${value.id}</option>
-	    #{/list}
-	</select>
+	<input type="hidden" id="object_orderOfServiceValue" name="object.orderOfServiceValue.id" value="Norway">
 	
 </div>
