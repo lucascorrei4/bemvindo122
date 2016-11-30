@@ -24,21 +24,14 @@ public class OrderOfService extends Model {
 	@ManyToOne
 	public Client client;
 
-	@ManyToMany
-	@OrderBy("title ASC")
-	public List<Service> services;
+	@Transient
+	public List<Service> services = new ArrayList<Service>();
 
 	@Hidden
 	public long institutionId;
 
-	@ManyToMany
-	public List<OrderOfServiceValue> orderOfServiceValue;
-
-	@Hidden
-	public Float subTotal = 0f;
-
-	@Hidden
-	public Float totalPrice = 0f;
+	@Transient
+	public List<OrderOfServiceValue> orderOfServiceValue = new ArrayList<OrderOfServiceValue>();
 
 	public String orderCode;
 
@@ -82,7 +75,7 @@ public class OrderOfService extends Model {
 	}
 
 	public String getOrderCode() {
-		if (this.orderCode == null) {
+		if (this.orderCode == null || this.orderCode == "") {
 			String initials = Admin.getLoggedInstitution().getInstitution().replaceAll(" ", "").toUpperCase()
 					.substring(0, 2).concat(Admin.getLoggedInstitution().getId().toString());
 			setOrderCode(initials.concat(String.valueOf(Utils.generateRandomId())));
@@ -121,37 +114,15 @@ public class OrderOfService extends Model {
 		this.mapOrderServiceSteps = mapOrderServiceSteps;
 	}
 
-	public String getSubTotalCurrency() {
-		return Utils.getCurrencyValue(subTotal);
-	}
-
-	public void setSubTotal(Float subTotal) {
-		this.subTotal = subTotal;
-	}
-
-	public Float getSubTotal() {
-		return subTotal;
-	}
-
 	public List<OrderOfServiceValue> getOrderOfServiceValue() {
+		if (this.orderOfServiceValue == null) {
+			setOrderOfServiceValue(new ArrayList<OrderOfServiceValue>());
+		}
 		return orderOfServiceValue;
 	}
 
 	public void setOrderOfServiceValue(List<OrderOfServiceValue> orderOfServiceValue) {
 		this.orderOfServiceValue = orderOfServiceValue;
-	}
-
-	public Float getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(Float totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	
-	public String getTotalPriceCurrency() {
-		return Utils.getCurrencyValue(totalPrice);
 	}
 
 }

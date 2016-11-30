@@ -25,7 +25,12 @@
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
-			#{if request.actionMethod != 'index'} #{crud.navigation /} #{/if} #{if flash.success}
+			<ol class="breadcrumb">
+			    <li><a href="/admin/">Início</a></li>
+			    <li><a href="/admin/atualizar-pedidos">Atualizar Pedidos</a></li>
+			</ol>
+			
+			#{if flash.success}
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="alert alert-info alert-dismissable">${flash.success}</div>

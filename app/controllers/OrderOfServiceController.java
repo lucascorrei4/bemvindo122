@@ -8,10 +8,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import controllers.CRUD.ObjectType;
+import models.Client;
 import models.Institution;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
@@ -27,23 +29,20 @@ import util.Utils;
 
 @CRUD.For(models.OrderOfService.class)
 public class OrderOfServiceController extends CRUD {
-	
+
 	public static void blank() throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
 		OrderOfService object = (OrderOfService) constructor.newInstance();
-		List<Service> listService = Service.find("institutionId = "
+		List<Service> services = Service.find("institutionId = "
 				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc")
 				.fetch();
-		object.services = new ArrayList<Service>();
-		object.services.addAll(listService);
-		object.orderOfServiceValue = new ArrayList<OrderOfServiceValue>();
 		try {
-			render(type, object);
+			render(type, object, services);
 		} catch (TemplateNotFoundException e) {
-			render("CRUD/blank.html", type, object);
+			render("CRUD/blank.html", type, object, services);
 		}
 	}
 
@@ -74,11 +73,14 @@ public class OrderOfServiceController extends CRUD {
 		OrderOfService object = OrderOfService.find(
 				"id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId())
 				.first();
+		List<Service> services = Service.find("institutionId = "
+				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc")
+				.fetch();
 		notFoundIfNull(object);
 		try {
-			render(type, object);
+			render(type, object, services);
 		} catch (TemplateNotFoundException e) {
-			render("CRUD/show.html", type, object);
+			render("CRUD/show.html", type, object, services);
 		}
 	}
 
@@ -110,25 +112,26 @@ public class OrderOfServiceController extends CRUD {
 		notFoundIfNull(type);
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
-		OrderOfService object = (OrderOfService) constructor.newInstance();
-		String[] name = params.get("object.orderOfServiceValue.id", String[].class);
-		for (String string : name) {
-			JsonParser parser = new JsonParser();
-			JsonObject obj = parser.parse(string).getAsJsonObject();
-		}
+		Model object = (Model) constructor.newInstance();
 		Binder.bindBean(params.getRootParamNode(), "object", object);
 		validation.valid(object);
 		if (validation.hasErrors()) {
+			List<Service> services = Service
+					.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()
+							+ " and isActive = true order by title asc")
+					.fetch();
 			renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
 			try {
-				render(request.controller.replace(".", "/") + "/blank.html", type, object);
+				render(request.controller.replace(".", "/") + "/blank.html", type, object, services);
 			} catch (TemplateNotFoundException e) {
-				render("CRUD/blank.html", type, object);
+				render("CRUD/blank.html", type, object, services);
 			}
 		}
 		object._save();
 		flash.success(play.i18n.Messages.get("crud.created", type.modelName));
 		OrderOfService orderOfService = (OrderOfService) object;
+		String[] jsonContent = params.get("orderOfServiceValue", String[].class);
+		generateOrderOfServiceValues(orderOfService, jsonContent[0]);
 		generateStepsByService(orderOfService);
 		if (params.get("_save") != null) {
 			redirect(request.controller + ".list");
@@ -139,8 +142,36 @@ public class OrderOfServiceController extends CRUD {
 		redirect(request.controller + ".show", object._key());
 	}
 
+	private static void generateOrderOfServiceValues(OrderOfService orderOfService, String jsonContent) {
+		if (jsonContent != null) {
+			JsonParser parser = new JsonParser();
+			JsonArray jsonArray = parser.parse(jsonContent).getAsJsonArray();
+			for (int i = 0; i < jsonArray.size(); i++) {
+				JsonObject jObject = (JsonObject) jsonArray.get(i);
+				OrderOfServiceValue orderOfServiceValue = new OrderOfServiceValue();
+				orderOfServiceValue.setOrderOfServiceId(orderOfService.getId());
+				Service service = Service.findById(Long.valueOf(jObject.get("serviceId").getAsString()));
+				orderOfServiceValue.setService(service);
+				orderOfServiceValue.setQtd(Float.valueOf(jObject.get("qtd").getAsString().replace(",", ".")));
+				orderOfServiceValue
+						.setUnitPrice(Float.valueOf(jObject.get("basePrice").getAsString().replace(",", ".")));
+				orderOfServiceValue.setDiscount(Float.valueOf(jObject.get("discount").getAsString().replace(",", ".")));
+				orderOfServiceValue.setSubTotal(Float.valueOf(jObject.get("subTotal").getAsString().replace(",", ".")));
+				orderOfServiceValue.setInstitutionId(orderOfService.getInstitutionId());
+				orderOfServiceValue.willBeSaved = true;
+				orderOfServiceValue.save();
+			}
+		}
+	}
+
 	private static void generateStepsByService(OrderOfService orderOfService) {
-		List<Service> services = orderOfService.getServices();
+		List<Service> services = new ArrayList<Service>();
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
+				.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+		for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+			Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
+			services.add(service);
+		}
 		for (Service service : services) {
 			List<Step> steps = Step.find("service_id = " + service.getId() + " and institutionId = "
 					+ Admin.getLoggedUserInstitution().getInstitution().getId()
@@ -177,7 +208,13 @@ public class OrderOfServiceController extends CRUD {
 				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by id desc")
 				.fetch();
 		for (OrderOfService orderOfService : listOrderOfService) {
-			List<Service> services = orderOfService.getServices();
+			List<Service> services = new ArrayList<Service>();
+			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
+					.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+				Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
+				services.add(service);
+			}
 			Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
 			for (Service service : services) {
 				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId()

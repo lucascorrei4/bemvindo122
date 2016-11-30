@@ -12,18 +12,12 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'client', 'service', 'totalPrice', 'orderCode', 'isActive', 'orderService', 'action']}
+			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'isActive', 'orderService', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.postedAt}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'client'}
 			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.client?.name} ${object.client?.lastName}</a>
-				        #{/crud.custom}
-				        #{crud.custom 'service'}
-			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.services}</a>
-				        #{/crud.custom}
-				        #{crud.custom 'totalPrice'}
-			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.totalPrice}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'orderCode'}
 			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.orderCode}</a>

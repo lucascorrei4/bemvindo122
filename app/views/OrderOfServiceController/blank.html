@@ -11,18 +11,15 @@
                	<div class="col-lg-8">
 					#{form action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
-							#{crud.custom 'services'}
+							#{crud.custom 'orderCode'}
 								<div class="form-group">
 								    <label for="object_services">
 								        Selecione um serviço e adicione na lista abaixo
 								    </label>
-							        <input name="object.services.id" value="" type="hidden">
-							        #{select id:'object_services', name:'object.services.id', items:object.services, valueProperty:'id', labelProperty:'nameBasePrice', class:'form-control' /}
+							        #{select id:'services', name:'services', items:services, valueProperty:'id', labelProperty:'nameBasePrice', class:'form-control' /}
 								    <p class="help-block">
 								    </p>
    								</div>
-    						#{/crud.custom}
-							#{crud.custom 'orderOfServiceValue'}
 								<div class="form-group">
 									<button id="addOrderOfService" type="button" class="btn btn-default" name="btn_adicionar" onclick="addOrderService();">Adicionar</button>
 								</div>
@@ -37,8 +34,6 @@
 										</div>
 									</div>
 								</div>
-							#{/crud.custom}
-							#{crud.custom 'orderCode'}
 								<div class="form-group">
 									<label for="object_orderCode"> Código do Pedido </label>
 									<input id="object_orderCode" class="form-control" type="text" size="50" name="object.orderCode" value="${object.orderCode}" disabled="disabled">

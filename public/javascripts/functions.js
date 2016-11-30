@@ -75,6 +75,7 @@ function updateRadioValue(name, value) {
 					$("#message-" + name).fadeIn();
 					var spplittedName = name.split('-');
 					$("#collapse" + spplittedName[1]).collapse('show');
+					console.log("#collapse" + spplittedName[1])
 				} else {
 					$("#message-" + name).css("color", "red");
 					$("#message-" + name).show();
