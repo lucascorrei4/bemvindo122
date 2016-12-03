@@ -14,7 +14,21 @@
 							#{crud.custom 'basePrice'}
 								<div class="form-group">
 									<label for="object_basePrice"> Preço Base </labyel>
-									<input id="object_basePrice" class="form-control number" type="text" size="50" name="object.basePrice" value="${object.basePrice}" onclick="this.select()">
+									<input id="object_basePrice" class="form-control number" type="text" size="50" name="object.basePrice" value="${object.basePrice}" onclick="this.select()" />
+								</div>
+								<div class="form-group">
+									<button id="addNewStep" type="button" class="btn btn-default" name="btn_adicionar" onclick="addNewStep();">Adicionar Etapa</button>
+								</div>
+								<div class="form-group">
+									<div id="message"></div>
+								</div>
+								<div class="form-group">
+				                    <div class="panel panel-default">
+				                    	<div class="panel-heading">Etapas adicionadas</div>
+										<div class="panel-body">
+											#{include 'includes/orderofservicevalue.html' /}
+										</div>
+									</div>
 								</div>
 							#{/crud.custom}
 							#{crud.custom 'isActive'}
@@ -40,6 +54,7 @@
 						</div>
 					#{/form}
 				</div>
+				#{include 'includes/scriptSteps.html' /}
 				<div class="col-lg-6">
 					<a href="@{list()}" class="btn btn-default" style="float: right">&{'crud.cancel', type.modelName}</a>
 				</div>

@@ -12,29 +12,27 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'isActive', 'orderService', 'action']}
+			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'isActive', 'action']}
 			        	#{crud.custom 'postedAt'}
-			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.postedAt}</a>
+			         		<a>${object.postedAt}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'client'}
-			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.client?.name} ${object.client?.lastName}</a>
+			         		<a>${object.client?.name} ${object.client?.lastName}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'orderCode'}
-			         		<a href="@{OrderOfServiceController.show(object.id)}">${object.orderCode}</a>
+			         		<a>${object.orderCode}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
 					        #{if object.isActive}
-						    	<a href="@{OrderOfServiceController.show(object.id)}">${object.isActive='Sim'}</a>
+						    	<a >${object.isActive='Sim'}</a>
 						    #{/if}
 						    #{else} 
-						    	<a href="@{OrderOfServiceController.show(object.id)}">${object.isActive='Não'}</a>
+						    	<a>${object.isActive='Não'}</a>
 				            #{/else}
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
-				       		<a href="@{OrderOfServiceController.show(object.id)}" class="btn btn-default"><i class="fa fa-edit"></i></a>
-				        #{/crud.custom}
-				        #{crud.custom 'orderService'}
-				       		<a id="btnModalGenerateCode" class="btn btn-default" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);"><i class="fa fa-print"></i></a>
+				       		<a id="btnModalGenerateCode" class="btn btn-default" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);"><i class="fa fa-print"></i> PDF</a>
+				       		<a href="@{OrderOfServiceController.remove(object.id)}" class="btn btn-default" title="Atenção: Esta ação remove a ordem de serviço, o acompanhamento do cliente (Código: &{object.orderCode}) e os valores de serviços associados a esta ordem de serviço."><i class="fa fa-trash"></i> Remover</a>
 				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">

@@ -8,10 +8,32 @@
         </div>
         <div class="panel-body">
            	<div class="row">
-               	<div class="col-lg-6">
+               	<div class="col-lg-8">
 					#{form action:@save(object._key()), enctype:'multipart/form-data'}
 						#{crud.form}
 							#{crud.custom 'orderCode'}
+								<div class="form-group">
+								    <label for="object_services">
+								        Selecione um serviço e adicione na lista abaixo
+								    </label>
+							        #{select id:'services', name:'services', items:services, valueProperty:'id', labelProperty:'nameBasePrice', class:'form-control' /}
+								    <p class="help-block">
+								    </p>
+   								</div>
+								<div class="form-group">
+									<button id="addOrderOfService" type="button" class="btn btn-default" name="btn_adicionar" onclick="addOrderService();">Adicionar</button>
+								</div>
+								<div class="form-group">
+									<div id="message"></div>
+								</div>
+								<div class="form-group">
+				                    <div class="panel panel-default">
+				                    	<div class="panel-heading">Serviços adicionados</div>
+										<div class="panel-body">
+											#{include 'includes/orderofservicevalue.html' /}
+										</div>
+									</div>
+								</div>
 								<div class="form-group">
 									<label for="object_orderCode"> Código do Pedido </label>
 									<input id="object_orderCode" class="form-control" type="text" size="50" name="object.orderCode" value="${object.orderCode}" disabled="disabled">
@@ -39,6 +61,7 @@
 						</div>
 					#{/form}
 				</div>
+				#{include 'includes/scriptOrderOfService.html' /}
 				<div class="col-lg-6">
 					 #{form @delete(object._key())}
 				        <input type="submit" class="btn btn-default" style="float: right" value="&{'crud.delete', type.modelName}" />

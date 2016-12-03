@@ -85,39 +85,49 @@
 							<thead>
 								<tr>
 									<th width="55%"><input id="ember457" class="no-markers ember-view ember-text-field" type="text" value="Descrição" style="font-size: 11px;"></th>
-									<th><input id="ember458" class="invoice-table-quantity no-markers ember-view ember-text-field" type="text" value="Vl. Unit." style="font-size: 11px;"></th>
+									<th><input id="ember458" class="invoice-table-quantity no-markers ember-view ember-text-field" type="text" value="Vl. Unit." style="font-size: 11px; text-align: right;"></th>
 									<th><input id="ember459" class="invoice-table-rate no-markers ember-view ember-text-field" type="text" value="Qtd" style="font-size: 11px;"></th>
+									<th><input id="ember459" class="invoice-table-rate no-markers ember-view ember-text-field" type="text" value="Desc." style="font-size: 11px; text-align: right;"></th>
 									<th><input id="ember461" class="invoice-table-amount no-markers ember-view ember-text-field" type="text" value="Total" style="font-size: 11px;"></th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>
-										<!----> <p id="ember463" placeholder="Item name/description" rows="1"
-											class="invoice-line-item-description no-markers ember-view ember-text-area flexible-textarea" style="font-size: 10px;">${order?.services}</p>
-									</td>
-									<td>
-										<div id="ember472" class="invoice-line-item-rate no-markers ember-view">
-											<div class="input-group">
-												<input id="ember473" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${order?.unitPriceCurrency}" style="font-size: 10px;">
+								#{list orderOfServiceValues, as:'value'}
+									<tr>
+										<td>
+											<!----> <p id="ember463" placeholder="Item name/description" rows="1"
+												class="invoice-line-item-description no-markers ember-view ember-text-area flexible-textarea" style="font-size: 10px;">${value.service?.title}</p>
+										</td>
+										<td>
+											<div id="ember472" class="invoice-line-item-rate no-markers ember-view">
+												<div class="input-group">
+													<input id="ember473" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${value?.unitPriceCurrency}" style="font-size: 10px; text-align: right;">
+												</div>
 											</div>
-										</div>
-									</td>
-									<td>
-										<div id="ember474" class="invoice-line-item-rate no-markers ember-view">
-											<div class="input-group">
-												<input id="ember475" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${order?.qtd}" style="font-size: 10px;">
+										</td>
+										<td>
+											<div id="ember474" class="invoice-line-item-rate no-markers ember-view">
+												<div class="input-group">
+													<input id="ember475" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${value?.qtd}" style="font-size: 10px;">
+												</div>
 											</div>
-										</div>
-									</td>
-									<td>
-										<div id="ember478" class="invoice-line-item-amount no-markers ember-view">
-											<div class="input-group">
-												<input id="ember479" disabled="" class="invoice-line-item-amount no-markers ember-view ember-text-field" type="text" value="${order?.subTotalCurrency}" style="font-size: 10px;">
+										</td>
+										<td>
+											<div id="ember474" class="invoice-line-item-rate no-markers ember-view">
+												<div class="input-group">
+													<input id="ember475" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${value?.discountCurrency}" style="font-size: 10px; text-align: right;">
+												</div>
 											</div>
-										</div>
-									</td>
-								</tr>
+										</td>
+										<td>
+											<div id="ember478" class="invoice-line-item-amount no-markers ember-view">
+												<div class="input-group">
+													<input id="ember479" disabled="" class="invoice-line-item-amount no-markers ember-view ember-text-field" type="text" value="${value?.subTotalCurrency}" style="font-size: 10px;">
+												</div>
+											</div>
+										</td>
+									</tr>
+								#{/list}
 							</tbody>
 						</table>
 					</div>
@@ -136,7 +146,7 @@
 							<div class="col-md-6 no-padding">
 								<div id="ember482" class="invoice-sub-total-body no-markers ember-view">
 									<div class="input-group">
-										<input id="ember483" disabled="" class="invoice-sub-total-body no-markers ember-view ember-text-field" type="text" value="R$ ${order?.subTotalCurrency}">
+										<input id="ember483" disabled="" class="invoice-sub-total-body no-markers ember-view ember-text-field" type="text" value="R$ ${subTotalGeralCurrency}">
 									</div>
 								</div>
 							</div>
@@ -148,19 +158,19 @@
 							<div class="col-md-6 no-padding">
 								<div id="ember493" class="invoice-discount-body no-markers ember-view">
 									<div class="input-group">
-										<input id="ember494" class="invoice-discount-body no-markers ember-view ember-text-field" type="text" value="R$ ${order?.discountCurrency}">
+										<input id="ember494" class="invoice-discount-body no-markers ember-view ember-text-field" type="text" value="R$ ${discountGeralCurrency}">
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 no-padding">
-								<input id="ember498" class="invoice-tax no-markers ember-view ember-text-field" type="text" value="Total">
+								<input id="ember498" class="invoice-tax no-markers ember-view ember-text-field" type="text" value="Total Geral">
 							</div>
 							<div class="col-md-6 no-padding">
 								<div id="ember499" class="invoice-tax-body no-markers ember-view">
 									<div class="input-group">
-										<input id="ember500" class="invoice-tax-body no-markers ember-view ember-text-field" type="text" value="R$ ${order?.totalPriceCurrency}">
+										<input id="ember500" class="invoice-tax-body no-markers ember-view ember-text-field" type="text" value="R$ ${totalGeralCurrency}">
 									</div>
 								</div>
 							</div>

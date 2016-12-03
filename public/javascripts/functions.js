@@ -54,7 +54,8 @@ function followordercode() {
 			} else {
 				$("#message2").css("color", "red");
 				$("#message2").show();
-				$("#message2").html($("#response2").val());
+				$("#message2").html($("#response2").val());b pvnnnnnnvb ç m               
+				]
 			}
 		});
 	}

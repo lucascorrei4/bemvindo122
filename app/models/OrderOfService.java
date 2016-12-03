@@ -75,11 +75,6 @@ public class OrderOfService extends Model {
 	}
 
 	public String getOrderCode() {
-		if (this.orderCode == null || this.orderCode == "") {
-			String initials = Admin.getLoggedInstitution().getInstitution().replaceAll(" ", "").toUpperCase()
-					.substring(0, 2).concat(Admin.getLoggedInstitution().getId().toString());
-			setOrderCode(initials.concat(String.valueOf(Utils.generateRandomId())));
-		}
 		return orderCode;
 	}
 

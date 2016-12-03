@@ -59,6 +59,7 @@
 			if (i > 0) {
 				var row = $(this);
 				obj = new Object();
+				obj.id = row.find('.serviceId').attr('accesskey');
 				obj.serviceId = row.find('.serviceId').attr('id');
 				obj.qtd = row.find('.qtd').val();
 				obj.basePrice = row.find('.basePrice').val();

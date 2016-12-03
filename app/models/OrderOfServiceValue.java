@@ -55,7 +55,7 @@ public class OrderOfServiceValue extends Model {
 
 	public Float getUnitPrice() {
 		if (service != null) {
-			unitPrice = Float.valueOf(service.basePrice);
+			unitPrice = Float.valueOf(service.basePrice.replace(",", "."));
 		}
 		return unitPrice;
 	}
@@ -90,6 +90,10 @@ public class OrderOfServiceValue extends Model {
 	}
 	
 	public String getSubTotalPriceCurrency() {
+		return Utils.getCurrencyValue(subTotal);
+	}
+
+	public String getSubTotalCurrency() {
 		return Utils.getCurrencyValue(subTotal);
 	}
 

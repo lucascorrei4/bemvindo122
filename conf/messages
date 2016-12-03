@@ -280,6 +280,7 @@ smsSent=Enviada
 smsRead=Lida
 institutionKey=Chave de Identificação
 basePrice=Preço Base
+savePrint=Salvar / Imprimir
 
 #Buttons
 btn.send=Enviar

@@ -77,11 +77,36 @@ public class OrderOfServiceController extends CRUD {
 				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc")
 				.fetch();
 		notFoundIfNull(object);
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
+				.find("orderOfServiceId = " + Long.valueOf(id)).fetch();
 		try {
-			render(type, object, services);
+			render(type, object, services, orderOfServiceValues);
 		} catch (TemplateNotFoundException e) {
-			render("CRUD/show.html", type, object, services);
+			render("CRUD/show.html", type, object, services, orderOfServiceValues);
 		}
+	}
+
+	public static void save(String id) throws Exception {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		Model object = type.findById(id);
+		notFoundIfNull(object);
+		Binder.bindBean(params.getRootParamNode(), "object", object);
+		validation.valid(object);
+		if (validation.hasErrors()) {
+			renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
+			try {
+				render(request.controller.replace(".", "/") + "/show.html", type, object);
+			} catch (TemplateNotFoundException e) {
+				render("CRUD/show.html", type, object);
+			}
+		}
+		object._save();
+		flash.success(play.i18n.Messages.get("crud.saved", type.modelName));
+		if (params.get("_save") != null) {
+			redirect(request.controller + ".list");
+		}
+		redirect(request.controller + ".show", object._key());
 	}
 
 	public static String orderId = null;
@@ -92,7 +117,21 @@ public class OrderOfServiceController extends CRUD {
 				"id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true")
 				.first();
 		List<Service> services = order.getServices();
-		render(order, institution, services);
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
+				.find("orderOfServiceId = " + Long.valueOf(id)).fetch();
+		/* Get somatories values */
+		Float subTotalGeral = 0f;
+		Float discountGeral = 0f;
+		Float totalGeral = 0f;
+		for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+			subTotalGeral += orderOfServiceValue.getSubTotal();
+			discountGeral += orderOfServiceValue.getDiscount();
+			totalGeral += orderOfServiceValue.getTotalPrice();
+		}
+		String subTotalGeralCurrency = Utils.getCurrencyValue(subTotalGeral);
+		String totalGeralCurrency = Utils.getCurrencyValue(totalGeral);
+		String discountGeralCurrency = Utils.getCurrencyValue(discountGeral);
+		render(order, institution, services, orderOfServiceValues, subTotalGeralCurrency, totalGeralCurrency, discountGeralCurrency);
 	}
 
 	public static void orderByOrderOfServiceId(final String id) {
@@ -112,8 +151,11 @@ public class OrderOfServiceController extends CRUD {
 		notFoundIfNull(type);
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
-		Model object = (Model) constructor.newInstance();
+		OrderOfService object = (OrderOfService) constructor.newInstance();
 		Binder.bindBean(params.getRootParamNode(), "object", object);
+		String initials = Admin.getLoggedInstitution().getInstitution().replaceAll(" ", "").toUpperCase()
+				.substring(0, 2).concat(Admin.getLoggedInstitution().getId().toString());
+		object.setOrderCode(initials.concat(String.valueOf(Utils.generateRandomId())));
 		validation.valid(object);
 		if (validation.hasErrors()) {
 			List<Service> services = Service
@@ -342,5 +384,16 @@ public class OrderOfServiceController extends CRUD {
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
+	}
+
+	public static void remove(String id) throws Exception {
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find(
+				"id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true")
+				.first();
+		OrderOfServiceStep.delete("orderOfService_id = " + orderOfService.getId());
+		OrderOfServiceValue.delete("orderOfServiceId = " + orderOfService.getId());
+		orderOfService.delete();
+		OrderOfServiceController.list(0, null, null, null, null);
 	}
 }
