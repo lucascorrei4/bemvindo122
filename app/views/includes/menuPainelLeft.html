@@ -15,23 +15,19 @@
 			
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{ClientController.list}"><i class="fa fa-user-plus fa-fw"></i> 1º. Adicionar Novo Cliente</a>
+				<a href="@{ClientController.list}"><i class="fa fa-user-plus fa-fw"></i> 1º. Clientes</a>
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{ServiceController.list}"><i class="fa fa-wrench fa-fw"></i> 2º. Adicionar Novo Serviço</a>
+				<a href="@{ServiceController.list}"><i class="fa fa-wrench fa-fw"></i> 2º. Serviços</a>
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{StepController.list}"><i class="fa fa-sort-numeric-asc fa-fw"></i> 3º. Etapas do Serviço</a>
-			</li>
-			
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceController.list}"><i class="fa fa-qrcode fa-fw"></i> 4º. Gerar Código de Serviço</a>
+				<a href="@{OrderOfServiceController.list}"><i class="fa fa-qrcode fa-fw"></i> 3º. Gerar Código</a>
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceController.updateOrder}"><i class="fa fa-battery-half fa-fw"></i> 5º. Atualizar Pedidos</a>
+				<a href="@{OrderOfServiceController.updateOrder}"><i class="fa fa-battery-half fa-fw"></i> 4º. Atualizar Pedidos</a>
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">

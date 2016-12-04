@@ -8,13 +8,27 @@
         </div>
         <div class="panel-body">
            	<div class="row">
-               	<div class="col-lg-6">
-					#{form action:@save(object._key()), enctype:'multipart/form-data'}
+               	<div class="col-lg-8">
+					#{form id:'form', action:@save(object._key()), enctype:'multipart/form-data'}
 						#{crud.form}
 							#{crud.custom 'basePrice'}
 								<div class="form-group">
 									<label for="object_basePrice"> Preço Base </label>
-									<input id="object_basePrice" class="form-control number" type="text" size="50" name="object.basePrice" value="${object.basePrice}" onclick="this.select()">
+									<input id="object_basePrice" class="form-control number" type="text" size="50" name="object.basePrice" value="${object.basePrice}" onclick="this.select()" style="width: 100px;">
+								</div>
+								<div class="form-group">
+									<button id="addNewStep" type="button" class="btn btn-default" name="btn_adicionar" onclick="newstep()">Adicionar Etapa</button>
+								</div>
+								<div class="form-group">
+									<div id="message"></div>
+								</div>
+								<div class="form-group">
+				                    <div class="panel panel-default">
+				                    	<div class="panel-heading">Etapas Adicionadas</div>
+										<div class="panel-body">
+											#{include 'includes/steps.html' /}
+										</div>
+									</div>
 								</div>
 							#{/crud.custom}
 							#{crud.custom 'isDone'}
@@ -50,15 +64,10 @@
 						#{/crud.form}
 						<div class="form-group" style="float: right">
 							<input type="submit" name="_save" value="&{'crud.save', type.modelName}" class="btn btn-default" />
-				            <input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" class="btn btn-default" />
 						</div>
 					#{/form}
 				</div>
-				<div class="col-lg-6">
-					 #{form @delete(object._key())}
-				        <input type="submit" class="btn btn-default" style="float: right" value="&{'crud.delete', type.modelName}" />
-				    #{/form}
-				</div>
+				<script type="text/javascript" src="@{'public/javascripts/scriptSteps.js'}" charset="ISO-8859-1"></script>
 			</div>
 		</div>
 	</div>

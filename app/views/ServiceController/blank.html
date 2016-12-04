@@ -8,25 +8,25 @@
         </div>
         <div class="panel-body">
            	<div class="row">
-               	<div class="col-lg-6">
-					#{form action:@create(), enctype:'multipart/form-data'}
+               	<div class="col-lg-8">
+					#{form id:'form', action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
 							#{crud.custom 'basePrice'}
 								<div class="form-group">
 									<label for="object_basePrice"> Preço Base </labyel>
-									<input id="object_basePrice" class="form-control number" type="text" size="50" name="object.basePrice" value="${object.basePrice}" onclick="this.select()" />
+									<input id="object_basePrice" class="form-control number" type="text" size="50" name="object.basePrice" value="${object.basePrice}" onclick="this.select()" style="width: 100px;"/>
 								</div>
 								<div class="form-group">
-									<button id="addNewStep" type="button" class="btn btn-default" name="btn_adicionar" onclick="addNewStep();">Adicionar Etapa</button>
+									<button id="addNewStep" type="button" class="btn btn-default" name="btn_adicionar" onclick="newstep()">Adicionar Etapa</button>
 								</div>
 								<div class="form-group">
 									<div id="message"></div>
 								</div>
 								<div class="form-group">
 				                    <div class="panel panel-default">
-				                    	<div class="panel-heading">Etapas adicionadas</div>
+				                    	<div class="panel-heading">Etapas necessárias para a conclusão do serviço</div>
 										<div class="panel-body">
-											#{include 'includes/orderofservicevalue.html' /}
+											#{include 'includes/steps.html' /}
 										</div>
 									</div>
 								</div>
@@ -49,12 +49,10 @@
 						#{/crud.form}
 						<div class="form-group" style="float: right">
 							<button type="submit" class="btn btn-default" name="_save">&{'crud.save', type.modelName}</button>
-							<button type="submit" class="btn btn-default" name="_saveAndContinue">&{'crud.saveAndContinue', type.modelName}</button>
-							<button type="submit" class="btn btn-default" name="_saveAndAddAnother" >&{'crud.saveAndAddAnother', type.modelName}</button>
 						</div>
 					#{/form}
 				</div>
-				#{include 'includes/scriptSteps.html' /}
+				<script type="text/javascript" src="@{'public/javascripts/scriptSteps.js'}" charset="ISO-8859-1"></script> 
 				<div class="col-lg-6">
 					<a href="@{list()}" class="btn btn-default" style="float: right">&{'crud.cancel', type.modelName}</a>
 				</div>

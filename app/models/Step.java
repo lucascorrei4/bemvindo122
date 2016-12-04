@@ -25,25 +25,25 @@ public class Step extends Model {
 
 	public String description;
 
-	public int estimatedDuration;
+	public float estimatedDuration = 0f;
 
-	public int position= 0;
+	public int position = 0;
 
 	public boolean isActive = true;
-	
+
 	@Hidden
 	public long institutionId;
 
 	@Hidden
 	public String postedAt;
-	
-	@Transient	
+
+	@Transient
 	public String titleParsed;
-	
+
 	public String toString() {
 		return title;
 	}
-	
+
 	public Service getService() {
 		return service;
 	}
@@ -68,14 +68,6 @@ public class Step extends Model {
 		this.description = description;
 	}
 
-	public int getEstimatedDuration() {
-		return estimatedDuration;
-	}
-
-	public void setEstimatedDuration(int estimatedDuration) {
-		this.estimatedDuration = estimatedDuration;
-	}
-
 	public boolean isActive() {
 		return isActive;
 	}
@@ -94,9 +86,10 @@ public class Step extends Model {
 		}
 		return postedAt;
 	}
-	
+
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
@@ -110,14 +103,22 @@ public class Step extends Model {
 	public void setPosition(int position) {
 		this.position = position;
 	}
-	
+
 	public String getTitleParsed() {
-		String titleParsed = title.replace(" ", "-").toLowerCase(); 
+		String titleParsed = title.replace(" ", "-").toLowerCase();
 		return Utils.removeAccent(titleParsed);
 	}
 
 	public void setTitleParsed(String titleParsed) {
 		this.titleParsed = titleParsed;
+	}
+
+	public float getEstimatedDuration() {
+		return estimatedDuration;
+	}
+
+	public void setEstimatedDuration(float estimatedDuration) {
+		this.estimatedDuration = estimatedDuration;
 	}
 
 }
