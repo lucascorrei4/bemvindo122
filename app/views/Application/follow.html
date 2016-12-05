@@ -36,9 +36,50 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js'}/1.4.2/respond.min.js'}"></script>
     <![endif]-->
-
+    <head>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+  <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+      appId: "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
+      autoRegister: true, /* Set to true to automatically prompt visitors */
+      subdomainName: 'https://seupedido.onesignal.com',   
+      notifyButton: {
+          enable: true /* Set to false to hide */
+      }
+    }]);
+  </script>
+</head>
 </head>
 <body>
+	<a href="#" id="subscribe-link" style="display: none;">Confirme para receber avisos sobre este pedido!</a>
+    <script>
+        function subscribe() {
+            var orderCode = document.getElementById("orderCode").value;
+        	OneSignal.push(["registerForPushNotifications"]);
+            OneSignal.push(["sendTags", {orderCode: orderCode}]);
+            event.preventDefault();
+        }
+
+        var OneSignal = OneSignal || [];
+        /* This example assumes you've already initialized OneSignal */
+        OneSignal.push(function() {
+            // If we're on an unsupported browser, do nothing
+            if (!OneSignal.isPushNotificationsSupported()) {
+                return;
+            }
+            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                if (isEnabled) {
+                    // The user is subscribed to notifications
+                    // Don't show anything
+                } else {
+                    document.getElementById("subscribe-link").addEventListener('click', subscribe);
+                    document.getElementById("subscribe-link").style.display = '';
+                }
+            });
+        });
+    </script>
+    <input type="hidden" id="orderCode" value="${orderOfService.orderCode}">
     <div id="wrapper">
         <div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
             <div class="row">

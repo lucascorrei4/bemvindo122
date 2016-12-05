@@ -134,4 +134,12 @@ public class ApplicationConfiguration {
 	public String getSMSApiUrl() {
 		return getProperty("app.sms.url");
 	}
+
+	public String getOneSignalAppId() {
+		return getProperty("onesignal.app.id");
+	}
+
+	public String getOneSignalAuthId() {
+		return getProperty("onesignal.auth.id");
+	}
 }

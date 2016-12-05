@@ -40,11 +40,12 @@
 	                                    <input id="btnSaveObs" class="btn btn-default" type="button" value="Salvar observação" onclick="updateObsOrderStep(document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value);" />
 	                                </div>
 	                                <div class="form-group">
-	                                	<label>Notificar  &{orderOfService.client.toString()} via SMS</label>
+	                                	<label>Notificar  &{orderOfService.client.toString()}</label>
 	                                    <input class="form-control" id="sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" value="Ola, &{orderOfService.client.name.trim()}. Status atual do pedido &{orderOfService.orderCode}: Fase ${orderServiceStep_index}, &{orderServiceStep.status.label}. Acompanhe! Att., &{institution.institution}." />
 	                                </div>
 	                                <div class="form-group">
-	                                    <input class="btn btn-default" type="button" value="Enviar" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value);" />
+	                                    <input class="btn btn-default" type="button" value="Via PUSH" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value);" />
+	                                    <input class="btn btn-default" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value);" />
 	                                </div>
                                 	<div id="message-option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}"></div>
                                 	<div id="message-sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}"></div>

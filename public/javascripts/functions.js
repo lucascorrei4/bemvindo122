@@ -54,8 +54,7 @@ function followordercode() {
 			} else {
 				$("#message2").css("color", "red");
 				$("#message2").show();
-				$("#message2").html($("#response2").val());b pvnnnnnnvb ç m               
-				]
+				$("#message2").html($("#response2").val());               
 			}
 		});
 	}
@@ -133,6 +132,31 @@ function sendSMS(id, value) {
 					setTimeout('$("#message").hide()', 10000);
 				}
 			});
+}
+
+function sendPUSH(id, value) {
+	var data = jQuery.param({
+		id : id,
+		value : value
+	});
+	$('#accordion').load('/orderofservicecontroller/sendpush', data,
+			function(response, status) {
+		var status = $("#status").val();
+		var spplittedName = id.split('-');
+		if ('SUCCESS' === status) {
+			$("#message-" + id).css("color", "gray");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#response").val());
+			$("#message-" + id).fadeIn();
+			$("#collapse" + spplittedName[1]).collapse('show');
+		} else {
+			$("#message-" + id).css("color", "red");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#response").val());
+			$("#collapse" + spplittedName[1]).collapse('show');
+			setTimeout('$("#message").hide()', 10000);
+		}
+	});
 }
 
 function closeModal() {

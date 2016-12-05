@@ -12,23 +12,28 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import controllers.CRUD.ObjectType;
-import models.Client;
 import models.Institution;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.OrderOfServiceValue;
 import models.Service;
+import models.StatusPUSH;
 import models.StatusSMS;
 import models.Step;
+import play.Play;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
+import util.ApplicationConfiguration;
+import util.PushNotification;
 import util.StatusEnum;
 import util.Utils;
 
 @CRUD.For(models.OrderOfService.class)
 public class OrderOfServiceController extends CRUD {
+	
+	public static String STR_PUSH_APP_ID = ApplicationConfiguration.getInstance().getOneSignalAppId();
+	public static String STR_PUSH_AUTH_ID = ApplicationConfiguration.getInstance().getOneSignalAuthId();
 
 	public static void blank() throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
@@ -131,7 +136,8 @@ public class OrderOfServiceController extends CRUD {
 		String subTotalGeralCurrency = Utils.getCurrencyValue(subTotalGeral);
 		String totalGeralCurrency = Utils.getCurrencyValue(totalGeral);
 		String discountGeralCurrency = Utils.getCurrencyValue(discountGeral);
-		render(order, institution, services, orderOfServiceValues, subTotalGeralCurrency, totalGeralCurrency, discountGeralCurrency);
+		render(order, institution, services, orderOfServiceValues, subTotalGeralCurrency, totalGeralCurrency,
+				discountGeralCurrency);
 	}
 
 	public static void orderByOrderOfServiceId(final String id) {
@@ -381,6 +387,43 @@ public class OrderOfServiceController extends CRUD {
 			}
 		} else {
 			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+		}
+		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
+	}
+
+	public static void sendPUSH() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String message = decodedValue;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find(
+				"orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true")
+				.first();
+		Map<String, String> paramTags = new HashMap<String, String>();
+		paramTags.put("idUsuario", orderOfService.orderCode);
+		paramTags.put("message", message);
+		PushNotification send = new PushNotification(STR_PUSH_AUTH_ID, STR_PUSH_APP_ID);
+		send.sendPushAllUsers(message);
+		if ("SUCCESS".equals("SUCCESS")) {
+			/* Save sms object */
+			StatusPUSH statusPUSH = new StatusPUSH();
+			statusPUSH.setInstitutionId(institution.id);
+			statusPUSH.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			statusPUSH.setClientName(orderOfService.client.toString());
+			statusPUSH.willBeSaved = true;
+			statusPUSH.id = 0l;
+			statusPUSH.merge();
+			status = "SUCCESS";
+			response = "Notificação enviada com sucesso!";
+		} else {
+			status = "ERROR";
+			response = "Erro ao enviar a notificação! Tente novamente!";
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);

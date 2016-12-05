@@ -14,7 +14,7 @@ import play.db.jpa.Model;
 import util.Utils;
 
 @Entity
-public class StatusSMS extends Model {
+public class StatusPUSH extends Model {
 
 	@Lob
 	public String message;
@@ -27,8 +27,8 @@ public class StatusSMS extends Model {
 
 	public long msgId = 0;
 
-	public boolean smsSent;
-	public boolean smsRead;
+	public boolean pushSent;
+	public boolean pushRead;
 
 	@Hidden
 	public long institutionId;
@@ -99,17 +99,25 @@ public class StatusSMS extends Model {
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
 	}
-	
+
 	public Date getSendDateConverted() throws ParseException {
 		return Utils.parseDate(sendDate, "yyyy-MM-dd'T'HH:mm");
 	}
 
-	public boolean isSmsRead() {
-		return smsRead;
+	public boolean isPushSent() {
+		return pushSent;
 	}
 
-	public void setSmsRead(boolean smsRead) {
-		this.smsRead = smsRead;
+	public void setPushSent(boolean pushSent) {
+		this.pushSent = pushSent;
+	}
+
+	public boolean isPushRead() {
+		return pushRead;
+	}
+
+	public void setPushRead(boolean pushRead) {
+		this.pushRead = pushRead;
 	}
 
 }

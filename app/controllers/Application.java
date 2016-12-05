@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,7 @@ import models.Institution;
 import models.MoipNotification;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
+import models.OrderOfServiceValue;
 import models.Service;
 import models.User;
 import play.data.validation.Error;
@@ -312,7 +314,13 @@ public class Application extends Controller {
 				String clientName = orderOfService.getClient().getName();
 				Institution institution = Institution.find("id", orderOfService.institutionId).first(); 
 				String company = institution.getInstitution();
-				List<Service> services = orderOfService.getServices();
+				List<Service> services = new ArrayList<Service>();
+				List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
+						.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+				for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+					Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
+					services.add(service);
+				}
 				Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
 				for (Service service : services) {
 					List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep
