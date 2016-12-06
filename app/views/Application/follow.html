@@ -52,7 +52,6 @@
 </head>
 </head>
 <body>
-	<a href="#" id="subscribe-link" style="display: none;">Confirme para receber avisos sobre este pedido!</a>
     <script>
         function subscribe() {
             var orderCode = document.getElementById("orderCode").value;
@@ -84,11 +83,12 @@
         <div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Olá, <b>${clientName.trim()}</b>. Tudo tranquilo?</h1>
-                    <h5>Veja só! Aqui você pode acompanhar todos os detalhes do seu pedido!</h5>
+                    <h1 class="page-header">Olá, <b>${clientName.trim()}</b>. Tudo ok?</h1>
+                    <h4>Veja só! Abaixo você acompanha todos os detalhes do seu pedido!</h4>
                     <h4 style="text-align: right">Código <b>${orderOfService.orderCode}</b></h4>
                     <h5 style="text-align: right"><i>Serviço prestado por </i> <b>${company}</b></h5>
                     <h5 style="text-align: right"><i>Data do pedido </i> <b>${orderOfService.postedAt}</b></h5>
+					<h4><a href="#" id="subscribe-link" class="btn btn-warning" style="display: none;">Clique aqui para receber notificações</a></h4>
                 </div>
             </div>
             <div class="container" style="width: auto; padding: 0;">

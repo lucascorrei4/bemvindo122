@@ -107,6 +107,7 @@ StepController=Etapas do Serviço
 StatusSMSController=SMSs Enviadas
 InstitutionController=Dados da Empresa
 UserController=Usuário
+StatusPUSHController=Notificações Push Enviadas
 
 #Models
 ContactForm=Mensagens - Form. Contato
@@ -136,6 +137,7 @@ Service=Serviço
 OrderOfService=Ordem de Serviço
 Step=Etapa para conclusão
 StatusSMS=SMS
+StatusPUSH=Notificações Push
 
 #Labels
 userName=Usuário
@@ -281,6 +283,7 @@ smsRead=Lida
 institutionKey=Chave de Identificação
 basePrice=Preço Base
 savePrint=Salvar / Imprimir
+pushSent=Enviada
 
 #Buttons
 btn.send=Enviar

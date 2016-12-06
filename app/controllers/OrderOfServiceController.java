@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -406,16 +407,26 @@ public class OrderOfServiceController extends CRUD {
 				"orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true")
 				.first();
 		Map<String, String> paramTags = new HashMap<String, String>();
-		paramTags.put("idUsuario", orderOfService.orderCode);
+		paramTags.put("orderCode", orderOfService.orderCode);
 		paramTags.put("message", message);
 		PushNotification send = new PushNotification(STR_PUSH_AUTH_ID, STR_PUSH_APP_ID);
-		send.sendPushAllUsers(message);
-		if ("SUCCESS".equals("SUCCESS")) {
+		String strJsonBody = send.getTags(paramTags);
+		String jsonResponse = send.sentToUserBySpecificTag(strJsonBody);
+		JsonParser parser = new JsonParser();
+		JsonObject obj = parser.parse(jsonResponse).getAsJsonObject();
+		JsonElement jsonElement = obj.get("response");
+		if ("200".equals(jsonElement.getAsString())) {
 			/* Save sms object */
 			StatusPUSH statusPUSH = new StatusPUSH();
 			statusPUSH.setInstitutionId(institution.id);
+			statusPUSH.setMessage(message);
+			statusPUSH.setMsgId(obj.get("id").getAsString());
 			statusPUSH.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
 			statusPUSH.setClientName(orderOfService.client.toString());
+			statusPUSH.setDestination(orderOfService.orderCode);
+			statusPUSH.setSendDate(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			statusPUSH.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			statusPUSH.setPushSent(true);
 			statusPUSH.willBeSaved = true;
 			statusPUSH.id = 0l;
 			statusPUSH.merge();

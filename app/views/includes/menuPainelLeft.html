@@ -31,7 +31,12 @@
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{StatusSMSController.list}"><i class="fa fa-paper-plane-o fa-fw"></i> SMSs Enviadas</a>
+				<a href="#"><i class="fa fa-plane fa-fw"></i> Notificações Enviadas<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{StatusPUSHController.list}"><i class="fa fa-paper-plane fa-fw"></i> Push Enviadas</a></li>
+					<li><a href="@{StatusSMSController.list}"><i class="fa fa-paper-plane-o fa-fw"></i> SMSs Enviadas</a></li>
+					<li><a href="@{StatusSMSController.list}"><i class="fa fa-mail-forward fa-fw"></i> E-mails Enviados</a></li>
+				</ul>
 			</li>
 			
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">

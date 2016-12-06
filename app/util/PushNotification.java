@@ -44,7 +44,7 @@ public class PushNotification {
 			String jsonResponse;
 			HttpURLConnection con = getHttpURLConnection();
 			String strJsonBody = "{" + "\"app_id\": \"" + getAppId() + "\"," + "\"included_segments\": [\"All\"],"
-					+ "\"data\": {\"Enviar\": \"Teste Android Devices!\"}," + "\"contents\": {\"en\": \"" + message
+					+ "\"data\": {\"Enviar\": \"Teste Android Devices!\"}," + "\"contents\": {\"pt\": \"" + message
 					+ "\"}" + "}";
 			byte[] sendBytes = strJsonBody.getBytes("UTF-8");
 			con.setFixedLengthStreamingMode(sendBytes.length);
@@ -67,9 +67,9 @@ public class PushNotification {
 		}
 	}
 
-	public void sentToUserBySpecificTag(String strJsonBody) {
+	public String sentToUserBySpecificTag(String strJsonBody) {
+		String jsonResponse = null;
 		try {
-			String jsonResponse;
 			HttpURLConnection con = getHttpURLConnection();
 			byte[] sendBytes = strJsonBody.getBytes("UTF-8");
 			con.setFixedLengthStreamingMode(sendBytes.length);
@@ -80,16 +80,17 @@ public class PushNotification {
 			if (httpResponse >= HttpURLConnection.HTTP_OK && httpResponse < HttpURLConnection.HTTP_BAD_REQUEST) {
 				Scanner scanner = new Scanner(con.getInputStream(), "UTF-8");
 				jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+				jsonResponse = new StringBuffer(jsonResponse).insert(1, "\"response\":" + httpResponse + ",").toString();
 				scanner.close();
 			} else {
 				Scanner scanner = new Scanner(con.getErrorStream(), "UTF-8");
 				jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
 				scanner.close();
 			}
-			System.out.println("jsonResponse:\n" + jsonResponse);
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}
+		return jsonResponse;
 	}
 
 	public static String getTags(Map<String, String> tags) {
@@ -112,7 +113,7 @@ public class PushNotification {
 			}
 		}
 		String strJsonBody = "{" + "\"app_id\": \"" + getAppId() + "\"," + "\"filters\": [" + sB.toString()
-				+ "], \"data\": {\"foo\": \"bar\"}," + "\"contents\": {\"en\": \"" + message + "\"}" + "}";
+				+ "], \"data\": {\"foo\": \"bar\"}," + "\"contents\": {\"pt\": \"" + message + "\"}" + "}";
 		return strJsonBody;
 	}
 

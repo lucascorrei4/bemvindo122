@@ -25,7 +25,7 @@ public class StatusPUSH extends Model {
 
 	public String clientName;
 
-	public long msgId = 0;
+	public String msgId;
 
 	public boolean pushSent;
 	public boolean pushRead;
@@ -81,14 +81,6 @@ public class StatusPUSH extends Model {
 		this.clientName = clientName;
 	}
 
-	public long getMsgId() {
-		return msgId;
-	}
-
-	public void setMsgId(long msgId) {
-		this.msgId = msgId;
-	}
-
 	public String getPostedAt() throws ParseException {
 		if (this.postedAt == null) {
 			setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
@@ -118,6 +110,14 @@ public class StatusPUSH extends Model {
 
 	public void setPushRead(boolean pushRead) {
 		this.pushRead = pushRead;
+	}
+
+	public String getMsgId() {
+		return msgId;
+	}
+
+	public void setMsgId(String msgId) {
+		this.msgId = msgId;
 	}
 
 }
