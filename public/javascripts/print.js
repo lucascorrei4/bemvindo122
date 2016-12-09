@@ -6,5 +6,5 @@ $('#create_pdf').click(function () {
      printWindow.document.write(divContents);
      printWindow.document.write('</body></html>');
      printWindow.document.close();
-     setTimeout(function(){ printWindow.print(); }, 2000);
+     setTimeout(function(){ printWindow.print(); }, 3000);
 });

@@ -9,7 +9,41 @@
     <meta name="author" content="">
 
     <title>Acompanhamento de pedido | SeuPedido.online</title>
-
+    
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+  <script>
+  	var orderCode = document.getElementById("orderCode").value;
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+    appId : "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
+      autoRegister: false, /* Set to true to automatically prompt visitors */
+      subdomainName : 'https://seupedido.onesignal.com',   
+      httpPermissionRequest: {
+        enable: false
+      },
+      notifyButton: {
+          enable: false /* Set to false to hide */
+      },
+      promptOptions: {
+      	/* Change bold title, limited to 30 characters */
+        	siteName: 'Documentação',
+        	/* Subtitle, limited to 90 characters */
+        	actionMessage: "Confirme para receber todas as atualizações do pedido.",
+        	/* Example notification title */
+        	exampleNotificationTitle: 'Exemplo de notificação',
+        	/* Example notification message */
+        	exampleNotificationMessage: 'Este é um exemplo de notificação.',
+        	/* Text below example notification, limited to 50 characters */
+        	exampleNotificationCaption: 'Você pode cancelar em qualquer momento.',
+       	 /* Accept button text, limited to 15 characters */
+        	acceptButtonText: "Quero!",
+        	/* Cancel button text, limited to 15 characters */
+        	cancelButtonText: "Não quero!"
+    	}
+    }
+    ]);
+  </script>
+    
     <!-- Bootstrap Core CSS -->
     <link href="@{'public/templatebootstrap/bower_components/bootstrap/dist/css/bootstrap.css'}" rel="stylesheet">
 
@@ -36,31 +70,25 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js'}/1.4.2/respond.min.js'}"></script>
     <![endif]-->
-    <head>
-  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
-  <script>
-    var OneSignal = window.OneSignal || [];
-    OneSignal.push(["init", {
-      appId: "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
-      autoRegister: true, /* Set to true to automatically prompt visitors */
-      subdomainName: 'https://seupedido.onesignal.com',   
-      notifyButton: {
-          enable: true /* Set to false to hide */
-      }
-    }]);
-  </script>
-</head>
 </head>
 <body>
+    <input type="hidden" id="orderCode" value="${orderOfService.orderCode}">
     <script>
+        var OneSignal = OneSignal || [];
         function subscribe() {
-            var orderCode = document.getElementById("orderCode").value;
-        	OneSignal.push(["registerForPushNotifications"]);
+	       	var orderCode = document.getElementById("orderCode").value;
+    	    OneSignal = window.OneSignal || [];
+            OneSignal.push(["registerForPushNotifications"]);
             OneSignal.push(["sendTags", {orderCode: orderCode}]);
             event.preventDefault();
         }
-
-        var OneSignal = OneSignal || [];
+        function unsubscribe() {
+        	 OneSignal.push(function() {
+        		  OneSignal.registerForPushNotifications({
+        			  persistNotification: false
+        		  });
+        		});
+        }
         /* This example assumes you've already initialized OneSignal */
         OneSignal.push(function() {
             // If we're on an unsupported browser, do nothing
@@ -69,8 +97,8 @@
             }
             OneSignal.isPushNotificationsEnabled(function(isEnabled) {
                 if (isEnabled) {
-                    // The user is subscribed to notifications
-                    // Don't show anything
+                    document.getElementById("unsubscribe-link").addEventListener('click', unsubscribe);
+                    document.getElementById("unsubscribe-link").style.display = '';
                 } else {
                     document.getElementById("subscribe-link").addEventListener('click', subscribe);
                     document.getElementById("subscribe-link").style.display = '';
@@ -78,17 +106,17 @@
             });
         });
     </script>
-    <input type="hidden" id="orderCode" value="${orderOfService.orderCode}">
     <div id="wrapper">
         <div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Olá, <b>${clientName.trim()}</b>. Tudo ok?</h1>
                     <h4>Veja só! Abaixo você acompanha todos os detalhes do seu pedido!</h4>
+                    <a href="#" id="subscribe-link" class="btn btn-success" style="display: none;">Clique para receber notificações</a>
+                    <a id="unsubscribe-link" class="btn btn-danger" style="display: none;">Não quero mais receber notificações</a>
                     <h4 style="text-align: right">Código <b>${orderOfService.orderCode}</b></h4>
                     <h5 style="text-align: right"><i>Serviço prestado por </i> <b>${company}</b></h5>
                     <h5 style="text-align: right"><i>Data do pedido </i> <b>${orderOfService.postedAt}</b></h5>
-					<h4><a href="#" id="subscribe-link" class="btn btn-warning" style="display: none;">Clique aqui para receber notificações</a></h4>
                 </div>
             </div>
             <div class="container" style="width: auto; padding: 0;">
