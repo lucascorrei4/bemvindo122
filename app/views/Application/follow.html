@@ -10,38 +10,64 @@
 
     <title>Acompanhamento de pedido | SeuPedido.online</title>
     
-  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+  	<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
   <script>
-  	var orderCode = document.getElementById("orderCode").value;
     var OneSignal = window.OneSignal || [];
     OneSignal.push(["init", {
-    appId : "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
-      autoRegister: false, /* Set to true to automatically prompt visitors */
-      subdomainName : 'https://seupedido.onesignal.com',   
+      appId: "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
+      autoRegister: true, /* Set to true to automatically prompt visitors */
+      subdomainName: 'https://seupedido.onesignal.com',   
       httpPermissionRequest: {
-        enable: false
+        enable: true
       },
       notifyButton: {
-          enable: false /* Set to false to hide */
+          enable: true, /* Required to use the notify button */
+          size: 'large', /* One of 'small', 'medium', or 'large' */
+          theme: 'default', /* One of 'default' (red-white) or 'inverse" (white-red) */
+          position: 'bottom-left', /* Either 'bottom-left' or 'bottom-right' */
+          offset: {
+              bottom: '0px',
+              left: '0px', /* Only applied if bottom-left */
+              right: '0px' /* Only applied if bottom-right */
+          },
+          prenotify: true, /* Show an icon with 1 unread message for first-time site visitors */
+          showCredit: false, /* Hide the OneSignal logo */
+          text: {
+              'tip.state.unsubscribed': 'Clique para receber notificações!',
+              'tip.state.subscribed': "Ótimo! Você já está registrado para receber notificações!",
+              'tip.state.blocked': "Fique tranquilo! Você não vai receber mais notificações!",
+              'message.prenotify': 'Clique para receber notificações!',
+              'message.action.subscribed': "Obrigado!",
+              'message.action.resubscribed': "Ótimo! Você receberá avisos sobre este pedido!",
+              'message.action.unsubscribed': "Fique tranquilo! Você não receberá mais notificações!",
+              'dialog.main.title': 'Confirmação de recebimento de notificações',
+              'dialog.main.button.subscribe': 'Quero receber!',
+              'dialog.main.button.unsubscribe': 'Eu não quero!',
+              'dialog.blocked.title': 'Desbloquear notificações',
+              'dialog.blocked.message': "Siga as instruções para receber notificações:"
+          }
       },
       promptOptions: {
-      	/* Change bold title, limited to 30 characters */
-        	siteName: 'Documentação',
-        	/* Subtitle, limited to 90 characters */
-        	actionMessage: "Confirme para receber todas as atualizações do pedido.",
-        	/* Example notification title */
-        	exampleNotificationTitle: 'Exemplo de notificação',
-        	/* Example notification message */
-        	exampleNotificationMessage: 'Este é um exemplo de notificação.',
-        	/* Text below example notification, limited to 50 characters */
-        	exampleNotificationCaption: 'Você pode cancelar em qualquer momento.',
-       	 /* Accept button text, limited to 15 characters */
-        	acceptButtonText: "Quero!",
-        	/* Cancel button text, limited to 15 characters */
-        	cancelButtonText: "Não quero!"
-    	}
-    }
-    ]);
+          /* Change bold title, limited to 30 characters */
+          siteName: 'Confirmação de recebimento',
+          /* Subtitle, limited to 90 characters */
+          actionMessage: "Confirme para receber todas as atualizações do seu pedido.",
+          /* Example notification title */
+          exampleNotificationTitle: 'Este é um exemplo de notificação',
+          /* Example notification message */
+          exampleNotificationMessage: 'Aqui vai a descrição da notificação...',
+          /* Text below example notification, limited to 50 characters */
+          exampleNotificationCaption: 'Obs.: Você poderá cancelar em qualquer momento!',
+          /* Accept button text, limited to 15 characters */
+          acceptButtonText: "EU QUERO! :)",
+          /* Cancel button text, limited to 15 characters */
+          cancelButtonText: "EU NÃO QUERO!"
+      }
+    }]);
+    var orderCode = document.getElementById("orderCode").value;
+    OneSignal.push(function() {
+    	OneSignal.sendTags({orderCode: orderCode});
+    });
   </script>
     
     <!-- Bootstrap Core CSS -->
@@ -73,47 +99,42 @@
 </head>
 <body>
     <input type="hidden" id="orderCode" value="${orderOfService.orderCode}">
-    <script>
-        var OneSignal = OneSignal || [];
-        function subscribe() {
-	       	var orderCode = document.getElementById("orderCode").value;
-    	    OneSignal = window.OneSignal || [];
-            OneSignal.push(["registerForPushNotifications"]);
-            OneSignal.push(["sendTags", {orderCode: orderCode}]);
-            event.preventDefault();
-        }
-        function unsubscribe() {
-        	 OneSignal.push(function() {
-        		  OneSignal.registerForPushNotifications({
-        			  persistNotification: false
-        		  });
-        		});
-        }
-        /* This example assumes you've already initialized OneSignal */
-        OneSignal.push(function() {
-            // If we're on an unsupported browser, do nothing
-            if (!OneSignal.isPushNotificationsSupported()) {
-                return;
-            }
-            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
-                if (isEnabled) {
-                    document.getElementById("unsubscribe-link").addEventListener('click', unsubscribe);
-                    document.getElementById("unsubscribe-link").style.display = '';
-                } else {
-                    document.getElementById("subscribe-link").addEventListener('click', subscribe);
-                    document.getElementById("subscribe-link").style.display = '';
-                }
+     <script>
+         var OneSignal = OneSignal || [];
+         var orderCode = document.getElementById("orderCode").value;
+         function subscribe() {
+         	OneSignal.push(["registerForPushNotifications"]);
+         	OneSignal.push(function() {
+            	OneSignal.sendTags({orderCode: orderCode});
             });
-        });
-    </script>
+            event.preventDefault();
+         }
+
+         /* This example assumes you've already initialized OneSignal */
+         OneSignal.push(function() {
+             // If we're on an unsupported browser, do nothing
+             if (!OneSignal.isPushNotificationsSupported()) {
+                 return;
+             }
+             OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                 if (isEnabled) {
+                     // The user is subscribed to notifications
+                     document.getElementById("msg-subscribed").style.display = '';
+                 } else {
+                     document.getElementById("subscribe-link").addEventListener('click', subscribe);
+                     document.getElementById("subscribe-link").style.display = '';
+                 }
+             });
+         });
+     </script>
     <div id="wrapper">
         <div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Olá, <b>${clientName.trim()}</b>. Tudo ok?</h1>
+                    <h1 class="page-header">Olá, <b>${clientName.trim()}</b>! Tudo ok?</h1>
                     <h4>Veja só! Abaixo você acompanha todos os detalhes do seu pedido!</h4>
-                    <a href="#" id="subscribe-link" class="btn btn-success" style="display: none;">Clique para receber notificações</a>
-                    <a id="unsubscribe-link" class="btn btn-danger" style="display: none;">Não quero mais receber notificações</a>
+                    <a id="subscribe-link" class="btn btn-warning" style="display: none;" onclick="this.style.display = 'none'; document.getElementById('msg-subscribed').style.display = 'block'; ;return false;">Clique e receba avisos sobre este pedido!</a>
+                    <h5 id="msg-subscribed" style="display: none; text-align: center">Assim que o pedido for atualizado, você receberá uma notificação!</h5>
                     <h4 style="text-align: right">Código <b>${orderOfService.orderCode}</b></h4>
                     <h5 style="text-align: right"><i>Serviço prestado por </i> <b>${company}</b></h5>
                     <h5 style="text-align: right"><i>Data do pedido </i> <b>${orderOfService.postedAt}</b></h5>
@@ -123,10 +144,10 @@
 				#{list items:mapOrderServiceSteps.keySet(), as:'key'}
 					<div class="row">
 						<div class="col-lg-12">
-							<h4 style="color: #33AFE5">
+							<h4 style="color: #33AFE5; text-align: left">
 								<b>${key.getTitle()}</b>
 							</h4>
-							<h5 style="color: gray">
+							<h5 style="color: gray; text-align: left">
 								<b>${key.getDescription()}</b>
 							</h5>
 						</div>

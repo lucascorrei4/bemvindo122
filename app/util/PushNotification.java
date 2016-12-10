@@ -44,7 +44,7 @@ public class PushNotification {
 			String jsonResponse;
 			HttpURLConnection con = getHttpURLConnection();
 			String strJsonBody = "{" + "\"app_id\": \"" + getAppId() + "\"," + "\"included_segments\": [\"All\"],"
-					+ "\"data\": {\"Enviar\": \"Teste Android Devices!\"}," + "\"contents\": {\"pt\": \"" + message
+					+ "\"data\": {\"Enviar\": \"Teste Android Devices!\"}," + "\"contents\": {\"en\": \"" + message
 					+ "\"}" + "}";
 			byte[] sendBytes = strJsonBody.getBytes("UTF-8");
 			con.setFixedLengthStreamingMode(sendBytes.length);
@@ -113,7 +113,7 @@ public class PushNotification {
 			}
 		}
 		String strJsonBody = "{" + "\"app_id\": \"" + getAppId() + "\"," + "\"filters\": [" + sB.toString()
-				+ "], \"data\": {\"foo\": \"bar\"}," + "\"contents\": {\"pt\": \"" + message + "\"}" + "}";
+				+ "], \"data\": {\"foo\": \"bar\"}," + "\"contents\": {\"en\": \"" + message + "\"}" + "}";
 		return strJsonBody;
 	}
 
