@@ -8,6 +8,7 @@ import models.Country;
 import models.Institution;
 import models.Invoice;
 import models.State;
+import models.StatusSMS;
 import models.User;
 import play.data.binding.Binder;
 import play.db.Model;
@@ -83,6 +84,12 @@ public class FinancialController extends CRUD {
 			ObjectType type = ObjectType.get(getControllerClass());
 			notFoundIfNull(type);
 			List<Invoice> listInvoice = Invoice.find("institutionId = " + id).fetch();
+			for (Invoice invoice : listInvoice) {
+				invoice.setSmsUnitPrice(0.10f);
+				invoice.setSmsQtd(SMSController.getQtdSMSByDate(invoice.getInstitutionId(),
+						Utils.getStringDateTime(invoice.getInvoiceGenerationDate()),
+						Utils.getStringDateTime(invoice.getInvoiceDueDate())));
+			}
 			try {
 				render(type, listInvoice, user);
 			} catch (TemplateNotFoundException e) {

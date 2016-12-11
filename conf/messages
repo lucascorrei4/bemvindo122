@@ -13,7 +13,7 @@ secure.error=Usuário ou senha incorretos.
 secure.logout=Você foi desconectado.
 
 
-crud.title=Seu Pedido
+crud.title=Seu Pedido Online
 crud.home=Início
 crud.blank=Novo
 crud.index.title=Administração
@@ -108,6 +108,9 @@ StatusSMSController=SMSs Enviadas
 InstitutionController=Dados da Empresa
 UserController=Usuário
 StatusPUSHController=Notificações Push Enviadas
+ParameterController=Parâmetros
+FinancialController=Financeiro
+MessageController=Mensagens Recebidas
 
 #Models
 ContactForm=Mensagens - Form. Contato
@@ -138,6 +141,8 @@ OrderOfService=Ordem de Serviço
 Step=Etapa para conclusão
 StatusSMS=SMS
 StatusPUSH=Notificações Push
+Parameter=Parâmetro
+Message=Mensagem Recebida
 
 #Labels
 userName=Usuário
@@ -284,6 +289,10 @@ institutionKey=Chave de Identificação
 basePrice=Preço Base
 savePrint=Salvar / Imprimir
 pushSent=Enviada
+smsPricePlan=Valor SMS
+mininumSalary=Salário Mínimo
+percentValuePlan=Porcentagem
+currentPricePlan=Valor Mensalidade
 
 #Buttons
 btn.send=Enviar
@@ -321,6 +330,6 @@ validation.msgGenderSelectMembers=Para enviar a todos os membros por um determin
 info.isActive.true=Habilita o ítem atual para ser utilizado pelo sistema.
 info.isActive.false=Informa ao sistema que ítem atual será descartado.
 
-project.name=Seu Pedido
+project.name=Seu Pedido Online
 project.link=http://twitter.com/lucascorrei4
 project.version=1.0 BETA

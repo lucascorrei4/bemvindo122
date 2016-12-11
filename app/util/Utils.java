@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.TimeZone;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -144,6 +145,13 @@ public class Utils extends Controller {
 		DateFormat dateFormat = new SimpleDateFormat(STR_DEFAULT_DATE_FORMAT);
 		Calendar cal = getBrazilCalendar();
 		return dateFormat.format(cal.getTime());
+	}
+
+	public static String getStringDateTime(Date date) {
+		DateFormat dateFormat = new SimpleDateFormat(STR_DEFAULT_DATE_FORMAT);
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		return dateFormat.format(c.getTime());
 	}
 
 	public static String getCurrentDateTimeByFormat(String format) {
@@ -353,5 +361,24 @@ public class Utils extends Controller {
 	public static void main(String[] args) {
 		System.out.println(new Date());
 		System.out.println(addDays(new Date(), 30));
+	}
+	
+	public static String transformQueryParamToJson(String queryParam, String prefix) {
+		StringTokenizer st = new StringTokenizer(queryParam, "&");
+		String json = "{";
+		while (st.hasMoreTokens()) {
+			String str = st.nextToken();
+			String replaceKey = str.replace(prefix, "");
+			int indexKey = replaceKey.indexOf("=");
+			String key = replaceKey.substring(0, indexKey);
+			String value = replaceKey.substring(indexKey + 1, replaceKey.length());
+			value = (Utils.isNullOrEmpty(value) ? "" : new String(value).replace("+", " ").trim());
+			json = json.concat("\"").concat(key).concat("\"").concat(":").concat("\"").concat(value).concat("\"");
+			if (st.hasMoreTokens()) {
+				json = json.concat(",");
+			}
+		}
+		json = json.concat("}");
+		return json;
 	}
 }

@@ -5,17 +5,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import controllers.CRUD.ObjectType;
+import models.StatusSMS;
 import util.ApplicationConfiguration;
 import util.Utils;
-import models.OrderOfService;
-import models.StatusSMS;
-import play.db.Model;
-import play.exceptions.TemplateNotFoundException;
 
 public class SMSController {
 
@@ -27,15 +27,16 @@ public class SMSController {
 	public String STR_SMS_USER_ID = ApplicationConfiguration.getInstance().getSMSUserId();
 	public String STR_SMS_PWD = ApplicationConfiguration.getInstance().getSMSPwd();
 	public String STR_SMS_API_KEY = ApplicationConfiguration.getInstance().getSMSApiKey();
-	
+
 	public String sendSMS(String destination, String sender, String message, StatusSMS status) {
 		String strUrl = null;
 		try {
 			String from = "DEFAULT";
 			String to = destination;
 			String msg = message;
-			strUrl = STR_URL_SEND_SMS.concat("userid=").concat(STR_SMS_USER_ID).concat("&pwd=").concat(STR_SMS_PWD).concat("&apikey=").concat(STR_SMS_API_KEY).concat("&from=").concat(from).concat("&to=55").concat(to).concat("&msg=")
-					.concat(URLEncoder.encode(msg, "UTF-8"));
+			strUrl = STR_URL_SEND_SMS.concat("userid=").concat(STR_SMS_USER_ID).concat("&pwd=").concat(STR_SMS_PWD)
+					.concat("&apikey=").concat(STR_SMS_API_KEY).concat("&from=").concat(from).concat("&to=55")
+					.concat(to).concat("&msg=").concat(URLEncoder.encode(msg, "UTF-8"));
 			/* Preparing connection URL */
 			URL url = new URL(strUrl);
 			/* Trying connect do SMS API Server */
@@ -50,13 +51,15 @@ public class SMSController {
 					output = output.concat(aux);
 				}
 				/* Reading return */
-				String responseStatus = output.substring(output.indexOf("<Status>"), output.indexOf("</Status>")).replaceAll("<Status>", "");
+				String responseStatus = output.substring(output.indexOf("<Status>"), output.indexOf("</Status>"))
+						.replaceAll("<Status>", "");
 				status.message = msg;
 				status.destination = destination;
 				if ("SUCCESS".equals(responseStatus)) {
 					status.smsSent = true;
 					status.sendDate = Utils.getCurrentDateTime();
-					status.msgId = Long.valueOf(output.substring(output.indexOf("<MsgId>"), output.indexOf("</MsgId>")).replaceAll("<MsgId>", ""));
+					status.msgId = Long.valueOf(output.substring(output.indexOf("<MsgId>"), output.indexOf("</MsgId>"))
+							.replaceAll("<MsgId>", ""));
 					return "SUCCESS";
 				} else if ("FAILED".equals(responseStatus)) {
 					status.smsSent = false;
@@ -69,14 +72,17 @@ public class SMSController {
 			}
 			conn.disconnect();
 		} catch (Exception e) {
-			throw new RuntimeException("Erro ao enviar SMS: " + e.getMessage().concat(" Detalhe: " + String.valueOf(e.getLocalizedMessage()).concat(" URL: ").concat(strUrl)));
+			throw new RuntimeException("Erro ao enviar SMS: " + e.getMessage()
+					.concat(" Detalhe: " + String.valueOf(e.getLocalizedMessage()).concat(" URL: ").concat(strUrl)));
 		}
 		return "";
 	}
 
 	public void getStatusSMS(int msgId) {
 		try {
-			URL url = new URL(STR_URL_STATUS_SMS.concat("Userid=").concat(STR_SMS_USER_ID).concat("&pwd=").concat(STR_SMS_PWD).concat("&APIKEY=").concat(STR_SMS_API_KEY).concat("&MSGID=").concat(String.valueOf(msgId)));
+			URL url = new URL(STR_URL_STATUS_SMS.concat("Userid=").concat(STR_SMS_USER_ID).concat("&pwd=")
+					.concat(STR_SMS_PWD).concat("&APIKEY=").concat(STR_SMS_API_KEY).concat("&MSGID=")
+					.concat(String.valueOf(msgId)));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			if (conn.getResponseCode() != 200) {
@@ -96,7 +102,8 @@ public class SMSController {
 
 	public String getQueryBalance() {
 		try {
-			URL url = new URL(STR_URL_QUERY_BALANCE.concat("Userid=").concat(STR_SMS_USER_ID).concat("&pwd=").concat(STR_SMS_PWD).concat("&APIKEY=").concat(STR_SMS_API_KEY));
+			URL url = new URL(STR_URL_QUERY_BALANCE.concat("Userid=").concat(STR_SMS_USER_ID).concat("&pwd=")
+					.concat(STR_SMS_PWD).concat("&APIKEY=").concat(STR_SMS_API_KEY));
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			if (conn.getResponseCode() != 200) {
@@ -110,16 +117,39 @@ public class SMSController {
 				output = output.concat(aux);
 			}
 			conn.disconnect();
-			return output.substring(output.indexOf("<AccountBalance>"), output.indexOf("</AccountBalance>")).replaceAll("<AccountBalance>", "");
+			return output.substring(output.indexOf("<AccountBalance>"), output.indexOf("</AccountBalance>"))
+					.replaceAll("<AccountBalance>", "");
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
 		return "";
 	}
 
-	public static void main(String[] args) {
+	public static void mains(String[] args) {
 		// 64018048 22h30 64018065 22H37
 		// new SendSMSController().getStatusSMS(64016211);
-		 System.out.println(new SMSController().getQueryBalance());
+		System.out.println(new SMSController().getQueryBalance());
 	}
+
+	public static int getQtdSMSByDate(long institutionId, String dateBegin, String dateEnd) throws ParseException {
+		int qtd = 0;
+		Date date = Utils.parseDate("2016-11-02T01:12", "yyyy-MM-dd'T'HH:mm");
+		List<StatusSMS> listSMS = StatusSMS.find("institutionId = " + institutionId + " and sendDate > '" + dateBegin
+				+ "' and sendDate < '" + dateEnd + "'").fetch();
+		qtd = listSMS.size();
+		return qtd;
+	}
+
+	public static void main(String[] args) throws ParseException {
+		Date date = Utils.parseDate("2016-11-02T01:12", "yyyy-MM-dd'T'HH:mm");
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		int i = c.get(Calendar.DAY_OF_WEEK) - c.getFirstDayOfWeek();
+		c.add(Calendar.DATE, -i - 7);
+		Date start = c.getTime();
+		c.add(Calendar.DATE, 6);
+		Date end = c.getTime();
+		System.out.println(start + " - " + end);
+	}
+
 }

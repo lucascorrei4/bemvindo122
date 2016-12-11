@@ -23,7 +23,7 @@
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceController.list}"><i class="fa fa-qrcode fa-fw"></i> 3º. Gerar Código</a>
+				<a href="@{OrderOfServiceController.list}"><i class="fa fa-qrcode fa-fw"></i> 3º. Gerar Código (OS)</a>
 			</li>
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
@@ -39,12 +39,20 @@
 				</ul>
 			</li>
 			
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+			<li>
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Configurações<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="/admin/empresa/${session.get('id')}">Dados da Empresa</a></li>
 					<li><a href="/admin/usuario/${session.get('idu')}">Meus dados</a></li>
 					<li><a href="/admin/financeiro/${session.get('id')}">Financeiro</a></li>
+				</ul>
+			</li>
+
+			<li style="display: ${session.get("poweradmin") == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-gears fa-fw"></i> Admin<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ParameterController.list}">Parametros</a></li>
+					<li><a href="@{MessageController.list}">Mensagens</a></li>
 				</ul>
 			</li>
 			

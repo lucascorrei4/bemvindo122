@@ -62,6 +62,15 @@
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-info alert-dismissable" style="display: ${'Isento' == financial.statusPayment.toString() ? 'block' : 'none'};">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <i class="fa fa-info-circle"></i>  Você está no <strong>Teste de 30 dias</strong>. Os e-mails e as notificações Push são gratuitas, porém, você pode enviar até 5 SMSs.
+                        <p><strong>Obs.:</strong> Para receber notificações Push, o seu cliente precisa autorizar o recebimento ao acessar <a href="http://seupedido.online/" class="alert-link">SeuPedido.Online</a> com o <strong>código do serviço</strong>.</p>
+                    </div>
+                </div>
+            </div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -205,8 +214,8 @@
             <!-- /.row -->
             <div class="row">
                 <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
+                <div class="col-lg-4">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             Últimos Clientes
                         </div>
@@ -217,12 +226,14 @@
                                     <thead>
                                         <tr>
                                             <th>Nome</th>
+                                            <th>Data</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 	                                    #{list listClients, as:'client'}
 											<tr>
-												<td><a href="/admin/clientes">&{client.getName()} </a></td>
+												<td><a href="/admin/clientes">&{client.getName()} ${client.lastName} </a></td>
+												<td><a href="/admin/clientes">&{client.getPostedAt()}</a></td>
 											</tr>
 										#{/list}
                                     </tbody>
@@ -234,8 +245,8 @@
                     </div>
                 </div>
                 <!-- /.col-lg-6 -->
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
+                <div class="col-lg-4">
+                    <div class="panel panel-info">
                         <div class="panel-heading">
                             Últimas Ordens de Serviço
                         </div>
@@ -245,13 +256,15 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Título</th>
+                                            <th>Código</th>
+                                            <th>Cliente</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                        #{list listOrderOfServices, as:'order'}
 											<tr>
-												<td><a href="@{OrderOfServiceController.list}">${order.orderCode} | ${order.client?.name} ${order.client?.lastName} </a></td>
+												<td><a href="@{OrderOfServiceController.list}">${order.orderCode}</a></td>
+												<td><a href="@{OrderOfServiceController.list}">${order.client?.name} ${order.client?.lastName} </a></td>
 											</tr>
 										#{/list}
                                     </tbody>
@@ -263,10 +276,10 @@
                     </div>
                     <!-- /.panel -->
                 </div>
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
+                <div class="col-lg-4">
+                    <div class="panel panel-success">
                         <div class="panel-heading">
-                            Últimos Serviços
+                            Últimos Serviços Cadastrados
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -275,12 +288,14 @@
                                     <thead>
                                         <tr>
                                             <th>Título</th>
+                                            <th>Valor Base</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                        #{list listServices, as:'service'}
 											<tr>
 												<td><a href="/admin/servicos">${service.getTitle()}</a></td>
+												<td><a href="/admin/servicos">${service.getBasePrice()}</a></td>
 											</tr>
 										#{/list}
                                     </tbody>
@@ -295,7 +310,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                        © Copyright 2016 - BemVindo
+                        © Copyright - Seu Pedido Online
                         </div>
                         <!-- /.panel-heading -->
                         <!-- /.panel-body -->

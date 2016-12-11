@@ -40,41 +40,27 @@
 										<h4>
 											Olá, <b>${user}</b>!<br> Sua licença de <b>30</b> dias expirou! 
 											<br><br> 
-											Para voltar a utilizar o sistema, por favor, acesse no menu lateral <b>Financeiro</b> e realize o pagamento.
+											Para voltar a utilizar o sistema, por favor, acesse no menu lateral <b>Configurações > Financeiro</b> e realize o pagamento.
 											<br><br> 
 											A sua experiência é muito importante para nós. Portanto, muito obrigado por experimentar o sistema neste período.
 											<br><br> 
-											Nosso objetivo é que o sistema tenha superado as suas expectativas.<br><br>
+											O nosso objetivo é que o sistema tenha superado as suas expectativas.<br><br>
 											Mais uma vez, <b>obrigado</b>. Esperamos que continue com a gente.
 										</h4>
 									</div>
 								</div>
-							</div>
-							<div class="row">
+								<div class="col-lg-6">
+									<h2>Deixe uma mensagem pra nós! :)</h2>
+									<h5>É bom a gente saber se estamos no caminho certo ou se precisamos melhorar.</h5>
+									#{include 'includes/formSaveMessage.html' /}
+								</div>
 							</div>
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="panel panel-default">
-										<div class="panel-heading" style="text-align: center">&{'project.name'} © Copyright 2015 - Versão: &{'project.version'}</div>
+										<div class="panel-heading" style="text-align: center">© &{'project.name'} - Versão: &{'project.version'}</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-								<h4 class="modal-title" id="myModalLabel"><i class="fa fa-warning"></i> &{'validation.confirm'}</h4>
-							</div>
-							<div class="modal-body">Deseja mesmo remover?</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">&{'validation.no'}</button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal" onclick="javascript:deleteMember()">&{'validation.yes'}</button>
 							</div>
 						</div>
 					</div>

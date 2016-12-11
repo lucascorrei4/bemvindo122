@@ -145,7 +145,7 @@ public class Application extends Controller {
 		String decodedFields = URLDecoder.decode(fields[0], "UTF-8");
 		Gson gson = new GsonBuilder().create();
 		/* Parse form content to JSON element */
-		String jsonParam = transformQueryParamToJson(decodedFields);
+		String jsonParam = Utils.transformQueryParamToJson(decodedFields, "user.");
 		JsonParser parser = new JsonParser();
 		JsonObject jsonElement = (JsonObject) parser.parse(jsonParam);
 		jsonElement.addProperty("id", Long.valueOf(0));
@@ -212,25 +212,6 @@ public class Application extends Controller {
 			}
 		}
 		return ret;
-	}
-
-	private static String transformQueryParamToJson(String queryParam) {
-		StringTokenizer st = new StringTokenizer(queryParam, "&");
-		String json = "{";
-		while (st.hasMoreTokens()) {
-			String str = st.nextToken();
-			String replaceKey = str.replace("user.", "");
-			int indexKey = replaceKey.indexOf("=");
-			String key = replaceKey.substring(0, indexKey);
-			String value = replaceKey.substring(indexKey + 1, replaceKey.length());
-			value = (Utils.isNullOrEmpty(value) ? "" : new String(value).replace("+", " ").trim());
-			json = json.concat("\"").concat(key).concat("\"").concat(":").concat("\"").concat(value).concat("\"");
-			if (st.hasMoreTokens()) {
-				json = json.concat(",");
-			}
-		}
-		json = json.concat("}");
-		return json;
 	}
 
 	public static void saveNewInstitution(@Valid Institution institution) {

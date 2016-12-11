@@ -1,15 +1,16 @@
 package controllers;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import models.Client;
 import models.Country;
-import models.Invoice;
 import models.Institution;
+import models.Invoice;
 import models.OrderOfService;
+import models.Parameter;
 import models.Service;
+import models.StatusPUSH;
 import models.StatusSMS;
 import models.User;
 import play.mvc.Before;
@@ -53,6 +54,11 @@ public class Admin extends Controller {
 
 	public static void connect(User user) {
 		session.put("logged", user.id);
+		if ("lucascorreiaevangelista@gmail.com".equals(user.getEmail())) {
+			session.put("poweradmin", "true");
+		} else {
+			session.put("poweradmin", "false");
+		}
 	}
 
 	public static User connectedUser() {
@@ -72,6 +78,7 @@ public class Admin extends Controller {
 				int contOrderOfServices = OrderOfService.find("institutionId = " + connectedUser.getInstitutionId())
 						.fetch().size();
 				int contSentSMSs = StatusSMS.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
+				int contSentPushs = StatusPUSH.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
 				List<Client> listClients = Client.find("institutionId = " + connectedUser.getInstitutionId()
 						+ " and isActive = true order by postedAt desc").fetch(5);
 				List<Service> listServices = Service.find("institutionId = " + connectedUser.getInstitutionId()
@@ -80,10 +87,13 @@ public class Admin extends Controller {
 						+ connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
 				Institution institution = Institution.find("byId", connectedUser.getInstitutionId()).first();
 				String institutionName = institution.getInstitution();
+				Invoice financial = Invoice
+						.find("institutionId = " + institution.getId() + " and statusInvoice = 'Current' and isActive = true order by postedAt desc").first();
 				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices,
-						connectedUser, institutionName, contSentSMSs, institution);
+						connectedUser, institutionName, contSentSMSs, institution, contSentPushs, financial);
 			} else {
 				/* Redirect to page of information about expired license */
+				session.put("enableUser", "false");
 				render("@admin.expiredLicense", connectedUser);
 			}
 		}
@@ -156,6 +166,7 @@ public class Admin extends Controller {
 	}
 	
 	private static void saveNewPaymentInformation(UserInstitutionParameter userInstitutionParameter) {
+		Parameter parameter = (Parameter) Parameter.findAll().iterator().next();
 		Invoice invoice = new Invoice();
 		invoice.setInstitutionId(userInstitutionParameter.getInstitution().getId());
 		invoice.setUserId(userInstitutionParameter.getUser().getId());
@@ -168,9 +179,9 @@ public class Admin extends Controller {
 		invoice.setStatusInvoice(StatusInvoiceEnum.Current);
 		invoice.setStatusPayment(StatusPaymentEnum.Free);
 		invoice.setSmsQtd(0l);
-		invoice.setSmsUnitPrice(0f);
+		invoice.setSmsUnitPrice(parameter.getSmsPricePlan());
 		invoice.setSmsValue(0f);
-		invoice.setValue(60f);
+		invoice.setValue(parameter.getCurrentPricePlan());
 		invoice.willBeSaved = true;
 		invoice.merge();
 	}

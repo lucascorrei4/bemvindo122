@@ -11,6 +11,8 @@
 GET     ${ctx}/                                       				Application.index
 
 # Home page
+POST    ${ctx}/savemessage											MessageController.saveMessage
+
 POST    ${ctx}/savequickaccount										Application.saveQuickAccount
 GET    	${ctx}/como-funciona										Application.howItWorks
 GET    	${ctx}/contato												Application.contact
@@ -25,6 +27,28 @@ GET     ${ctx}/acompanhe	 		   				 				Application.followAdmin
 # Admin Update Order
 GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceController.updateOrder
 POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceController.updateRadioValue
+
+# Admin Messages
+
+GET		${ctx}/admin/msgadmin									MessageController.list
+GET		${ctx}/admin/msgadmin/new								MessageController.blank
+GET		${ctx}/admin/msgadmin/{id}								MessageController.show
+GET		${ctx}/admin/msgadmin/{id}/{field}						MessageController.attachment
+GET		${ctx}/admin/msgadmin/{id}/edit							MessageController.edit
+POST	${ctx}/admin/msgadmin									MessageController.create
+POST	${ctx}/admin/msgadmin/{id}								MessageController.save
+DELETE	${ctx}/admin/msgadmin/{id}								MessageController.delete
+
+# Admin Parameter
+
+GET		${ctx}/admin/paramadmin									ParameterController.list
+GET		${ctx}/admin/paramadmin/new								ParameterController.blank
+GET		${ctx}/admin/paramadmin/{id}							ParameterController.show
+GET		${ctx}/admin/paramadmin/{id}/{field}					ParameterController.attachment
+GET		${ctx}/admin/paramadmin/{id}/edit						ParameterController.edit
+POST	${ctx}/admin/paramadmin									ParameterController.create
+POST	${ctx}/admin/paramadmin/{id}							ParameterController.save
+DELETE	${ctx}/admin/paramadmin/{id}							ParameterController.delete
 
 # Admin Clients
 
