@@ -110,7 +110,7 @@ public class Institution extends Model {
 
 	@PrePersist
 	public void prePersist() {
-		setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+		setPostedAt(Utils.getCurrentDateTime());
 	}
 
 	@PostLoad
@@ -157,7 +157,7 @@ public class Institution extends Model {
 
 	public String getPostedAt() throws ParseException {
 		if (this.postedAt == null) {
-			setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			setPostedAt(Utils.getCurrentDateTime());
 		}
 		return postedAt;
 	}

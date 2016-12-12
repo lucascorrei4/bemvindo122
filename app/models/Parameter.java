@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +34,12 @@ public class Parameter extends Model {
 	public Float mininumSalary = 0f;
 
 	public Float percentValuePlan = 0f;
+
+	@Lob
+	public String msgNewUsers;
+	
+	@Lob
+	public String msgActiveUsers;
 	
 	@Hidden
 	public Float currentPricePlan = 0f;
@@ -76,6 +83,22 @@ public class Parameter extends Model {
 	
 	public static void main(String[] args) {
 		System.out.println(816 * 10 /100);
+	}
+
+	public String getMsgNewUsers() {
+		return msgNewUsers;
+	}
+
+	public void setMsgNewUsers(String msgNewUsers) {
+		this.msgNewUsers = msgNewUsers;
+	}
+
+	public String getMsgActiveUsers() {
+		return msgActiveUsers;
+	}
+
+	public void setMsgActiveUsers(String msgActiveUsers) {
+		this.msgActiveUsers = msgActiveUsers;
 	}
 
 }

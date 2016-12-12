@@ -89,8 +89,9 @@ public class Admin extends Controller {
 				String institutionName = institution.getInstitution();
 				Invoice financial = Invoice
 						.find("institutionId = " + institution.getId() + " and statusInvoice = 'Current' and isActive = true order by postedAt desc").first();
+				Parameter parameter = Parameter.all().first();
 				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices,
-						connectedUser, institutionName, contSentSMSs, institution, contSentPushs, financial);
+						connectedUser, institutionName, contSentSMSs, institution, contSentPushs, financial, parameter);
 			} else {
 				/* Redirect to page of information about expired license */
 				session.put("enableUser", "false");
@@ -174,7 +175,7 @@ public class Admin extends Controller {
 	    Date dueDate = Utils.addDays(invoice.getMemberSinceDate(), 30);
 		invoice.setInvoiceGenerationDate(new Date());
 		invoice.setInvoiceDueDate(dueDate);
-		invoice.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+		invoice.setPostedAt(Utils.getCurrentDateTime());
 		invoice.setActive(true);
 		invoice.setStatusInvoice(StatusInvoiceEnum.Current);
 		invoice.setStatusPayment(StatusPaymentEnum.Free);

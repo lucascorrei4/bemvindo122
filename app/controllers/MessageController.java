@@ -43,7 +43,7 @@ public class MessageController extends CRUD {
 			status = "ERROR";
 			render("includes/formSaveMessage.html", connectedUser, message, response, status, errors);
 		} else {
-			message.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			message.setPostedAt(Utils.getCurrentDateTime());
 			message.setInstitutionId(0l);
 			message.merge();
 			response = "Muito obrigado por deixar sua opinião!";

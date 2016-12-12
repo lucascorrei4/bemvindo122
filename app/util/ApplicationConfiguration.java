@@ -142,4 +142,5 @@ public class ApplicationConfiguration {
 	public String getOneSignalAuthId() {
 		return getProperty("onesignal.auth.id");
 	}
+	
 }

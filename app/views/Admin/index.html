@@ -66,8 +66,11 @@
                 <div class="col-lg-12">
                     <div class="alert alert-info alert-dismissable" style="display: ${'Isento' == financial.statusPayment.toString() ? 'block' : 'none'};">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <i class="fa fa-info-circle"></i>  Você está no <strong>Teste de 30 dias</strong>. Os e-mails e as notificações Push são gratuitas, porém, você pode enviar até 5 SMSs.
-                        <p><strong>Obs.:</strong> Para receber notificações Push, o seu cliente precisa autorizar o recebimento ao acessar <a href="http://seupedido.online/" class="alert-link">SeuPedido.Online</a> com o <strong>código do serviço</strong>.</p>
+                        <i class="fa fa-info-circle"></i> ${parameter.msgNewUsers.raw()}
+                    </div>
+                    <div class="alert alert-info alert-dismissable" style="display: ${'Isento' == financial.statusPayment.toString() ? 'none' : 'block'};">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <i class="fa fa-info-circle"></i> ${parameter.msgActiveUsers.raw()}
                     </div>
                 </div>
             </div>

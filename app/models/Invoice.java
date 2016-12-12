@@ -81,7 +81,7 @@ public class Invoice extends Model {
 
 	public String getPostedAt() throws ParseException {
 		if (this.postedAt == null) {
-			setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			setPostedAt(Utils.getCurrentDateTime());
 		}
 		return postedAt;
 	}

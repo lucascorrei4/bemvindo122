@@ -122,7 +122,7 @@ public class ServiceController extends CRUD {
 				step.setTitle(jObject.get("title").getAsString());
 				step.setDescription(jObject.get("description").getAsString());
 				step.setEstimatedDuration(jObject.get("duration").getAsFloat());
-				step.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+				step.setPostedAt(Utils.getCurrentDateTime());
 				step.setInstitutionId(service.getInstitutionId());
 				step.setActive(true);
 				step.setPosition(i + 1);
@@ -150,7 +150,7 @@ public class ServiceController extends CRUD {
 				step.setTitle(jObject.get("title").getAsString());
 				step.setDescription(jObject.get("description").getAsString());
 				step.setEstimatedDuration(jObject.get("duration").getAsFloat());
-				step.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+				step.setPostedAt(Utils.getCurrentDateTime());
 				step.setInstitutionId(service.getInstitutionId());
 				step.setActive(true);
 				step.setPosition(i + 1);

@@ -99,7 +99,7 @@ public class Application extends Controller {
 			} else {
 				user.setAdmin(true);
 				user.setActive(true);
-				user.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+				user.setPostedAt(Utils.getCurrentDateTime());
 				user.setInstitutionId(0);
 				user.save();
 				flash.clear();
@@ -163,7 +163,7 @@ public class Application extends Controller {
 			render("includes/newquickaccount.html", user, response, status, errors);
 		} else {
 			user.setAdmin(true);
-			user.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			user.setPostedAt(Utils.getCurrentDateTime());
 			user.setInstitutionId(0l);
 			user.setActive(true);
 			user.merge();
@@ -226,7 +226,7 @@ public class Application extends Controller {
 				// Links the user to institution
 				institution.setUserId(userInstitutionParameter.getUser().getId());
 				institution.setPublishedId(userInstitutionParameter.getUser().getId());
-				institution.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+				institution.setPostedAt(Utils.getCurrentDateTime());
 				// Grants one month free to user
 				Calendar calendar = Calendar.getInstance();
 				calendar.add(Calendar.MONTH, 1);

@@ -13,15 +13,18 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import models.BodyMail;
 import models.Institution;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.OrderOfServiceValue;
+import models.SendTo;
+import models.Sender;
 import models.Service;
+import models.StatusMail;
 import models.StatusPUSH;
 import models.StatusSMS;
 import models.Step;
-import play.Play;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
@@ -237,7 +240,7 @@ public class OrderOfServiceController extends CRUD {
 					orderServiceStep.setStatus(StatusEnum.NotStarted);
 				}
 				orderServiceStep.setObs("Nenhuma");
-				orderServiceStep.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+				orderServiceStep.setPostedAt(Utils.getCurrentDateTime());
 				orderServiceStep.setInstitutionId(orderOfService.getInstitutionId());
 				orderServiceStep.willBeSaved = true;
 				orderServiceStep.save();
@@ -375,7 +378,7 @@ public class OrderOfServiceController extends CRUD {
 			if ("SUCCESS".equals(sendResponse)) {
 				/* Save sms object */
 				statusSMS.setInstitutionId(institution.id);
-				statusSMS.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+				statusSMS.setPostedAt(Utils.getCurrentDateTime());
 				statusSMS.setClientName(orderOfService.client.toString());
 				statusSMS.willBeSaved = true;
 				statusSMS.id = 0l;
@@ -421,11 +424,81 @@ public class OrderOfServiceController extends CRUD {
 			statusPUSH.setInstitutionId(institution.id);
 			statusPUSH.setMessage(message);
 			statusPUSH.setMsgId(obj.get("id").getAsString());
-			statusPUSH.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
 			statusPUSH.setClientName(orderOfService.client.toString());
 			statusPUSH.setDestination(orderOfService.orderCode);
 			statusPUSH.setSendDate(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
-			statusPUSH.setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
+			statusPUSH.setPushSent(true);
+			statusPUSH.willBeSaved = true;
+			statusPUSH.id = 0l;
+			statusPUSH.merge();
+			status = "SUCCESS";
+			response = "Notificação enviada com sucesso!";
+		} else {
+			status = "ERROR";
+			response = "Erro ao enviar a notificação! Tente novamente!";
+		}
+		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
+	}
+
+	public static void sendEmail() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String message = decodedValue;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find(
+				"orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true")
+				.first();
+		
+		Map<String, String> paramTags = new HashMap<String, String>();
+		paramTags.put("orderCode", orderOfService.orderCode);
+		paramTags.put("message", message);
+		PushNotification send = new PushNotification(STR_PUSH_AUTH_ID, STR_PUSH_APP_ID);
+		
+		
+		MailController mailController = new MailController();
+		/* SendTo object */
+		SendTo sendTo = new SendTo();
+		sendTo.setDestination("");
+		sendTo.setName("");
+		sendTo.setSex("");
+		sendTo.setStatus(new StatusMail());
+		/* Sender object */
+		Sender sender= new Sender();
+		sender.setCompany("");
+		sender.setFrom("");
+		sender.setKey(orderOfService.orderCode);
+		/* SendTo object */
+		BodyMail bodyMail = new BodyMail();
+		bodyMail.setTitle1("");
+		bodyMail.setTitle2("");
+		bodyMail.setParagraph1("");
+		mailController.sendHTMLMail(sendTo , sender, bodyMail);
+		
+		
+		String strJsonBody = send.getTags(paramTags);
+		String jsonResponse = send.sentToUserBySpecificTag(strJsonBody);
+		JsonParser parser = new JsonParser();
+		JsonObject obj = parser.parse(jsonResponse).getAsJsonObject();
+		JsonElement jsonElement = obj.get("response");
+		if (mailController.sendHTMLMail(sendTo , sender, bodyMail)) {
+			/* Save sms object */
+			StatusPUSH statusPUSH = new StatusPUSH();
+			statusPUSH.setInstitutionId(institution.id);
+			statusPUSH.setMessage(message);
+			statusPUSH.setMsgId(obj.get("id").getAsString());
+			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
+			statusPUSH.setClientName(orderOfService.client.toString());
+			statusPUSH.setDestination(orderOfService.orderCode);
+			statusPUSH.setSendDate(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
 			statusPUSH.setPushSent(true);
 			statusPUSH.willBeSaved = true;
 			statusPUSH.id = 0l;

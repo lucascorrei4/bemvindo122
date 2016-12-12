@@ -381,4 +381,16 @@ public class Utils extends Controller {
 		json = json.concat("}");
 		return json;
 	}
+	
+	public static String removeHTML(String str) {
+		str = str.replaceAll("\\<[^>]*>", "");
+		return str;
+	}
+	
+	public static String dateNow() {
+		Calendar currentDate = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		String dateNow = formatter.format(currentDate.getTime());
+		return dateNow;
+	}
 }

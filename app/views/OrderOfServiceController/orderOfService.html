@@ -177,10 +177,16 @@
 						</div>
 					</div>
 				</div>
+				<div class="row row-m1em">
+					<div class="col-md-12">
+						<p
+							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. do pedido:</b> ${order?.obs == null ? 'Nenhuma' : order.obs}</b></p>
+					</div>
+				</div>
 				<div class="row row-m1em" style="margin-top: 200px">
 					<div class="col-md-8">
 						<p
-							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs.:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>http://seupedido.online</b></p>
+							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. geral:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>http://seupedido.online</b></p>
 					</div>
 					<div class="col-md-4">
 						<div id="qrcode"></div>

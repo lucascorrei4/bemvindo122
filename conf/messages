@@ -293,6 +293,9 @@ smsPricePlan=Valor SMS
 mininumSalary=Salário Mínimo
 percentValuePlan=Porcentagem
 currentPricePlan=Valor Mensalidade
+msgNewUsers=Msg aos Novos Usuários
+msgActiveUsers=Msg aos Usuários Ativos
+obs=Observação
 
 #Buttons
 btn.send=Enviar

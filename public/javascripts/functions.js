@@ -159,6 +159,31 @@ function sendPUSH(id, value) {
 	});
 }
 
+function sendEmail(id, value) {
+	var data = jQuery.param({
+		id : id,
+		value : value
+	});
+	$('#accordion').load('/orderofservicecontroller/sendemail', data,
+			function(response, status) {
+		var status = $("#status").val();
+		var spplittedName = id.split('-');
+		if ('SUCCESS' === status) {
+			$("#message-" + id).css("color", "gray");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#response").val());
+			$("#message-" + id).fadeIn();
+			$("#collapse" + spplittedName[1]).collapse('show');
+		} else {
+			$("#message-" + id).css("color", "red");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#response").val());
+			$("#collapse" + spplittedName[1]).collapse('show');
+			setTimeout('$("#message").hide()', 10000);
+		}
+	});
+}
+
 function closeModal() {
 	$('#orderServiceModal').modal('hide');
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
@@ -35,10 +36,16 @@ public class OrderOfService extends Model {
 
 	public String orderCode;
 
+	@Lob
+	public String obs;
+
 	@Hidden
 	public String postedAt;
 
 	public boolean isActive = true;
+	
+	@Hidden
+	public boolean isThanked = false;
 
 	public String toString() {
 		return orderCode;
@@ -84,7 +91,7 @@ public class OrderOfService extends Model {
 
 	public String getPostedAt() throws ParseException {
 		if (this.postedAt == null) {
-			setPostedAt(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			setPostedAt(Utils.getCurrentDateTime());
 		}
 		return postedAt;
 	}
@@ -118,6 +125,22 @@ public class OrderOfService extends Model {
 
 	public void setOrderOfServiceValue(List<OrderOfServiceValue> orderOfServiceValue) {
 		this.orderOfServiceValue = orderOfServiceValue;
+	}
+
+	public boolean isThanked() {
+		return isThanked;
+	}
+
+	public void setThanked(boolean isThanked) {
+		this.isThanked = isThanked;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
 	}
 
 }
