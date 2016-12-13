@@ -40,6 +40,9 @@ public class Parameter extends Model {
 	
 	@Lob
 	public String msgActiveUsers;
+
+	@Lob
+	public String logoUrl;
 	
 	@Hidden
 	public Float currentPricePlan = 0f;
@@ -99,6 +102,14 @@ public class Parameter extends Model {
 
 	public void setMsgActiveUsers(String msgActiveUsers) {
 		this.msgActiveUsers = msgActiveUsers;
+	}
+
+	public String getLogoUrl() {
+		return logoUrl;
+	}
+
+	public void setLogoUrl(String logoUrl) {
+		this.logoUrl = logoUrl;
 	}
 
 }

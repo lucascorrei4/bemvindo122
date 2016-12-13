@@ -24,6 +24,7 @@ public class BodyMail {
 	public String image3;
 	public String image4;
 	public String attachment;
+	public String bodyHTML;
 
 	@Override
 	public String toString() {
@@ -243,5 +244,13 @@ public class BodyMail {
 
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
+	}
+
+	public String getBodyHTML() {
+		return bodyHTML;
+	}
+
+	public void setBodyHTML(String bodyHTML) {
+		this.bodyHTML = bodyHTML;
 	}
 }

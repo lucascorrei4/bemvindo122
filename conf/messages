@@ -296,6 +296,7 @@ currentPricePlan=Valor Mensalidade
 msgNewUsers=Msg aos Novos Usuários
 msgActiveUsers=Msg aos Usuários Ativos
 obs=Observação
+logoUrl=URL Logo SeuPedido
 
 #Buttons
 btn.send=Enviar

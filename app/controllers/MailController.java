@@ -50,10 +50,9 @@ public class MailController {
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress(sender.from, sender.company, "utf-8"));
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(sendTo.destination));
-				message.setSubject(Utils.removeHTML(bodyMail.title1) + " . Envio ás " + Utils.dateNow());
+				message.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
 				message.setText("Test Mail sent from lou-sender!");
-				String url = "http://wgvjavap.javaprovider.net/public/templatepublic/images/logo-small.png";
-				String htmlMessage = "<html><body><h1>Teste do sistema - <img src=\"" + url + "\"></h1><h2>Favor, responda este e-mail quando ler.</h2><h3>Esquenta cabeça não. Nossa amizade superará estes testes. |o|</h3></body></html>";
+				String htmlMessage = bodyMail.getBodyHTML();
 				Multipart multipart = new MimeMultipart();
 				MimeBodyPart mimeBodyPart = new MimeBodyPart();
 				mimeBodyPart.setContent(htmlMessage, "text/html");
