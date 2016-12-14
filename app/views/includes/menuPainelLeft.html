@@ -35,7 +35,7 @@
 				<ul class="nav nav-second-level">
 					<li><a href="@{StatusPUSHController.list}"><i class="fa fa-paper-plane fa-fw"></i> Push Enviadas</a></li>
 					<li><a href="@{StatusSMSController.list}"><i class="fa fa-paper-plane-o fa-fw"></i> SMSs Enviadas</a></li>
-					<li><a href="@{StatusSMSController.list}"><i class="fa fa-mail-forward fa-fw"></i> E-mails Enviados</a></li>
+					<li><a href="@{StatusMailController.list}"><i class="fa fa-mail-forward fa-fw"></i> E-mails Enviados</a></li>
 				</ul>
 			</li>
 			
@@ -51,7 +51,7 @@
 			<li style="display: ${session.get("poweradmin") == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Admin<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="@{ParameterController.list}">Parametros</a></li>
+					<li><a href="@{ParameterController.list}">Par&acirc;metros</a></li>
 					<li><a href="@{MessageController.list}">Mensagens</a></li>
 				</ul>
 			</li>

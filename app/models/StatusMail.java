@@ -1,23 +1,48 @@
 package models;
 
-public class StatusMail {
+import java.text.ParseException;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+
+import controllers.Admin;
+import controllers.CRUD.Hidden;
+import play.db.jpa.Model;
+import util.Utils;
+
+@Entity
+public class StatusMail extends Model {
+
+	@Lob
+	public String message;
+
+	public String subject;
+
+	public String destination;
+
+	public String sendDate;
+
+	public String clientName;
+
 	public boolean sent;
 	public boolean read;
 
-	public String sendDate;
 	public int msgId;
+
+	@Hidden
+	public long institutionId;
+
+	@Hidden
+	public String postedAt;
 	
-	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("{");
-		sb.append("\"sent\":" + sent + ",");
-		sb.append("\"read\":" + read + ",");
-		sb.append("\"sendDate\":\"" + sendDate + "\",");
-		sb.append("\"msgId\":" + msgId + "");
-		sb.append("}");
-		
-		return sb.toString();
+		return destination.concat(" ").concat(clientName);
+	}
+
+	public long getInstitutionId() {
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public boolean isSent() {
@@ -50,5 +75,56 @@ public class StatusMail {
 
 	public void setMsgId(int msgId) {
 		this.msgId = msgId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+	public String getClientName() {
+		return clientName;
+	}
+
+	public void setClientName(String clientName) {
+		this.clientName = clientName;
+	}
+
+	public String getPostedAt() throws ParseException {
+		if (this.postedAt == null) {
+			setPostedAt(Utils.getCurrentDateTime());
+		}
+		return postedAt;
+	}
+
+	public void setPostedAt(String postedAt) {
+		this.postedAt = postedAt;
+	}
+
+	public void setInstitutionId(long institutionId) {
+		this.institutionId = institutionId;
+	}
+
+	public Date getSendDateConverted() throws ParseException {
+		return Utils.parseDate(sendDate, "yyyy-MM-dd'T'HH:mm");
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 }

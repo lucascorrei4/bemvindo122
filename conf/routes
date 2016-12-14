@@ -65,6 +65,7 @@ DELETE	${ctx}/admin/clientes/{id}							ClientController.delete
 
 GET		${ctx}/admin/smss-enviadas							StatusSMSController.list
 GET		${ctx}/admin/push-enviadas							StatusPUSHController.list
+GET		${ctx}/admin/e-mails-enviados						StatusMailController.list
 
 # Admin Services
 

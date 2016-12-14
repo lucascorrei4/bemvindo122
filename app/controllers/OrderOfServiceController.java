@@ -385,10 +385,10 @@ public class OrderOfServiceController extends CRUD {
 				statusSMS.id = 0l;
 				statusSMS.merge();
 				status = "SUCCESS";
-				response = "Notificação enviada com sucesso!";
+				response = "SMS enviada com sucesso!";
 			} else {
 				status = "ERROR";
-				response = "Erro ao enviar a notificação! Tente novamente!";
+				response = "Erro ao enviar a SMS! Tente novamente!";
 			}
 		} else {
 			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
@@ -435,10 +435,10 @@ public class OrderOfServiceController extends CRUD {
 			statusPUSH.id = 0l;
 			statusPUSH.merge();
 			status = "SUCCESS";
-			response = "Notificação enviada com sucesso!";
+			response = "Notificação Push enviada com sucesso.";
 		} else {
 			status = "ERROR";
-			response = "Erro ao enviar a notificação! Tente novamente!";
+			response = "Erro ao enviar a notificação Push! Tente novamente!";
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
@@ -497,26 +497,25 @@ public class OrderOfServiceController extends CRUD {
 		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
 		bodyMail.setImage1(parameter.getLogoUrl());
 		bodyMail.setBodyHTML(getHTMLTemplate(bodyMail));
-		mailController.sendHTMLMail(sendTo , sender, bodyMail);
 		if (mailController.sendHTMLMail(sendTo , sender, bodyMail)) {
 			/* Save sms object */
-			StatusPUSH statusPUSH = new StatusPUSH();
-			statusPUSH.setInstitutionId(institution.id);
-			statusPUSH.setMessage(message);
-			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
-			statusPUSH.setClientName(orderOfService.client.toString());
-			statusPUSH.setDestination(orderOfService.orderCode);
-			statusPUSH.setSendDate(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
-			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
-			statusPUSH.setPushSent(true);
-			statusPUSH.willBeSaved = true;
-			statusPUSH.id = 0l;
-			statusPUSH.merge();
+			StatusMail statusMail = new StatusMail();
+			statusMail.setInstitutionId(institution.id);
+			statusMail.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
+			statusMail.setMessage(bodyMail.getBodyHTML());
+			statusMail.setPostedAt(Utils.getCurrentDateTime());
+			statusMail.setClientName(orderOfService.client.toString());
+			statusMail.setDestination(sendTo.getDestination());
+			statusMail.setSendDate(Utils.getCurrentDateTime());
+			statusMail.setPostedAt(Utils.getCurrentDateTime());
+			statusMail.willBeSaved = true;
+			statusMail.id = 0l;
+			statusMail.merge();
 			status = "SUCCESS";
-			response = "E-mail enviado com sucesso!";
+			response = "E-mail enviado com sucesso.";
 		} else {
 			status = "ERROR";
-			response = "Erro ao enviar a notificação! Tente novamente!";
+			response = "Erro ao enviar o e-mail! Tente novamente em instantes.";
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);

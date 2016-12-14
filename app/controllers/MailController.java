@@ -37,7 +37,6 @@ public class MailController {
 			properties.put("mail.smtp.port", "25");
 			properties.put("mail.smtp.auth", "true");
 			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			properties.put("mail.smtp.auth", "true");
 			/* Trying connect do smtp server */
 			Authenticator auth = new Authenticator() {
 				public PasswordAuthentication getPasswordAuthentication() {
@@ -49,9 +48,8 @@ public class MailController {
 				Session session = Session.getInstance(properties, auth);
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress(sender.from, sender.company, "utf-8"));
-				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(sendTo.destination));
+				message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendTo.destination));
 				message.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
-				message.setText("Test Mail sent from lou-sender!");
 				String htmlMessage = bodyMail.getBodyHTML();
 				Multipart multipart = new MimeMultipart();
 				MimeBodyPart mimeBodyPart = new MimeBodyPart();
