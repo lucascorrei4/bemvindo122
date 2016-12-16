@@ -14,7 +14,7 @@
             	<div class="dataTable_wrapper">
 			        #{crud.table fields:['postedAt', 'name', 'phone', 'isActive', 'action']}
 			        	#{crud.custom 'postedAt'}
-			         		<a href="@{ClientController.show(object.id)}">${object.postedAt}</a>
+			         		<a href="@{ClientController.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'name'}
 			         		<a href="@{ClientController.show(object.id)}">${object.name} ${object.lastName}</a>

@@ -278,5 +278,9 @@ public class User extends Model {
 	public void setRepeatPassword(String repeatPassword) {
 		this.repeatPassword = repeatPassword;
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

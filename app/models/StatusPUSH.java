@@ -119,5 +119,9 @@ public class StatusPUSH extends Model {
 	public void setMsgId(String msgId) {
 		this.msgId = msgId;
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

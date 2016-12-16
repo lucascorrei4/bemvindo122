@@ -13,6 +13,9 @@
             <div class="panel-body">
             	<div class="dataTable_wrapper">
 			        #{crud.table fields:['name', 'title', 'description', 'mail', 'postedAt']}
+			        #{crud.custom 'postedAt'}
+			         		<a href="@{MessageController.show(object.id)}">${object.postedAtParsed}</a>
+				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}

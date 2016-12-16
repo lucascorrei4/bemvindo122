@@ -14,10 +14,10 @@ import util.Utils;
 @Entity
 public class StatusMail extends Model {
 
+	public String subject;
+
 	@Lob
 	public String message;
-
-	public String subject;
 
 	public String destination;
 
@@ -25,56 +25,18 @@ public class StatusMail extends Model {
 
 	public String clientName;
 
-	public boolean sent;
-	public boolean read;
-
-	public int msgId;
+	public boolean mailSent = false;
+	
+	public boolean mailRead = false;
 
 	@Hidden
 	public long institutionId;
 
 	@Hidden
 	public String postedAt;
-	
+
 	public String toString() {
-		return destination.concat(" ").concat(clientName);
-	}
-
-	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
-	}
-
-	public boolean isSent() {
-		return sent;
-	}
-
-	public void setSent(boolean sent) {
-		this.sent = sent;
-	}
-
-	public boolean isRead() {
-		return read;
-	}
-
-	public void setRead(boolean read) {
-		this.read = read;
-	}
-
-	public String getSendDate() {
-		return sendDate;
-	}
-
-	public void setSendDate(String sendDate) {
-		this.sendDate = sendDate;
-	}
-
-	public int getMsgId() {
-		return msgId;
-	}
-
-	public void setMsgId(int msgId) {
-		this.msgId = msgId;
+		return destination;
 	}
 
 	public String getMessage() {
@@ -85,6 +47,14 @@ public class StatusMail extends Model {
 		this.message = message;
 	}
 
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
 	public String getDestination() {
 		return destination;
 	}
@@ -93,12 +63,29 @@ public class StatusMail extends Model {
 		this.destination = destination;
 	}
 
+	public String getSendDate() {
+		return sendDate;
+	}
+
+	public void setSendDate(String sendDate) {
+		this.sendDate = sendDate;
+	}
+
 	public String getClientName() {
 		return clientName;
 	}
 
 	public void setClientName(String clientName) {
 		this.clientName = clientName;
+	}
+
+	public long getInstitutionId() {
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: Admin.getLoggedUserInstitution().getInstitution().getId();
+	}
+
+	public void setInstitutionId(long institutionId) {
+		this.institutionId = institutionId;
 	}
 
 	public String getPostedAt() throws ParseException {
@@ -111,20 +98,29 @@ public class StatusMail extends Model {
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
 	}
-
-	public void setInstitutionId(long institutionId) {
-		this.institutionId = institutionId;
-	}
-
+	
 	public Date getSendDateConverted() throws ParseException {
 		return Utils.parseDate(sendDate, "yyyy-MM-dd'T'HH:mm");
 	}
 
-	public String getSubject() {
-		return subject;
+	public boolean isMailSent() {
+		return mailSent;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setMailSent(boolean mailSent) {
+		this.mailSent = mailSent;
 	}
+
+	public boolean isMailRead() {
+		return mailRead;
+	}
+
+	public void setMailRead(boolean mailRead) {
+		this.mailRead = mailRead;
+	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
+
 }

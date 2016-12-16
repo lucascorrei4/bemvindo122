@@ -508,6 +508,7 @@ public class OrderOfServiceController extends CRUD {
 			statusMail.setDestination(sendTo.getDestination());
 			statusMail.setSendDate(Utils.getCurrentDateTime());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());
+			statusMail.setMailSent(true);
 			statusMail.willBeSaved = true;
 			statusMail.id = 0l;
 			statusMail.merge();

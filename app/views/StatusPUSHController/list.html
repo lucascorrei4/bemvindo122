@@ -13,9 +13,9 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['msgId', 'destination', 'sendDate', 'message', 'pushSent']}
-			        	#{crud.custom 'msgId'}
-			         		<a href="#">${object.msgId}</a>
+			        #{crud.table fields:['postedAt', 'destination', 'sendDate', 'message', 'pushSent']}
+			        	#{crud.custom 'postedAt'}
+			         		<a href="#">${object.postedAtParsed}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'destination'}
 			         		<a href="#">${object.destination} - ${object.clientName}</a>

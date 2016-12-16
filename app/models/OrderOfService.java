@@ -142,5 +142,9 @@ public class OrderOfService extends Model {
 	public void setObs(String obs) {
 		this.obs = obs;
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

@@ -111,5 +111,9 @@ public class StatusSMS extends Model {
 	public void setSmsRead(boolean smsRead) {
 		this.smsRead = smsRead;
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

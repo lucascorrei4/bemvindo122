@@ -14,7 +14,7 @@
             	<div class="dataTable_wrapper">
 			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'isActive', 'action']}
 			        	#{crud.custom 'postedAt'}
-			         		<a>${object.postedAt}</a>
+			         		<a>${object.postedAtParsed}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'client'}
 			         		<a>${object.client?.name} ${object.client?.lastName}</a>

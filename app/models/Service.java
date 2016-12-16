@@ -91,5 +91,9 @@ public class Service extends Model {
 	public String getNameBasePrice() {
 		return title + " R$ " + basePrice;
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

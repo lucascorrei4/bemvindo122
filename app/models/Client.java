@@ -1,16 +1,14 @@
 package models;
 
 import java.text.ParseException;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-
-import org.hibernate.id.insert.InsertSelectIdentityInsert;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
+import enumeration.GenderEnum;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.data.validation.Unique;
@@ -33,6 +31,9 @@ public class Client extends Model {
 	public String phone;
 
 	public String birthdate;
+	
+	@Enumerated(EnumType.STRING)
+	public GenderEnum gender = GenderEnum.M;
 
 	@Hidden
 	public String postedAt;
@@ -57,7 +58,8 @@ public class Client extends Model {
 	}
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
@@ -139,6 +141,10 @@ public class Client extends Model {
 
 	public void setInstitution(Institution institution) {
 		this.institution = institution;
+	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
 	}
 
 }

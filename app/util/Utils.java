@@ -38,7 +38,7 @@ import models.User;
 import play.mvc.Controller;
 
 public class Utils extends Controller {
-	public static final String STR_DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm";
+	public static final String STR_DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 	public static final String STR_BRAZIL_TIMEZONE = "America/Sao_Paulo";
 
 	public static String formatToMoney(double price) {
@@ -145,6 +145,11 @@ public class Utils extends Controller {
 		DateFormat dateFormat = new SimpleDateFormat(STR_DEFAULT_DATE_FORMAT);
 		Calendar cal = getBrazilCalendar();
 		return dateFormat.format(cal.getTime());
+	}
+
+	public static Date getSimpleCurrentDateTime() {
+		Calendar cal = getBrazilCalendar();
+		return cal.getTime();
 	}
 
 	public static String getStringDateTime(Date date) {
@@ -358,11 +363,11 @@ public class Utils extends Controller {
 		return cal.getTime();
 	}
 
-	public static void main(String[] args) {
+	public static void mainss(String[] args) {
 		System.out.println(new Date());
 		System.out.println(addDays(new Date(), 30));
 	}
-	
+
 	public static String transformQueryParamToJson(String queryParam, String prefix) {
 		StringTokenizer st = new StringTokenizer(queryParam, "&");
 		String json = "{";
@@ -381,16 +386,28 @@ public class Utils extends Controller {
 		json = json.concat("}");
 		return json;
 	}
-	
+
 	public static String removeHTML(String str) {
 		str = str.replaceAll("\\<[^>]*>", "");
 		return str;
 	}
-	
+
 	public static String dateNow() {
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		String dateNow = formatter.format(currentDate.getTime());
 		return dateNow;
 	}
+
+	public static String parseStringDate(String strDate) throws ParseException {
+		Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(strDate);
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(date);
+	}
+
+	public static String parseStringDateTime(String strDate) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		Date d = sdf.parse(strDate);
+		return formatDate(d);
+	}
+
 }

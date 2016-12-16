@@ -121,5 +121,9 @@ public class Message extends Model {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

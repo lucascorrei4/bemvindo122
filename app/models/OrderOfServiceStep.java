@@ -103,5 +103,9 @@ public class OrderOfServiceStep extends Model {
 	public void setService(Service service) {
 		this.service = service;
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

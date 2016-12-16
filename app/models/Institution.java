@@ -356,5 +356,9 @@ public class Institution extends Model {
 		// TODO Auto-generated method stub
 		return getAddress().concat(getComplement());
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

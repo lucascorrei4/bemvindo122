@@ -196,5 +196,9 @@ public class Invoice extends Model {
 	public String getSMSUnitPriceCurrency() {
 		return Utils.getCurrencyValue(getSmsUnitPrice());
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

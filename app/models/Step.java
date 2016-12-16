@@ -120,5 +120,9 @@ public class Step extends Model {
 	public void setEstimatedDuration(float estimatedDuration) {
 		this.estimatedDuration = estimatedDuration;
 	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
+	}
 
 }

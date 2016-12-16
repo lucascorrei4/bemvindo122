@@ -111,6 +111,7 @@ StatusPUSHController=Notificações Push Enviadas
 ParameterController=Parâmetros
 FinancialController=Financeiro
 MessageController=Mensagens Recebidas
+StatusMailController=E-mails Enviados
 
 #Models
 ContactForm=Mensagens - Form. Contato
@@ -143,6 +144,7 @@ StatusSMS=SMS
 StatusPUSH=Notificações Push
 Parameter=Parâmetro
 Message=Mensagem Recebida
+StatusMail=E-mail Enviado
 
 #Labels
 userName=Usuário
@@ -297,6 +299,8 @@ msgNewUsers=Msg aos Novos Usuários
 msgActiveUsers=Msg aos Usuários Ativos
 obs=Observação
 logoUrl=URL Logo SeuPedido
+clientName=Nome
+mailSent=Enviado
 
 #Buttons
 btn.send=Enviar
