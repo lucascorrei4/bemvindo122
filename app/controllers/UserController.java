@@ -61,7 +61,7 @@ public class UserController extends CRUD {
 				render("UserController/show.html", type, object, country, state, city);
 			}
 		} else {
-			redirect("admin.index");
+			redirect("Admin.index");
 		}
 	}
 }

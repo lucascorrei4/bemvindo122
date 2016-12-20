@@ -23,9 +23,9 @@ public class Security extends Secure.Security {
 	}
 
 	static void onAuthenticated() {
-		User user = User.find("byEmail", Security.connected()).first();
-		connect(user);
-		if (user.getInstitutionId() == 0) {
+		User connectedUser = User.find("byEmail", Security.connected()).first();
+		connect(connectedUser);
+		if (connectedUser.getInstitutionId() == 0) {
 			Admin.firstStep();
 		} else {
 			Admin.index();
@@ -34,8 +34,14 @@ public class Security extends Secure.Security {
 
 	static void connect(User user) {
 		session.put("logged", user.id);
+		session.put("idu", user.id);
 		// Verifica se o usuário já está vinculado a uma instituição
 		Admin.enableUserConditions(user);
+		if ("lucascorreiaevangelista@gmail.com".equals(user.getEmail())) {
+			session.put("poweradmin", "true");
+		} else {
+			session.put("poweradmin", "false");
+		}
 	}
 
 	static User connectedUser() {

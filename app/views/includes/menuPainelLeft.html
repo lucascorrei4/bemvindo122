@@ -39,7 +39,7 @@
 				</ul>
 			</li>
 			
-			<li>
+			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Configurações<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="/admin/empresa/${session.get('id')}">Dados da Empresa</a></li>
@@ -53,6 +53,7 @@
 				<ul class="nav nav-second-level">
 					<li><a href="@{ParameterController.list}">Par&acirc;metros</a></li>
 					<li><a href="@{MessageController.list}">Mensagens</a></li>
+					<li><a href="@{InstitutionController.listAll}">Empresas Cadastradas</a></li>
 				</ul>
 			</li>
 			

@@ -23,12 +23,7 @@
 			         		<a href="@{ClientController.show(object.id)}">${object.phone}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
-					        #{if object.isActive}
-						    	<a href="@{ClientController.show(object.id)}">${object.isActive='Sim'}</a>
-						    #{/if}
-						    #{else} 
-						    	<a href="@{ClientController.show(object.id)}">${object.isActive='Não'}</a>
-				            #{/else}
+						    	<a href="@{ClientController.show(object.id)}">${object.isActive ? 'Sim' : 'Não'}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
 				       		<a href="@{ClientController.show(object.id)}" class="btn btn-default"><i class="fa fa-edit"></i></a>

@@ -71,9 +71,9 @@ validation.matchAge.erro=Erro. Favor, preencha a faixa etária no formato: 16-29
 validation.email=Formato de e-mail inválido.
 validation.incorrectValue=Valor inválido.
 validation.min=Preencha o campo. 
-validation.unique=Este ítem já foi cadastrado. Favor, insira outro.
-validation.object=Há erros no cadastro. Verifique suas informações.
-validation.invalid=Verifique os dados inseridos.
+validation.unique=Este ítem já foi cadastrado.
+validation.object=Verifique suas informações.
+validation.invalid=Preenchimento inválido.
 
 secure.username=Seu e-mail:
 secure.password=Senha:
@@ -301,6 +301,8 @@ obs=Observação
 logoUrl=URL Logo SeuPedido
 clientName=Nome
 mailSent=Enviado
+stateId=Estado
+cityId=Cidade
 
 #Buttons
 btn.send=Enviar

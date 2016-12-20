@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Ordem de Serviço</title>
+<link rel="stylesheet" href="@{'public/templateinvoice/vendor.css'}">
 <link rel="stylesheet" href="@{'public/templateinvoice/invoice.css'}">
 <script type="text/javascript" src="@{'public/templateinvoice/qrcode.js'}"></script>
 <script type="text/javascript">
@@ -14,9 +15,9 @@
 </script>
 </head>
 <body class="ember-application">
-	<div id="ember363" class="ember-view" style="font-size: 10px;">
+	<div id="ember363" class="ember-view" style="font-size: 9px;">
 		<div id="app" style="padding: 0;">
-			<div id="invoice" style="width: 595.28px; height: 841.89px; pointer-events: none; padding: 0;">
+			<div id="invoice" style="width: 595.28px; height: 841.89px; pointer-events: none;">
 				<div class="alert alert-warning hidden-in-pdf" role="alert" style="display: none"></div>
 				<div class="row">
 					<div class="col-md-6">
@@ -34,7 +35,7 @@
 						</blockquote>
 					</div>
 					<div class="col-md-6">
-						<input id="ember448" class="invoice-title no-markers ember-view ember-text-field" type="text" value="PEDIDO ${order?.orderCode}" style="font-weight: bold; font-size: 30px;">
+						<input id="ember448" class="invoice-title no-markers ember-view ember-text-field" type="text" value="PEDIDO ${order?.orderCode}" style="font-weight: bold; font-size: 25px;">
 					</div>
 				</div>
 				<div class="row row-m1em">
@@ -58,7 +59,7 @@
 								<input id="ember451" class="invoice-number no-markers ember-view ember-text-field" type="text" value="Data do pedido">
 							</div>
 							<div class="col-md-8 no-padding">
-								<input id="ember452" placeholder="INV-0001" class="invoice-number-body no-markers ember-view ember-text-field" type="text" value="${order?.postedAt}">
+								<input id="ember452" placeholder="INV-0001" class="invoice-number-body no-markers ember-view ember-text-field" type="text" value="${order?.postedAtParsed}">
 							</div>
 						</div>
 						<div class="row">
@@ -85,9 +86,9 @@
 							<thead>
 								<tr>
 									<th width="55%"><input id="ember457" class="no-markers ember-view ember-text-field" type="text" value="Descrição" style="font-size: 11px;"></th>
-									<th><input id="ember458" class="invoice-table-quantity no-markers ember-view ember-text-field" type="text" value="Vl. Unit." style="font-size: 11px; text-align: right;"></th>
+									<th><input id="ember458" class="invoice-table-quantity no-markers ember-view ember-text-field" type="text" value="Vl. Unit." style="font-size: 11px;"></th>
 									<th><input id="ember459" class="invoice-table-rate no-markers ember-view ember-text-field" type="text" value="Qtd" style="font-size: 11px;"></th>
-									<th><input id="ember459" class="invoice-table-rate no-markers ember-view ember-text-field" type="text" value="Desc." style="font-size: 11px; text-align: right;"></th>
+									<th><input id="ember460" class="invoice-table-vat no-markers ember-view ember-text-field" type="text" value="Desc." style="font-size: 11px;"></th>
 									<th><input id="ember461" class="invoice-table-amount no-markers ember-view ember-text-field" type="text" value="Total" style="font-size: 11px;"></th>
 								</tr>
 							</thead>
@@ -113,9 +114,9 @@
 											</div>
 										</td>
 										<td>
-											<div id="ember474" class="invoice-line-item-rate no-markers ember-view">
+											<div id="ember476" class="invoice-line-item-rate no-markers ember-view">
 												<div class="input-group">
-													<input id="ember475" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${value?.discountCurrency}" style="font-size: 10px; text-align: right;">
+													<input id="ember477" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${value?.discountCurrency}" style="font-size: 10px; text-align: right;">
 												</div>
 											</div>
 										</td>

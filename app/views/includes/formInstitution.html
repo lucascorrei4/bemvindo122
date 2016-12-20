@@ -77,9 +77,9 @@
 		<p class="help-block">#{error 'institution.cep' /}</p>
 	</div>
 	<div class="form-group">
-		<label for="object_cnpj"> CNPJ </label> 
-		<input type="text" size="50" value="${flash['institution.cnpj']}" name="institution.cnpj" class="form-control cnpj" id="object_cnpj" autocomplete="off">
-		<p id="object_cnpj_msg" class="help-block"></p>
+		<label for="object_cnpj"> CPF/CNPJ </label> 
+		<input id="cpfcnpj" type="text" size="50" value="${flash['institution.cnpj']}" name="institution.cnpj" class="form-control" id="object_cnpj" autocomplete="off">
+		<p id="object_cnpj_msg" class="help-block">Esta informação é importante, mas neste momento não é obrigatória.</p>
 		<p class="help-block">#{error 'institution.cnpj' /}</p>
 	</div>
 	<div class="form-group">
@@ -108,7 +108,7 @@
 	</div>
 	<div class="form-group">
 		<label for="object_localizationGPS"> Coordenadas GPS </label> 
-		<input type="text" size="50" value="${flash['institution.localizationGPS']}" name="institution.localizationGPS" class="form-control" id="object_localizationGPS">
+		<input type="text" size="50" value="${flash['institution.localizationGPS']}" name="institution.localizationGPS" class="form-control gps" id="object_localizationGPS">
 		<p id="object_institution_msg" class="help-block"></p>
 		<p class="help-block">#{error 'institution.localizationGPS' /}</p>
 	</div>
@@ -132,5 +132,19 @@
 			});
 			$('<option value="0">Estado</option>').appendTo("#stateId");
 		});
+		 
+		 $("#cpfcnpj").keydown(function(){
+			    try {
+			    	$("#cpfcnpj").unmask();
+			    } catch (e) {}
+			    
+			    var tamanho = $("#cpfcnpj").val().length;
+				
+			    if(tamanho < 11){
+			        $("#cpfcnpj").mask("999.999.999-99");
+			    } else if(tamanho >= 11){
+			        $("#cpfcnpj").mask("99.999.999/9999-99");
+			    }                   
+			});
 	</script>
 #{/form}

@@ -35,22 +35,31 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-lg-6">
-									<div class="form-group">
-										<h4></h4>
-										<h4>
-											Olá, <b>${user}</b>!
-											<br> Vamos começar ajustando as configurações? 
-											<br> Este passo é <b>muito</b> importante. 
-											<br> Nele você <b>fará o cadastro da empresa prestadora</b> dos serviços. 
-											<br> Quando estiver pronto, preencha os campos abaixo! :)
-										</h4>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-lg-6">
-									<h4></h4>
+									<h3>
+										Olá, <b>${connectedUser}</b>!
+									<p>
+										Que bom que chegou até aqui. :) 
+									</p>
+									</h3>
+									<blockquote>
+										<p>Vamos começar ajustando as configurações? </p>
+										<p>Este passo é <b>muito</b> importante. </p>
+										<p>Nele você <b>fará o cadastro da empresa prestadora dos serviços. </b> </p> 
+										<p>Quando estiver pronto, preencha os campos abaixo! </p>
+                   					</blockquote>
 									#{include 'includes/formInstitution.html' /}
+								</div>
+								<div class="col-lg-6">
+									<h3>
+										É bom saber:
+									</h3>
+									<ul>
+		                                <li>Que as informações que você inserir aqui estarão presentes nas Ordens de Serviço que você emitir;</li>
+		                                <li>As Ordens de Serviços apresentam o endereço da sua empresa e podem ser enviadas por e-mail. </li>
+                                        <li>Um bom preenchimento dará mais credibilidade ao negócio;</li>
+		                                <li>Você ganhará uma página pública (<i>http://seupedido.online/sua-empresa</i>) para divulgar aos seus clientes. Eles utilizarão esta página para consultem o andamento dos serviços e as novidades do seu negócio;</li>
+		                                <li>Se não possuir CNPJ, informe o seu CPF. Se não quiser informar, tudo bem.</li>
+		                            </ul>
 								</div>
 							</div>
 							<div class="row">

@@ -101,6 +101,7 @@ POST	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.save
 DELETE	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.delete
 
 GET		${ctx}/admin/empresa/{id}							InstitutionController.show
+GET		${ctx}/admin/empresas-cadastradas					InstitutionController.listAll
 
 GET		${ctx}/admin/usuario/{id}							UserController.show
 

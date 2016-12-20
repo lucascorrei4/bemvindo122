@@ -96,7 +96,7 @@ public class FinancialController extends CRUD {
 				render("FinancialController/signature.html", type, listInvoice, user);
 			}
 		} else {
-			redirect("admin.index");
+			redirect("Admin.index");
 		}
 	}
 

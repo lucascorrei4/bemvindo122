@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.apache.commons.lang.SystemUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -19,11 +21,11 @@ import play.mvc.Controller;
 import util.Utils;
 
 public class PopulateDB extends Controller {
-	public static final String STR_COUNTRIES_JSON_FILE_PATH = "\\conf\\populate\\countries.json";
-	public static final String STR_STATES_JSON_FILE_PATH = "\\conf\\populate\\states.json";
-	public static final String STR_CITIES_JSON_FILE_PATH = "\\conf\\populate\\cities.json";
-	public static final String STR_USERS_JSON_FILE_PATH = "\\conf\\populate\\users.json";
-	public static final String STR_INSTITUTIONS_JSON_FILE_PATH = "\\conf\\populate\\institutions.json";
+	public static final String STR_COUNTRIES_JSON_FILE_PATH = "conf\\populate\\countries.json";
+	public static final String STR_STATES_JSON_FILE_PATH = "conf\\populate\\states.json";
+	public static final String STR_CITIES_JSON_FILE_PATH = "conf\\populate\\cities.json";
+	public static final String STR_USERS_JSON_FILE_PATH = "conf\\populate\\users.json";
+	public static final String STR_INSTITUTIONS_JSON_FILE_PATH = "conf\\populate\\institutions.json";
 
 	public static void populate() {
 		String status = null;
@@ -33,16 +35,20 @@ public class PopulateDB extends Controller {
 			String jsonContent = null;
 			// new PopulateDB().configureAutoIncrementValue();
 			/* Populate countries */
-			jsonContent = Utils.getJsonFileContent(Play.getFile(STR_COUNTRIES_JSON_FILE_PATH));
+			jsonContent = Utils.getJsonFileContent(Play.getFile(SystemUtils.IS_OS_LINUX
+					? STR_COUNTRIES_JSON_FILE_PATH.replaceAll("\\", "/") : STR_COUNTRIES_JSON_FILE_PATH));
 			new PopulateDB().populateCountries(jsonContent, gson);
 			/* Populate states */
-			jsonContent = Utils.getJsonFileContent(Play.getFile(STR_STATES_JSON_FILE_PATH));
+			jsonContent = Utils.getJsonFileContent(Play.getFile(SystemUtils.IS_OS_LINUX
+					? STR_STATES_JSON_FILE_PATH.replaceAll("\\", "/") : STR_STATES_JSON_FILE_PATH));
 			new PopulateDB().populateStates(jsonContent, gson);
 			/* Populate cities */
-			jsonContent = Utils.getJsonFileContent(Play.getFile(STR_CITIES_JSON_FILE_PATH));
+			jsonContent = Utils.getJsonFileContent(Play.getFile(SystemUtils.IS_OS_LINUX
+					? STR_CITIES_JSON_FILE_PATH.replaceAll("\\", "/") : STR_CITIES_JSON_FILE_PATH));
 			new PopulateDB().populateCities(jsonContent, gson);
 			/* Populate users */
-			jsonContent = Utils.getJsonFileContent(Play.getFile(STR_USERS_JSON_FILE_PATH));
+			jsonContent = Utils.getJsonFileContent(Play.getFile(SystemUtils.IS_OS_LINUX
+					? STR_USERS_JSON_FILE_PATH.replaceAll("\\", "/") : STR_USERS_JSON_FILE_PATH));
 			new PopulateDB().populateUsers(jsonContent, gson);
 			/* Populate institutions */
 			// jsonContent =

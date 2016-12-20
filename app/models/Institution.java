@@ -93,6 +93,8 @@ public class Institution extends Model {
 	@Hidden
 	public String institutionKey;
 
+	public String urlParameter;
+
 	public Date getLicenseDate() {
 		return licenseDate;
 	}
@@ -359,6 +361,14 @@ public class Institution extends Model {
 	
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
+	}
+
+	public String getUrlParameter() {
+		return urlParameter;
+	}
+
+	public void setUrlParameter(String urlParameter) {
+		this.urlParameter = urlParameter;
 	}
 
 }

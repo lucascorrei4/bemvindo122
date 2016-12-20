@@ -1,6 +1,6 @@
 <meta charset="utf-8" />
 <div class="login">
-	<form action="/" method="get" id="formQuickAccount">
+	<form action="/" method="post" id="formQuickAccount">
 		<h3>Criar Nova Conta</h3>
 		<input type="text" id="name" name="user.name" placeholder="Seu nome * #{error 'user.name' /}" value="${flash['user.name']}" /> 
 		
@@ -20,7 +20,7 @@
 			#{/list}		
 		</div>
 		<input id="saveUser" type="button" value="Confirmar" onclick="saveQuickAccount()" />
-		<a id="btnLogin" href="/login" class="btn btn-default active" style="display: none">Entrar</a>
+		<a id="btnLogin" href="/login" class="btn btn-success active" style="display: none; width: 100px; font-size: 18px; margin: 9px">Entrar</a>
 
 		<input type="hidden" id="response" name="response" value="${response}" /> 
 		<input type="hidden" id="status" name="status" value="${status}" /> 

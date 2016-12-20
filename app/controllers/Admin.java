@@ -40,6 +40,7 @@ public class Admin extends Controller {
 
 	public static void firstStep() {
 		List<Country> listCountries = Country.findAll();
+		renderArgs.put("connectedUser", Admin.getLoggedUser());
 		render(listCountries);
 	}
 

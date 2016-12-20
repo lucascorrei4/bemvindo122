@@ -138,8 +138,8 @@ public class Application extends Controller {
 	}
 
 	public static void saveQuickAccount(String json) throws UnsupportedEncodingException {
-		String response = null;
-		String status = null;
+		String response = "";
+		String status = "";
 		/* Get body content from client request */
 		String[] fields = request.params.data.get("body");
 		String decodedFields = URLDecoder.decode(fields[0], "UTF-8");
@@ -158,18 +158,29 @@ public class Application extends Controller {
 		/* Validate object before saving */
 		if (!validateObjectToSave(user)) {
 			List<Error> errors = validation.errors();
-			response = "Favor, preencha todos os campos corretamente!";
+			for (Error error : errors) {
+				if (error != null) {
+					response += error.message() + " ";
+				}
+			}
 			status = "ERROR";
-			render("includes/newquickaccount.html", user, response, status, errors);
+			render("includes/newQuickAccount.html", user, response, status, errors);
+		} else if(!validatePassword(user.getPassword(), user.getRepeatPassword())) {
+			params.flash();
+			validation.keep();
+			status = "ERROR";
+			response = "As senhas que você digitou não são iguais. :(";
+			render("includes/newQuickAccount.html", user, response, status);
 		} else {
 			user.setAdmin(true);
 			user.setPostedAt(Utils.getCurrentDateTime());
 			user.setInstitutionId(0l);
 			user.setActive(true);
 			user.merge();
-			response = "Pronto! Cadastro criado com sucesso! Agora, clique para entrar! :)";
+			response = "Ótimo. Seu cadastro foi criado com sucesso. :)";
 			status = "SUCCESS";
-			render("includes/newquickaccount.html", user, response, status);
+			user = new User();
+			render("includes/newQuickAccount.html", user, response, status);
 		}
 	}
 
@@ -219,8 +230,8 @@ public class Application extends Controller {
 		if (institution.getInstitution() != null) {
 			if (!validateForm(institution)) {
 				/* The user needs to create a institution */
-				User user = userInstitutionParameter.getUser();
-				render("@admin.firstStep", institution, user);
+				User connectedUser = userInstitutionParameter.getUser();
+				render("@Admin.firstStep", institution, connectedUser);
 				return;
 			} else {
 				// Links the user to institution
@@ -242,7 +253,7 @@ public class Application extends Controller {
 				Admin.index();
 			}
 		}
-		render("@admin.firstStep");
+		render("@Admin.firstStep");
 	}
 
 	private static boolean validateForm(Institution institution) {

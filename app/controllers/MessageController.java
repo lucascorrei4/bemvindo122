@@ -46,7 +46,7 @@ public class MessageController extends CRUD {
 			message.setPostedAt(Utils.getCurrentDateTime());
 			message.setInstitutionId(0l);
 			message.merge();
-			response = "Muito obrigado por deixar sua opinião!";
+			response = "Muito obrigado pela mensagem!";
 			status = "SUCCESS";
 			render("includes/formSaveMessage.html", connectedUser, message, response, status);
 		}

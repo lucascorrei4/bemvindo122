@@ -236,7 +236,7 @@
 	                                    #{list listClients, as:'client'}
 											<tr>
 												<td><a href="/admin/clientes">&{client.getName()} ${client.lastName} </a></td>
-												<td><a href="/admin/clientes">&{client.getPostedAt()}</a></td>
+												<td><a href="/admin/clientes">&{client.getPostedAtParsed()}</a></td>
 											</tr>
 										#{/list}
                                     </tbody>
