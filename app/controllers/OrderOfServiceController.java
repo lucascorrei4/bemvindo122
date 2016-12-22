@@ -229,23 +229,17 @@ public class OrderOfServiceController extends CRUD {
 			List<Step> steps = Step.find("service_id = " + service.getId() + " and institutionId = "
 					+ Admin.getLoggedUserInstitution().getInstitution().getId()
 					+ " and isActive = true order by position, id asc").fetch();
-			int i = 0;
 			for (Step step : steps) {
 				OrderOfServiceStep orderServiceStep = new OrderOfServiceStep();
 				orderServiceStep.setOrderOfService(orderOfService);
 				orderServiceStep.setStep(step);
 				orderServiceStep.setService(step.getService());
-				if (i == 0) {
-					orderServiceStep.setStatus(StatusEnum.InProgress);
-				} else {
-					orderServiceStep.setStatus(StatusEnum.NotStarted);
-				}
+				orderServiceStep.setStatus(StatusEnum.NotStarted);
 				orderServiceStep.setObs("Nenhuma");
 				orderServiceStep.setPostedAt(Utils.getCurrentDateTime());
 				orderServiceStep.setInstitutionId(orderOfService.getInstitutionId());
 				orderServiceStep.willBeSaved = true;
 				orderServiceStep.save();
-				i++;
 			}
 		}
 	}
@@ -253,7 +247,8 @@ public class OrderOfServiceController extends CRUD {
 	public static void updateOrder() {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
-		render(listOrderOfService, institution);
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render(listOrderOfService, institution, smsExceedLimit);
 	}
 
 	private static List<OrderOfService> loadListOrderOfService() {
@@ -312,7 +307,8 @@ public class OrderOfServiceController extends CRUD {
 			response = "Houve um erro ao atualizar a etapa do pedido ".concat(orderCode).concat("!");
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
 
 	public static void updateObsOrderStep() {
@@ -349,7 +345,8 @@ public class OrderOfServiceController extends CRUD {
 			response = "Erro ao inserir a observação do pedido ".concat(orderCode).concat(".");
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
 
 	public static void main(String[] args) {
@@ -394,7 +391,8 @@ public class OrderOfServiceController extends CRUD {
 			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
 
 	public static void sendPUSH() throws UnsupportedEncodingException {
@@ -441,7 +439,8 @@ public class OrderOfServiceController extends CRUD {
 			response = "Erro ao enviar a notificação Push! Tente novamente!";
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
 
 
@@ -455,6 +454,7 @@ public class OrderOfServiceController extends CRUD {
 		orderOfService.delete();
 		OrderOfServiceController.list(0, null, null, null, null);
 	}
+	
 	public static void sendEmail() throws UnsupportedEncodingException {
 		String response = null;
 		String status = null;
@@ -519,7 +519,8 @@ public class OrderOfServiceController extends CRUD {
 			response = "Erro ao enviar o e-mail! Tente novamente em instantes.";
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution);
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
 	
 	public static String getHTMLTemplate(BodyMail bodyMail) {

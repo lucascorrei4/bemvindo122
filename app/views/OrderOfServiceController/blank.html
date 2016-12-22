@@ -9,7 +9,7 @@
         <div class="panel-body">
            	<div class="row">
                	<div class="col-lg-8">
-					#{form action:@create(), enctype:'multipart/form-data'}
+					#{form id:'formgeneorder', action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
 							#{crud.custom 'orderCode'}
 								<div class="form-group">
@@ -52,16 +52,12 @@
 							#{/crud.custom}
 						#{/crud.form}
 						<div class="form-group" style="float: right">
+							<a href="@{list()}" class="btn btn-default" style="float: right; margin-left: 10px;">&{'crud.cancel', type.modelName}</a>
 							<button type="submit" class="btn btn-default" name="_save">&{'crud.save', type.modelName}</button>
-							<button type="submit" class="btn btn-default" name="_saveAndContinue">&{'crud.saveAndContinue', type.modelName}</button>
-							<button type="submit" class="btn btn-default" name="_saveAndAddAnother" >&{'crud.saveAndAddAnother', type.modelName}</button>
 						</div>
 					#{/form}
 				</div>
 				#{include 'includes/scriptOrderOfService.html' /}
-				<div class="col-lg-6">
-					<a href="@{list()}" class="btn btn-default" style="float: right">&{'crud.cancel', type.modelName}</a>
-				</div>
 			</div>
 		</div>
 	</div>

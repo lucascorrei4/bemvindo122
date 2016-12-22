@@ -64,11 +64,11 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="alert alert-info alert-dismissable" style="display: ${'Isento' == financial.statusPayment.toString() ? 'block' : 'none'};">
+                    <div class="alert alert-info alert-dismissable" style="display: ${userFreeTrial ? 'block' : 'none'};">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <i class="fa fa-info-circle"></i> ${parameter.msgNewUsers.raw()}
                     </div>
-                    <div class="alert alert-info alert-dismissable" style="display: ${'Isento' == financial.statusPayment.toString() ? 'none' : 'block'};">
+                    <div class="alert alert-info alert-dismissable" style="display: ${userFreeTrial ? 'none' : 'block'};">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <i class="fa fa-info-circle"></i> ${parameter.msgActiveUsers.raw()}
                     </div>
@@ -187,17 +187,23 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     #{if contSentSMSs == 0}
-										<div class="huge">0</div>
+										<div class="huge">0<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/5</span></div>
 	                                    <div>Nenhuma SMS enviada</div>
 									#{/if}
 									#{if contSentSMSs > 0}
 										#{if contSentSMSs == 1}
-											<div class="huge">1</div>
+											<div class="huge">1<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/5</span></div>
 		                                    <div>SMS enviada</div>
 										#{/if}
 										#{else}
-											<div class="huge">&{contSentSMSs}</div>
-		                                    <div>SMSs enviadas</div>
+											#{if !smsExceedLimit}
+												<div class="huge">&{contSentSMSs}<span style="display: 'inline';">/5</span></div>
+		                                    	<div>SMSs enviadas</div>
+											#{/if}
+											#{else}
+												<div class="huge">&{allSents}</div>
+		                                    	<div>Notificações enviadas</div>
+											#{/else}
 										#{/else}
 									#{/if}
                                 </div>
@@ -218,7 +224,7 @@
             <div class="row">
                 <!-- /.col-lg-6 -->
                 <div class="col-lg-4">
-                    <div class="panel panel-primary">
+                    <div class="panel panel-info">
                         <div class="panel-heading">
                             Últimos Clientes
                         </div>
@@ -280,31 +286,29 @@
                     <!-- /.panel -->
                 </div>
                 <div class="col-lg-4">
-                    <div class="panel panel-success">
+                    <div class="panel panel-info">
                         <div class="panel-heading">
-                            Últimos Serviços Cadastrados
+                            <i class="fa fa-plane fa-fw"></i> Painel de Notificações
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Título</th>
-                                            <th>Valor Base</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       #{list listServices, as:'service'}
-											<tr>
-												<td><a href="/admin/servicos">${service.getTitle()}</a></td>
-												<td><a href="/admin/servicos">${service.getBasePrice()}</a></td>
-											</tr>
-										#{/list}
-                                    </tbody>
-                                </table>
+                            <div class="list-group">
+                                <a href="@{StatusPUSHController.list}" class="list-group-item">
+                                    <i class="fa fa-paper-plane fa-fw"></i>${contSentPushs} Push Enviadas
+                                    <span class="pull-right text-muted small"><em>⇢</em>
+                                    </span>
+                                </a>
+                                <a href="@{StatusSMSController.list}" class="list-group-item">
+                                    <i class="fa fa-paper-plane-o fa-fw"></i>${contSentSMSs} SMSs Enviadas
+                                    <span class="pull-right text-muted small"><em>⇢</em>
+                                    </span>
+                                </a>
+                                <a href="@{StatusMailController.list}" class="list-group-item">
+                                    <i class="fa fa-mail-forward fa-fw"></i>${contSentMails} E-mails Enviados
+                                    <span class="pull-right text-muted small"><em>⇢</em>
+                                    </span>
+                                </a>
                             </div>
-                            <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
                     </div>

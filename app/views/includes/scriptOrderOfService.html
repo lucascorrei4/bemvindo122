@@ -61,7 +61,9 @@
 				obj = new Object();
 				obj.id = row.find('.serviceId').attr('accesskey');
 				obj.serviceId = row.find('.serviceId').attr('id');
-				obj.qtd = row.find('.qtd').val();
+				obj.qtd = row.find('.qtd').prop("value");
+				console.log(row.find('.qtd').prop("value"))
+				console.log(row.find('.qtd'))
 				obj.basePrice = row.find('.basePrice').val();
 				obj.discount = row.find('.discount').val();	
 				obj.subTotal = row.find('.subTotal').val();
@@ -72,4 +74,10 @@
 		JSON.stringify(inputContent);
 		$("#orderOfServiceValue").val(JSON.stringify(inputContent));
 	}
+	
+	document.getElementById("formgeneorder").onsubmit = function() {
+		resetTable();
+		return true;
+	};
+	
 </script>

@@ -31,10 +31,10 @@ POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceController.updateRadi
 # Admin Messages
 
 GET		${ctx}/admin/msgadmin									MessageController.list
-GET		${ctx}/admin/msgadmin/new								MessageController.blank
+GET		${ctx}/admin/msgadmin/novo								MessageController.blank
 GET		${ctx}/admin/msgadmin/{id}								MessageController.show
 GET		${ctx}/admin/msgadmin/{id}/{field}						MessageController.attachment
-GET		${ctx}/admin/msgadmin/{id}/edit							MessageController.edit
+GET		${ctx}/admin/msgadmin/{id}/editar							MessageController.edit
 POST	${ctx}/admin/msgadmin									MessageController.create
 POST	${ctx}/admin/msgadmin/{id}								MessageController.save
 DELETE	${ctx}/admin/msgadmin/{id}								MessageController.delete
@@ -42,10 +42,10 @@ DELETE	${ctx}/admin/msgadmin/{id}								MessageController.delete
 # Admin Parameter
 
 GET		${ctx}/admin/paramadmin									ParameterController.list
-GET		${ctx}/admin/paramadmin/new								ParameterController.blank
+GET		${ctx}/admin/paramadmin/novo								ParameterController.blank
 GET		${ctx}/admin/paramadmin/{id}							ParameterController.show
 GET		${ctx}/admin/paramadmin/{id}/{field}					ParameterController.attachment
-GET		${ctx}/admin/paramadmin/{id}/edit						ParameterController.edit
+GET		${ctx}/admin/paramadmin/{id}/editar						ParameterController.edit
 POST	${ctx}/admin/paramadmin									ParameterController.create
 POST	${ctx}/admin/paramadmin/{id}							ParameterController.save
 DELETE	${ctx}/admin/paramadmin/{id}							ParameterController.delete
@@ -53,10 +53,10 @@ DELETE	${ctx}/admin/paramadmin/{id}							ParameterController.delete
 # Admin Clients
 
 GET		${ctx}/admin/clientes								ClientController.list
-GET		${ctx}/admin/clientes/new							ClientController.blank
+GET		${ctx}/admin/clientes/novo							ClientController.blank
 GET		${ctx}/admin/clientes/{id}							ClientController.show
 GET		${ctx}/admin/clientes/{id}/{field}					ClientController.attachment
-GET		${ctx}/admin/clientes/{id}/edit						ClientController.edit
+GET		${ctx}/admin/clientes/{id}/editar						ClientController.edit
 POST	${ctx}/admin/clientes								ClientController.create
 POST	${ctx}/admin/clientes/{id}							ClientController.save
 DELETE	${ctx}/admin/clientes/{id}							ClientController.delete
@@ -70,10 +70,10 @@ GET		${ctx}/admin/e-mails-enviados						StatusMailController.list
 # Admin Services
 
 GET		${ctx}/admin/servicos								ServiceController.list
-GET		${ctx}/admin/servicos/new							ServiceController.blank
+GET		${ctx}/admin/servicos/novo							ServiceController.blank
 GET		${ctx}/admin/servicos/{id}							ServiceController.show
 GET		${ctx}/admin/servicos/{id}/{field}					ServiceController.attachment
-GET		${ctx}/admin/servicos/{id}/edit						ServiceController.edit
+GET		${ctx}/admin/servicos/{id}/editar						ServiceController.edit
 POST	${ctx}/admin/servicos								ServiceController.create
 POST	${ctx}/admin/servicos/{id}							ServiceController.save
 DELETE	${ctx}/admin/servicos/{id}							ServiceController.delete
@@ -81,10 +81,10 @@ DELETE	${ctx}/admin/servicos/{id}							ServiceController.delete
 # Admin Steps
 
 GET		${ctx}/admin/etapas-dos-servicos								StepController.list
-GET		${ctx}/admin/etapas-dos-servicos/new							StepController.blank
+GET		${ctx}/admin/etapas-dos-servicos/novo							StepController.blank
 GET		${ctx}/admin/etapas-dos-servicos/{id}							StepController.show
 GET		${ctx}/admin/etapas-dos-servicos/{id}/{field}					StepController.attachment
-GET		${ctx}/admin/etapas-dos-servicos/{id}/edit						StepController.edit
+GET		${ctx}/admin/etapas-dos-servicos/{id}/editar						StepController.edit
 POST	${ctx}/admin/etapas-dos-servicos								StepController.create
 POST	${ctx}/admin/etapas-dos-servicos/{id}							StepController.save
 DELETE	${ctx}/admin/etapas-dos-servicos/{id}							StepController.delete
@@ -92,10 +92,10 @@ DELETE	${ctx}/admin/etapas-dos-servicos/{id}							StepController.delete
 # Admin Order of Services
 
 GET		${ctx}/admin/ordens-de-servico								OrderOfServiceController.list
-GET		${ctx}/admin/ordens-de-servico/new							OrderOfServiceController.blank
+GET		${ctx}/admin/ordens-de-servico/novo							OrderOfServiceController.blank
 GET		${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.show
 GET		${ctx}/admin/ordens-de-servico/{id}/{field}					OrderOfServiceController.attachment
-GET		${ctx}/admin/ordens-de-servico/{id}/edit					OrderOfServiceController.edit
+GET		${ctx}/admin/ordens-de-servico/{id}/editar					OrderOfServiceController.edit
 POST	${ctx}/admin/ordens-de-servico								OrderOfServiceController.create
 POST	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.save
 DELETE	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceController.delete
@@ -113,8 +113,8 @@ GET     ${ctx}/primeiros-passos						Admin.firstStep
 GET     ${ctx}/admin/?	                      		Admin.index
 GET     ${ctx}/admin/{id}                     		Admin.form
 POST    ${ctx}/admin/{id}                     		Admin.save
-GET     ${ctx}/admin/new                        	Admin.form
-POST    ${ctx}/admin/new                        	Admin.save
+GET     ${ctx}/admin/novo                        	Admin.form
+POST    ${ctx}/admin/novo                        	Admin.save
 
 # Import CRUD routes
 *       ${ctx}/admin                      			module:crud

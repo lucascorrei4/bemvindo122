@@ -10,6 +10,7 @@ import models.Invoice;
 import models.OrderOfService;
 import models.Parameter;
 import models.Service;
+import models.StatusMail;
 import models.StatusPUSH;
 import models.StatusSMS;
 import models.User;
@@ -24,6 +25,8 @@ import util.Utils;
 @With(Secure.class)
 public class Admin extends Controller {
 	public static UserInstitutionParameter userInstitutionParameter = null;
+	public static boolean userFreeTrial = false;
+	public static boolean smsExceedLimit = false;
 
 	@Before
 	static void setConnectedUser() {
@@ -79,7 +82,10 @@ public class Admin extends Controller {
 				int contOrderOfServices = OrderOfService.find("institutionId = " + connectedUser.getInstitutionId())
 						.fetch().size();
 				int contSentSMSs = StatusSMS.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
-				int contSentPushs = StatusPUSH.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
+				int contSentPushs = StatusPUSH.find("institutionId = " + connectedUser.getInstitutionId()).fetch()
+						.size();
+				int contSentMails = StatusMail.find("institutionId = " + getLoggedUserInstitution().getInstitution().getId())
+						.fetch().size();
 				List<Client> listClients = Client.find("institutionId = " + connectedUser.getInstitutionId()
 						+ " and isActive = true order by postedAt desc").fetch(5);
 				List<Service> listServices = Service.find("institutionId = " + connectedUser.getInstitutionId()
@@ -88,11 +94,13 @@ public class Admin extends Controller {
 						+ connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
 				Institution institution = Institution.find("byId", connectedUser.getInstitutionId()).first();
 				String institutionName = institution.getInstitution();
-				Invoice financial = Invoice
-						.find("institutionId = " + institution.getId() + " and statusInvoice = 'Current' and isActive = true order by postedAt desc").first();
 				Parameter parameter = Parameter.all().first();
+				boolean smsExceedLimit = isSmsExceedLimit();
+				boolean userFreeTrial = isUserFreeTrial();
+				int allSents = contSentSMSs + contSentPushs + contSentMails;
 				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices,
-						connectedUser, institutionName, contSentSMSs, institution, contSentPushs, financial, parameter);
+						connectedUser, institutionName, contSentSMSs, institution, contSentPushs, parameter,
+						smsExceedLimit, userFreeTrial, allSents, contSentMails);
 			} else {
 				/* Redirect to page of information about expired license */
 				session.put("enableUser", "false");
@@ -166,14 +174,14 @@ public class Admin extends Controller {
 			return true;
 		}
 	}
-	
+
 	private static void saveNewPaymentInformation(UserInstitutionParameter userInstitutionParameter) {
 		Parameter parameter = (Parameter) Parameter.findAll().iterator().next();
 		Invoice invoice = new Invoice();
 		invoice.setInstitutionId(userInstitutionParameter.getInstitution().getId());
 		invoice.setUserId(userInstitutionParameter.getUser().getId());
 		invoice.setMemberSinceDate(new Date());
-	    Date dueDate = Utils.addDays(invoice.getMemberSinceDate(), 30);
+		Date dueDate = Utils.addDays(invoice.getMemberSinceDate(), 30);
 		invoice.setInvoiceGenerationDate(new Date());
 		invoice.setInvoiceDueDate(dueDate);
 		invoice.setPostedAt(Utils.getCurrentDateTime());
@@ -186,6 +194,36 @@ public class Admin extends Controller {
 		invoice.setValue(parameter.getCurrentPricePlan());
 		invoice.willBeSaved = true;
 		invoice.merge();
+	}
+
+	public static boolean isUserFreeTrial() {
+		Invoice financial = Invoice.find("institutionId = " + getLoggedUserInstitution().getInstitution().getId()
+				+ " and statusInvoice = 'Current' and isActive = true order by postedAt desc").first();
+		if ("Isento".equals(financial.getStatusPayment().toString())) {
+			userFreeTrial = true;
+		} else {
+			userFreeTrial = false;
+		}
+		return userFreeTrial;
+	}
+
+	public static void setUserFreeTrial(boolean userFreeTrial) {
+		Admin.userFreeTrial = userFreeTrial;
+	}
+
+	public static boolean isSmsExceedLimit() {
+		int contSentSMSs = StatusSMS.find("institutionId = " + getLoggedUserInstitution().getInstitution().getId())
+				.fetch().size();
+		if (isUserFreeTrial() && contSentSMSs >= 5) {
+			smsExceedLimit = true;
+		} else {
+			smsExceedLimit = false;
+		}
+		return smsExceedLimit;
+	}
+
+	public static void setSmsExceedLimit(boolean smsExceedLimit) {
+		Admin.smsExceedLimit = smsExceedLimit;
 	}
 
 }
