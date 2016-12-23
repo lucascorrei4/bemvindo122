@@ -6,7 +6,7 @@
 				<th>Serviço</th>
 				<th>Qtd</th>
 				<th>Preço Unit.</th>
-				<th>Desconto</th>
+				<th>Desconto (R$)</th>
 				<th>SubTotal</th>
 				<th></th>
 			</tr>
@@ -17,7 +17,7 @@
 					<td><span id="${value.service?.id}" class="serviceId" accesskey="${value?.id}">${value.service?.title}</span></td>
 					<td><input name="value.qtd" value="${value.qtd}" onclick="this.select();" style="width: 60px" class="qtd"></td>
 					<td><input name="value.unitPrice" value="${value.unitPrice}" onclick="this.select();" style="width: 60px" class="number basePrice"></td>
-					<td><input name="value.discount" value="${value.discount}" onclick="this.select();" style="width: 60px" class="number discount"></td>
+					<td><input name="value.discount" value="${value.discount}" onclick="this.select();" style="width: 60px" class="percent discount"></td>
 					<td><input name="value.subTotal" value="${value.subTotal}" onclick="this.select();" style="width: 60px" class="number subTotal"></td>
 					<td><button id="removerItem" type="button" class="btn btn-danger btn-circle" value="${value.id}"  data-toggle="modal" data-target="#removeModal" onclick="$(this).closest('tr').remove(); setTimeout(function() { resetTable() }, 500);">
 							<i class="fa fa-times"></i>

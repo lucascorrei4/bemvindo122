@@ -14,7 +14,7 @@
 				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number basePrice\" value=\""
 				+ basePrice
 				+ "\" onclick=\"this.select()\" /></td>"
-				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number discount\" value=\"0,00\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"percent discount\" value=\"0,00\" onclick=\"this.select()\" /></td>"
 				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number subTotal\" value=\""
 				+ basePrice
 				+ "\" onclick=\"this.select()\" /></td>"
@@ -37,20 +37,30 @@
 
 	function newSum() {
 		var sum = 0;
+		var percentValue = 0;
 		var thisRow = $(this).closest('tr');
 		$(thisRow).find('td:not(.subTotal)').each(
 				function() {
 					var qtd = $(thisRow).find('.qtd').val();
+					if (qtd === '') {
+						$(thisRow).find('.qtd').val('1');
+					}
 					var basePrice = $(thisRow).find('.basePrice').val();
 					var discount = $(thisRow).find('.discount').val();
-					sum = (parseFloat(basePrice) * parseInt(qtd))
-							- parseFloat(discount);
+					if (discount === '') {
+						$(thisRow).find('.discount').val('0,00');
+					}
+					sum = (parseFloat(basePrice) * parseInt(qtd));
+					percentValue = (sum * parseFloat(discount)) / 100;
+					sum -= percentValue;
 					$(thisRow).find('.subTotal').val(
 							sum.toFixed(2).replace('.', ','));
 				});
 	}
 
 	function resetTable() {
+		var percentValue = 0;
+		var sum = 0;
 		var inputContent = [];
 		var content;
 		var obj;
@@ -62,10 +72,10 @@
 				obj.id = row.find('.serviceId').attr('accesskey');
 				obj.serviceId = row.find('.serviceId').attr('id');
 				obj.qtd = row.find('.qtd').prop("value");
-				console.log(row.find('.qtd').prop("value"))
-				console.log(row.find('.qtd'))
 				obj.basePrice = row.find('.basePrice').val();
-				obj.discount = row.find('.discount').val();	
+				sum = (parseFloat(obj.basePrice) * parseInt(obj.qtd));
+				percentValue = (sum * parseFloat(row.find('.discount').val())) / 100;
+				obj.discount = percentValue;
 				obj.subTotal = row.find('.subTotal').val();
 				inputContent.push(obj);
 			}
