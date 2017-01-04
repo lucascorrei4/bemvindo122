@@ -164,8 +164,8 @@ public class OrderOfServiceController extends CRUD {
 		constructor.setAccessible(true);
 		OrderOfService object = (OrderOfService) constructor.newInstance();
 		Binder.bindBean(params.getRootParamNode(), "object", object);
-		String initials = Admin.getLoggedInstitution().getInstitution().replaceAll(" ", "").toUpperCase()
-				.substring(0, 2).concat(Admin.getLoggedInstitution().getId().toString());
+		String initials = Admin.getLoggedUserInstitution().getInstitution().getInstitution().replaceAll(" ", "").toUpperCase()
+				.substring(0, 2).concat(Admin.getLoggedUserInstitution().getInstitution().getId().toString());
 		object.setOrderCode(initials.concat(String.valueOf(Utils.generateRandomId())));
 		validation.valid(object);
 		if (validation.hasErrors()) {

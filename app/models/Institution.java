@@ -115,15 +115,15 @@ public class Institution extends Model {
 		setPostedAt(Utils.getCurrentDateTime());
 	}
 
-	@PostLoad
-	public void postLoad() {
-		if (Admin.getLoggedUserInstitution().getUser() != null) {
-			Institution institution = Institution.find("userId = " + Admin.getLoggedUserInstitution().getUser().getId()).first();
-			User user = User.findById(institution.getUserId());
-			user.setInstitutionId(institution.getId());
-			user.save();
-		}
-	}
+//	@PostLoad
+//	public void postLoad() {
+//		if (Admin.getLoggedUserInstitution().getUser() != null) {
+//			Institution institution = Institution.find("userId = " + Admin.getLoggedUserInstitution().getUser().getId()).first();
+//			User user = User.findById(institution.getUserId());
+//			user.setInstitutionId(institution.getId());
+//			user.save();
+//		}
+//	}
 
 	public String getAddress() {
 		return address;

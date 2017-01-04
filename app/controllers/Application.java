@@ -244,12 +244,15 @@ public class Application extends Controller {
 				institution.setLicenseDate(calendar.getTime());
 				institution.save();
 				// Links the institution to user
-				userInstitutionParameter.getUser().setInstitutionId(institution.getId());
-				userInstitutionParameter.getUser().save();
+				User user = User.verifyByEmail(userInstitutionParameter.getUser().getEmail());
+				user.setInstitutionId(institution.getId());
+				user.save();
+				userInstitutionParameter.setUser(user);
+				userInstitutionParameter.setInstitution(institution);
 				flash.clear();
 				validation.errors().clear();
 				flash.success("Instituição '" + institution.getInstitution() + "' criada com sucesso. Aproveite!", "");
-				Admin.enableUserConditions(userInstitutionParameter.getUser());
+				Security.setCurrentSessionParameters(userInstitutionParameter.getUser());
 				Admin.index();
 			}
 		}

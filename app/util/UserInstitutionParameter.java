@@ -5,6 +5,7 @@ import models.User;
 
 public class UserInstitutionParameter {
 	
+	public static final String Admin = null;
 	public Institution institution;
 	public User user;
 

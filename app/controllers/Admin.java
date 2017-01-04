@@ -24,7 +24,7 @@ import util.Utils;
 
 @With(Secure.class)
 public class Admin extends Controller {
-	public static UserInstitutionParameter userInstitutionParameter = null;
+	public static UserInstitutionParameter loggedUserInstitution;
 	public static boolean userFreeTrial = false;
 	public static boolean smsExceedLimit = false;
 
@@ -38,12 +38,11 @@ public class Admin extends Controller {
 
 	@Before
 	static void globals() {
-		renderArgs.put("connected", connectedUser());
+		renderArgs.put("connectedUser", getLoggedUserInstitution().getUser());
 	}
 
 	public static void firstStep() {
 		List<Country> listCountries = Country.findAll();
-		renderArgs.put("connectedUser", Admin.getLoggedUser());
 		render(listCountries);
 	}
 
@@ -63,11 +62,6 @@ public class Admin extends Controller {
 		} else {
 			session.put("poweradmin", "false");
 		}
-	}
-
-	public static User connectedUser() {
-		String userId = session.get("logged");
-		return userId == null ? null : (User) User.findById(Long.parseLong(userId));
 	}
 
 	public static void index() {
@@ -109,55 +103,15 @@ public class Admin extends Controller {
 		}
 	}
 
-	public static User getLoggedUser() {
-		String userId = session.get("logged");
-		return userId == null ? null : (User) User.findById(Long.parseLong(userId));
-	}
-
-	public static Institution getLoggedInstitution() {
-		long institutionId = getLoggedUser().getInstitutionId();
-		return institutionId == 0 ? null : (Institution) Institution.findById(institutionId);
-	}
-
-	public static UserInstitutionParameter getLoggedUserInstitution() {
-		if (userInstitutionParameter == null)
-			userInstitutionParameter = new UserInstitutionParameter();
-		if (userInstitutionParameter.getUser() == null || userInstitutionParameter.getInstitution() == null) {
-			User loggedUser = getLoggedUser();
-			if (loggedUser != null) {
-				userInstitutionParameter.setUser(loggedUser);
-				if (loggedUser.getInstitutionId() > 0) {
-					userInstitutionParameter.setInstitution(getLoggedInstitution());
-				}
-			}
-		}
-		return userInstitutionParameter;
-	}
-
-	protected static void enableUserConditions(User user) {
-		if (enableMenu()) {
-			session.put("enableUser", "true");
-			session.put("idu", user.getId());
-		} else {
-			session.put("enableUser", "false");
-		}
-		return;
-	}
-
-	static boolean enableMenu() {
-		if (userBelongsToInstitution() && validateLicenseDate(Admin.getLoggedUserInstitution())) {
-			return true;
-		}
-		return false;
-	}
-
-	private static boolean userBelongsToInstitution() {
-		if (getLoggedInstitution() == null) {
-			return false;
-		}
-		session.put("id", getLoggedInstitution().getId());
-		return true;
-	}
+//	public static User getLoggedUser() {
+//		String userId = session.get("logged");
+//		return userId == null ? null : (User) User.findById(Long.parseLong(userId));
+//	}
+//
+//	public static Institution getLoggedInstitution() {
+//		long institutionId = getLoggedUser().getInstitutionId();
+//		return institutionId == 0 ? null : (Institution) Institution.findById(institutionId);
+//	}
 
 	private static boolean validateLicenseDate(UserInstitutionParameter userInstitutionParameter) {
 		long institutionId = userInstitutionParameter.getInstitution().getId();
@@ -224,6 +178,29 @@ public class Admin extends Controller {
 
 	public static void setSmsExceedLimit(boolean smsExceedLimit) {
 		Admin.smsExceedLimit = smsExceedLimit;
+	}
+	
+	static boolean enableMenu() {
+		if (userBelongsToInstitution() && validateLicenseDate(getLoggedUserInstitution())) {
+			return true;
+		}
+		return false;
+	}
+	
+	private static boolean userBelongsToInstitution() {
+		if (getLoggedUserInstitution().getInstitution() == null) {
+			return false;
+		}
+		session.put("id", getLoggedUserInstitution().getInstitution().getId());
+		return true;
+	}
+
+	public static UserInstitutionParameter getLoggedUserInstitution() {
+		return loggedUserInstitution;
+	}
+
+	public static void setLoggedUserInstitution(UserInstitutionParameter loggedUserInstitution) {
+		Admin.loggedUserInstitution = loggedUserInstitution;
 	}
 
 }

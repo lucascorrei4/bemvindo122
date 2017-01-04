@@ -80,7 +80,7 @@ public class FinancialController extends CRUD {
 
 	public static void signature(String id) throws Exception {
 		if (Utils.validateCompanySession(id)) {
-			User user = Admin.getLoggedUser();
+			User user = Admin.getLoggedUserInstitution().getUser();
 			ObjectType type = ObjectType.get(getControllerClass());
 			notFoundIfNull(type);
 			List<Invoice> listInvoice = Invoice.find("institutionId = " + id).fetch();

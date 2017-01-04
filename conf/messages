@@ -342,4 +342,5 @@ info.isActive.false=Informa ao sistema que ítem atual será descartado.
 
 project.name=Seu Pedido Online
 project.link=http://twitter.com/lucascorrei4
-project.version=1.0 BETA
+project.version=1.0
+project.year=2017

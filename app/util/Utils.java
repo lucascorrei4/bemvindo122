@@ -337,23 +337,21 @@ public class Utils extends Controller {
 	public static boolean validateCompanySession(String id) {
 		Institution institution = Institution.findById(Long.valueOf(id).longValue());
 		Institution loggedInstitution = Admin.getLoggedUserInstitution().getInstitution();
-		if (institution != null) {
-			if (institution.id == loggedInstitution.id) {
-				return true;
-			}
+		if (institution != null && institution.id.equals(loggedInstitution.id)) {
+			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	public static boolean validateUserSession(String id) {
 		User user = User.findById(Long.valueOf(id).longValue());
 		User loggedUser = Admin.getLoggedUserInstitution().getUser();
-		if (user != null) {
-			if (user.id == loggedUser.id) {
-				return true;
-			}
+		if (user != null && user.id.equals(loggedUser.id)) {
+			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 
 	public static Date addDays(Date date, int days) {
