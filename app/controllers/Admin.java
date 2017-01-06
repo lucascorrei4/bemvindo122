@@ -41,8 +41,9 @@ public class Admin extends Controller {
 	}
 
 	public static void firstStep() {
+		User connectedUser = getLoggedUserInstitution().getUser();
 		List<Country> listCountries = Country.findAll();
-		render(listCountries);
+		render(listCountries, connectedUser);
 	}
 
 	public static void save(User user) {

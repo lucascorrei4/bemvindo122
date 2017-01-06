@@ -231,6 +231,7 @@ public class Application extends Controller {
 			if (!validateForm(institution)) {
 				/* The user needs to create a institution */
 				User connectedUser = userInstitutionParameter.getUser();
+				Admin.globals();
 				render("@Admin.firstStep", institution, connectedUser);
 				return;
 			} else {
