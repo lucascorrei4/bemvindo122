@@ -1,12 +1,19 @@
 package controllers;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import models.Institution;
 import models.User;
+import play.cache.Cache;
+import play.mvc.Http;
+import play.mvc.Scope.Session;
 import util.UserInstitutionParameter;
 
 public class Security extends Secure.Security {
 	
-	static boolean authentify(String username, String password) {
+	static boolean authenticate(String username, String password) {
 		return User.connect(username, password) != null;
 	}
 
@@ -18,13 +25,12 @@ public class Security extends Secure.Security {
 	}
 
 	static void onDisconnected() {
-		session.clear();
-		Admin.loggedUserInstitution = null;
+		Cache.delete(Admin.getLoggedUserInstitution().getCurrentSession());
 		Application.index();
 	}
 
 	static void onAuthenticated() {
-		User connectedUser = User.find("byEmail", Security.connected()).first();
+		User connectedUser = User.find("byEmail", session.get("username")).first();
 		connect(connectedUser);
 		if (connectedUser.getInstitutionId() == 0) {
 			Admin.firstStep();
@@ -35,21 +41,25 @@ public class Security extends Secure.Security {
 
 	static void connect(User connectedUser) {
 		/* Setting main object on connect user from login form */
-		UserInstitutionParameter userInstitutionParameter = new UserInstitutionParameter();
-		userInstitutionParameter.setUser(connectedUser);
-		long institutionId = connectedUser.getInstitutionId();
-		userInstitutionParameter.setInstitution(institutionId == 0 ? null : (Institution) Institution.findById(institutionId));
-		Admin.loggedUserInstitution = userInstitutionParameter;
-		/* Verify if user belongs to a institution */
 		setCurrentSessionParameters(connectedUser);
 	}
 	
 	static void setCurrentSessionParameters(User connectedUser) {
 		/* Verify if I am */
-		session.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(connectedUser.getEmail()) ? "true" : "false");
-		session.put("logged", connectedUser.id);
-		session.put("enableUser", Admin.enableMenu() ? "true" : "false");
-		session.put("idu", connectedUser.getId());
+		Map<String, Object> sessionParameters = new HashMap<String, Object>();
+		sessionParameters.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(connectedUser.getEmail()) ? "true" : "false");
+		sessionParameters.put("logged", connectedUser.id);
+		sessionParameters.put("enableUser", enableMenu() ? "true" : "false");
+		sessionParameters.put("idu", connectedUser.getId());
+		sessionParameters.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
+		Cache.set(session.get("username"), sessionParameters);
 	}
 	
+	static boolean enableMenu() {
+		if (Admin.getLoggedUserInstitution().getInstitution() != null && Admin.validateLicenseDate(Admin.getLoggedUserInstitution())) {
+			return true;
+		}
+		return false;
+	}
+
 }

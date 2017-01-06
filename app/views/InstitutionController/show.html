@@ -61,6 +61,12 @@
 									#{include 'includes/selectCities.html' /}
 								</div>
 							#{/crud.custom}
+	    					#{crud.custom 'localizationGPS'}
+	    					<div class="form-group">
+								<label for="object_localizationGPS"> Coordenadas GPS </label> 
+								<input type="text" size="50" value="${flash['institution.localizationGPS']}" name="institution.localizationGPS" class="form-control gps" id="object_localizationGPS">
+							</div>
+							#{/crud.custom}
 						#{/crud.form}
 						<div class="form-group" style="float: right">
 				            <input type="submit" name="_saveAndContinue" value="&{'crud.save', type.modelName}" class="btn btn-default" />

@@ -12,7 +12,6 @@
 <!-- 				</div> /input-group -->
 <!-- 			</li> -->
 			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
-			
 
 			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
 				<a href="@{ClientController.list}"><i class="fa fa-user-plus fa-fw"></i> 1º. Clientes</a>

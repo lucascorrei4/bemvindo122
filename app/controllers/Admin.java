@@ -29,16 +29,10 @@ public class Admin extends Controller {
 	public static boolean smsExceedLimit = false;
 
 	@Before
-	static void setConnectedUser() {
-		if (Security.isConnected()) {
-			User user = User.find("byEmail", Security.connected()).first();
-			renderArgs.put("user", user.name);
-		}
-	}
-
-	@Before
 	static void globals() {
-		renderArgs.put("connectedUser", getLoggedUserInstitution().getUser());
+		if (getLoggedUserInstitution() == null || getLoggedUserInstitution().getUser() == null) {
+			Application.index();
+		} 
 	}
 
 	public static void firstStep() {
@@ -55,15 +49,6 @@ public class Admin extends Controller {
 		index();
 	}
 
-	public static void connect(User user) {
-		session.put("logged", user.id);
-		if ("lucascorreiaevangelista@gmail.com".equals(user.getEmail())) {
-			session.put("poweradmin", "true");
-		} else {
-			session.put("poweradmin", "false");
-		}
-	}
-
 	public static void index() {
 		User connectedUser = getLoggedUserInstitution().getUser();
 		if (connectedUser == null || connectedUser.getInstitutionId() == 0) {
@@ -78,8 +63,8 @@ public class Admin extends Controller {
 				int contSentSMSs = StatusSMS.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
 				int contSentPushs = StatusPUSH.find("institutionId = " + connectedUser.getInstitutionId()).fetch()
 						.size();
-				int contSentMails = StatusMail.find("institutionId = " + getLoggedUserInstitution().getInstitution().getId())
-						.fetch().size();
+				int contSentMails = StatusMail
+						.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
 				List<Client> listClients = Client.find("institutionId = " + connectedUser.getInstitutionId()
 						+ " and isActive = true order by postedAt desc").fetch(5);
 				List<Service> listServices = Service.find("institutionId = " + connectedUser.getInstitutionId()
@@ -103,17 +88,19 @@ public class Admin extends Controller {
 		}
 	}
 
-//	public static User getLoggedUser() {
-//		String userId = session.get("logged");
-//		return userId == null ? null : (User) User.findById(Long.parseLong(userId));
-//	}
-//
-//	public static Institution getLoggedInstitution() {
-//		long institutionId = getLoggedUser().getInstitutionId();
-//		return institutionId == 0 ? null : (Institution) Institution.findById(institutionId);
-//	}
+	// public static User getLoggedUser() {
+	// String userId = session.get("logged");
+	// return userId == null ? null : (User)
+	// User.findById(Long.parseLong(userId));
+	// }
+	//
+	// public static Institution getLoggedInstitution() {
+	// long institutionId = getLoggedUser().getInstitutionId();
+	// return institutionId == 0 ? null : (Institution)
+	// Institution.findById(institutionId);
+	// }
 
-	private static boolean validateLicenseDate(UserInstitutionParameter userInstitutionParameter) {
+	public static boolean validateLicenseDate(UserInstitutionParameter userInstitutionParameter) {
 		long institutionId = userInstitutionParameter.getInstitution().getId();
 		Invoice financial = Invoice
 				.find("institutionId = " + institutionId + " and isActive = true order by postedAt desc").first();
@@ -179,23 +166,20 @@ public class Admin extends Controller {
 	public static void setSmsExceedLimit(boolean smsExceedLimit) {
 		Admin.smsExceedLimit = smsExceedLimit;
 	}
-	
-	static boolean enableMenu() {
-		if (userBelongsToInstitution() && validateLicenseDate(getLoggedUserInstitution())) {
-			return true;
-		}
-		return false;
-	}
-	
-	private static boolean userBelongsToInstitution() {
-		if (getLoggedUserInstitution().getInstitution() == null) {
-			return false;
-		}
-		session.put("id", getLoggedUserInstitution().getInstitution().getId());
-		return true;
-	}
 
 	public static UserInstitutionParameter getLoggedUserInstitution() {
+		if (loggedUserInstitution == null || loggedUserInstitution.getCurrentSession() != session.get("username"))
+			loggedUserInstitution = new UserInstitutionParameter();
+		if (loggedUserInstitution.getUser() == null || loggedUserInstitution.getInstitution() == null) {
+			User loggedUser = User.find("byEmail", session.get("username")).first();;
+			if (loggedUser != null) {
+				loggedUserInstitution.setUser(loggedUser);
+				if (loggedUser.getInstitutionId() > 0) {
+					loggedUserInstitution.setInstitution((Institution) Institution.findById(loggedUser.getInstitutionId()));
+				}
+			}
+			loggedUserInstitution.setCurrentSession(session.get("username"));
+		}
 		return loggedUserInstitution;
 	}
 

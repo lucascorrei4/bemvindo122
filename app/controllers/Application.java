@@ -269,12 +269,12 @@ public class Application extends Controller {
 		validation.required(institution.getLogo()).message("Favor, insira a logomarca.").key("institution.logo");
 		validation.isTrue(Institution.verifyByEmail(institution.getEmail()) == null)
 				.message("Já existe uma instituição com este e-mail.").key("institution.email");
-		if (!Utils.isNullOrEmpty(institution.getCnpj())) {
-			validation.isTrue(Utils.validateCPFOrCNPJ(institution.getCnpj())).message("CNPJ inválido.")
-					.key("institution.cnpj");
-			validation.isTrue(Institution.verifyByCnpj(institution.getCnpj()) == null)
-					.message("Já existe uma Instituição com este CNPJ.").key("institution.cnpj");
-		}
+//		if (!Utils.isNullOrEmpty(institution.getCnpj())) {
+//			validation.isTrue(Utils.validateCPFOrCNPJ(institution.getCnpj())).message("CNPJ inválido.")
+//					.key("institution.cnpj");
+//			validation.isTrue(Institution.verifyByCnpj(institution.getCnpj()) == null)
+//					.message("Já existe uma Instituição com este CNPJ.").key("institution.cnpj");
+//		}
 		validation.required(institution.getAddress()).message("Favor, digite o endereço.").key("institution.address");
 		validation.required(institution.getNeighborhood()).message("Favor, informe o bairro.")
 				.key("institution.neighborhood");
