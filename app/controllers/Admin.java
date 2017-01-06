@@ -33,6 +33,11 @@ public class Admin extends Controller {
 		if (getLoggedUserInstitution() == null || getLoggedUserInstitution().getUser() == null) {
 			Application.index();
 		} 
+		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
+		renderArgs.put("logged", getLoggedUserInstitution().getUser().id);
+		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
+		renderArgs.put("idu", getLoggedUserInstitution().getUser().getId());
+		renderArgs.put("id", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 	}
 
 	public static void firstStep() {

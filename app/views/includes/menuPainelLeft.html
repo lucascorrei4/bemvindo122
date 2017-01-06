@@ -12,24 +12,23 @@
 <!-- 				</div> /input-group -->
 <!-- 			</li> -->
 			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
-
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="@{ClientController.list}"><i class="fa fa-user-plus fa-fw"></i> 1º. Clientes</a>
 			</li>
 
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="@{ServiceController.list}"><i class="fa fa-wrench fa-fw"></i> 2º. Serviços</a>
 			</li>
 
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="@{OrderOfServiceController.list}"><i class="fa fa-qrcode fa-fw"></i> 3º. Gerar Código (OS)</a>
 			</li>
 
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="@{OrderOfServiceController.updateOrder}"><i class="fa fa-battery-half fa-fw"></i> 4º. Atualizar Pedidos</a>
 			</li>
 
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-plane fa-fw"></i> Notificações Enviadas<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="@{StatusPUSHController.list}"><i class="fa fa-paper-plane fa-fw"></i> Push Enviadas</a></li>
@@ -38,16 +37,16 @@
 				</ul>
 			</li>
 			
-			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Configurações<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="/admin/empresa/${session.get('id')}">Dados da Empresa</a></li>
-					<li><a href="/admin/usuario/${session.get('idu')}">Meus dados</a></li>
-					<li><a href="/admin/financeiro/${session.get('id')}">Financeiro</a></li>
+					<li><a href="/admin/empresa/${id}">Dados da Empresa</a></li>
+					<li><a href="/admin/usuario/${idu}">Meus dados</a></li>
+					<li><a href="/admin/financeiro/${id}">Financeiro</a></li>
 				</ul>
 			</li>
 
-			<li style="display: ${session.get("poweradmin") == 'false' ? 'none' : 'block'};">
+			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Admin<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="@{ParameterController.list}">Par&acirc;metros</a></li>
