@@ -5494,7 +5494,7 @@ border-radius
 
 .navbar {
 	position: relative;
-	min-height: 50px;
+	min-height: 76px;
 	margin-bottom: 20px;
 	border: 1px solid transparent;
 }

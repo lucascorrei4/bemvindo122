@@ -11,6 +11,13 @@
                	<div class="col-lg-8">
 					#{form id:'formgeneorder', action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
+							#{crud.custom 'client'}
+								<div class="form-group">
+									<label for="object_client"> Cliente </label>
+							        #{select id:'object_client', name:'object.client.id', items:clients, valueProperty:'id', labelProperty:'toString', class:'form-control' /}
+									<p class="help-block"> Obrigatório. </p>
+								</div>							
+							#{/crud.custom}
 							#{crud.custom 'orderCode'}
 								<div class="form-group">
 								    <label for="object_services">

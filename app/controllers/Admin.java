@@ -38,6 +38,7 @@ public class Admin extends Controller {
 		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
 		renderArgs.put("idu", getLoggedUserInstitution().getUser().getId());
 		renderArgs.put("id", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
+		renderArgs.put("institutionName", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
 	}
 
 	public static void firstStep() {

@@ -370,5 +370,9 @@ public class Institution extends Model {
 	public void setUrlParameter(String urlParameter) {
 		this.urlParameter = urlParameter;
 	}
+	
+	public String getLicenseDateParsed() throws ParseException {
+		return Utils.formatDate(licenseDate);
+	}
 
 }

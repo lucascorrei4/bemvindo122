@@ -24,6 +24,8 @@ public class InstitutionController extends CRUD {
             page = 1;
         }
         List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, (String) request.args.get("where"));
+        orderBy = "id";
+		order = "DESC";
         Long count = type.count(search, searchFields, (String) request.args.get("where"));
         Long totalCount = type.count(null, null, (String) request.args.get("where"));
         try {

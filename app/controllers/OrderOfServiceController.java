@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import models.BodyMail;
+import models.Client;
 import models.Institution;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
@@ -46,13 +47,16 @@ public class OrderOfServiceController extends CRUD {
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
 		OrderOfService object = (OrderOfService) constructor.newInstance();
+		List<Client> clients = Client.find("institutionId = "
+				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc")
+				.fetch();
 		List<Service> services = Service.find("institutionId = "
 				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc")
 				.fetch();
 		try {
-			render(type, object, services);
+			render(type, object, services, clients);
 		} catch (TemplateNotFoundException e) {
-			render("CRUD/blank.html", type, object, services);
+			render("CRUD/blank.html", type, object, services, clients);
 		}
 	}
 

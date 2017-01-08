@@ -23,6 +23,9 @@
 			       		#{crud.custom 'cityId'}
 			         		<a href="#">${object.cityName}</a>
 				        #{/crud.custom}
+			       		#{crud.custom 'licenseDate'}
+			         		<a href="#">${object.licenseDateParsed}</a>
+				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}

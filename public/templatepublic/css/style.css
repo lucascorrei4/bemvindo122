@@ -42,13 +42,17 @@ body a:hover {
 }
 
 .logo {
-	width: 27%;
 	float: left;
-	text-align: center;
+	top: 0;
+	position: absolute; 
+	left: 5%;
 }
 
 .header {
-	padding-top: 2%;
+    height: 67px;
+    left: 0;
+    position: absolute;
+    width: 100%;
 }
 
 ul.navig {
@@ -1313,7 +1317,7 @@ h2.marriage {
 /*--Account-Part-Ends-Here--*/
 .account {
 	padding: 2.5em 0px;
-	background: #666666;
+	background: #46b048;
 }
 
 .account-main {
@@ -2335,7 +2339,7 @@ h2.marriage {
 		margin: 11% 0 0 0;
 	}
 	.spl-one p {
-		font-size: 2em;
+		font-size: 1.1em;
 	}
 	#filters li span {
 		padding: 4px 6px;

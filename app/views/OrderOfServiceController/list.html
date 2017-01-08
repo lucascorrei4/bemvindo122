@@ -20,7 +20,7 @@
 			         		<a>${object.client?.name} ${object.client?.lastName}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'orderCode'}
-			         		<a>${object.orderCode}</a>
+			         		<input type="text" value="${object.orderCode}" onclick="this.select()" readonly="readonly" style="font-weight: bold; width: 85px;" />
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
 					        #{if object.isActive}

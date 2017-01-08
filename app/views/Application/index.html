@@ -7,12 +7,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>Seu pedido Online | Acompanhe!</title>
+<title>Seu pedido Online | Acompanhe</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Atom Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+<meta name="keywords"
+	content="Atom Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<script type="application/x-javascript">
+	 addEventListener("load", function() { setTimeout(, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+</script>
 <link href="@{'public/templatepublic/css/bootstrap.css'}" rel='stylesheet' type='text/css' />
 <link href="@{'public/templatepublic/css/style.css'}" rel='stylesheet' type='text/css' />
 <script src="@{'public/templatepublic/js/jquery-1.11.0.min.js'}"></script>
@@ -21,107 +24,118 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="text/javascript" src="@{'public/templatepublic/js/move-top.js'}"></script>
 <script type="text/javascript" src="@{'public/templatepublic/js/easing.js'}"></script>
 <script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$(".scroll").click(function(event){		
-					event.preventDefault();
-					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-				});
-			});
-		</script>
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event) {
+			event.preventDefault();
+			$('html,body').animate({
+				scrollTop : $(this.hash).offset().top
+			}, 1000);
+		});
+	});
+</script>
 
 <!--start-smoth-scrolling-->
 </head>
 <body>
-<!--start-banner-->
+	<!--start-banner-->
+	<div style=""></div>
 	<div class="banner" id="home">
 		<div class="container">
 			<div class="header">
 				<div class="logo">
-					<a href="@{Application.index}"><img src="@{'public/templatepublic/images/logo-small.png'}" alt="BemVindo - Inteligência em Marketing Digital" title="BemVindo - Inteligência em Marketing Digital" style="width: 60%"></a>
+					<a href="@{Application.index}"><img src="@{'public/templatepublic/images/logo-small.png'}" alt="BemVindo - Inteligência em Marketing Digital"
+						title="BemVindo - Inteligência em Marketing Digital"></a>
 				</div>
 				<div class="navigation">
-					 <span class="menu"></span> 
-						<ul class="navig">
-							<li><a href="#about" class="scroll">COMO FUNCIONA?</a></li>
-							<li><a href="#features" class="scroll">SERVE PRA MIM?</a></li>
-							<li><a class="popup-with-zoom-anim active" href="#small-dialog" onclick="$('#formQuickAccount').trigger('reset');">CRIE UMA CONTA</a></li>
-							<li><a href="/login">ENTRAR</a></li>
-						</ul>
+					<span class="menu"></span>
+					<ul class="navig">
+						<li><a href="#about" class="scroll">COMO FUNCIONA?</a></li>
+						<li><a href="#features" class="scroll">SERVE PRA MIM?</a></li>
+						<li><a class="popup-with-zoom-anim active" href="#small-dialog" onclick="$('#formQuickAccount').trigger('reset');">CRIE UMA CONTA</a></li>
+						<li><a href="/login">ENTRAR</a></li>
+					</ul>
 				</div>
-					<div class="clearfix"></div>
-				</div>
-				<div class="banner-btm">
-					<div  id="top" class="callbacks_container">
-				      	<ul class="rslides" id="slider4">
-				        	<li>
-								<div class="banner-bottom">
-									<h1>VOCÊ TRABALHA TRANQUILO E O SEU <br /> CLIENTE AGUARDA PACIENTEMENTE</h1>
-									<p>Gere um código para o seu cliente acompanhar o status de entrega.</p>
-								</div>
-							</li>
-							<li>
-								<div class="banner-bottom">
-									<h1>APROVEITE A TECNOLOGIA <br /> PARA SE COMUNICAR</h1>
-									<p>O seu cliente fica por dentro de tudo que está acontecendo.</p>
-								</div>
-							</li>
-							<li>
-								<div class="banner-bottom">
-									<h1>CONTROLE OS PEDIDOS, SERVIÇOS <br /> E ORDENS DE SERVIÇO</h1>
-									<p>Não perca seu cliente de vista. Mantenha-o sempre perto.</p>
-								</div>
-							</li>
-				      	</ul>
-				    </div>
-				  	<div class="clearfix"> </div>
-				</div>
+				<div class="clearfix"></div>
 			</div>
-		</div>	
-	<!-- script-for-menu -->
-		 <script>
-				$("span.menu").click(function(){
-					$(" ul.navig").slideToggle("slow" , function(){
-					});
-				});
-		 </script>
-		 <!-- script-for-menu -->
-		 <!--Slider-Starts-Here-->
-				<script src="@{'public/templatepublic/js/responsiveslides.min.js'}"></script>
-			 <script>
-			    // You can also use "$(window).load(function() {"
-			    $(function () {
-			      // Slideshow 4
-			      $("#slider4").responsiveSlides({
-			        auto: true,
-			        pager: true,
-			        nav: true,
-			        speed: 500,
-			        namespace: "callbacks",
-			        before: function () {
-			          $('.events').append("<li>before event fired.</li>");
-			        },
-			        after: function () {
-			          $('.events').append("<li>after event fired.</li>");
-			        }
-			      });
-			
-			    });
-			  </script>
-			<!--End-slider-script-->	
-	<!--end-banner-->
-	<!--start-account-->
-	<div class="account">	
-		<div class="container">
-			<div class="account-main">
-				<div class="col-md-6 account-left">
-					<p>Experimente por 30 dias grátis.</p>
-				</div>
-				<div class="col-md-6 account-right" style="float: right">
-					<a class="play-icon" href="#follow"><span> </span>ACOMPANHAR</a>
+			<div class="banner-btm">
+				<div id="top" class="callbacks_container">
+					<ul class="rslides" id="slider4">
+						<li>
+							<div class="banner-bottom">
+								<h1>
+									TRABALHE ENQUANTO O CLIENTE <br /> AGUARDA PACIENTEMENTE
+								</h1>
+								<p>Gere um Código de Acompanhamento</p>
+							</div>
+						</li>
+						<li>
+							<div class="banner-bottom">
+								<h1>
+									COMUNIQUE POR NOTIFICAÇÕES <br /> PUSH, E-MAIL OU SMS
+								</h1>
+								<p> Houve Imprevisto? Ou, Já Pode Buscar?</p>
+							</div>
+						</li>
+						<li>
+							<div class="banner-bottom">
+								<h1>
+									CONTROLE PEDIDOS, SERVIÇOS <br />E FATURAMENTO
+								</h1>
+								<p>Organize o Seu Negócio</p>
+							</div>
+						</li>
+					</ul>
 				</div>
 				<div class="clearfix"></div>
 			</div>
 		</div>
+	</div>
+	<!-- script-for-menu -->
+	<script>
+		$("span.menu").click(function() {
+			$(" ul.navig").slideToggle("slow", function() {
+			});
+		});
+	</script>
+	<!-- script-for-menu -->
+	<!--Slider-Starts-Here-->
+	<script src="@{'public/templatepublic/js/responsiveslides.min.js'}"></script>
+	<script>
+		// You can also use "$(window).load(function() {"
+		$(function() {
+			// Slideshow 4
+			$("#slider4").responsiveSlides({
+				auto : true,
+				pager : true,
+				nav : true,
+				speed : 500,
+				namespace : "callbacks",
+				before : function() {
+					$('.events').append("<li>before event fired.</li>");
+				},
+				after : function() {
+					$('.events').append("<li>after event fired.</li>");
+				}
+			});
+
+		});
+	</script>
+	<!--End-slider-script-->
+	<!--end-banner-->
+	<!--start-account-->
+	<div class="account">
+		<div class="container">
+			<div class="account-main">
+					<div class="col-xs-6 account-right" style="width: 50%">
+						<a class="play-icon popup-with-zoom-anim" href="#small-dialog" onclick="$('#formQuickAccount').trigger('reset');"><span> </span>CADASTRAR-SE</a>
+					</div>
+					<div class="col-xs-6 account-right" style="width: 50%">
+						<a class="play-icon" href="#follow"><span> </span>ACOMPANHAR</a>
+					</div>
+				<div class="clearfix">
+			</div>
+		</div>
+	</div>
 	</div>
 	<!--start-about-->
 	<div class="about" id="about">
@@ -129,9 +143,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="about-main">
 				<img src="@{'public/templatepublic/images/spl.png'}" alt="" />
 				<h2 style="color: #666666">Este é um sistema de acompanhamento de serviços.</h2>
-				<h2>É útil e <b>simples</b>.</h2>
-				<h2>Permite que seu cliente <b>acompanhe</b> o que você estiver produzindo.</h2>
-				<h3>Veja!</h3>
+				<h2>
+					É útil e <b>simples</b>.
+				</h2>
+				<h2>
+					Permite que seu cliente <b>acompanhe</b> o que você estiver produzindo.
+				</h2>
+				<h3>Veja:</h3>
 			</div>
 			<div class="about-bottom">
 				<div class="abt">
@@ -179,134 +197,150 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="special" id="features">
 		<div class="container">
 			<div class="special-top">
-				<div class="col-md-4 spl-left">
+				<div class="col-md-3 spl-left">
 					<div class="spl-one">
 						<span class="hnd active"></span>
-						<h4>Pra deixar o cliente</h4>
-						<p>satisfeito</p>
+						<h4>Cliente</h4>
+						<p>Satisfeito</p>
 					</div>
 				</div>
-				<div class="col-md-4 spl-left">
+				<div class="col-md-3 spl-left active">
+					<div class="spl-one">
+						<span class="wtp"></span>
+						<h4>Boa</h4>
+						<p>Comunicação</p>
+					</div>
+				</div>
+				<div class="col-md-3 spl-left">
 					<div class="spl-one">
 						<span class="sml"> </span>
-						<h4>Pro cliente voltar</h4>
-						<p>novamente</p>
+						<h4>Para O Cliente</h4>
+						<p>Voltar</p>
 					</div>
 				</div>
-				<div class="col-md-4 spl-left">
+				<div class="col-md-3 spl-left">
 					<div class="spl-one">
 						<span class="dar"></span>
-						<h4>Pra ele divulgar o seu</h4>
-						<p>serviço</p>
+						<h4>Ele Satisfeito</h4>
+						<p>Ele Divulga</p>
 					</div>
 				</div>
 				<div class="clearfix"></div>
 			</div>
 			<div class="special-bottom" id="products">
 				<img src="@{'public/templatepublic/images/spl.png'}" alt="">
-				<h2><b>Você presta algum serviço?</b> </h2>
-				<h3 style="color: gray; margin: 0; font-weight: normal">Este sistema <b>veste</b> como luva em você para: <a href="#home">criar uma conta!</a></h3>
-			</div>	
-				<div class="special-btm">
-					<div class="portfolio-top">
-						<ul id="filters" class="clearfix">
-							<li style="margin: 5px;"><span class="filter active">ASSISTÊNCIA TÉCNICA</span></li>
-							<li style="margin: 5px;"><span class="filter">ENCOMENDAS</span></li>
-							<li style="margin: 5px;"><span class="filter">SERVIÇOS ARTESANAIS</span></li>
-							<li style="margin: 5px;"><span class="filter">ENTREGAS DE PIZZAS, SANDUÍCHES</span></li>
-							<li style="margin: 5px;"><span class="filter">CLÍNICAS</span></li>
-							<li style="margin: 5px;"><span class="filter">CONSULTÓRIOS</span></li>
-							<li style="margin: 5px;"><span class="filter">OFICINAS</span></li>
-							<li style="margin: 5px;"><span class="filter">EMISSÃO DE PROCESSOS</span></li>
-							<li style="margin: 5px;"><span class="filter">TRANSPORTE</span></li>
-						</ul>
-					</div>
-				<div class="special-bottom" id="products">
-					<h3 style="color: gray; margin: 0; font-weight: normal"><b>VOCÊ</b> precisa MUITO <a href="#home">criar uma conta!</a></h3>
+				<h2>
+					<b>Você presta algum serviço?</b>
+				</h2>
+				<h3 style="color: gray; margin: 0; font-weight: normal">
+					Este sistema <b>veste</b> como luva em você para: <a href="#home">criar uma conta!</a>
+				</h3>
+			</div>
+			<div class="special-btm">
+				<div class="portfolio-top">
+					<ul id="filters" class="clearfix">
+						<li style="margin: 5px;"><span class="filter active">ASSISTÊNCIA TÉCNICA</span></li>
+						<li style="margin: 5px;"><span class="filter">ENCOMENDAS</span></li>
+						<li style="margin: 5px;"><span class="filter">SERVIÇOS ARTESANAIS</span></li>
+						<li style="margin: 5px;"><span class="filter">ENTREGAS DE PIZZAS, SANDUÍCHES</span></li>
+						<li style="margin: 5px;"><span class="filter">CLÍNICAS</span></li>
+						<li style="margin: 5px;"><span class="filter">CONSULTÓRIOS</span></li>
+						<li style="margin: 5px;"><span class="filter">OFICINAS</span></li>
+						<li style="margin: 5px;"><span class="filter">EMISSÃO DE PROCESSOS</span></li>
+						<li style="margin: 5px;"><span class="filter">TRANSPORTE</span></li>
+					</ul>
 				</div>
+				<div class="special-bottom" id="products">
+					<h3 style="color: gray; margin: 0; font-weight: normal">
+						<b>VOCÊ</b> precisa MUITO <a href="#home">criar uma conta!</a>
+					</h3>
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
 	<!--end-about-->
 	<link rel="stylesheet" href="@{'public/templatepublic/css/swipebox.css'}">
-	<script src="@{'public/templatepublic/js/jquery.swipebox.min.js'}"></script> 
-	    <script type="text/javascript">
-			jQuery(function($) {
-				$(".swipebox").swipebox();
-			});
-		</script>
+	<script src="@{'public/templatepublic/js/jquery.swipebox.min.js'}"></script>
+	<script type="text/javascript">
+		jQuery(function($) {
+			$(".swipebox").swipebox();
+		});
+	</script>
 	<!-- Portfolio Ends Here -->
 	<script type="text/javascript" src="@{'public/templatepublic/js/jquery.mixitup.min.js'}"></script>
-<script type="text/javascript">
-$(function () {
-	
-	var filterList = {
-	
-		init: function () {
-		
-			// MixItUp plugin
-		// http://mixitup.io
-		$('#portfoliolist').mixitup({
-			targetSelector: '.portfolio',
-			filterSelector: '.filter',
-			effects: ['fade'],
-			easing: 'snap',
-			// call the hover effect
-			onMixEnd: filterList.hoverEffect()
-		});				
-	
-	},
-	
-	hoverEffect: function () {
-	
-		// Simple parallax effect
-		$('#portfoliolist .portfolio').hover(
-			function () {
-				$(this).find('.label').stop().animate({bottom: 0}, 200, 'easeOutQuad');
-				$(this).find('img').stop().animate({top: -30}, 500, 'easeOutQuad');				
-			},
-			function () {
-				$(this).find('.label').stop().animate({bottom: -40}, 200, 'easeInQuad');
-				$(this).find('img').stop().animate({top: 0}, 300, 'easeOutQuad');								
-			}		
-		);				
-	
-	}
+	<script type="text/javascript">
+		$(function() {
 
-};
+			var filterList = {
 
-// Run the show!
-	filterList.init();
-	
-});	
-</script>
+				init : function() {
+
+					// MixItUp plugin
+					// http://mixitup.io
+					$('#portfoliolist').mixitup({
+						targetSelector : '.portfolio',
+						filterSelector : '.filter',
+						effects : [ 'fade' ],
+						easing : 'snap',
+						// call the hover effect
+						onMixEnd : filterList.hoverEffect()
+					});
+
+				},
+
+				hoverEffect : function() {
+
+					// Simple parallax effect
+					$('#portfoliolist .portfolio').hover(function() {
+						$(this).find('.label').stop().animate({
+							bottom : 0
+						}, 200, 'easeOutQuad');
+						$(this).find('img').stop().animate({
+							top : -30
+						}, 500, 'easeOutQuad');
+					}, function() {
+						$(this).find('.label').stop().animate({
+							bottom : -40
+						}, 200, 'easeInQuad');
+						$(this).find('img').stop().animate({
+							top : 0
+						}, 300, 'easeOutQuad');
+					});
+
+				}
+
+			};
+
+			// Run the show!
+			filterList.init();
+
+		});
+	</script>
 
 	<!---pop-up-box---->
-				<script type="text/javascript" src="@{'public/templatepublic/js/modernizr.custom.min.js'}"></script>    
-				<link href="@{'public/templatepublic/css/popup-box.css'}" rel="stylesheet" type="text/css" media="all" />
-				<script src="@{'public/templatepublic/js/jquery.magnific-popup.js'}" type="text/javascript"></script>
-				<!---//pop-up-box---->
-				<div id="small-dialog" class="mfp-hide">
-					#{include 'includes/newQuickAccount.html' /}
-				</div>
-				 <script>
-						$(document).ready(function() {
-						$('.popup-with-zoom-anim').magnificPopup({
-							type: 'inline',
-							fixedContentPos: false,
-							fixedBgPos: true,
-							overflowY: 'auto',
-							closeBtnInside: true,
-							preloader: false,
-							midClick: true,
-							removalDelay: 300,
-							mainClass: 'my-mfp-zoom-in'
-						});
-																						
-						});
-				</script>					
-		<!--End-pop-up-box-->
+	<script type="text/javascript" src="@{'public/templatepublic/js/modernizr.custom.min.js'}"></script>
+	<link href="@{'public/templatepublic/css/popup-box.css'}" rel="stylesheet" type="text/css" media="all" />
+	<script src="@{'public/templatepublic/js/jquery.magnific-popup.js'}" type="text/javascript"></script>
+	<!---//pop-up-box---->
+	<div id="small-dialog" class="mfp-hide">#{include 'includes/newQuickAccount.html' /}</div>
+	<script>
+		$(document).ready(function() {
+			$('.popup-with-zoom-anim').magnificPopup({
+				type : 'inline',
+				fixedContentPos : false,
+				fixedBgPos : true,
+				overflowY : 'auto',
+				closeBtnInside : true,
+				preloader : false,
+				midClick : true,
+				removalDelay : 300,
+				mainClass : 'my-mfp-zoom-in'
+			});
+
+		});
+	</script>
+	<!--End-pop-up-box-->
 	<!--start-contact-->
 	<div class="contact" id="follow">
 		<div class="container">
@@ -317,17 +351,17 @@ $(function () {
 			</div>
 			<div class="contact-bottom">
 				<form action="/" method="get" id="formFollow">
-					<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase; width: 205px; font-size: 30px;" /> 
+					<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}"
+						style="text-transform: uppercase; width: 205px; font-size: 30px;" />
 					<div id="message">
 						#{list errors, as:'error'}
-							<p>&{error.message()}</p>
-						#{/list}		
+						<p>&{error.message()}</p>
+						#{/list}
 					</div>
 					<div class="contact-but">
 						<input id="followOrderCode" type="button" value="Acompanhar" onclick="return followordercode()" />
 					</div>
-					<input type="hidden" id="response" name="response" value="${response}" /> 
-					<input type="hidden" id="status" name="status" value="${status}" /> 
+					<input type="hidden" id="response" name="response" value="${response}" /> <input type="hidden" id="status" name="status" value="${status}" />
 				</form>
 			</div>
 		</div>
@@ -338,72 +372,102 @@ $(function () {
 	<!--end-footer-->
 	<script type="text/javascript" src="@{'public/javascripts/jquery.mask.min.js'}"></script>
 	<script type="text/javascript">
-	  $(function() {
-	    $('.age').mask('00');
-	    $('.date').mask('00/00/0000');
-	    $('.time').mask('00:00:00');
-	    $('.date_time').mask('00/00/0000 00:00:00');
-	    $('.cep').mask('00000-000');
-	    $('.phone').mask('0000-0000');
-	    $('.phone_with_ddd').mask('(00) 0000-0000');
-	    $('.phone9_with_ddd').mask('(00) 00000-0000');
-	    $('.phone_us').mask('(000) 000-0000');
-	    $('.mixed').mask('AAA 000-S0S');
-	    $('.ip_address').mask('099.099.099.099');
-	    $('.percent').mask('##0,00%', {reverse: true});
-	    $('.clear-if-not-match').mask("00/00/0000", {clearIfNotMatch: true});
-	    $('.placeholder').mask("00/00/0000", {placeholder: "__/__/____"});
-	    $('.fallback').mask("00r00r0000", {
-	      translation: {
-	        'r': {
-	          pattern: /[\/]/, 
-	          fallback: '/'
-	        }, 
-	        placeholder: "__/__/____"
-	      }
-	    });
-	
-	    $('.selectonfocus').mask("00/00/0000", {selectOnFocus: true});
-	
-	    $('.cep_with_callback').mask('00000-000', {onComplete: function(cep) {
-	        console.log('Mask is done!:', cep);
-	      },
-	       onKeyPress: function(cep, event, currentField, options){
-	        console.log('An key was pressed!:', cep, ' event: ', event, 'currentField: ', currentField.attr('class'), ' options: ', options);
-	      },
-	      onInvalid: function(val, e, field, invalid, options){
-	        var error = invalid[0];
-	        console.log ("Digit: ", error.v, " is invalid for the position: ", error.p, ". We expect something like: ", error.e);
-	      }
-	    });
-	
-	    $('.crazy_cep').mask('00000-000', {onKeyPress: function(cep, e, field, options){
-	      var masks = ['00000-000', '0-00-00-00'];
-	        mask = (cep.length>7) ? masks[1] : masks[0];
-	      $('.crazy_cep').mask(mask, options);
-	    }});
-	
-	    $('.cpf').mask('000.000.000-00', {reverse: true});
-	    $('.money').mask('#.##0,00', {reverse: true});
-	
-	    var SPMaskBehavior = function (val) {
-	      return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
-	    },
-	    spOptions = {
-	      onKeyPress: function(val, e, field, options) {
-	          field.mask(SPMaskBehavior.apply({}, arguments), options);
-	        }
-	    };
-	
-	    $('.sp_celphones').mask(SPMaskBehavior, spOptions);
-	
-	    $(".bt-mask-it").click(function(){
-	      $(".mask-on-div").mask("000.000.000-00");
-	      $(".mask-on-div").fadeOut(500).fadeIn(500)
-	    })
-	
-	    $('pre').each(function(i, e) {hljs.highlightBlock(e)});
-	  });
+		$(function() {
+			$('.age').mask('00');
+			$('.date').mask('00/00/0000');
+			$('.time').mask('00:00:00');
+			$('.date_time').mask('00/00/0000 00:00:00');
+			$('.cep').mask('00000-000');
+			$('.phone').mask('0000-0000');
+			$('.phone_with_ddd').mask('(00) 0000-0000');
+			$('.phone9_with_ddd').mask('(00) 00000-0000');
+			$('.phone_us').mask('(000) 000-0000');
+			$('.mixed').mask('AAA 000-S0S');
+			$('.ip_address').mask('099.099.099.099');
+			$('.percent').mask('##0,00%', {
+				reverse : true
+			});
+			$('.clear-if-not-match').mask("00/00/0000", {
+				clearIfNotMatch : true
+			});
+			$('.placeholder').mask("00/00/0000", {
+				placeholder : "__/__/____"
+			});
+			$('.fallback').mask("00r00r0000", {
+				translation : {
+					'r' : {
+						pattern : /[\/]/,
+						fallback : '/'
+					},
+					placeholder : "__/__/____"
+				}
+			});
+
+			$('.selectonfocus').mask("00/00/0000", {
+				selectOnFocus : true
+			});
+
+			$('.cep_with_callback')
+					.mask(
+							'00000-000',
+							{
+								onComplete : function(cep) {
+									console.log('Mask is done!:', cep);
+								},
+								onKeyPress : function(cep, event, currentField,
+										options) {
+									console.log('An key was pressed!:', cep,
+											' event: ', event,
+											'currentField: ', currentField
+													.attr('class'),
+											' options: ', options);
+								},
+								onInvalid : function(val, e, field, invalid,
+										options) {
+									var error = invalid[0];
+									console.log("Digit: ", error.v,
+											" is invalid for the position: ",
+											error.p,
+											". We expect something like: ",
+											error.e);
+								}
+							});
+
+			$('.crazy_cep').mask('00000-000', {
+				onKeyPress : function(cep, e, field, options) {
+					var masks = [ '00000-000', '0-00-00-00' ];
+					mask = (cep.length > 7) ? masks[1] : masks[0];
+					$('.crazy_cep').mask(mask, options);
+				}
+			});
+
+			$('.cpf').mask('000.000.000-00', {
+				reverse : true
+			});
+			$('.money').mask('#.##0,00', {
+				reverse : true
+			});
+
+			var SPMaskBehavior = function(val) {
+				return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000'
+						: '(00) 0000-00009';
+			}, spOptions = {
+				onKeyPress : function(val, e, field, options) {
+					field.mask(SPMaskBehavior.apply({}, arguments), options);
+				}
+			};
+
+			$('.sp_celphones').mask(SPMaskBehavior, spOptions);
+
+			$(".bt-mask-it").click(function() {
+				$(".mask-on-div").mask("000.000.000-00");
+				$(".mask-on-div").fadeOut(500).fadeIn(500)
+			})
+
+			$('pre').each(function(i, e) {
+				hljs.highlightBlock(e)
+			});
+		});
 	</script>
 	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
 </body>

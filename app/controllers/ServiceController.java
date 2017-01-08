@@ -1,6 +1,7 @@
 package controllers;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.JsonArray;
@@ -9,12 +10,14 @@ import com.google.gson.JsonParser;
 
 import controllers.CRUD.ObjectType;
 import models.OrderOfService;
+import models.OrderOfServiceStep;
 import models.OrderOfServiceValue;
 import models.Service;
 import models.Step;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
+import util.StatusEnum;
 import util.Utils;
 
 @CRUD.For(models.Service.class)
@@ -26,6 +29,8 @@ public class ServiceController extends CRUD {
 			page = 1;
 		}
 		String where = "institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId();
+		orderBy = "id";
+		order = "DESC";
 		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
 		Long count = type.count(search, searchFields, where);
 		Long totalCount = type.count(null, null, where);
@@ -45,8 +50,8 @@ public class ServiceController extends CRUD {
 				"id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId())
 				.first();
 		List<Step> steps = Step.find("service_id = " + Long.valueOf(id) + " and institutionId = "
-				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by position asc")
-				.fetch();
+				+ Admin.getLoggedUserInstitution().getInstitution().getId()
+				+ " and isActive = true order by position asc").fetch();
 		notFoundIfNull(object);
 		try {
 			render(type, object, steps);
@@ -84,32 +89,32 @@ public class ServiceController extends CRUD {
 		}
 		redirect(request.controller + ".show", object._key());
 	}
-	
+
 	public static void save(String id) throws Exception {
-        ObjectType type = ObjectType.get(getControllerClass());
-        notFoundIfNull(type);
-        Model object = type.findById(id);
-        notFoundIfNull(object);
-        Binder.bindBean(params.getRootParamNode(), "object", object);
-        validation.valid(object);
-        if (validation.hasErrors()) {
-            renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
-            try {
-                render(request.controller.replace(".", "/") + "/show.html", type, object);
-            } catch (TemplateNotFoundException e) {
-                render("CRUD/show.html", type, object);
-            }
-        }
-        object._save();
-        flash.success(play.i18n.Messages.get("crud.saved", type.modelName));
-        Service service = (Service) object;
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		Model object = type.findById(id);
+		notFoundIfNull(object);
+		Binder.bindBean(params.getRootParamNode(), "object", object);
+		validation.valid(object);
+		if (validation.hasErrors()) {
+			renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
+			try {
+				render(request.controller.replace(".", "/") + "/show.html", type, object);
+			} catch (TemplateNotFoundException e) {
+				render("CRUD/show.html", type, object);
+			}
+		}
+		object._save();
+		flash.success(play.i18n.Messages.get("crud.saved", type.modelName));
+		Service service = (Service) object;
 		String[] jsonContent = params.get("steps", String[].class);
 		updateSteps(service, jsonContent[0]);
-        if (params.get("_save") != null) {
-            redirect(request.controller + ".list");
-        }
-        redirect(request.controller + ".show", object._key());
-    }
+		if (params.get("_save") != null) {
+			redirect(request.controller + ".list");
+		}
+		redirect(request.controller + ".show", object._key());
+	}
 
 	private static void generateSteps(Service service, String jsonContent) {
 		if (jsonContent != null) {
@@ -136,16 +141,11 @@ public class ServiceController extends CRUD {
 		if (jsonContent != null) {
 			JsonParser parser = new JsonParser();
 			JsonArray jsonArray = parser.parse(jsonContent).getAsJsonArray();
+			List<OrderOfService> ordersOfService = getOrdersOfServiceByService(service);
+			removeStepsByService(service);
 			for (int i = 0; i < jsonArray.size(); i++) {
 				JsonObject jObject = (JsonObject) jsonArray.get(i);
-				String id = jObject.get("id").getAsString();
-				Step step = null;
-				if ("0".equals(id)) {
-					step = new Step();
-				} else {
-					step = Step.find("id = " + Long.valueOf(id) + " and institutionId = "
-							+ service.getInstitutionId()).first();
-				}
+				Step step = new Step();
 				step.setService(service);
 				step.setTitle(jObject.get("title").getAsString());
 				step.setDescription(jObject.get("description").getAsString());
@@ -156,7 +156,43 @@ public class ServiceController extends CRUD {
 				step.setPosition(i + 1);
 				step.willBeSaved = true;
 				step.save();
+				addOrderOfServiceSteps(ordersOfService, step, service);
 			}
+		}
+	}
+
+	private static List<OrderOfService> getOrdersOfServiceByService(Service service) {
+		List<OrderOfService> listOfOrderOfService = new ArrayList<OrderOfService>();
+		List<OrderOfServiceValue> ordersOfServiceValueByService = OrderOfServiceValue
+				.find("service_id = " + service.id + " and institutionId = " + service.getInstitutionId()).fetch();
+		for (OrderOfServiceValue orderOfServiceValue : ordersOfServiceValueByService) {
+			OrderOfService orderOfService = OrderOfService.find("id = " + orderOfServiceValue.getOrderOfServiceId()
+					+ " and institutionId = " + service.getInstitutionId()).first();
+			listOfOrderOfService.add(orderOfService);
+		}
+		return listOfOrderOfService;
+	}
+
+	private static void removeStepsByService(Service service) {
+		List<Step> steps = Step.find("service_id = " + service.id).fetch();
+		for (Step step : steps) {
+			OrderOfServiceStep.delete("step_id = " + step.id);
+			Step.delete("id = " + step.id);
+		}
+	}
+
+	private static void addOrderOfServiceSteps(List<OrderOfService> ordersOfService, Step step, Service service) {
+		for (OrderOfService orderOfService : ordersOfService) {
+			OrderOfServiceStep orderServiceStep = new OrderOfServiceStep();
+			orderServiceStep.setOrderOfService(orderOfService);
+			orderServiceStep.setStep(step);
+			orderServiceStep.setService(step.getService());
+			orderServiceStep.setStatus(StatusEnum.NotStarted);
+			orderServiceStep.setObs("Nenhuma");
+			orderServiceStep.setPostedAt(Utils.getCurrentDateTime());
+			orderServiceStep.setInstitutionId(orderOfService.getInstitutionId());
+			orderServiceStep.willBeSaved = true;
+			orderServiceStep.save();
 		}
 	}
 
