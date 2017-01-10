@@ -1,18 +1,22 @@
 #{extends 'CRUD/layout.html' /}
 #{set title:messages.get('crud.list.title', type.name) /}
 <meta charset="utf-8" />
-	<div class="col-lg-6">
-		#{crud.search /}
-	</div>
-	<div class="col-lg-6">
-		<a href="@{blank()}" class="btn btn-default" style="float: right">&{'crud.add', type.modelName}</a> 
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				#{crud.search /}
+			</div>
+			<div class="col-lg-6">
+				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
+			</div>
+		</div>
 	</div>
 	<div class="col-lg-12 ${type.name}">
         <div class="panel panel-default">
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'isActive', 'action']}
+			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a>${object.postedAtParsed}</a>
 				        #{/crud.custom}
@@ -21,14 +25,6 @@
 				        #{/crud.custom}
 				        #{crud.custom 'orderCode'}
 			         		<input type="text" value="${object.orderCode}" onclick="this.select()" readonly="readonly" style="font-weight: bold; width: 85px;" />
-				        #{/crud.custom}
-			        	#{crud.custom 'isActive'}
-					        #{if object.isActive}
-						    	<a >${object.isActive='Sim'}</a>
-						    #{/if}
-						    #{else} 
-						    	<a>${object.isActive='Não'}</a>
-				            #{/else}
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
 				       		<a id="btnModalGenerateCode" class="btn btn-default" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);"><i class="fa fa-print"></i> PDF</a>

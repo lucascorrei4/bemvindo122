@@ -111,5 +111,9 @@ public class Parameter extends Model {
 	public void setLogoUrl(String logoUrl) {
 		this.logoUrl = logoUrl;
 	}
+	
+	public String getSMSCurrency() {
+		return Utils.getCurrencyValue(getSmsPricePlan());
+	}
 
 }

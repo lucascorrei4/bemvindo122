@@ -69,8 +69,10 @@ public class User extends Model {
 	@Transient
 	public String repeatPassword;
 
+	@Hidden
 	public boolean isAdmin;
 
+	@Hidden
 	public boolean isActive = true;
 
 	@Hidden
