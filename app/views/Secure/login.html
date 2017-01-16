@@ -35,9 +35,10 @@
 			                        </div>
 								#{/if}
                                 <button type="submit" class="btn btn-lg btn-success btn-block" style="background: #666666; border-color: #fff" value="&{'secure.signin'}">Entrar</button>
-                                    <label><a>Esqueci minha senha</a></label>
                             </fieldset>
                         #{/form}
+                        <label><a data-toggle="modal" data-target="#modalReset">Esqueci minha senha</a></label>
+                        #{include 'Application/modalpass.html' /}
                     </div>
                 </div>
             </div>

@@ -178,7 +178,7 @@ public class Admin extends Controller {
 		if (loggedUserInstitution == null || loggedUserInstitution.getCurrentSession() != session.get("username"))
 			loggedUserInstitution = new UserInstitutionParameter();
 		if (loggedUserInstitution.getUser() == null || loggedUserInstitution.getInstitution() == null) {
-			User loggedUser = User.find("byEmail", session.get("username")).first();;
+			User loggedUser = User.find("byEmail", session.get("username")).first();
 			if (loggedUser != null) {
 				loggedUserInstitution.setUser(loggedUser);
 				if (loggedUser.getInstitutionId() > 0) {

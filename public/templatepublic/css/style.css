@@ -89,7 +89,7 @@ ul.navig li a:hover, ul.navig li a.active {
 	-o-transition: 0.5s all;
 	-moz-transition: 0.5s all;
 	-ms-transition: 0.5s all;
-	background: #666666;
+	background: #5FBB60;
 	border-radius: 0.3em;
 	border: 1px solid rgba(255, 255, 255, 0.73);
 }

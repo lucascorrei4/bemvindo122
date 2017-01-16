@@ -77,6 +77,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<li><a href="#about" class="scroll">COMO FUNCIONA?</a></li>
 						<li><a href="#features" class="scroll">SERVE PRA MIM?</a></li>
 						<li><a class="popup-with-zoom-anim active" href="#small-dialog" onclick="$('#formQuickAccount').trigger('reset');">CRIE UMA CONTA</a></li>
+						<li><a class="popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').trigger('reset');">TENHO DÚVIDAS</a></li>
 						<li><a href="/login">ENTRAR</a></li>
 					</ul>
 				</div>
@@ -176,7 +177,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</h2>
 				<h3>Veja Como:</h3>
 			</div>
-			<div class="about-bottom">
+			<div class="about-bottom" style="margin: 0;">
 				<div class="abt">
 					<div class="col-md-4 about-left active">
 						<div class="abt-one">
@@ -184,7 +185,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<span class="flr"> </span>
 							</div>
 							<div class="abt-right">
-								<h4>#1</h4>
+								<h4>#1 Ordem de Serviço</h4>
 								<p>Ao Criar uma Ordem de Serviço a um Cliente</p>
 							</div>
 							<div class="clearfix"></div>
@@ -196,7 +197,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<span class="ard active"> </span>
 							</div>
 							<div class="abt-right">
-								<h4>#2</h4>
+								<h4>#2 Código</h4>
 								<p>Ele Receberá um Código de Acompanhamento</p>
 							</div>
 							<div class="clearfix"></div>
@@ -208,7 +209,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<span class="flg active"> </span>
 							</div>
 							<div class="abt-right">
-								<h4>#3</h4>
+								<h4>#3 Atualização</h4>
 								<p>Você Atualizará o Andamento e Ele Acompanhará Por Aqui</p>
 							</div>
 							<div class="clearfix"></div>
@@ -225,9 +226,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="col-md-12">
 				<div class="col-md-4 spl-left">
 					<div class="spl-one">
-						<span class="sml"></span>
-						<h4>Cliente</h4>
-						<p>Satisfeito</p>
+						<span class="hnd"></span>
+						<h4>Controle de</h4>
+						<p>Pedidos</p>
 					</div>
 				</div>
 				<div class="col-md-4 spl-left">
@@ -239,9 +240,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<div class="col-md-4 spl-left">
 					<div class="spl-one">
-						<span class="hnd"></span>
-						<h4>Controle de</h4>
-						<p>Pedidos</p>
+						<span class="sml"></span>
+						<h4>Cliente</h4>
+						<p>Satisfeito</p>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -253,13 +254,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<b>Você presta algum serviço?</b>
 				</h2>
 				<h3 style="color: gray; margin: 0; font-weight: normal">
-					Então este Sistema <b>Veste</b> como Luva em Você
+					Então este Sistema <b>Pode Te Ajudar</b> Muito!
 				</h3>
 			</div>
 			<div class="special-btm">
 				<div class="portfolio-top">
 					<ul id="filters" class="clearfix">
-						<li style="margin: 5px;"><span class="filter active">ASSISTÊNCIA TÉCNICA</span></li>
+						<li style="margin: 5px;"><span class="filter">ASSISTÊNCIA TÉCNICA</span></li>
 						<li style="margin: 5px;"><span class="filter">ENCOMENDAS</span></li>
 						<li style="margin: 5px;"><span class="filter">SERVIÇOS ARTESANAIS</span></li>
 						<li style="margin: 5px;"><span class="filter">ENTREGAS DE PIZZAS, SANDUÍCHES</span></li>
@@ -344,6 +345,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<script src="@{'public/templatepublic/js/jquery.magnific-popup.js'}" type="text/javascript"></script>
 	<!---//pop-up-box---->
 	<div id="small-dialog" class="mfp-hide">#{include 'includes/newQuickAccount.html' /}</div>
+	<div id="small-dialog1" class="mfp-hide">#{include 'includes/newQuickContact.html' /}</div>
 	<script>
 		$(document).ready(function() {
 			$('.popup-with-zoom-anim').magnificPopup({
@@ -367,7 +369,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="contact-top">
 				<img src="@{'public/templatepublic/images/abt-1.png'}" alt="" />
 				<h2>Acompanhe o seu pedido</h2>
-				<h3 style="color: gray; margin: 0; font-weight: normal">Você tem o código aí? Insira abaixo e acompanhe!</h3>
+				<h3 style="color: gray; margin: 0; font-weight: normal">Você tem o código aí? Insira-o abaixo:</h3>
 			</div>
 			<div class="contact-bottom">
 				<form action="/" method="get" id="formFollow">

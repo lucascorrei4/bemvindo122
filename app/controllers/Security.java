@@ -1,5 +1,7 @@
 package controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +12,17 @@ import play.cache.Cache;
 import play.mvc.Http;
 import play.mvc.Scope.Session;
 import util.UserInstitutionParameter;
+import util.Utils;
 
 public class Security extends Secure.Security {
 	
 	static boolean authenticate(String username, String password) {
-		return User.connect(username, password) != null;
+		try {
+			return User.connect(username, Utils.encode(Utils.decodeUrl(password.trim()))) != null;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	static boolean check(String profile) {
@@ -25,7 +33,9 @@ public class Security extends Secure.Security {
 	}
 
 	static void onDisconnected() {
+		Admin.loggedUserInstitution = null;
 		Cache.delete(Admin.getLoggedUserInstitution().getCurrentSession());
+		session.remove("username");
 		Application.index();
 	}
 
@@ -61,5 +71,5 @@ public class Security extends Secure.Security {
 		}
 		return false;
 	}
-
+	
 }

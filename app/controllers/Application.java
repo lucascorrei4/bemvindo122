@@ -16,12 +16,17 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import models.BodyMail;
 import models.Institution;
 import models.MoipNotification;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.OrderOfServiceValue;
+import models.SendTo;
+import models.Sender;
 import models.Service;
+import models.StatusMail;
+import models.StatusSMS;
 import models.User;
 import play.data.validation.Error;
 import play.data.validation.Valid;
@@ -165,13 +170,14 @@ public class Application extends Controller {
 			}
 			status = "ERROR";
 			render("includes/newQuickAccount.html", user, response, status, errors);
-		} else if(!validatePassword(user.getPassword(), user.getRepeatPassword())) {
+		} else if (!validatePassword(user.getPassword(), user.getRepeatPassword())) {
 			params.flash();
 			validation.keep();
 			status = "ERROR";
 			response = "As senhas que você digitou não são iguais. :(";
 			render("includes/newQuickAccount.html", user, response, status);
 		} else {
+			user.setPassword(Utils.encode(user.password));
 			user.setAdmin(true);
 			user.setPostedAt(Utils.getCurrentDateTime());
 			user.setInstitutionId(0l);
@@ -270,12 +276,15 @@ public class Application extends Controller {
 		validation.required(institution.getLogo()).message("Favor, insira a logomarca.").key("institution.logo");
 		validation.isTrue(Institution.verifyByEmail(institution.getEmail()) == null)
 				.message("Já existe uma instituição com este e-mail.").key("institution.email");
-//		if (!Utils.isNullOrEmpty(institution.getCnpj())) {
-//			validation.isTrue(Utils.validateCPFOrCNPJ(institution.getCnpj())).message("CNPJ inválido.")
-//					.key("institution.cnpj");
-//			validation.isTrue(Institution.verifyByCnpj(institution.getCnpj()) == null)
-//					.message("Já existe uma Instituição com este CNPJ.").key("institution.cnpj");
-//		}
+		// if (!Utils.isNullOrEmpty(institution.getCnpj())) {
+		// validation.isTrue(Utils.validateCPFOrCNPJ(institution.getCnpj())).message("CNPJ
+		// inválido.")
+		// .key("institution.cnpj");
+		// validation.isTrue(Institution.verifyByCnpj(institution.getCnpj()) ==
+		// null)
+		// .message("Já existe uma Instituição com este
+		// CNPJ.").key("institution.cnpj");
+		// }
 		validation.required(institution.getAddress()).message("Favor, digite o endereço.").key("institution.address");
 		validation.required(institution.getNeighborhood()).message("Favor, informe o bairro.")
 				.key("institution.neighborhood");
@@ -308,7 +317,7 @@ public class Application extends Controller {
 				response = "Redirecionando... :)";
 				status = "SUCCESS";
 				String clientName = orderOfService.getClient().getName();
-				Institution institution = Institution.find("id", orderOfService.institutionId).first(); 
+				Institution institution = Institution.find("id", orderOfService.institutionId).first();
 				String company = institution.getInstitution();
 				List<Service> services = new ArrayList<Service>();
 				List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
@@ -328,6 +337,82 @@ public class Application extends Controller {
 				render(clientName, company, orderOfService, mapOrderServiceSteps);
 			}
 		}
+	}
+
+	public static void modalPass() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String value = params.get("value", String.class);
+		String email = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
+		if (!Utils.isNullOrEmpty(email) && Utils.validateEmail(email) && User.verifyByEmail(email) != null) {
+			User user = User.verifyByEmail(email);
+			MailController mailController = new MailController();
+			/* SendTo object */
+			SendTo sendTo = new SendTo();
+			sendTo.setDestination(email);
+			sendTo.setName(user.getName());
+			sendTo.setSex("");
+			sendTo.setStatus(new StatusMail());
+			/* Sender object */
+			Sender sender = new Sender();
+			sender.setCompany("Seu Pedido Online");
+			sender.setFrom("contato@seupedido.online");
+			sender.setKey("resetpass");
+			/* SendTo object */
+			BodyMail bodyMail = new BodyMail();
+			bodyMail.setTitle1("Oi, " + user.getName() + "! Veja abaixo:");
+			bodyMail.setTitle2("Seu Pedido Online - Nova senha");
+			bodyMail.setFooter1("http://seupedido.online/nova-senha/" + Utils.encode(user.getEmail()));
+			bodyMail.setImage1("http://seupedido.online/public/images/logo-admin.png");
+			bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail));
+			if (mailController.sendHTMLMail(sendTo, sender, bodyMail)) {
+				status = "SUCCESS";
+				response = "E-mail enviado com sucesso! Favor, verifique sua caixa de entrada, spam ou lixeira.";
+			} else {
+				status = "ERROR";
+				response = "Houve um problema ao enviar. :(";
+			}
+		} else {
+			status = "ERROR";
+			response = "E-mail não encontrado ou digitado incorretamente! :(";
+		}
+		render(response, status);
+	}
+
+	public static void newPass(String id) throws Throwable {
+		String mail = Utils.decode(id);
+		User user = User.verifyByEmail(mail);
+		if (user == null) {
+			Application.index();
+		} else {
+			render(user);
+		}
+	}
+
+	public static void confirmPass() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String body = params.get("body", String.class);
+		String[] params = body.split("&");
+		String pass1 = Utils.getValueFromUrlParam(params[0]);
+		String pass2 = Utils.getValueFromUrlParam(params[1]);
+		String ref = Utils.getValueFromUrlParam(params[2]);
+		User user = User.verifyByEmail(Utils.decode(Utils.decodeUrl(ref)));
+		if (user == null) {
+			status = "ERROR";
+			response = "Houve um problema. :(";
+			render("Application/newPass.html", response, status, user);
+		}
+		if (validatePassword(pass1, pass2)) {
+			user.setPassword(Utils.encode(pass1));
+			user.save();
+			status = "SUCCESS";
+			response = "Nova senha criada com sucesso. Estamos voltando para a página de login. Ok?";
+		} else {
+			status = "ERROR";
+			response = "As senhas não são iguais. :(";
+		}
+		render("Application/newPass.html", response, status, user);
 	}
 
 }

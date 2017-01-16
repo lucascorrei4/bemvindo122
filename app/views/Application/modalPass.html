@@ -1,0 +1,55 @@
+<meta charset="utf-8">
+<div class="modal fade" id="modalReset" tabindex="-1" role="dialog" aria-labelledby="modalResetLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modalResetLabel">Esqueceu sua senha?</h4>
+			</div>
+			<div class="modal-body" id="modal-body">
+				<input type="hidden" id="response" name="response" value="${response}" /> 
+				<input type="hidden" id="status" name="status" value="${status}" />
+				<div class="form-group">
+					<input class="form-control" placeholder="Digite seu e-mail de cadastro" id="forgetpass" name="forgetpass" type="email" autofocus style="width: 50%;">
+					<h5>Você receberá um link para resetar sua senha e recriar um nova.</h5>
+					<div id="message"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<input type="button" id="btnReset" class="btn btn-info" value="Enviar" />
+			</div>
+		</div>
+	</div>
+</div>
+<script src="@{'public/templatebootstrap/bower_components/jquery/dist/jquery.min.js'}"></script>
+<script type="text/javascript">
+$('#btnReset').click(function () {
+	  var value = document.getElementById('forgetpass').value;
+	  if (value == '') {
+	    $('#message').css('color', 'red');
+	    $('#message').show();
+	    $('#message').html('O campo e-mail não pode ficar em branco.');
+	    setTimeout('$("#message").hide()', 10000);
+	    return;
+	  }
+	  var data = jQuery.param({
+	    value: value
+	  });
+	  $('#modal-body').load('/application/modalpass' +" #modal-body>*", data, function (response, status) {
+	    var status = $('#status').val();
+	    if ('SUCCESS' === status) {
+	      $('#message').css('color', 'gray');
+	      $('#message').show();
+	      $('#message').html($('#response').val());
+	      $('#message').fadeIn();
+	    } else {
+	      $('#message').css('color', 'red');
+	      $('#message').show();
+	      $('#message').html($('#response').val());
+	      setTimeout('$("#message").hide()', 10000);
+	    }
+	  });
+	});
+
+</script>
