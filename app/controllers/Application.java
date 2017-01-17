@@ -18,6 +18,7 @@ import com.google.gson.JsonParser;
 
 import models.BodyMail;
 import models.Institution;
+import models.Message;
 import models.MoipNotification;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
@@ -413,6 +414,56 @@ public class Application extends Controller {
 			response = "As senhas não são iguais. :(";
 		}
 		render("Application/newPass.html", response, status, user);
+	}
+
+	public static void saveMessage(String json) throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		/* Get body content from client request */
+		String[] fields = request.params.data.get("body");
+		String decodedFields = URLDecoder.decode(fields[0], "UTF-8");
+		Gson gson = new GsonBuilder().create();
+		/* Parse form content to JSON element */
+		String jsonParam = Utils.transformQueryParamToJson(decodedFields, "message.");
+		JsonParser parser = new JsonParser();
+		JsonObject jsonElement = (JsonObject) parser.parse(jsonParam);
+		jsonElement.addProperty("id", Long.valueOf(0));
+		/* Save Client */
+		/* Create object parsing JSON element */
+		Message message = new Message();
+		message = gson.fromJson(jsonElement, Message.class);
+		message.id = 0l;
+		message.willBeSaved = true;
+		/* Validate object before saving */
+		if (!validateObjectToSave(message)) {
+			List<Error> errors = validation.errors();
+			response = "Favor, preencha todos os campos corretamente!";
+			status = "ERROR";
+			render("includes/newQuickContact.html", message, response, status, errors);
+		} else {
+			message.setPostedAt(Utils.getCurrentDateTime());
+			message.setInstitutionId(0l);
+			message.merge();
+			response = "Muito obrigado pela mensagem!";
+			status = "SUCCESS";
+			render("includes/newQuickContact.html", message, response, status);
+		}
+	}
+
+	private static boolean validateObjectToSave(Message message) {
+		validation.clear();
+		validation.valid(message);
+		validation.email(message.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
+				.key("message.mail");
+		if (validation.hasErrors()) {
+			for (play.data.validation.Error e : validation.errors()) {
+				System.out.println(e.message());
+			}
+			params.flash();
+			validation.keep();
+			return false;
+		}
+		return true;
 	}
 
 }

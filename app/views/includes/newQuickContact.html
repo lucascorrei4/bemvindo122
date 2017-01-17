@@ -1,14 +1,19 @@
 <meta charset="utf-8" />
 <div class="login">
 	<form action="/" method="post" id="formMessage">
-		<h3>Entre em contato</h3>
+		<h3>Qual é a sua dúvida?</h3>
+		<h4>Aqui você pode também sugerir, criticar ou desabafar...</h4>
 		<input type="text" id="name" name="message.name" placeholder="Seu nome * #{error 'message.name' /}" value="${flash['message.name']}" /> 
 		
 		<input type="text" id="lastName" name="message.lastName" placeholder="Seu sobrenome * #{error 'message.lastName' /}" value="${flash['message.lastName']}" />
 		
-		<input type="text" id="phone" name="message.phone1" placeholder="Telefone (99) 9 9999-9999 * #{error 'message.phone1' /}" class="sp_celphones" value="${flash['message.phone1']}"  /> 
+		<input type="text" id="phone" name="message.phone" placeholder="Telefone (99) 9 9999-9999 * #{error 'message.phone' /}" class="sp_celphones" value="${flash['message.phone']}"  /> 
 	
-		<input type="text" id="mail" name="message.email" placeholder="Seu e-mail * #{error 'message.mail' /}" value="${flash['message.email']}" /> 
+		<input type="text" id="mail" name="message.mail" placeholder="Seu e-mail * #{error 'message.mail' /}" value="${flash['message.mail']}" /> 
+		
+		<input type="text" id="title" name="message.title" placeholder="Digite o título" value="${flash['message.title']}" />
+		
+		<textarea id="description" rows="3" placeholder="Insira a mensagem aqui" name="message.description" style="width: 100%;">${flash['message.description']}</textarea>
 			
 		<div id="message">
 			#{list errors, as:'error'}
@@ -43,7 +48,7 @@ function saveMessage() {
 				formDataJSON[this.name] = this.value || '';
 			}
 		});
-		$('#formMessage').load('/savemessage', formDataJSON,
+		$('#formMessage').load('/application/savemessage', formDataJSON,
 			function(response, status) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -58,6 +63,7 @@ function saveMessage() {
 						$('#description').val('');
 					}, 3000);
 				} else {
+					$("#formMessage").load(location.href+" #formMessage>*","");
 					$("#message").css("color", "red");
 					$("#message").show();
 					$("#message").html($("#response").val());

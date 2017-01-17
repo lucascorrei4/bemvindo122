@@ -67,36 +67,6 @@
 									#{include 'includes/selectCities.html' /}
 								</div>
 							#{/crud.custom}
-							#{crud.custom 'isActive'}
-								<div class="form-group">
-									<label> Habilitar </label> 
-									<div class="radio">
-                                        <label>
-											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''} disabled="disabled"><span title="&{'info.isActive.true'}">Sim</span>
-										</label> 
-									</div>
-									<div class="radio">
-                                        <label>
-											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''} disabled="disabled"><span title="&{'info.isActive.false'}">Não</span>
-										</label> 
-									</div>
-								</div>
-							#{/crud.custom}
-							#{crud.custom 'isAdmin'}
-								<div class="form-group">
-									<label> Administrador </label> 
-									<div class="radio">
-                                        <label>
-											<input type="radio" name="object.isAdmin" id="optionsRadiosInlin1" value="true" ${object.isAdmin?'checked=checked':''} disabled="disabled"><span title="&{'info.isAdmin.true'}">Sim</span>
-										</label> 
-									</div>
-									<div class="radio">
-                                        <label>
-											<input type="radio" name="object.isAdmin" id="optionsRadiosInlin2" value="false" ${!object.isAdmin?'checked=checked':''} disabled="disabled"><span title="&{'info.isAdmin.false'}">Não</span>
-										</label> 
-									</div>
-								</div>
-							#{/crud.custom}
 						#{/crud.form}
 						<div class="form-group" style="float: right">
 				            <input type="submit" name="_saveAndContinue" value="&{'crud.save', type.modelName}" class="btn btn-default" />
