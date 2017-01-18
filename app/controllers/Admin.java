@@ -90,7 +90,7 @@ public class Admin extends Controller {
 			} else {
 				/* Redirect to page of information about expired license */
 				session.put("enableUser", "false");
-				render("@admin.expiredLicense", connectedUser);
+				render("@Admin.expiredLicense", connectedUser);
 			}
 		}
 	}
