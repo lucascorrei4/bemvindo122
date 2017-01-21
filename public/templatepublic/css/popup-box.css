@@ -51,9 +51,9 @@ a.play-icon.popup-with-zoom-anim img:hover {
 /**
  * Fade-zoom animation for first dialog
  */
-
 /* start state */
 .my-mfp-zoom-in #small-dialog {
+	z-index: 9999999999999999999999;
 opacity: 0;
 -webkit-transition: all 0.2s ease-in-out;
 -moz-transition: all 0.2s ease-in-out;

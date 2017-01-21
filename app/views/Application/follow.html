@@ -133,7 +133,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Olá, <b>${clientName.trim()}</b>! Tudo ok?</h1>
                     <h4>Veja só! Abaixo você acompanha todos os detalhes do seu pedido!</h4>
-                    <a id="subscribe-link" class="btn btn-warning" style="display: none;" onclick="this.style.display = 'none'; document.getElementById('msg-subscribed').style.display = 'block'; ;return false;">Clique e receba avisos sobre este pedido!</a>
+                    <a id="subscribe-link" class="btn btn-warning" style="display: none;" onclick="this.style.display = 'none'; document.getElementById('msg-subscribed').style.display = 'block'; return false;">Clique e receba avisos sobre este pedido!</a>
                     <h5 id="msg-subscribed" style="display: none; text-align: center">Assim que o pedido for atualizado, você receberá uma notificação!</h5>
                     <h4 style="text-align: right">Código <b>${orderOfService.orderCode}</b></h4>
                     <h5 style="text-align: right"><i>Serviço prestado por </i> <b>${company}</b></h5>
@@ -166,7 +166,7 @@
 										</div>
 										<a href="#" class="bs-wizard-dot"></a>
 										<div class="bs-wizard-info text-center">&{orderServiceStep.step.title}</div>
-										<div class="bs-wizard-info text-center" style="color: #44545B">Obs.: &{orderServiceStep.obs}</div>
+										<div class="bs-wizard-info text-center" style="color: #44545B; color: #44545b; font-size: 0.6em; padding: 0;"><strong>Obs.:</strong> &{orderServiceStep.obs}</div>
 									</div>
 								#{/list}
 							</div>

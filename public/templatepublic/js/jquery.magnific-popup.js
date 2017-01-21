@@ -267,13 +267,15 @@ MagnificPopup.prototype = {
 		} else {
 			mfp.wrap.css({ 
 				top: _window.scrollTop(),
-				position: 'absolute'
+				position: 'absolute',
+				zIndex: 999999999
 			});
 		}
 		if( mfp.st.fixedBgPos === false || (mfp.st.fixedBgPos === 'auto' && !mfp.fixedContentPos) ) {
 			mfp.bgOverlay.css({
 				height: _document.height(),
-				position: 'absolute'
+				position: 'absolute',
+				zIndex: 999999999
 			});
 		}
 
