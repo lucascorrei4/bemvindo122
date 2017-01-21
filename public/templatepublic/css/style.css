@@ -73,7 +73,7 @@ ul.navig li {
 }
 
 ul.navig li a {
-	font-size: 1.04em;
+	font-size: 0.9em;
 	color: #fff;
 	font-weight: 400;
 	text-decoration: none;
@@ -260,6 +260,8 @@ ul.navig li a:after {
 .banner-btm {
 	text-align: center;
 	margin-top: 23%;
+	float: right; 
+	width: 60%;
 }
 /*------------------ Slider Part starts Here----------*/
 .slider {
@@ -682,7 +684,6 @@ ul.callbacks_tabs.callbacks2_tabs {
 /*--Special-Part-Ends-Here--*/
 .special {
 	background: #f0f0f0;
-	padding-bottom: 6.5em;
 }
 
 .special-bottom {
@@ -753,6 +754,7 @@ ul.callbacks_tabs.callbacks2_tabs {
     font-size: 45px;
     font-weight: normal;
     margin-top: 2%;
+    text-align: center;
 }
 
 .col-md-3.spl-left {
@@ -1373,7 +1375,7 @@ h2.marriage {
 /*--Account-Part-Ends-Here--*/
 /*--Contact-Part-Starts-Here--*/
 .contact {
-	padding: 7em 0px;
+	padding: 2em 0px;
 }
 
 .contact-top {
@@ -1592,7 +1594,10 @@ h2.marriage {
 		min-height: 528px;
 	}
 	.banner-btm {
-		margin-top: 18.5%;
+		text-align: center;
+		margin-top: 23%;
+		float: right; 
+		width: 60%;
 	}
 	.callbacks_tabs {
 		top: 100%;
@@ -1624,7 +1629,10 @@ h2.marriage {
 		min-height: 650px;
 	}
 	.banner-btm {
-		margin-top: 20%;
+		text-align: center;
+		margin-top: 23%;
+		float: right; 
+		width: 60%;
 	}
 	.callbacks_tabs {
 		top: 215%;
@@ -1638,6 +1646,7 @@ h2.marriage {
 	}
 	.spl-one p {
 		font-size: 3em;
+		text-align: center;
 	}
 	.spl-one h4 {
 		font-size: 1.25em;
@@ -1804,7 +1813,10 @@ h2.marriage {
 		top: 200%;
 	}
 	.banner-btm {
-		margin-top: 25%;
+		text-align: center;
+		margin-top: 23%;
+		float: right; 
+		width: 60%;
 	}
 	.client-left img {
 		width: 75%;
@@ -1825,7 +1837,7 @@ h2.marriage {
 	.about {
 		padding: 3em 0px;
 	}
-	.col-md-4.about-left:nth-child(3) {
+	.col-md-4.about-left:nth-child(4) {
 		display: none;
 	}
 	.col-md-4.about-left {
@@ -1866,6 +1878,7 @@ h2.marriage {
 	}
 	.spl-one p {
 		font-size: 2.7em;
+		text-align: center;
 	}
 	.spl-one {
 		padding: 10% 0 7% 0;
@@ -2052,7 +2065,10 @@ h2.marriage {
 		min-height: 390px;
 	}
 	.banner-btm {
-		margin-top: 24%;
+		text-align: center;
+		margin-top: 23%;
+		float: right; 
+		width: 60%;
 	}
 	.callbacks_tabs {
 		top: 175%;
@@ -2314,8 +2330,8 @@ h2.marriage {
 		padding: 2em 0px;
 	}
 	.spl-one span {
-		width: 45px;
-		height: 39px;
+		width: 49px;
+		height: 45px;
 		background-size: 378%;
 	}
 	.col-md-3.spl-left:hover .spl-one span.hnd {
@@ -2340,6 +2356,7 @@ h2.marriage {
 	}
 	.spl-one p {
 		font-size: 1.1em;
+		text-align: center;
 	}
 	#filters li span {
 		padding: 4px 6px;
@@ -2451,6 +2468,14 @@ h2.marriage {
 	.contact {
 		padding: 2em 0px;
 	}
+	.banner-btm {
+		text-align: center;
+		float: right; 
+		width: 100%;
+		margin-bottom: 10px;
+    	margin-top: 10px;
+    	min-height:130px;
+	}
 }
 
 @media ( max-width :320px) {
@@ -2471,7 +2496,12 @@ h2.marriage {
 		min-height: 235px;
 	}
 	.banner-btm {
-		margin-top: 32%;
+		text-align: center;
+		float: right; 
+		width: 100%;
+		margin-bottom: 10px;
+    	margin-top: 10px;
+    	min-height:130px;
 	}
 	.client-left:nth-child(3) {
 		display: none;

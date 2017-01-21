@@ -43,6 +43,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </script>
 <link href="@{'public/templatepublic/css/bootstrap.css'}" rel='stylesheet' type='text/css' />
 <link href="@{'public/templatepublic/css/style.css'}" rel='stylesheet' type='text/css' />
+<link href="@{'public/templatepublic/css/main.css'}" rel='stylesheet' type='text/css' />
 <script src="@{'public/templatepublic/js/jquery-1.11.0.min.js'}"></script>
 <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 <!---- start-smoth-scrolling---->
@@ -62,60 +63,83 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--start-smoth-scrolling-->
 </head>
 <body>
-	<!--start-banner-->
-	<div style=""></div>
-	<div class="banner" id="home" style="min-height: 624px;">
-		<div class="container">
-			<div class="header">
-				<div class="logo">
-					<a href="@{Application.index}"><img src="@{'public/templatepublic/images/logo-small.png'}" alt="Seu Pedido Online - Acompanhamento de Serviços e Marketing Digital"
-						title="Seu Pedido Online - Acompanhamento de Serviços e Marketing Digital"></a>
+	<section id="banner" style="padding: 0">
+		<div class="banner" id="home">
+			<div class="container">
+				<div class="header">
+					
+					<div class="navigation" style="width: auto; z-index: 99999">
+						<span class="menu"></span>
+						<ul class="navig">
+							<li><a href="#about" class="scroll">COMO FUNCIONA?</a></li>
+							<li><a href="#features" class="scroll">SERVE PRA MIM?</a></li>
+							<li><a class="popup-with-zoom-anim active" href="#small-dialog" onclick="$('#formQuickAccount').load(location.href+' #formQuickAccount>*',''); $('.menu').click();">CRIE UMA CONTA</a></li>
+							<li><a class="popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); $('.menu').click();">TENHO DÚVIDAS</a></li>
+							<li><a href="/login">ENTRAR</a></li>
+						</ul>
+					</div>
+					<div class="clearfix"></div>
 				</div>
-				<div class="navigation">
-					<span class="menu"></span>
-					<ul class="navig">
-						<li><a href="#about" class="scroll">COMO FUNCIONA?</a></li>
-						<li><a href="#features" class="scroll">SERVE PRA MIM?</a></li>
-						<li><a class="popup-with-zoom-anim active" href="#small-dialog" onclick="$('#formQuickAccount').trigger('reset'); $('.menu').click();">CRIE UMA CONTA</a></li>
-						<li><a class="popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); $('.menu').click();">TENHO DÚVIDAS</a></li>
-						<li><a href="/login">ENTRAR</a></li>
-					</ul>
+				
+				<div class="inner">
+
+					<div>
+						<a href="@{Application.index}"><img src="@{'public/templatepublic/images/logo-small.png'}" alt="Seu Pedido Online - Acompanhamento de Serviços e Marketing Digital"
+							title="Seu Pedido Online - Acompanhamento de Serviços e Marketing Digital"></a>
+					</div>
+					
+					<header>
+						<h2>É ÚTIL!</h2>
+					</header>
+					
+					<p>É O QUE <strong>VOCÊ PRECISA</strong>
+					<br>
+					PRA MANTER SEU CLIENTE
+					<br>
+					<strong>SEMPRE PERTO</strong>.</p>
+					
+					<footer>
+						<ul class="buttons vertical">
+							<li><a href="#about" class="button fit scrolly scroll">QUERO CONHECER</a></li>
+							<li><a href="#follow" class="button fit scrolly scroll">ACOMPANHAR</a></li>
+						</ul>
+					</footer>
 				</div>
-				<div class="clearfix"></div>
-			</div>
-			<div class="banner-btm">
-				<div id="top" class="callbacks_container">
-					<ul class="rslides" id="slider4">
-						<li>
-							<div class="banner-bottom">
-								<h1>
-									TRABALHE ENQUANTO O CLIENTE <br /> AGUARDA PACIENTEMENTE
-								</h1>
-								<p>Gere um Código de Acompanhamento</p>
-							</div>
-						</li>
-						<li>
-							<div class="banner-bottom">
-								<h1>
-									COMUNIQUE POR NOTIFICAÇÕES <br /> PUSH, E-MAIL OU SMS
-								</h1>
-								<p> Houve Imprevisto? Ou, Já Pode Buscar?</p>
-							</div>
-						</li>
-						<li>
-							<div class="banner-bottom">
-								<h1>
-									CONTROLE PEDIDOS, SERVIÇOS <br />E FATURAMENTO
-								</h1>
-								<p>Organize o Seu Negócio</p>
-							</div>
-						</li>
-					</ul>
+				
+				<div class="banner-btm">
+					<div id="top" class="callbacks_container">
+						<ul class="rslides" id="slider4">
+							<li>
+								<div class="banner-bottom">
+									<h1>
+										TRABALHE ENQUANTO O CLIENTE <br /> AGUARDA PACIENTEMENTE
+									</h1>
+									<p>Gere um Código de Acompanhamento</p>
+								</div>
+							</li>
+							<li>
+								<div class="banner-bottom">
+									<h1>
+										COMUNIQUE POR NOTIFICAÇÕES <br /> PUSH, E-MAIL OU SMS
+									</h1>
+									<p> Houve Imprevisto? Ou, Já Pode Buscar?</p>
+								</div>
+							</li>
+							<li>
+								<div class="banner-bottom">
+									<h1>
+										CONTROLE PEDIDOS, SERVIÇOS <br />E FATURAMENTO
+									</h1>
+									<p>Organize o Seu Negócio</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="clearfix"></div>
 				</div>
-				<div class="clearfix"></div>
 			</div>
 		</div>
-	</div>
+	</section>
 	<!-- script-for-menu -->
 	<script>
 		$("span.menu").click(function() {
@@ -149,37 +173,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!--End-slider-script-->
 	<!--end-banner-->
 	<!--start-account-->
-	<div class="account" style="padding: 0;">
-		<div class="container">
-			<div class="account-main">
-					<div class="col-xs-6 account-right" style="width: 50%; padding: 0">
-						<a class="play-icon popup-with-zoom-anim" href="#small-dialog" onclick="$('#formQuickAccount').trigger('reset');"><span> </span>CADASTRAR-SE</a>
-					</div>
-					<div class="col-xs-6 account-right" style="width: 50%; padding: 0">
-						<a class="play-icon" href="#follow"><span> </span>ACOMPANHAR</a>
-					</div>
-				<div class="clearfix">
+	<!--start-about-->
+		<div class="contact" id="about" >
+			<div class="about-main">
+				<div class="container">
+					<h2 style="color: #666666">Este é um Sistema de Acompanhamento de Serviços.</h2>
+					<h3>
+						É Útil e <b>Descomplicado</b>.
+					</h3>
+					<br/>
+					<h2>
+						Permite que Seu Cliente <b>Acompanhe</b> o que Está em Andamento.
+					</h2>
+					<h3>Veja Como:</h3>
+				</div>
 			</div>
 		</div>
-	</div>
-	</div>
-	<!--start-about-->
-	<div class="about" id="about">
 		<div class="container">
-			<div class="about-main">
-				<img src="@{'public/templatepublic/images/spl.png'}" alt="" />
-				<h2 style="color: #666666">Este é um Sistema de Acompanhamento de Serviços.</h2>
-				<h3>
-					É Útil e <b>Descomplicado</b>.
-				</h3>
-				<h2>
-					Permite que Seu Cliente <b>Acompanhe</b> o que Está em Andamento.
-				</h2>
-				<h3>Veja Como:</h3>
-			</div>
 			<div class="about-bottom" style="margin: 0;">
 				<div class="abt">
-					<div class="col-md-4 about-left active">
+					<div class="col-md-4 about-left">
 						<div class="abt-one">
 							<div class="abt-left">
 								<span class="flr"> </span>
@@ -194,7 +207,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="col-md-4 about-left">
 						<div class="abt-one">
 							<div class="abt-left">
-								<span class="ard active"> </span>
+								<span class="hnd active"> </span>
 							</div>
 							<div class="abt-right">
 								<h4>#2 Código</h4>
@@ -219,105 +232,78 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 			</div>
 			<div class="special-btm">
-					<div class="portfolios entertain_box  wow fadeInUp" data-wow-delay="0.4s" id="portfolio">
-			<div class="portfolio-top">
-			<ul id="filters" class="clearfix">
-						<li><span class="filter active" data-filter="app card icon logo web">O SISTEMA</span></li>
-						<li><span class="filter" data-filter="app">SERVIÇOS</span></li>
-						<li><span class="filter" data-filter="photo">ORDEM DE SERVIÇO</span></li>
-						<li><span class="filter" data-filter="card">ACOMPANHAMENTO</span></li>
-					</ul>
-					<div id="portfoliolist" style="   ">
-					<div class="portfolio app mix_all" data-cat="app" style=" display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="@{'public/templatepublic/images/p-1.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Dashboard com Informações Rápidas e Úteis.">
-						     <img src="@{'public/templatepublic/images/port-1.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Dashboard com Informações Rápidas e Úteis.</h2>
-						  	 </div></a>
-		                </div>
-					</div>				
-					<div class="portfolio card mix_all" data-cat="card" style=" display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="@{'public/templatepublic/images/p-2.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Cadastro de Serviço e Etapas Para Conclusão.">
-						     <img src="@{'public/templatepublic/images/port-2.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Processo de Criação de uma Ordem de Serviço.</h2>
-						  	 </div></a>
-		               </div>
-					</div>		
-					<div class="portfolio photo mix_all" data-cat="photo" style="">
-						<div class="portfolio-wrapper">		
-							<a href="@{'public/templatepublic/images/p-3.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Listagem de Ordens de Serviço.">
-						     <img src="@{'public/templatepublic/images/port-3.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Modo de Impressão da Ordem de Serviço para Entregar ao Cliente.</h2>
-						  	 </div></a>
-		                </div>
-					</div>				
-					<div class="portfolio card mix_all" data-cat="card" style=" display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="@{'public/templatepublic/images/p-4.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Listagem de SMSs Enviadas. Há Também para E-mails e Notificações Push.">
-						     <img src="@{'public/templatepublic/images/port-4.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Área do Cliente Para Acompanhamento de Serviços.</h2>
-						  	 </div></a>
-		                </div>
-					</div>	
-					<div class="portfolio photo mix_all" data-cat="photo" style="">
-						<div class="portfolio-wrapper">		
-							<a href="@{'public/templatepublic/images/p-5.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Modo de Impressão da Ordem de Serviço para Entregar ao Cliente.">
-						     <img src="@{'public/templatepublic/images/port-5.jpg'}"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Atualização das Ordens de Serviço Emitidas.</h2>
-						  	 </div></a>
-		                </div> 
-					</div>			
-					<div class="portfolio app mix_all" data-cat="app" style=" display: inline-block; opacity: 1;">
-						<div class="portfolio-wrapper">		
-							<a href="@{'public/templatepublic/images/p-6.jpg'}" class="b-link-stripe b-animate-go  swipebox" title="Área do Cliente Para Acompanhamento de Serviços.">
-						     <img src="@{'public/templatepublic/images/port-6.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Ordem de Serviço Expandida para Atualização. É Possível Alterar o Status das Etapas, Inserir Observações e Notificar o Cliente.</h2>
-						  	 </div></a>
-		                </div>
-		                
-					</div>		
-			</div>
-		</div>
-		</div>
+				<div class="portfolios entertain_box  wow fadeInUp" data-wow-delay="0.4s" id="portfolio">
+					<div class="portfolio-top">
+						<ul id="filters" class="clearfix">
+							<li><span class="filter active" data-filter="app card icon logo web">1.  SISTEMA</span></li>
+							<li><span class="filter" data-filter="app">2.  OS SERVIÇOS</span></li>
+							<li><span class="filter" data-filter="photo">3.  AS ORDENS DE SERVIÇO</span></li>
+							<li><span class="filter" data-filter="card">4.  ACOMPANHAMENTO</span></li>
+						</ul>
+						<div id="portfoliolist" style="   ">
+							<div class="portfolio app mix_all" data-cat="app" style=" display: inline-block; opacity: 1;">
+								<div class="portfolio-wrapper">		
+									<a href="@{'public/templatepublic/images/port-1.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Dashboard com Informações Rápidas e Úteis.">
+								     <img src="@{'public/templatepublic/images/port-1.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Dashboard com Informações Rápidas e Úteis.</h2>
+								  	 </div></a>
+				                </div>
+							</div>				
+							<div class="portfolio card mix_all" data-cat="card" style=" display: inline-block; opacity: 1;">
+								<div class="portfolio-wrapper">		
+									<a href="@{'public/templatepublic/images/port-2.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Cadastro de Serviço e Etapas Para Conclusão.">
+								     <img src="@{'public/templatepublic/images/port-2.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Processo de Criação de uma Ordem de Serviço.</h2>
+								  	 </div></a>
+				               </div>
+							</div>		
+							<div class="portfolio photo mix_all" data-cat="photo" style="">
+								<div class="portfolio-wrapper">		
+									<a href="@{'public/templatepublic/images/port-3.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Listagem de Ordens de Serviço.">
+								     <img src="@{'public/templatepublic/images/port-3.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Modo de Impressão da Ordem de Serviço para Entregar ao Cliente.</h2>
+								  	 </div></a>
+				                </div>
+							</div>				
+							<div class="portfolio card mix_all" data-cat="card" style=" display: inline-block; opacity: 1;">
+								<div class="portfolio-wrapper">		
+									<a href="@{'public/templatepublic/images/port-4.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Listagem de SMSs Enviadas. Há Também para E-mails e Notificações Push.">
+								     <img src="@{'public/templatepublic/images/port-4.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Área do Cliente Para Acompanhamento de Serviços.</h2>
+								  	 </div></a>
+				                </div>
+							</div>	
+							<div class="portfolio photo mix_all" data-cat="photo" style="">
+								<div class="portfolio-wrapper">		
+									<a href="@{'public/templatepublic/images/port-5.jpg'}" class="b-link-stripe b-animate-go   swipebox" title="Modo de Impressão da Ordem de Serviço para Entregar ao Cliente.">
+								     <img src="@{'public/templatepublic/images/port-5.jpg'}"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Atualização das Ordens de Serviço Emitidas.</h2>
+								  	 </div></a>
+				                </div> 
+							</div>			
+							<div class="portfolio app mix_all" data-cat="app" style=" display: inline-block; opacity: 1;">
+								<div class="portfolio-wrapper">		
+									<a href="@{'public/templatepublic/images/port-6.jpg'}" class="b-link-stripe b-animate-go  swipebox" title="Área do Cliente Para Acompanhamento de Serviços.">
+								     <img src="@{'public/templatepublic/images/port-6.jpg'}" style="top: 0px;"><div class="b-wrapper"><h2 class="b-animate b-from-left    b-delay03 ">Ordem de Serviço Expandida para Atualização. É Possível Alterar o Status das Etapas, Inserir Observações e Notificar o Cliente.</h2>
+								  	 </div></a>
+				                </div>
+				                
+							</div>		
+						</div>
+					</div>
 				</div>
+			</div>
 		</div>
 	</div>
 	
 	
 	
 	<div class="special" id="features">
-		<div class="container">
-			<div class="special-top">
-				<div class="col-md-12">
-				<div class="col-md-4 spl-left">
-					<div class="spl-one">
-						<span class="hnd"></span>
-						<h4>Controle de</h4>
-						<p>Pedidos</p>
-					</div>
+		<div class="special-btm">
+			<div class="account" style="background-color: #fff; padding-bottom: 50px">
+				<div class="special-bottom" id="products" style="margin: 10px">
+					<h2>
+						<b>Você presta algum serviço?</b>
+					</h2>
+					<h3 style="color: gray; margin: 0; font-weight: normal">
+						Então este Sistema <b>Pode Te Ajudar</b> Muito!
+					</h3>
 				</div>
-				<div class="col-md-4 spl-left">
-					<div class="spl-one">
-						<span class="wtp"> </span>
-						<h4>Boa</h4>
-						<p>Comunicação</p>
-					</div>
-				</div>
-				<div class="col-md-4 spl-left">
-					<div class="spl-one">
-						<span class="sml"></span>
-						<h4>Cliente</h4>
-						<p>Satisfeito</p>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-			</div>
-			</div>
-			<div class="special-bottom" id="products">
-				<img src="@{'public/templatepublic/images/spl.png'}" alt="">
-				<h2>
-					<b>Você presta algum serviço?</b>
-				</h2>
-				<h3 style="color: gray; margin: 0; font-weight: normal">
-					Então este Sistema <b>Pode Te Ajudar</b> Muito!
-				</h3>
-			</div>
-			<div class="special-btm">
 				<div class="portfolio-top">
 					<ul id="filters" class="clearfix">
 						<li style="margin: 5px;"><span class="filter">ASSISTÊNCIA TÉCNICA</span></li>
@@ -331,24 +317,45 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<li style="margin: 5px;"><span class="filter">TRANSPORTE</span></li>
 					</ul>
 				</div>
-				<div class="special-bottom" id="products">
-				</div>
-				<div class="account">
-					<div class="container">
-						<div class="account-main">
-							<div class="col-md-8 account-left">
-								<p>Diferencie-se do Concorrente.</p>
-							</div>
-							<div class="col-md-4 account-right">
-								<a class="play-icon popup-with-zoom-anim" href="#small-dialog"><span> </span>QUERO CRIAR UMA CONTA</a>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
+	<section id="cta">
+	<div class="col-md-12">
+		<div class="col-md-4 spl-left">
+			<div class="spl-one">
+				<span class="hnd"></span>
+				<h4>Controle de</h4>
+				<p>Pedidos</p>
+			</div>
+		</div>
+		<div class="col-md-4 spl-left">
+			<div class="spl-one">
+				<span class="wtp"> </span>
+				<h4>Boa</h4>
+				<p>Comunicação</p>
+			</div>
+		</div>
+		<div class="col-md-4 spl-left">
+			<div class="spl-one">
+				<span class="sml"></span>
+				<h4>Cliente</h4>
+				<p>Satisfeito</p>
+			</div>
+		</div>
+	</div>
+	
+		<header>
+			<h2>Bom relacionamento é a <strong>chave de tudo</strong>!</h2>
+			<p>Uma Vez Respeitado e Valorizado, Seu Cliente Certamente Indicará Os Seus Serviços.</p>
+		</header>
+		<footer>
+			<ul class="buttons">
+				<li><a class="button special popup-with-zoom-anim" href="#small-dialog" onclick="$('#formQuickAccount').load(location.href+' #formQuickAccount>*',''); $('.menu').click();">QUERO UMA CONTA</a></li>
+				<li><a class="button popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); $('.menu').click();">TENHO DÚVIDAS</a></li>
+			</ul>
+		</footer>
+	</section>
 	<!--end-about-->
 	<link rel="stylesheet" href="@{'public/templatepublic/css/swipebox.css'}">
 	<script src="@{'public/templatepublic/js/jquery.swipebox.min.js'}"></script>
@@ -436,22 +443,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="contact" id="follow">
 		<div class="container">
 			<div class="contact-top">
-				<img src="@{'public/templatepublic/images/abt-1.png'}" alt="" />
-				<h2>Acompanhe o seu pedido</h2>
-				<h3 style="color: gray; margin: 0; font-weight: normal">Você tem o código aí? Insira abaixo:</h3>
+				<h2>Acompanhe o seu <strong>pedido</strong></h2>
+				<h3 style="color: gray; margin: 0; font-weight: normal">Você tem o código aí?</h3>
+				<h4><strong>Insira abaixo:<strong></h4>
 			</div>
 			<div class="contact-bottom">
 				<form action="/" method="get" id="formFollow">
 					<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}"
-						style="text-transform: uppercase; width: 205px; font-size: 30px;" />
+						style="text-transform: uppercase; width: 280px; font-size: 30px; border-radius: 0;" />
 					<div id="message">
 						#{list errors, as:'error'}
 						<p>&{error.message()}</p>
 						#{/list}
 					</div>
-					<div class="contact-but">
-						<input id="followOrderCode" type="button" value="Acompanhar" onclick="return followordercode()" />
-					</div>
+					<ul class="buttons">
+						<li><input id="followOrderCode" type="button" class="button" value="Acompanhar" onclick="return followordercode()" /></li>
+					</ul>
 					<input type="hidden" id="response" name="response" value="${response}" /> <input type="hidden" id="status" name="status" value="${status}" />
 				</form>
 			</div>

@@ -89,7 +89,6 @@ public class Admin extends Controller {
 						smsExceedLimit, userFreeTrial, allSents, contSentMails);
 			} else {
 				/* Redirect to page of information about expired license */
-				session.put("enableUser", "false");
 				render("@Admin.expiredLicense", connectedUser);
 			}
 		}
