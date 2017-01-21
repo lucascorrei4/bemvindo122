@@ -1713,7 +1713,7 @@ h2.marriage {
 		top: 39%;
 	}
 	.special {
-		padding-bottom: 5em;
+		padding-bottom: 0;
 	}
 	.pricing-top img, .about-main img, .special-bottom img, .test-top img,
 		.contact-top img {
@@ -1896,7 +1896,7 @@ h2.marriage {
 		top: 44%;
 	}
 	.special {
-		padding-bottom: 3.5em;
+		padding-bottom: 0;
 	}
 	span.menu {
 		margin: 10px 1px 0 0;
@@ -2122,7 +2122,7 @@ h2.marriage {
 		background-size: 378%;
 	}
 	.special {
-		padding-bottom: 2.8em;
+		padding-bottom: 0;
 	}
 	.pricing {
 		padding: 2.5em 0;
@@ -2371,7 +2371,7 @@ h2.marriage {
 		padding: 2% 0px;
 	}
 	.special {
-		padding-bottom: 2.3em;
+		padding-bottom: 0;
 	}
 	.pricing-left {
 		width: 48%;
