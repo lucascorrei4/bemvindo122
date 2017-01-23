@@ -51,10 +51,12 @@ function followordercode() {
 				$("#message2").css("color", "gray");
 				$("#message2").show();
 				$("#message2").html($("#response2").val());
+				$('#formFollow').reset();
 			} else {
 				$("#message2").css("color", "red");
 				$("#message2").show();
 				$("#message2").html($("#response2").val());               
+				$('#formFollow').reset();
 			}
 		});
 	}

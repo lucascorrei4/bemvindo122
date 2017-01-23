@@ -1,11 +1,50 @@
-<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase; width: 280px; font-size: 30px; border-radius: 0;" /> 
-<div id="message2">
-	#{list errors, as:'error'}
-		<p>&{error.message()}</p>
-	#{/list}		
-</div>
-<ul class="buttons">
-	<li><input id="followOrderCode" type="button" class="button" value="Acompanhar" onclick="return followordercode()" /></li>
-</ul>
-<input type="hidden" id="response2" name="response" value="${response}" /> 
-<input type="hidden" id="status2" name="status" value="${status}" /> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="@{'public/templatebootstrap/bower_components/bootstrap/dist/css/bootstrap.css'}" rel="stylesheet">
+
+
+    <!-- Custom Fonts -->
+    <link href="@{'public/templatebootstrap/bower_components/font-awesome/css/font-awesome.min.css'}" rel="stylesheet" type="text/css">
+    
+    <!-- HTML5 Shim and Respond.js'} IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js'} doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js'}/1.4.2/respond.min.js'}"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="wrapper">
+        <div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" style="text-align: center;">${response}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#wrapper -->
+    
+    <!-- jQuery -->
+    <script src="@{'public/templatebootstrap/bower_components/jquery/dist/jquery.min.js'}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="@{'public/templatebootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.js'}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
+
+</body>
+
+</html>

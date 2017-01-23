@@ -11,7 +11,7 @@
 		width : 150,
 		height : 150
 	});
-	qrcode.makeCode("http://seupedido.online");
+	qrcode.makeCode("http://seupedido.online/acompanhe");
 </script>
 </head>
 <body class="ember-application">
@@ -75,7 +75,7 @@
 								<input id="ember455" class="invoice-due-date no-markers ember-view ember-text-field" type="text" value="Consulta">
 							</div>
 							<div class="col-md-8 no-padding">
-								<input id="ember456" placeholder="http://seupedido.online" class="invoice-due-date-body no-markers ember-view ember-text-field" type="text" value="http://seupedido.online">
+								<input id="ember456" placeholder="http://seupedido.online/acompanhe" class="invoice-due-date-body no-markers ember-view ember-text-field" type="text" value="http://seupedido.online/acompanhe">
 							</div>
 						</div>
 					</div>
@@ -187,7 +187,7 @@
 				<div class="row row-m1em" style="margin-top: 200px">
 					<div class="col-md-8">
 						<p
-							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. geral:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>http://seupedido.online</b></p>
+							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. geral:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>http://seupedido.online/acompanhe</b></p>
 					</div>
 					<div class="col-md-4">
 						<div id="qrcode"></div>

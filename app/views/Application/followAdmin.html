@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Acompanhe | Seu Pedido Online</title>
+		<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+		<script>
+		    var OneSignal = window.OneSignal || [];
+		    OneSignal.push(["init", {
+		      appId: "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
+		      autoRegister: true, /* Set to true to automatically prompt visitors */
+		      subdomainName: 'https://seupedido.onesignal.com',   
+		      httpPermissionRequest: {
+		        enable: true
+		      },
+		      notifyButton: {
+		          enable: true, /* Required to use the notify button */
+		          size: 'large', /* One of 'small', 'medium', or 'large' */
+		          theme: 'default', /* One of 'default' (red-white) or 'inverse" (white-red) */
+		          position: 'bottom-left', /* Either 'bottom-left' or 'bottom-right' */
+		          offset: {
+		              bottom: '0px',
+		              left: '0px', /* Only applied if bottom-left */
+		              right: '0px' /* Only applied if bottom-right */
+		          },
+		          prenotify: true, /* Show an icon with 1 unread message for first-time site visitors */
+		          showCredit: false, /* Hide the OneSignal logo */
+		          text: {
+		              'tip.state.unsubscribed': 'Clique para receber notificações!',
+		              'tip.state.subscribed': "Ótimo! Você já está registrado para receber notificações!",
+		              'tip.state.blocked': "Fique tranquilo! Você não vai receber mais notificações!",
+		              'message.prenotify': 'Clique para receber notificações!',
+		              'message.action.subscribed': "Obrigado!",
+		              'message.action.resubscribed': "Ótimo! Você receberá avisos sobre este pedido!",
+		              'message.action.unsubscribed': "Fique tranquilo! Você não receberá mais notificações!",
+		              'dialog.main.title': 'Confirmação de recebimento de notificações',
+		              'dialog.main.button.subscribe': 'Quero receber!',
+		              'dialog.main.button.unsubscribe': 'Eu não quero!',
+		              'dialog.blocked.title': 'Desbloquear notificações',
+		              'dialog.blocked.message': "Siga as instruções para receber notificações:"
+		          }
+		      },
+		      promptOptions: {
+		          /* Change bold title, limited to 30 characters */
+		          siteName: 'Confirmação de recebimento',
+		          /* Subtitle, limited to 90 characters */
+		          actionMessage: "Confirme para receber todas as atualizações do seu pedido.",
+		          /* Example notification title */
+		          exampleNotificationTitle: 'Este é um exemplo de notificação',
+		          /* Example notification message */
+		          exampleNotificationMessage: 'Aqui vai a descrição da notificação...',
+		          /* Text below example notification, limited to 50 characters */
+		          exampleNotificationCaption: 'Obs.: Você poderá cancelar em qualquer momento!',
+		          /* Accept button text, limited to 15 characters */
+		          acceptButtonText: "EU QUERO! :)",
+		          /* Cancel button text, limited to 15 characters */
+		          cancelButtonText: "EU NÃO QUERO!"
+		      }
+		    }]);
+		</script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="@{'public/templatefollow/assets/js/ie/html5shiv.js'}"></script><![endif]-->
+		<link rel="stylesheet" href="@{'public/templatefollow/assets/css/main.css'}" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="@{'public/templatefollow/assets/css/ie8.css'}" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="@{'public/templatefollow/assets/css/ie9.css'}" /><![endif]-->
+		<script type="text/javascript">
+			function loadIframe(iframeName, url) {
+	       	    var $iframe = $('#' + iframeName);
+	       	    if ( $iframe.length ) {
+	       	        $iframe.attr('src',url);   
+	       	        return false;
+	       	    }
+	       	    return true;
+	       	}
+		</script>
+	</head>
+	<body class="contact">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo">Área de <span>acompanhamento</span></a></h1>
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="/">Início</a></li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Main -->
+				<article id="main">
+					<header class="special container">
+	                	<a href="@{Application.index}"> 
+							<img  class="img-responsive" src="@{'public/images/logo-admin.png'}">
+						</a>
+						<span class="icon fa-hand-o-down fa-fw"></span>
+						<h2><strong>Acompanhe</strong></h2>
+						<p>Insira o código abaixo:</p>
+						<div class="row">
+							<div class="12u">
+								<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase;  font-size: 30px; border-radius: 0; margin: 0 auto; width: 10em;" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+                                <label>
+                                    <input id="checkReceive" name="checkReceive" type="checkbox">Quero ser notificado a cada mudança de status
+                                </label>
+								<ul class="buttons">
+									<li><input id="followOrderCode" type="button" class="special" value="Enviar" onclick="loadIframe('ifollow', '/follow?orderCode=' + document.getElementById('orderCode').value);" /></li>
+								</ul>
+							</div>
+						</div>
+					</header>
+					<!-- One -->
+						<section class="wrapper style4 special container" style="padding: 0">
+							<iframe id="ifollow" src="#" style="max-width: 100%;  width: 100%; height: 600px; left: 0; overflow-x:hidden" frameborder="0" width="100%" height="100%"></iframe> 
+						</section>
+
+				</article>
+
+			<!-- Footer -->
+				<footer id="footer">
+
+					<ul class="icons">
+						<li><a href="http://twitter.com/seupedidoonline" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="http://fb.com/seupedidoonline" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+					</ul>
+
+					<ul class="copyright">
+						<li>&copy; <a href="/">Seu Pedido Online</a></li><li>contato@seupedido.online</li>
+					</ul>
+
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="@{'public/templatefollow/assets/js/jquery.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/jquery.dropotron.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/jquery.scrolly.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/jquery.scrollgress.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/skel.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/util.js'}"></script>
+			<!--[if lte IE 8]><script src="@{'public/templatefollow/assets/js/ie/respond.min.js'}"></script><![endif]-->
+			<script src="@{'public/templatefollow/assets/js/main.js'}"></script>
+			
+			<script>
+         var OneSignal = OneSignal || [];
+         function subscribe() {
+         	OneSignal.push(["registerForPushNotifications"]);
+         	OneSignal.push(function() {
+         		setTimeout(function myFunction() {
+         			var orderCode = jQuery('#ifollow').contents().find('#orderCode').val();
+	         		if($('#checkReceive').is(':checked') && orderCode) {
+	            		OneSignal.sendTags({orderCode: orderCode});
+	            		alert('oiaaa');
+	            		return false;
+	         		}
+         		}, 2000)
+            });
+            event.preventDefault();
+         }
+
+         /* This example assumes you've already initialized OneSignal */
+         OneSignal.push(function() {
+             // If we're on an unsupported browser, do nothing
+             if (!OneSignal.isPushNotificationsSupported()) {
+                 return;
+             }
+             OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                 if (isEnabled) {
+                     // The user is subscribed to notifications
+                 } else {
+                     document.getElementById("followOrderCode").addEventListener('click', subscribe);
+                     document.getElementById("subscribe-link").style.display = '';
+                 }
+             });
+         });
+     </script>
+	</body>
+</html>

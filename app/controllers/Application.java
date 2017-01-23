@@ -465,5 +465,9 @@ public class Application extends Controller {
 		}
 		return true;
 	}
+	
+	public static void followAdmin() {
+		render();
+	}
 
 }

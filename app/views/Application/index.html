@@ -1,14 +1,8 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE html>
 <html>
 <head>
 
-<title>Seu Pedido Online | Acompanhe</title>
+<title>Seu Cliente Paciente | Seu Pedido Online </title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Acompanhamento de Serviços e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
@@ -39,7 +33,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta property="og:image" content="@{'public/images/logo-admin.png'}">
 <link rel="shortcut icon" type="image/png" href="@{'public/images/favicon16x16.png'}" />
 <script type="application/x-javascript">
-	 addEventListener("load", function() { setTimeout(, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
+	 addEventListener("load", function() { setTimeout(null, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } 
 </script>
 <link href="@{'public/templatepublic/css/bootstrap.css'}" rel='stylesheet' type='text/css' />
 <link href="@{'public/templatepublic/css/style.css'}" rel='stylesheet' type='text/css' />
@@ -57,6 +51,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				scrollTop : $(this.hash).offset().top
 			}, 1000);
 		});
+		$('#orderCode').val('');
 	});
 </script>
 
@@ -100,7 +95,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<footer>
 						<ul class="buttons vertical">
 							<li><a href="#about" class="button fit scrolly scroll">QUERO CONHECER</a></li>
-							<li><a href="#follow" class="button fit scrolly scroll">ACOMPANHAR</a></li>
+							<li><a href="/acompanhe" target="_blank" class="button fit">ACOMPANHAR</a></li>
 						</ul>
 					</footer>
 				</div>
@@ -169,10 +164,34 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 		});
 	</script>
-	<!--End-slider-script-->
-	<!--end-banner-->
-	<!--start-account-->
-	<!--start-about-->
+		<article id="main">
+			<section class="wrapper style4 special container 75%" id="features">
+	
+			<div class="account" style="background-color: #fff; padding-bottom: 50px">
+				<div class="special-bottom" id="products" style="margin: 10px">
+					<h2>
+						<b>Você presta algum serviço?</b>
+					</h2>
+					<h3 style="color: gray; margin: 0; font-weight: normal">
+						Então este Sistema <b>Pode Te Ajudar</b> Muito!
+					</h3>
+				</div>
+				<div class="portfolio-top">
+					<ul id="filters" class="clearfix">
+						<li style="margin: 5px;"><span class="filter">ASSISTÊNCIA TÉCNICA</span></li>
+						<li style="margin: 5px;"><span class="filter">ENCOMENDAS</span></li>
+						<li style="margin: 5px;"><span class="filter">SERVIÇOS ARTESANAIS</span></li>
+						<li style="margin: 5px;"><span class="filter">ENTREGAS DE PIZZAS, SANDUÍCHES</span></li>
+						<li style="margin: 5px;"><span class="filter">CLÍNICAS</span></li>
+						<li style="margin: 5px;"><span class="filter">CONSULTÓRIOS</span></li>
+						<li style="margin: 5px;"><span class="filter">OFICINAS</span></li>
+						<li style="margin: 5px;"><span class="filter">EMISSÃO DE PROCESSOS</span></li>
+						<li style="margin: 5px;"><span class="filter">TRANSPORTE</span></li>
+					</ul>
+				</div>
+			</div>
+			</section>
+		</article>
 		<div class="contact" id="about" >
 			<div class="about-main">
 				<div class="container">
@@ -289,60 +308,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 		</div>
 	</div>
-	
-	
-	
-	<div class="special" id="features">
-		<div class="special-btm">
-			<div class="account" style="background-color: #fff; padding-bottom: 50px">
-				<div class="special-bottom" id="products" style="margin: 10px">
-					<h2>
-						<b>Você presta algum serviço?</b>
-					</h2>
-					<h3 style="color: gray; margin: 0; font-weight: normal">
-						Então este Sistema <b>Pode Te Ajudar</b> Muito!
-					</h3>
-				</div>
-				<div class="portfolio-top">
-					<ul id="filters" class="clearfix">
-						<li style="margin: 5px;"><span class="filter">ASSISTÊNCIA TÉCNICA</span></li>
-						<li style="margin: 5px;"><span class="filter">ENCOMENDAS</span></li>
-						<li style="margin: 5px;"><span class="filter">SERVIÇOS ARTESANAIS</span></li>
-						<li style="margin: 5px;"><span class="filter">ENTREGAS DE PIZZAS, SANDUÍCHES</span></li>
-						<li style="margin: 5px;"><span class="filter">CLÍNICAS</span></li>
-						<li style="margin: 5px;"><span class="filter">CONSULTÓRIOS</span></li>
-						<li style="margin: 5px;"><span class="filter">OFICINAS</span></li>
-						<li style="margin: 5px;"><span class="filter">EMISSÃO DE PROCESSOS</span></li>
-						<li style="margin: 5px;"><span class="filter">TRANSPORTE</span></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
 	<section id="cta">
-	<div class="col-md-12">
-		<div class="col-md-4 spl-left">
-			<div class="spl-one">
-				<span class="hnd"></span>
-				<h4>Controle de</h4>
-				<p>Pedidos</p>
+		<div class="col-md-12">
+			<div class="col-md-4 spl-left">
+				<div class="spl-one">
+					<span class="hnd"></span>
+					<h4>Controle de</h4>
+					<p>Pedidos</p>
+				</div>
+			</div>
+			<div class="col-md-4 spl-left">
+				<div class="spl-one">
+					<span class="wtp"> </span>
+					<h4>Boa</h4>
+					<p>Comunicação</p>
+				</div>
+			</div>
+			<div class="col-md-4 spl-left">
+				<div class="spl-one">
+					<span class="sml"></span>
+					<h4>Cliente</h4>
+					<p>Satisfeito</p>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-4 spl-left">
-			<div class="spl-one">
-				<span class="wtp"> </span>
-				<h4>Boa</h4>
-				<p>Comunicação</p>
-			</div>
-		</div>
-		<div class="col-md-4 spl-left">
-			<div class="spl-one">
-				<span class="sml"></span>
-				<h4>Cliente</h4>
-				<p>Satisfeito</p>
-			</div>
-		</div>
-	</div>
 	
 		<header>
 			<h2>Bom relacionamento é a <strong>chave de tudo</strong>!</h2>
@@ -439,31 +428,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</script>
 	<!--End-pop-up-box-->
 	<!--start-contact-->
-	<div class="contact" id="follow">
-		<div class="container">
-			<div class="contact-top">
-				<h2>Acompanhe o seu <strong>pedido</strong></h2>
-				<h3 style="color: gray; margin: 0; font-weight: normal">Você tem o código aí?</h3>
-				<h4><strong>Insira abaixo:<strong></h4>
-			</div>
-			<div class="contact-bottom">
-				<form action="/" method="get" id="formFollow">
-					<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}"
-						style="text-transform: uppercase; width: 280px; font-size: 30px; border-radius: 0;" />
-					<div id="message">
-						#{list errors, as:'error'}
-						<p>&{error.message()}</p>
-						#{/list}
-					</div>
-					<ul class="buttons">
-						<li><input id="followOrderCode" type="button" class="button" value="Acompanhar" onclick="return followordercode()" /></li>
-					</ul>
-					<input type="hidden" id="response" name="response" value="${response}" /> <input type="hidden" id="status" name="status" value="${status}" />
-				</form>
-			</div>
-		</div>
-	</div>
-	<!--end-contact-->
 	<!--start-footer-->
 	#{include 'includes/footerPublic.html' /}
 	<!--end-footer-->
