@@ -2,6 +2,8 @@
 <div class="login">
 	<form action="/" method="post" id="formQuickAccount">
 		<h3>Criar Nova Conta</h3>
+		<h4>Após o cadastro, você será convidado para Entrar.</h4>
+		
 		<input type="text" id="name" name="user.name" placeholder="Seu nome * #{error 'user.name' /}" value="${flash['user.name']}" /> 
 		
 		<input type="text" id="lastName" name="user.lastName" placeholder="Seu sobrenome * #{error 'user.lastName' /}" value="${flash['user.lastName']}" />
@@ -20,7 +22,7 @@
 			#{/list}		
 		</div>
 		<input id="saveUser" type="button" value="Confirmar" onclick="saveQuickAccount()" />
-		<a id="btnLogin" href="/login" class="btn btn-success active" style="display: none; width: 100px; font-size: 18px; margin: 9px">Entrar</a>
+		<input id="btnLogin" type="button" value="Entrar" onclick="window.location.href='/login'" style="display: none; background: #D5E1F4 none repeat scroll 0 0;" />
 
 		<input type="hidden" id="response" name="response" value="${response}" /> 
 		<input type="hidden" id="status" name="status" value="${status}" /> 

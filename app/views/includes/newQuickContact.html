@@ -13,7 +13,7 @@
 		
 		<input type="text" id="title" name="message.title" placeholder="Digite o título" value="${flash['message.title']}" />
 		
-		<textarea id="description" rows="3" placeholder="Insira a mensagem aqui" name="message.description" style="width: 100%;">${flash['message.description']}</textarea>
+		<textarea id="description" rows="3" placeholder="Insira a mensagem aqui" name="message.description" style="width: 100%; margin-top: 1em">${flash['message.description']}</textarea>
 			
 		<div id="message">
 			#{list errors, as:'error'}

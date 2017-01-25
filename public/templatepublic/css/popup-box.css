@@ -7,7 +7,7 @@
 	margin: 40px auto;
 	position: relative;
 	text-align:center;
-	border: 5px solid #808000;
+	border: 5px solid #006936;
 	border-radius: 15px;
 	-webkit-border-radius: 15px;
 	-moz-border-radius: 15px;
@@ -64,6 +64,7 @@ transition: all 0.2s ease-in-out;
 -ms-transform: scale(0.8);
 -o-transform: scale(0.8);
 transform: scale(0.8);
+margin: 0 auto;
 }
 /* animate in */
 .my-mfp-zoom-in.mfp-ready #small-dialog {
@@ -266,14 +267,14 @@ button::-moz-focus-inner {
 }
 .login h3,.signup h3{
 	margin:0;
-	color: #808000;
+	color: #006936;
 }
 .login input[type="text"], .login input[type="password"] {
-	width: 48%;
+	width: 80%;
 	padding: 10px;
 	color: #999;
 	border: none;
-	margin: 5px 0;
+	margin: 0 auto;
 	outline: none !important;
 	outline: none;
 	border-bottom: 3px solid #999;
@@ -298,10 +299,10 @@ button::-moz-focus-inner {
 	color: #cacaca;
 }
 .login input[type="submit"], .signup input[type="submit"], .login input[type="button"], .signup input[type="button"] {
-	background: #808000;
+	background: #006936;
 	border: 0px;
 	padding: 9px 22px;
-	margin: 33px 10px 10px 10px;
+	margin: 33px 0px 33px 0px;
 	outline: none;
 	color: #fff;
 	text-transform: uppercase;

@@ -65,8 +65,8 @@
 					<div class="navigation">
 						<span class="menu"></span>
 						<ul class="navig">
-							<li><a href="#about" class="scroll">COMO FUNCIONA?</a></li>
 							<li><a href="#features" class="scroll">SERVE PRA MIM?</a></li>
+							<li><a href="#about" class="scroll">COMO FUNCIONA?</a></li>
 							<li><a class="popup-with-zoom-anim active" href="#small-dialog" onclick="$('#formQuickAccount').load(location.href+' #formQuickAccount>*',''); ">CRIE UMA CONTA</a></li>
 							<li><a class="popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); ">TENHO DÚVIDAS</a></li>
 							<li><a href="/login">ENTRAR</a></li>
@@ -167,13 +167,14 @@
 		<article id="main">
 			<section class="wrapper style4 special container 75%" id="features">
 	
-			<div class="account" style="background-color: #fff; padding-bottom: 50px">
+			<div class="account" style="background-color: #fff; padding-bottom: 50px; padding-top: 0">
 				<div class="special-bottom" id="products" style="margin: 10px">
-					<h2>
+					<h2 style="margin:0;">
 						<b>Você presta algum serviço?</b>
 					</h2>
+					<h3 style="margin:0;">SE SIM,</h3>
 					<h3 style="color: gray; margin: 0; font-weight: normal">
-						Então este Sistema <b>Pode Te Ajudar</b> Muito!
+						este Sistema <b>Pode Te Ajudar</b> Muito!
 					</h3>
 				</div>
 				<div class="portfolio-top">
@@ -190,6 +191,13 @@
 					</ul>
 				</div>
 			</div>
+			<footer>
+				<h3 style="margin:0; font-weight:  bold">Quer receber gratuitamente um e-book sobre o funcionamento do sistema?</h3>
+				<ul class="buttons">
+					<li><input type="text" name="newsletter" placeholder="Digite seu melhor e-mail" value="${flash['newsletter']}" style="text-transform: uppercase; border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
+					<li><a class="button popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); ">QUERO RECEBER</a></li>
+				</ul>
+			</footer>
 			</section>
 		</article>
 		<div class="contact" id="about" >
@@ -341,6 +349,12 @@
 			<ul class="buttons">
 				<li><a class="button special popup-with-zoom-anim" href="#small-dialog" onclick="$('#formQuickAccount').load(location.href+' #formQuickAccount>*',''); ">QUERO UMA CONTA</a></li>
 				<li><a class="button popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); ">TENHO DÚVIDAS</a></li>
+			</ul>
+			
+			<h3 style="margin-top:4em; font-weight:  bold">Confirme abaixo para receber gratuitamente um e-book sobre o funcionamento do sistema.</h3>
+			<ul class="buttons">
+				<li><input type="text" name="newsletter" placeholder="Digite seu melhor e-mail" value="${flash['newsletter']}" style="text-transform: uppercase; border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
+				<li><a class="button popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); ">QUERO RECEBER</a></li>
 			</ul>
 		</footer>
 	</section>
