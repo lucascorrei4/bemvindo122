@@ -81,9 +81,6 @@ body a {
 		color: rgba(124, 128, 129, 0.5) !important;
 	}
 
-h1, h2, h3, h4, h5, h6 {
-	margin: 0;
-}
 
 p {
 	margin: 0;
@@ -152,7 +149,7 @@ ul.navig li a:hover, ul.navig li a.active {
 	-o-transition: 0.5s all;
 	-moz-transition: 0.5s all;
 	-ms-transition: 0.5s all;
-	background: #5FBB60;
+	background: #46B048;
 	border-radius: 0.3em;
 	border: 1px solid rgba(255, 255, 255, 0.73);
 }
@@ -164,7 +161,7 @@ ul.navig li a:hover ul.navig li a:after {
 ul.navig li a:after {
 	width: 15px;
 	height: 15px;
-	background: red;
+	background: #006936;
 	display: none;
 	content: "";
 	position: absolute;
@@ -1678,7 +1675,7 @@ h2.marriage {
 		width: 20%;
 	}
 	.navigation {
-		width: 73%;
+		width: auto;
 		text-align: right;
 	}
 	.banner-bottom h1 {
@@ -1867,12 +1864,14 @@ h2.marriage {
 		width: 82%;
 		line-height: 1.2em;
 		height: auto;
+		color: #000;
 	}
 	.banner-bottom p {
 		font-size: 17px;
 		width: 69%;
 		text-align: center;
 		height: auto;
+		color: #ccc;
 	}
 	.banner {
 		min-height: 440px;
@@ -1913,7 +1912,6 @@ h2.marriage {
 		display: none;
 	}
 	.col-md-4.about-left {
-		width: 50%;
 		float: left;
 	}
 	.col-md-3.spl-left:nth-child(3) {
@@ -2442,7 +2440,7 @@ h2.marriage {
 		font-size: 11px;
 	}
 	#portfoliolist .portfolio {
-		width: 48%;
+		width: 100%;
 		margin: 9px 1.1% 1% 3px;
 	}
 	div#portfoliolist {
@@ -2758,7 +2756,7 @@ h2.marriage {
 /*--media-quaries-ends-here--*/
 .er {
 	width: 50%;
-	color: red;
+	color: #006936;
 	font-family: Arial, 'Lato', sans-serif;
 	font-size: 13px;
 	padding: 2px;

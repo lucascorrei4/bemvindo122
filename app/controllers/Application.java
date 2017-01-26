@@ -18,6 +18,7 @@ import com.google.gson.JsonParser;
 
 import models.BodyMail;
 import models.Institution;
+import models.MailList;
 import models.Message;
 import models.MoipNotification;
 import models.OrderOfService;
@@ -32,6 +33,7 @@ import models.User;
 import play.data.validation.Error;
 import play.data.validation.Valid;
 import play.mvc.Controller;
+import util.FromEnum;
 import util.UserInstitutionParameter;
 import util.Utils;
 
@@ -465,9 +467,44 @@ public class Application extends Controller {
 		}
 		return true;
 	}
-	
+
 	public static void followAdmin() {
 		render();
+	}
+
+	public static void saveMailList() {
+		String response = null;
+		String status = null;
+		String body = params.get("body", String.class);
+		String[] params = body.split("&");
+		String name = Utils.getValueFromUrlParam(params[0]);
+		String mail = Utils.getValueFromUrlParam(params[1]);
+		String from = Utils.getValueFromUrlParam(params[2]);
+		MailList mailList = new MailList();
+		mailList.id = 0l;
+		if (Utils.isNullOrEmpty(name)) {
+			mailList.setName("");
+		} else {
+			mailList.setName(name);
+		}
+		mailList.setName(name);
+		mailList.setMail(mail);
+		mailList.from = FromEnum.getNameByValue(from);
+		validation.clear();
+		validation.valid(mailList);
+		validation.email(mailList.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
+				.key("mailList.mail1");
+		if (validation.hasErrors()) {
+			status = "ERROR";
+			response = "Houve um problema. :(";
+			render("Application/newPass.html", response, status);
+		} else {
+			mailList.setPostedAt(Utils.getCurrentDateTime());
+			mailList.save();
+			status = "SUCCESS";
+			response = "Nova senha criada com sucesso. Estamos voltando para a página de login. Ok?";
+			render("Application/newPass.html", response, status);
+		}
 	}
 
 }
