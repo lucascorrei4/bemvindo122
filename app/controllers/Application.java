@@ -472,11 +472,12 @@ public class Application extends Controller {
 		render();
 	}
 
-	public static void saveMailList() {
+	public static void saveMailList() throws UnsupportedEncodingException {
 		String response = null;
 		String status = null;
 		String body = params.get("body", String.class);
-		String[] params = body.split("&");
+		String decodedParams = URLDecoder.decode(body, "UTF-8");
+		String[] params = decodedParams.split("&");
 		String name = Utils.getValueFromUrlParam(params[0]);
 		String mail = Utils.getValueFromUrlParam(params[1]);
 		String from = Utils.getValueFromUrlParam(params[2]);
@@ -489,7 +490,7 @@ public class Application extends Controller {
 		}
 		mailList.setName(name);
 		mailList.setMail(mail);
-		mailList.from = FromEnum.getNameByValue(from);
+		mailList.origin = FromEnum.getNameByValue(from);
 		validation.clear();
 		validation.valid(mailList);
 		validation.email(mailList.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
@@ -497,14 +498,18 @@ public class Application extends Controller {
 		if (validation.hasErrors()) {
 			status = "ERROR";
 			response = "Houve um problema. :(";
-			render("Application/newPass.html", response, status);
+			render("Application/index.html", response, status);
 		} else {
-			mailList.setPostedAt(Utils.getCurrentDateTime());
-			mailList.save();
-			status = "SUCCESS";
-			response = "Nova senha criada com sucesso. Estamos voltando para a página de login. Ok?";
-			render("Application/newPass.html", response, status);
+			if (MailList.verifyByEmail(mail) == null) {
+				mailList.setPostedAt(Utils.getCurrentDateTime());
+				mailList.merge();
+			}
+			render("Application/thankLead.html");
 		}
+	}
+
+	public static void thankLead() {
+		render();
 	}
 
 }

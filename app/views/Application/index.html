@@ -191,12 +191,13 @@
 				<footer id="mailListTop">
 					<input type="hidden" id="response" name="response" value="${response}" /> 
 					<input type="hidden" id="status" name="status" value="${status}" />
-					<h3 style="margin:0; font-weight:  bold">Quer receber gratuitamente por e-mail alguns detalhes sobre o funcionamento do sistema?</h3>
+					<h3 style="margin:0; font-weight:  bold">Quer receber gratuitamente novidades do sistema e sobre tecnologias?</h3>
 					<ul class="buttons">
+						<li><input type="text" name="mailList.name1" placeholder="Digite seu nome" value="${flash['mailList.name1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
 						<li><input type="text" name="mailList.mail1" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
 						<li><a id="btnNews1" class="button">QUERO RECEBER</a></li>
 					</ul>
-					<p id="#message" style="display: none;">Ocorreu um erro.</p>
+					<p class="message" style="display: none;">Ocorreu um erro.</p>
 				</footer>
 			</section>
 		</article>
@@ -371,14 +372,16 @@
 				<li><a class="button popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); ">TENHO DÚVIDAS</a></li>
 			</ul>
 			
-			<h3 style="margin-top:4em; font-weight:  bold">Confirme abaixo para receber gratuitamente por e-mail alguns <strong>detalhes</strong> sobre o <strong>funcionamento</strong> do sistema.</h3>
+			<h3 style="margin-top:4em; font-weight:  bold">Confirme abaixo para receber gratuitamente por e-mail novidades do sistema e tecnologias.</h3>
 			<ul class="buttons" id="mailListBottom">
+				<li><input type="text" name="mailList.name2" placeholder="Digite seu nome" value="${flash['mailList.name2']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
 				<li><input type="text" name="mailList.mail2" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail2']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
 				<li><a class="button">QUERO RECEBER</a></li>
 			</ul>
 			<p id="#message2" style="display: none;"></p>
 		</footer>
 	</section>
+	
 	<!--end-about-->
 	<link rel="stylesheet" href="@{'public/templatepublic/css/swipebox.css'}">
 	<script src="@{'public/templatepublic/js/jquery.swipebox.min.js'}"></script>

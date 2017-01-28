@@ -1,24 +1,15 @@
 package models;
 
 import java.text.ParseException;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.ManyToMany;
 
-import org.hibernate.id.insert.InsertSelectIdentityInsert;
-
-import controllers.Admin;
 import controllers.CRUD.Hidden;
-import play.data.validation.Email;
 import play.data.validation.Required;
-import play.data.validation.Unique;
 import play.db.jpa.Model;
 import util.FromEnum;
-import util.StatusEnum;
 import util.Utils;
 
 @Entity
@@ -29,7 +20,7 @@ public class MailList extends Model {
 	public String mail;
 	
 	@Enumerated(EnumType.STRING)
-	public FromEnum from = FromEnum.HomePageTop;
+	public FromEnum origin = FromEnum.HomePageTop;
 
 	@Hidden
 	public String postedAt;
@@ -68,6 +59,10 @@ public class MailList extends Model {
 
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
+	}
+	
+	public static MailList verifyByEmail(String mail) {
+		return find("byMail", mail).first();
 	}
 
 }

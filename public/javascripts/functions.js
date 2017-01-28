@@ -191,59 +191,72 @@ function closeModal() {
 }
 
 $('#btnNews1').click(function () {
-	  var mail = document.getElementsByName('mailList.mail1')[0].value;;
-	  if (mail === '') {
-	    $('#message').css('color', 'red');
-	    $('#message').show();
-	    $('#message').html('Favor, insira seu e-mail no formato nome@provedor.com.');
-	    setTimeout('$("#message").hide()', 10000);
-	    return;
-	  }
-	  var data = new Object();
-	  data.name = null;
-	  data.mail = mail;
-	  data.from = 'homepagetop';
-	  $('#mailListTop').load('/application/savemaillist' + ' #mailListTop>*', data, function (response, status) {
-	    var status = $('#status').val();
-	    if ('SUCCESS' === status) {
-	      $('#message').css('color', 'gray');
-	      $('#message').show();
-	      $('#message').html($('#response').val());
-	      $('#message').fadeIn();
-	    } else {
-	      $('#message').css('color', 'red');
-	      $('#message').show();
-	      $('#message').html($('#response').val());
-	      setTimeout('$("#message").hide()', 10000);
-	    }
-	  });
-	});
-
-$('#btnNews2').click(function () {
-	var mail = document.getElementsByName('mailList.mail2')[0].value;;
+	var name = document.getElementsByName('mailList.name1')[0].value;;
+	var mail = document.getElementsByName('mailList.mail1')[0].value;;
 	if (mail === '') {
-		$('#message2').css('color', 'red');
-		$('#message2').show();
-		$('#message2').html('Favor, insira seu e-mail no formato nome@provedor.com.');
-		setTimeout('$("#message2").hide()', 10000);
+		$('#message').css('color', 'red');
+		$('#message').show();
+		$('#message').html('Favor, insira seu e-mail no formato nome@provedor.com.');
+		setTimeout('$("#message").hide()', 10000);
 		return;
 	}
 	var data = new Object();
-	data.name = null;
+	data.name = name;
 	data.mail = mail;
-	data.from = 'homepagebottom';
-	$('#mailListBottom').load('/application/savemaillist' + ' #mailListBottom>*', data, function (response, status) {
-		var status = $('#status').val();
-		if ('SUCCESS' === status) {
-			$('#message2').css('color', 'gray');
-			$('#message2').show();
-			$('#message2').html($('#response').val());
-			$('#message2').fadeIn();
-		} else {
+	data.origin = 'homepagetop';
+    $.ajax({
+        type: "POST",
+        url: '/application/savemaillist',
+        data: data,
+        success: function(response, status) {
+        	if ('SUCCESS' === status) {
+				$(location).attr('href', '/gratidao');
+			} else {
+				$('#mailListTop').load(location.href+' #mailListTop>*','');
+				$('#message2').css('color', 'red');
+				$('#message2').show();
+				$('#message2').html($('#response').val());
+				setTimeout('$("#message2").hide()', 10000);
+			}
+        }, 
+        error: function (response, status) {
+        	$('.message').css('color', 'red');
+	    	$('.message').show();
+	    	$('.message').fadeIn();
+	    	$('.message').html('Houve um erro. :(');
+	    	setTimeout('$(".message").fadeOut()', 10000);
+        }
+    });
+});
+
+$('#btnNews2').click(function (e) {
+	if (e.originalEvent) {
+		var name = document.getElementsByName('mailList.name2')[0].value;;
+		var mail = document.getElementsByName('mailList.mail2')[0].value;;
+		if (mail === '') {
 			$('#message2').css('color', 'red');
 			$('#message2').show();
-			$('#message2').html($('#response').val());
+			$('#message2').html('Favor, insira seu e-mail no formato nome@provedor.com.');
 			setTimeout('$("#message2").hide()', 10000);
+			return;
 		}
-	});
+		var data = new Object();
+		data.name = name;
+		data.mail = mail;
+		data.origin = 'homepagebottom';
+		$('#mailListBottom').load('/application/savemaillist' + ' #mailListBottom>*', data, function (response, status) {
+			var status = $('#status').val();
+			if ('SUCCESS' === status) {
+				$('#message2').css('color', 'gray');
+				$('#message2').show();
+				$('#message2').html($('#response').val());
+				$('#message2').fadeIn();
+			} else {
+				$('#message2').css('color', 'red');
+				$('#message2').show();
+				$('#message2').html($('#response').val());
+				setTimeout('$("#message2").hide()', 10000);
+			}
+		});
+	}
 });
