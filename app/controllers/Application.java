@@ -473,14 +473,14 @@ public class Application extends Controller {
 	}
 
 	public static void saveMailList() throws UnsupportedEncodingException {
-		String response = null;
+		String resp = null;
 		String status = null;
 		String body = params.get("body", String.class);
 		String decodedParams = URLDecoder.decode(body, "UTF-8");
 		String[] params = decodedParams.split("&");
 		String name = Utils.getValueFromUrlParam(params[0]);
 		String mail = Utils.getValueFromUrlParam(params[1]);
-		String from = Utils.getValueFromUrlParam(params[2]);
+		String origin = Utils.getValueFromUrlParam(params[2]);
 		MailList mailList = new MailList();
 		mailList.id = 0l;
 		if (Utils.isNullOrEmpty(name)) {
@@ -490,21 +490,31 @@ public class Application extends Controller {
 		}
 		mailList.setName(name);
 		mailList.setMail(mail);
-		mailList.origin = FromEnum.getNameByValue(from);
+		mailList.origin = FromEnum.getNameByValue(origin);
 		validation.clear();
 		validation.valid(mailList);
 		validation.email(mailList.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
 				.key("mailList.mail1");
 		if (validation.hasErrors()) {
-			status = "ERROR";
-			response = "Houve um problema. :(";
-			render("Application/index.html", response, status);
+			status = "Favor, insira o seu e-mail no formato nome@provedor.com.br.";
+			resp = "Houve um problema. :(";
+			if ("homepagetop".equals(origin)) {
+				render("includes/formNewsletterTop.html", status, resp);
+			} else if ("homepagebottom".equals(origin)) {
+				render("includes/formNewsletterBottom.html", status, resp);
+			}
 		} else {
+			status = "SUCCESS";
+			resp = "Incluído com sucesso.";
 			if (MailList.verifyByEmail(mail) == null) {
 				mailList.setPostedAt(Utils.getCurrentDateTime());
 				mailList.merge();
 			}
-			render("Application/thankLead.html");
+			if ("homepagetop".equals(origin)) {
+				render("includes/formNewsletterTop.html", status, resp);
+			} else if ("homepagebottom".equals(origin)) {
+				render("includes/formNewsletterBottom.html", status, resp);
+			}
 		}
 	}
 

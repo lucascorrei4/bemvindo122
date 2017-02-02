@@ -73,6 +73,9 @@
 					</div>
 					<div class="clearfix"></div>
 				</div>
+				<ul id="menu-lateral" style="display: none">
+					<li><span class="wtp"> </span><a href="#small-dialog1"><span class="wtp"> </span></i></a>
+				</ul>
 				
 				<div class="inner">
 
@@ -189,15 +192,7 @@
 					</div>
 				</div>
 				<footer id="mailListTop">
-					<input type="hidden" id="response" name="response" value="${response}" /> 
-					<input type="hidden" id="status" name="status" value="${status}" />
-					<h3 style="margin:0; font-weight:  bold">Quer receber gratuitamente novidades do sistema e sobre tecnologias?</h3>
-					<ul class="buttons">
-						<li><input type="text" name="mailList.name1" placeholder="Digite seu nome" value="${flash['mailList.name1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
-						<li><input type="text" name="mailList.mail1" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
-						<li><a id="btnNews1" class="button">QUERO RECEBER</a></li>
-					</ul>
-					<p class="message" style="display: none;">Ocorreu um erro.</p>
+					#{include 'includes/formNewsletterTop.html' /}
 				</footer>
 			</section>
 		</article>
@@ -216,7 +211,7 @@
 				</div>
 			</div>
 			<section class="wrapper style2 container special-alt" style="padding: 0;">
-				<div class="row 50%" style="background-attachment: fixed;    background-color: #645862;    background-image: url('public/templatepublic/images/port-4.jpg');    background-position: center top;    background-repeat: no-repeat, no-repeat, repeat, no-repeat;   background-size: cover;">
+				<div class="row 50%" style="background-attachment: fixed;    background-color: #645862;    background-image: url('public/templatepublic/images/port-4.jpg');    background-position: center top;    background-repeat: no-repeat, no-repeat, repeat, no-repeat;   background-size: unset;">
 					<div class="8u 12u(narrower)">
 
 
@@ -364,21 +359,11 @@
 	
 		<header>
 			<h2>Bom relacionamento é a <strong>chave de tudo</strong>!</h2>
-			<p>Uma Vez Respeitado e Valorizado, Seu Cliente Certamente Indicará Os Seus Serviços.</p>
+			<p>Atendimento de <strong>Excelência</strong> é Raridade.</p>
+			<p>Uma Vez Confortável, Respeitado e Valorizado, Seu Cliente o Indicará.</p>
 		</header>
 		<footer id="mailListBottom">
-			<ul class="buttons">
-				<li><a class="button special popup-with-zoom-anim" href="#small-dialog" onclick="$('#formQuickAccount').load(location.href+' #formQuickAccount>*',''); ">QUERO UMA CONTA</a></li>
-				<li><a class="button popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); ">TENHO DÚVIDAS</a></li>
-			</ul>
-			
-			<h3 style="margin-top:4em; font-weight:  bold">Confirme abaixo para receber gratuitamente por e-mail novidades do sistema e tecnologias.</h3>
-			<ul class="buttons" id="mailListBottom">
-				<li><input type="text" name="mailList.name2" placeholder="Digite seu nome" value="${flash['mailList.name2']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
-				<li><input type="text" name="mailList.mail2" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail2']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
-				<li><a class="button">QUERO RECEBER</a></li>
-			</ul>
-			<p id="#message2" style="display: none;"></p>
+			#{include 'includes/formNewsletterBottom.html' /}
 		</footer>
 	</section>
 	

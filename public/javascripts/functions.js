@@ -190,73 +190,75 @@ function closeModal() {
 	$('#orderServiceModal').modal('hide');
 }
 
-$('#btnNews1').click(function () {
-	var name = document.getElementsByName('mailList.name1')[0].value;;
-	var mail = document.getElementsByName('mailList.mail1')[0].value;;
+function newsletterTop() {
+	var name = document.getElementsByName('mailList.name1')[0].value;
+	var mail = document.getElementsByName('mailList.mail1')[0].value;
+	if (name === '') {
+		$('#message').css('color', 'red');
+		$('#message').show();
+		$('#message').html('Favor, insira seu nome.');
+		setTimeout('$("#message").hide()', 10000);
+		return;
+	}
 	if (mail === '') {
 		$('#message').css('color', 'red');
 		$('#message').show();
-		$('#message').html('Favor, insira seu e-mail no formato nome@provedor.com.');
-		setTimeout('$("#message").hide()', 10000);
+		$('#message').html('Favor, insira seu e-mail no formato nome@provedor.com');
+		setTimeout(function() { $('#message').hide() }, 10000);
 		return;
 	}
 	var data = new Object();
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'homepagetop';
-    $.ajax({
-        type: "POST",
-        url: '/application/savemaillist',
-        data: data,
-        success: function(response, status) {
-        	if ('SUCCESS' === status) {
-				$(location).attr('href', '/gratidao');
-			} else {
-				$('#mailListTop').load(location.href+' #mailListTop>*','');
-				$('#message2').css('color', 'red');
-				$('#message2').show();
-				$('#message2').html($('#response').val());
-				setTimeout('$("#message2").hide()', 10000);
-			}
-        }, 
-        error: function (response, status) {
-        	$('.message').css('color', 'red');
-	    	$('.message').show();
-	    	$('.message').fadeIn();
-	    	$('.message').html('Houve um erro. :(');
-	    	setTimeout('$(".message").fadeOut()', 10000);
-        }
-    });
-});
-
-$('#btnNews2').click(function (e) {
-	if (e.originalEvent) {
-		var name = document.getElementsByName('mailList.name2')[0].value;;
-		var mail = document.getElementsByName('mailList.mail2')[0].value;;
-		if (mail === '') {
-			$('#message2').css('color', 'red');
-			$('#message2').show();
-			$('#message2').html('Favor, insira seu e-mail no formato nome@provedor.com.');
-			setTimeout('$("#message2").hide()', 10000);
-			return;
+	$('#mailListTop').load('/application/savemaillist', data,
+			function(response, status, xhr) {
+		var status = $("#status").val();
+		if ('SUCCESS' === status) {
+			$('#mailListTop').unbind('load');
+			window.location.href = "/gratidao";
+		} else {
+			$("#message").fadeIn();
+			$("#message").css("color", "red");
+			$("#message").html($("#response").val());
+			setTimeout(function() { $('#message').hide() }, 8000);
 		}
-		var data = new Object();
-		data.name = name;
-		data.mail = mail;
-		data.origin = 'homepagebottom';
-		$('#mailListBottom').load('/application/savemaillist' + ' #mailListBottom>*', data, function (response, status) {
-			var status = $('#status').val();
-			if ('SUCCESS' === status) {
-				$('#message2').css('color', 'gray');
-				$('#message2').show();
-				$('#message2').html($('#response').val());
-				$('#message2').fadeIn();
-			} else {
-				$('#message2').css('color', 'red');
-				$('#message2').show();
-				$('#message2').html($('#response').val());
-				setTimeout('$("#message2").hide()', 10000);
-			}
-		});
+	});
+}
+
+function newsletterBottom() {
+	var name = document.getElementsByName('mailList.name2')[0].value;
+	var mail = document.getElementsByName('mailList.mail2')[0].value;
+	if (name === '') {
+		$('#message2').css('color', 'red');
+		$('#message2').show();
+		$('#message2').html('Favor, insira seu nome.');
+		setTimeout('$("#message2").hide()', 10000);
+		return;
 	}
-});
+	if (mail === '') {
+		$('#message2').css('color', 'red');
+		$('#message2').show();
+		$('#message2').html('Favor, insira seu e-mail no formato nome@provedor.com');
+		setTimeout(function() { $('#message2').hide() }, 10000);
+		return;
+	}
+	var data = new Object();
+	data.name = name;
+	data.mail = mail;
+	data.origin = 'homepagebottom';
+	$('#mailListBottom').load('/application/savemaillist', data,
+			function(response, status, xhr) {
+		var status = $("#status2").val();
+		if ('SUCCESS' === status) {
+			$('#mailListBottom').unbind('load');
+			window.location.href = "/gratidao";
+		} else {
+			$("#message2").fadeIn();
+			$("#message2").css("color", "red");
+			$("#message2").html($("#response2").val());
+			setTimeout(function() { $('#message2').hide() }, 8000);
+		}
+	});
+}
+
