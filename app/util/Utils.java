@@ -3,14 +3,10 @@ package util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Normalizer;
@@ -32,8 +28,15 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
-import org.apache.commons.io.IOUtils;
 
+import com.google.api.client.googleapis.GoogleHeaders;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.json.JsonHttpContent;
+import com.google.api.client.json.GenericJson;
+import com.google.api.client.util.GenericData;
+import com.google.api.client.util.Key;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -46,8 +49,6 @@ import models.Institution;
 import models.Service;
 import models.User;
 import play.mvc.Controller;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 public class Utils extends Controller {
 	public static final String STR_DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
@@ -329,6 +330,10 @@ public class Utils extends Controller {
 		return pattern.matcher(nfdNormalizedString).replaceAll("");
 	}
 
+	public static String stringToUrl(String str) {
+		return Utils.removeAccent(str).replace(" ", "-").replaceAll("[^a-zA-Z0-9&-]", "").toLowerCase();
+	}
+
 	public static String getCurrencyValue(Float value) {
 		DecimalFormat format = new DecimalFormat("##,###,###,##0.00");
 		format.setMinimumFractionDigits(2);
@@ -420,24 +425,18 @@ public class Utils extends Controller {
 		return formatDate(d);
 	}
 
-	
-	public static void main(String[] args) throws IOException {
-		System.out.println(encode("th4mmy@gmail.com"));
-		System.out.println(URLDecoder.decode("dGg0bW15QGdtYWlsLmNvbQ%3D%3D", "UTF-8"));
-	}
-	
 	public static String decode(String s) {
-	    return StringUtils.newStringUtf8(Base64.decodeBase64(s));
+		return StringUtils.newStringUtf8(Base64.decodeBase64(s));
 	}
 
 	public static String encode(String s) {
-	    return Base64.encodeBase64String(StringUtils.getBytesUtf8(s));
+		return Base64.encodeBase64String(StringUtils.getBytesUtf8(s));
 	}
-	
+
 	public static String getValueFromUrlParam(String param) {
 		return param.split("=")[1];
 	}
-	
+
 	public static String decodeUrl(String url) throws UnsupportedEncodingException {
 		return URLDecoder.decode(url, "UTF-8");
 	}

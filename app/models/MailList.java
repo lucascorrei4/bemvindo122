@@ -22,6 +22,9 @@ public class MailList extends Model {
 	@Enumerated(EnumType.STRING)
 	public FromEnum origin = FromEnum.HomePageTop;
 
+	@Required(message = "Campo obrigatório.")
+	public String url;
+
 	@Hidden
 	public String postedAt;
 
@@ -63,6 +66,14 @@ public class MailList extends Model {
 	
 	public static MailList verifyByEmail(String mail) {
 		return find("byMail", mail).first();
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

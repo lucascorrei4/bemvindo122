@@ -16,6 +16,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import models.Article;
 import models.BodyMail;
 import models.Institution;
 import models.MailList;
@@ -481,6 +482,7 @@ public class Application extends Controller {
 		String name = Utils.getValueFromUrlParam(params[0]);
 		String mail = Utils.getValueFromUrlParam(params[1]);
 		String origin = Utils.getValueFromUrlParam(params[2]);
+		String url = Utils.getValueFromUrlParam(params[3]);
 		MailList mailList = new MailList();
 		mailList.id = 0l;
 		if (Utils.isNullOrEmpty(name)) {
@@ -491,17 +493,20 @@ public class Application extends Controller {
 		mailList.setName(name);
 		mailList.setMail(mail);
 		mailList.origin = FromEnum.getNameByValue(origin);
+		mailList.setUrl(url);
 		validation.clear();
 		validation.valid(mailList);
 		validation.email(mailList.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
 				.key("mailList.mail1");
 		if (validation.hasErrors()) {
-			status = "Favor, insira o seu e-mail no formato nome@provedor.com.br.";
-			resp = "Houve um problema. :(";
+			status = "ERROR";
+			resp = "Favor, insira o seu e-mail no formato nome@provedor.com.br.";
 			if ("homepagetop".equals(origin)) {
 				render("includes/formNewsletterTop.html", status, resp);
 			} else if ("homepagebottom".equals(origin)) {
 				render("includes/formNewsletterBottom.html", status, resp);
+			} else if ("newspage".equals(origin)) {
+				render("includes/formNewsletterTips.html", status, resp);
 			}
 		} else {
 			status = "SUCCESS";
@@ -514,12 +519,16 @@ public class Application extends Controller {
 				render("includes/formNewsletterTop.html", status, resp);
 			} else if ("homepagebottom".equals(origin)) {
 				render("includes/formNewsletterBottom.html", status, resp);
+			} else if ("newspage".equals(origin)) {
+				render("includes/formNewsletterTips.html", status, resp);
 			}
 		}
 	}
 
 	public static void thankLead() {
-		render();
+		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		render(bottomNews);
 	}
 
 }

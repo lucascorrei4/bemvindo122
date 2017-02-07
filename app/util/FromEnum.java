@@ -1,7 +1,10 @@
 package util;
 
 public enum FromEnum {
-	HomePageTop("Página Inicial Topo", "homepagetop"), HomePageBottom("Página Inicial Rodapé", "homepagebottom"), DoubtsForm("Formulário de Dúvidas", "doubtsform"), UserForm("Formulário de Usuário", "userform"), FollowPage("Página de Acompanhamento", "followpage");
+	HomePageTop("Página Inicial Topo", "homepagetop"), HomePageBottom("Página Inicial Rodapé",
+			"homepagebottom"), DoubtsForm("Formulário de Dúvidas", "doubtsform"), UserForm("Formulário de Usuário",
+					"userform"), FollowPage("Página de Acompanhamento",
+							"followpage"), NewsPage("Página de Notícias", "newspage");
 
 	String label;
 	String value;
@@ -39,7 +42,7 @@ public enum FromEnum {
 		}
 		return null;
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(FromEnum.getNameByValue("homepagetop"));
 	}

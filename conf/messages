@@ -112,6 +112,7 @@ ParameterController=Parâmetros
 FinancialController=Financeiro
 MessageController=Mensagens Recebidas
 StatusMailController=E-mails Enviados
+ArticleController=Artigos
 
 #Models
 ContactForm=Mensagens - Form. Contato
@@ -145,8 +146,16 @@ StatusPUSH=Notificações Push
 Parameter=Parâmetro
 Message=Mensagem Recebida
 StatusMail=E-mail Enviado
+Article=Artigo
 
 #Labels
+highlight=Destaque
+image1=Imagem 1
+image2=Imagem 2
+tags=Tags Relacionadas
+embed=Embed Vídeo
+metatags=Metatags
+headline=Linha Fina
 userName=Usuário
 mail=E-mail
 isPaid=Pago

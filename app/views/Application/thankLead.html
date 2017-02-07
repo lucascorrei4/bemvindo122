@@ -3,24 +3,13 @@
 	<head>
 		<title>Muito Obrigado | Seu Pedido Online</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="@{'public/templatefollow/assets/js/ie/html5shiv.js'}"></script><![endif]-->
-		<link rel="stylesheet" href="@{'public/templatefollow/assets/css/main.css'}" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="@{'public/templatefollow/assets/css/ie8.css'}" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="@{'public/templatefollow/assets/css/ie9.css'}" /><![endif]-->
+		#{include 'includes/headerTemplateFollow.html' /}
 	</head>
 	<body class="no-sidebar">
 		<div id="page-wrapper">
 
 			<!-- Header -->
-				<header id="header">
-					<h1 id="logo">Uma breve <span>mensagem</span> pra você</a></h1>
-					<nav id="nav">
-						<ul>
-							<li class="current"><a href="/">Voltar para Página Inicial</a></li>
-						</ul>
-					</nav>
-				</header>
+				#{include 'includes/menuTemplateFollow.html' /}
 
 			<!-- Main -->
 				<article id="main">
@@ -28,6 +17,7 @@
 					<header class="special container">
 						<span class="icon fa-hand-o-down"></span>
 						<h2><strong>Gratidão</strong></h2>
+						<h3>Uma breve mensagem pra você</h3>
 					</header>
 
 					<!-- One -->
@@ -43,81 +33,12 @@
 					<!-- Two -->
 						<section class="wrapper style1 container special"> 
 							<div class="row">
-								<div class="4u 12u(narrower)">
-
-									<section>
-										<header>
-											<h3 style="font-weight: bold;">O que são Notificações Push?</h3>
-										</header>
-										<p>Talvez você não saiba do que se trata e garanto que mesmo não sabendo o que são, é bem provável que você tem contato com elas todos os dias.</p>
-										<footer>
-											<ul class="buttons">
-												<li><a href="#" class="button small">Leia mais</a></li>
-											</ul>
-										</footer>
-									</section>
-
-								</div>
-								<div class="4u 12u(narrower)">
-
-									<section>
-										<header>
-											<h3 style="font-weight: bold;">Guardar arquivos importantes em HDs Externos ou Pendrives é uma opção segura?</h3>
-										</header>
-										<p>Muita gente já se conscientizou que manter arquivos importantes no próprio computador é um grande risco, mas optam por guardar em CDs, DVDs e HDs externos. Nesta matéria eu te dou minha opinião sobre o que é mais seguro fazer com aqueles arquivos que você não quer e não pode perder.</p>
-										<footer>
-											<ul class="buttons">
-												<li><a href="#" class="button small">Leia mais</a></li>
-											</ul>
-										</footer>
-									</section>
-
-								</div>
-								<div class="4u 12u(narrower)">
-
-									<section>
-										<header>
-											<h3 style="font-weight: bold;">Precisa comprar um computador melhor, mas não sabe escolher? Eu posso te ajudar nesta escolha!</h3>
-										</header>
-										<p>Há aqueles que compram computador pela marca e ignoram, dentre outros quesitos importantes, a quantidade de memória RAM e a potência do processador. Ou, compram seduzidos pelo preço do fim da liquidação e acabam sofrendo durante anos com um computador cada vez mais lerdo. De forma bem simples, aprenda, de uma vez por todas, a fazer uma boa compra - gastando pouco e com um produto de qualidade.</p>
-										<footer>
-											<ul class="buttons">
-												<li><a href="#" class="button small">Learn More</a></li>
-											</ul>
-										</footer>
-									</section>
-
-								</div>
+								#{include 'includes/lastNewsBottom.html' /}					
 							</div>
 						</section>
 
 				</article>
-
-			<!-- Footer -->
-				<footer id="footer">
-
-					<ul class="icons">
-						<li><a href="http://twitter.com/seupedidoonline" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="http://fb.com/seupedidoonline" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-					</ul>
-
-					<ul class="copyright">
-						<li>&copy; <a href="/">Seu Pedido Online</a></li><li>contato@seupedido.online</li>
-					</ul>
-
-				</footer>
-
+			#{include 'includes/footerTemplateFollow.html' /}
 		</div>
-
-		<!-- Scripts -->
-			<script src="@{'public/templatefollow/assets/js/jquery.min.js'}"></script>
-			<script src="@{'public/templatefollow/assets/js/jquery.dropotron.min.js'}"></script>
-			<script src="@{'public/templatefollow/assets/js/jquery.scrolly.min.js'}"></script>
-			<script src="@{'public/templatefollow/assets/js/jquery.scrollgress.min.js'}"></script>
-			<script src="@{'public/templatefollow/assets/js/skel.min.js'}"></script>
-			<script src="@{'public/templatefollow/assets/js/util.js'}"></script>
-			<!--[if lte IE 8]><script src="@{'public/templatefollow/assets/js/ie/respond.min.js'}"></script><![endif]-->
-			<script src="@{'public/templatefollow/assets/js/main.js'}"></script>
-			
 	</body>
 </html>
