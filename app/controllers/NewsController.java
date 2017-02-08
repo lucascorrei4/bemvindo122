@@ -18,7 +18,7 @@ public class NewsController extends Controller {
 
 	public static void details(String id) {
 		Article article = Article.findById(Long.valueOf(id));
-		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true and id <>  " + Long.valueOf(id) + " order by postedAt desc").fetch(6);
 		List<Article> sidebarRightNews = listArticles.subList(0, 2);
 		List<Article> bottomNews = listArticles.subList(2, listArticles.size());
 		render(article, bottomNews, sidebarRightNews);

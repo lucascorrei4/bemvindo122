@@ -29,14 +29,6 @@ import java.util.regex.Pattern;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 
-import com.google.api.client.googleapis.GoogleHeaders;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.json.JsonHttpContent;
-import com.google.api.client.json.GenericJson;
-import com.google.api.client.util.GenericData;
-import com.google.api.client.util.Key;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -48,6 +40,7 @@ import controllers.Admin;
 import models.Institution;
 import models.Service;
 import models.User;
+import play.libs.URLs;
 import play.mvc.Controller;
 
 public class Utils extends Controller {
@@ -439,6 +432,10 @@ public class Utils extends Controller {
 
 	public static String decodeUrl(String url) throws UnsupportedEncodingException {
 		return URLDecoder.decode(url, "UTF-8");
+	}
+	
+	public static String getShortenUrl(String url) {
+		return UrlShortener.shorten(url);
 	}
 
 }

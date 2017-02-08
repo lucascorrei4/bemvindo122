@@ -42,7 +42,7 @@ public class Article extends Model {
 	public String tags;
 
 	public String embed;
-	
+
 	@Hidden
 	public String friendlyUrl;
 
@@ -50,6 +50,8 @@ public class Article extends Model {
 
 	@Hidden
 	public String postedAt;
+
+	public String shortenUrl;
 
 	public boolean isActive = true;
 
@@ -177,6 +179,18 @@ public class Article extends Model {
 
 	public static Article findByFriendlyUrl(String friendlyUrl) {
 		return find("byFriendlyUrl", friendlyUrl).first();
+	}
+
+	public String getShortenUrl() {
+		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
+			setShortenUrl(Utils.getShortenUrl("http://seupedido.online/dicas/".concat(String.valueOf(this.id)).concat("/")
+					.concat(this.getFriendlyUrl())));
+		}
+		return shortenUrl;
+	}
+
+	public void setShortenUrl(String shortenUrl) {
+		this.shortenUrl = shortenUrl;
 	}
 
 }

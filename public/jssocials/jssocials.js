@@ -77,7 +77,7 @@
         },
 
         _initDefaults: function() {
-            this.url = window.location.href;
+            this.url = document.getElementById('shorten').value;
             this.text = $.trim($("meta[name=title]").attr("content") || $("title").text());
         },
 

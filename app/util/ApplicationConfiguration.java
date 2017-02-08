@@ -142,5 +142,9 @@ public class ApplicationConfiguration {
 	public String getOneSignalAuthId() {
 		return getProperty("onesignal.auth.id");
 	}
+
+	public String getGoogleShortenerUrlApiKey() {
+		return getProperty("app.urlShortener.apiKey");
+	}
 	
 }
