@@ -1,6 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		<!-- End Google Tag Manager -->
 		<title>&{article.getTitle()} #TMFTQS | Seu Pedido Online</title>
 		<meta name="description" content="&{article.getHeadline()}">
 		<meta name="keywords" content="&{article.getMetatags()}">
@@ -8,10 +15,15 @@
 		<meta property="twitter:description" content="&{article.getHeadline()}">
 		<meta property="og:title" content="&{article.getTitle()} | Seu Pedido Online">
 		<meta property="og:description" content="&{article.getHeadline()}">
+		<meta property="og:image" content="http://seupedido.online/newscontroller/getimage?id=&{article.id}&index=1">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
 	</head>
 	<body class="right-sidebar">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">
 			<!-- Header -->
 				#{include 'includes/menuTemplateFollow.html' /}
@@ -19,13 +31,13 @@
 				<article id="main">
 					<header class="special container" style="margin-bottom: 0">
 						<span class="icon fa-hand-o-down"></span>
-						<h2><strong>&{article.getTitle().raw()}</strong></h2>
+						<h2 style="font-weight: bold; text-transform: capitalize;">&{article.getTitle().raw()}</h2>
 						<h3 style="font-weight: bold; text-align: center; margin-bottom: 0px;">#TMFTQS</h3>
 						<p style="text-align: center; margin-bottom: 0px;"><strong>T</strong>odo <strong>M</strong>undo <strong>F</strong>alando, <strong>T</strong>ambém <strong>Q</strong>uero <strong>S</strong>aber</p>
 					</header>
 					
 					<!-- One -->
-						<section class="wrapper style4 container">
+						<section class="wrapper style4 container" style="padding: 15px">
 							<footer id="newsletterTips" style="width: 100%">
 								#{include 'includes/formNewsletterTips.html' /}
 							</footer>
@@ -35,21 +47,35 @@
 										<div class="content">
 											<section>
 												<header>
-													<p style="font-size: 15px;">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{article.postedAtParsed}</p>
+													<p style="font-size: 15px; margin: 0">Você está em: <a href="/"><strong>Seu Pedido Online</strong></a> > <a href="/dicas"><strong>Dicas</strong></a> > <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
+													<p style="font-size: 15px; margin: 0">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{article.postedAtParsed}</p>
 													<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
 													<div id="share"></div>
-													<h3 style="text-align: left">&{article.getHeadline().raw()}</h3>
+													<h3 style="text-align: left; text-transform: unset;">&{article.getHeadline().raw()}</h3>
 												</header>
-												<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle().raw()}"></a>
-												<p>&{article.getDescription().raw()}</p>
+												
+												#{if article.getEmbed()}
+													<iframe width="560" height="315" src="&{article.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+													<p>&{article.getDescription().raw()}</p>
+													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle().raw()}"></a>
+												#{/if}
+												#{else}
+													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle().raw()}"></a>
+													<p>&{article.getDescription().raw()}</p>
+												#{/else}
+												
+												#{if article.getComplement()}
+													<p>&{article.getComplement().raw()}</p>
+												#{/if}
 											</section>
+											<div class="fb-comments" data-href="" data-numposts="5"></div>
 										</div>
 								</div>
-								<div class="4u 12u(narrower)">
+								<div class="4u 12u(narrower)" style="padding: 28px">
 									<!-- Sidebar -->
-										<div class="sidebar">
-											#{include 'includes/lastNewsSidebarRight.html' /}
-										</div>
+									<div class="sidebar">
+										#{include 'includes/lastNewsSidebarRight.html' /}
+									</div>
 								</div>
 							</div>
 						</section>

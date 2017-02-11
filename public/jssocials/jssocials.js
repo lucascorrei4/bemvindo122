@@ -439,7 +439,7 @@
         },
 
         twitter: {
-            label: "Tweetar",
+            label: "Tweet",
             logo: "fa fa-twitter",
             shareUrl: "https://twitter.com/share?url={url}&text={text}&via={via}&hashtags={hashtags}",
             countUrl: ""

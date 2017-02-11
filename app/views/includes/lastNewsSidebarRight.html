@@ -1,16 +1,32 @@
 <meta charset="utf-8" />
 <h2>E MAIS...</h2>
+<blockquote class="twitter-tweet" data-lang="pt">
+	<p lang="pt" dir="ltr">
+		Você é Prestador de Serviços? Já pensou em um Sistema de Acompanhamento de Serviço? Sério, é o seu diferencial. <a href="https://t.co/1pbVlNfio5">https://t.co/1pbVlNfio5</a>
+		.
+	</p>
+	&mdash; Seu Pedido Online (@seupedidoonline) <a href="https://twitter.com/seupedidoonline/status/830220449195892738">11 de fevereiro de 2017</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<br />
+<div class="fb-page" data-href="https://www.facebook.com/seupedidoonline" data-hide-cover="false" data-show-facepile="false" data-show-posts="false" data-width="380">
+	<blockquote cite="https://www.facebook.com/seupedidoonline" class="fb-xfbml-parse-ignore">
+		<a href="https://www.facebook.com/seupedidoonline">Seu Pedido Online</a>
+	</blockquote>
+</div>
 #{list sidebarRightNews, as:'article'}
-	<section>
-		<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
-		<header>
-			<h3><strong>&{article.getTitle().raw()}</strong></h3>
-		</header>
-		<p>&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
-		<footer>
-			<ul class="buttons">
-				<li><a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="button small">Leia mais</a></li>
-			</ul>
-		</footer>
-	</section>
+<section style="margin: 0; padding-top: 10px;">
+	<header>
+		<h3 style="text-transform: capitalize;">
+			<strong>&{article.getTitle().raw()}</strong>
+		</h3>
+	</header>
+	<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
+	<p>&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
+	<footer>
+		<ul class="buttons">
+			<li><a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="button small">Leia mais</a></li>
+		</ul>
+	</footer>
+</section>
 #{/list}

@@ -1,17 +1,26 @@
 <meta charset="utf-8" />
 <!-- Footer -->
 <footer id="footer">
-	<ul class="icons">
-		<li><a href="http://twitter.com/seupedidoonline" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-		<li><a href="http://fb.com/seupedidoonline" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-	</ul>
-
 	<ul class="copyright">
 		<li>&copy; <a href="/">Seu Pedido Online</a></li><li>contato@seupedido.online</li>
 	</ul>
+	
+	<ul class="icons" style="vertical-align: bottom;">
+		<li style="vertical-align: bottom; line-height: 0;"><div class="fb-like" data-href="http://seupedido.online" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div></li>
+		<li style="vertical-align: bottom; line-height: 0;"><a href="https://twitter.com/seupedidoonline" class="twitter-follow-button" data-show-count="false">Seguir @seupedidoonline</a></li>
+	</ul>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
 </footer>
 <!-- Scripts -->
 <script src="@{'public/templatefollow/assets/js/jquery.min.js'}"></script>
+<script>
+jQuery(document).on('ready', function($){
+    var url = window.location;  
+    jQuery('.fb-comments').attr('data-href', url);
+    jQuery('meta[property="og:url"]').attr('content', window.location);
+});
+</script>
 <script src="@{'public/templatefollow/assets/js/jquery.dropotron.min.js'}"></script>
 <script src="@{'public/templatefollow/assets/js/jquery.scrolly.min.js'}"></script>
 <script src="@{'public/templatefollow/assets/js/jquery.scrollgress.min.js'}"></script>
@@ -20,9 +29,29 @@
 <!--[if lte IE 8]><script src="@{'public/templatefollow/assets/js/ie/respond.min.js'}"></script><![endif]-->
 <script src="@{'public/templatefollow/assets/js/main.js'}"></script>
 <script type="text/javascript" src="@{'public/javascripts/functionsNews.js'}"></script>
+<!-- JSSocial -->
 <script type="text/javascript" src="@{'public/jssocials/jssocials.js'}"></script>
-    <script>
-        $("#share").jsSocials({
-            shares: ["facebook", "twitter", "googleplus", "linkedin", "whatsapp"]
-        });
-    </script>
+<script>
+    $("#share").jsSocials({
+        shares: ["facebook", "twitter", "googleplus", "linkedin", "whatsapp"]
+    });
+</script>
+<!-- Fb Comments -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-91777562-1', 'auto');
+  ga('send', 'pageview');
+</script>

@@ -433,9 +433,13 @@ public class Utils extends Controller {
 	public static String decodeUrl(String url) throws UnsupportedEncodingException {
 		return URLDecoder.decode(url, "UTF-8");
 	}
-	
+
 	public static String getShortenUrl(String url) {
 		return UrlShortener.shorten(url);
+	}
+
+	public static String normalizeString(String str) {
+		return str.replace("%", "%%");
 	}
 
 }

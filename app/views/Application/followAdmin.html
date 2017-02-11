@@ -1,7 +1,43 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		<!-- End Google Tag Manager -->
 		<title>Acompanhe | Seu Pedido Online</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Página Para Acompanhar O Seu Pedido | Acompanhamento de Serviços e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
+		<meta name="author" content="Seu Pedido Online">
+		<link rel="apple-touch-icon" sizes="57x57" href="@{'public/images/apple57x57.png'}">
+		<link rel="apple-touch-icon" sizes="60x60" href="@{'public/images/apple60x60.png'}">
+		<link rel="apple-touch-icon" sizes="72x72" href="@{'public/images/apple72x72.png'}">
+		<link rel="apple-touch-icon" sizes="76x76" href="@{'public/images/apple76x76.png'}">
+		<link rel="apple-touch-icon" sizes="114x114" href="@{'public/images/apple114x114.png'}">
+		<link rel="apple-touch-icon" sizes="120x120" href="@{'public/images/apple120x120.png'}">
+		<link rel="apple-touch-icon" sizes="144x144" href="@{'public/images/apple144x144.png'}">
+		<link rel="apple-touch-icon" sizes="152x152" href="@{'public/images/apple152x152.png'}">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon16x16.png'}" sizes="16x16">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon32x32.png'}" sizes="32x32">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon96x96.png'}" sizes="96x96">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon160x160.png'}" sizes="160x160">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon196x196.png'}" sizes="196x196">
+		<meta name="msapplication-TileColor" content="#000000">
+		<meta name="msapplication-TileImage" content="@{'public/images/logo-admin.png'}">
+		<meta name="keywords" content="acompanhe seu pedido, acompanhamento de pedido, marketing digital, serviço, pedidos, orcamentos, ordem de servico">
+		<meta property="twitter:card" content="acompanhe seu pedido e Marketing Digital">
+		<meta property="twitter:site" content="www.seupedido.online">
+		<meta property="twitter:title" content="Acompanhe | Seu Pedido Online">
+		<meta property="twitter:description" content="acompanhe seu pedido e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
+		<meta property="og:title" content="Acompanhe | Seu Pedido Online">
+		<meta property="og:description" content="acompanhe seu pedido e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
+		<meta property="og:site_name" content="Seu Pedido Online">
+		<meta property="og:image" content="@{'public/images/logo-admin.png'}">
+		<link rel="shortcut icon" type="image/png" href="@{'public/images/favicon16x16.png'}" />
 		<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
 		<script>
 		    var OneSignal = window.OneSignal || [];
@@ -76,17 +112,14 @@
 		</script>
 	</head>
 	<body class="contact">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">
 
 			<!-- Header -->
-				<header id="header">
-					<h1 id="logo">Área de <span>acompanhamento</span></a></h1>
-					<nav id="nav">
-						<ul>
-							<li class="current"><a href="/">Início</a></li>
-						</ul>
-					</nav>
-				</header>
+			#{include 'includes/menuTemplateFollow.html' /}
 
 			<!-- Main -->
 				<article id="main">
@@ -123,14 +156,16 @@
 			<!-- Footer -->
 				<footer id="footer">
 
-					<ul class="icons">
-						<li><a href="http://twitter.com/seupedidoonline" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
-						<li><a href="http://fb.com/seupedidoonline" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
-					</ul>
-
 					<ul class="copyright">
 						<li>&copy; <a href="/">Seu Pedido Online</a></li><li>contato@seupedido.online</li>
 					</ul>
+
+					<ul class="icons" style="vertical-align: bottom;">
+						<li style="vertical-align: bottom; line-height: 0;"><div class="fb-like" data-href="http://seupedido.online" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div></li>
+						<li style="vertical-align: bottom; line-height: 0;"><a href="https://twitter.com/seupedidoonline" class="twitter-follow-button" data-show-count="false">Seguir @seupedidoonline</a></li>
+					</ul>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
 
 				</footer>
 
@@ -155,7 +190,6 @@
          			var orderCode = jQuery('#ifollow').contents().find('#orderCode').val();
 	         		if($('#checkReceive').is(':checked') && orderCode) {
 	            		OneSignal.sendTags({orderCode: orderCode});
-	            		alert('oiaaa');
 	            		return false;
 	         		}
          		}, 2000)
@@ -179,5 +213,22 @@
              });
          });
      </script>
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+     <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-91777562-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
 	</body>
 </html>

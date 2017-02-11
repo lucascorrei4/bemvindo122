@@ -33,6 +33,10 @@ public class Article extends Model {
 	@MaxSize(100000)
 	public String description;
 
+	@Lob
+	@MaxSize(100000)
+	public String complement;
+
 	public String metatags;
 
 	public Blob image1;
@@ -80,7 +84,7 @@ public class Article extends Model {
 	}
 
 	public String getTitle() {
-		return title;
+		return Utils.normalizeString(title);
 	}
 
 	public void setTitle(String title) {
@@ -88,7 +92,7 @@ public class Article extends Model {
 	}
 
 	public String getDescription() {
-		return description;
+		return Utils.normalizeString(description);
 	}
 
 	public void setDescription(String description) {
@@ -111,7 +115,7 @@ public class Article extends Model {
 	}
 
 	public String getHeadline() {
-		return headline;
+		return Utils.normalizeString(headline);
 	}
 
 	public void setHeadline(String headline) {
@@ -191,6 +195,14 @@ public class Article extends Model {
 
 	public void setShortenUrl(String shortenUrl) {
 		this.shortenUrl = shortenUrl;
+	}
+
+	public String getComplement() {
+		return complement;
+	}
+
+	public void setComplement(String complement) {
+		this.complement = complement;
 	}
 
 }
