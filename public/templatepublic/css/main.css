@@ -886,7 +886,23 @@
 		text-align: center;
 	}
 
+	#cta2 {
+		background-attachment: scroll, scroll, scroll, fixed;
+		background-color: #645862;
+		background-image: url("../images/light-tl.svg"), url("../images/light-tr.svg"), url("../images/overlay.png"), url("../images/banner3.jpg");
+		background-position: top left, top right, top left, bottom center;
+		background-repeat: no-repeat, no-repeat, repeat, no-repeat;
+		background-size: 25em, 25em, auto, cover;
+		color: #fff;
+		padding: 5em;
+		text-align: center;
+	}
+
 		#cta header {
+			margin-bottom: 2em;
+		}
+
+		#cta2 header {
 			margin-bottom: 2em;
 		}
 
@@ -996,6 +1012,11 @@
 				background-attachment: scroll;
 			}
 
+			#cta2 {
+				padding: 4em;
+				background-attachment: scroll;
+			}
+
 		/* Footer */
 
 			#footer {
@@ -1073,6 +1094,11 @@
 		/* CTA */
 
 			#cta {
+				background-size: 15em, 15em, auto, cover;
+				padding: 3em;
+			}
+
+			#cta2 {
 				background-size: 15em, 15em, auto, cover;
 				padding: 3em;
 			}
@@ -1198,6 +1224,10 @@
 		/* CTA */
 
 			#cta {
+				margin: 0;
+			}
+
+			#cta2 {
 				margin: 0;
 			}
 
@@ -1544,6 +1574,11 @@
 		/* CTA */
 
 			#cta {
+				background-size: 10em, 10em, auto, cover;
+				padding: 3em 1.5em;
+			}
+			
+			#cta2 {
 				background-size: 10em, 10em, auto, cover;
 				padding: 3em 1.5em;
 			}

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import models.Article;
+import models.Parameter;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
 
@@ -13,7 +14,8 @@ public class NewsController extends Controller {
 		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		List<Article> sidebarRightNews = listArticles.subList(0, 2);
 		List<Article> bottomNews = listArticles.subList(2, listArticles.size());
-		render(bottomNews, sidebarRightNews, highlightArticles);
+		Parameter parameter = Parameter.all().first();
+		render(bottomNews, sidebarRightNews, highlightArticles, parameter);
 	}
 
 	public static void details(String id) {
@@ -21,7 +23,8 @@ public class NewsController extends Controller {
 		List<Article> listArticles = Article.find("highlight = false and isActive = true and id <>  " + Long.valueOf(id) + " order by postedAt desc").fetch(6);
 		List<Article> sidebarRightNews = listArticles.subList(0, 2);
 		List<Article> bottomNews = listArticles.subList(2, listArticles.size());
-		render(article, bottomNews, sidebarRightNews);
+		Parameter parameter = Parameter.all().first();
+		render(article, bottomNews, sidebarRightNews, parameter);
 	}
 	
 	public static void getImage(long id, String index) {

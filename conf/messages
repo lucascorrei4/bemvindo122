@@ -313,6 +313,8 @@ mailSent=Enviado
 stateId=Estado
 cityId=Cidade
 urlParameter=Nome da Página
+tweet=Tweet
+embedThankLead=Embed Vídeo Agrad. Lead
 
 #Buttons
 btn.send=Enviar

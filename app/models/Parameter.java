@@ -43,9 +43,15 @@ public class Parameter extends Model {
 
 	@Lob
 	public String logoUrl;
+
+	@Lob
+	public String tweet;
 	
 	@Hidden
 	public Float currentPricePlan = 0f;
+
+	@Lob
+	public String embedThankLead;
 
 	public String toString() {
 		return "Mensalidade atual: " + currentPricePlan;
@@ -114,6 +120,22 @@ public class Parameter extends Model {
 	
 	public String getSMSCurrency() {
 		return Utils.getCurrencyValue(getSmsPricePlan());
+	}
+
+	public String getTweet() {
+		return tweet;
+	}
+
+	public void setTweet(String tweet) {
+		this.tweet = tweet;
+	}
+
+	public String getEmbedThankLead() {
+		return embedThankLead;
+	}
+
+	public void setEmbedThankLead(String embedThankLead) {
+		this.embedThankLead = embedThankLead;
 	}
 
 }

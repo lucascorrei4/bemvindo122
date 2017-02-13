@@ -25,6 +25,7 @@ import models.MoipNotification;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.OrderOfServiceValue;
+import models.Parameter;
 import models.SendTo;
 import models.Sender;
 import models.Service;
@@ -41,7 +42,8 @@ import util.Utils;
 public class Application extends Controller {
 
 	public static void index() {
-		render();
+		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(3);
+		render(listArticles);
 	}
 
 	public static void generateServiceCode() {
@@ -526,9 +528,10 @@ public class Application extends Controller {
 	}
 
 	public static void thankLead() {
+		Parameter parameter = Parameter.all().first();
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
 		List<Article> bottomNews = listArticles.subList(0, 3);
-		render(bottomNews);
+		render(bottomNews, parameter);
 	}
 
 }

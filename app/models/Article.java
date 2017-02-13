@@ -84,7 +84,7 @@ public class Article extends Model {
 	}
 
 	public String getTitle() {
-		return Utils.normalizeString(title);
+		return Utils.isNullOrEmpty(this.title) ? title : Utils.normalizeString(title);
 	}
 
 	public void setTitle(String title) {
@@ -92,7 +92,7 @@ public class Article extends Model {
 	}
 
 	public String getDescription() {
-		return Utils.normalizeString(description);
+		return Utils.isNullOrEmpty(this.description) ? description : Utils.normalizeString(description);
 	}
 
 	public void setDescription(String description) {
@@ -115,7 +115,7 @@ public class Article extends Model {
 	}
 
 	public String getHeadline() {
-		return Utils.normalizeString(headline);
+		return Utils.isNullOrEmpty(this.headline) ? headline : Utils.normalizeString(headline);
 	}
 
 	public void setHeadline(String headline) {

@@ -194,6 +194,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 									<p>Organize o Seu Negócio</p>
 								</div>
 							</li>
+							<li>
+								<div class="banner-bottom">
+									<h1>
+										O QUE SÃO <br/>NOTIFICAÇÕES PUSH?
+									</h1>
+									<p>Para saber, clique <a href="/dicas" target="_blank"><strong>aqui</strong></a>. :)</p>
+								</div>
+							</li>
 						</ul>
 					</div>
 					<div class="clearfix"></div>
@@ -427,9 +435,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			<p>Atendimento de <strong>Excelência</strong> é Raridade.</p>
 			<p>Uma Vez Confortável, Respeitado e Valorizado, Seu Cliente o Indicará.</p>
 		</header>
+		
+		<br />
+		<br />
+		<br />
+		
 		<footer id="mailListBottom">
 			#{include 'includes/formNewsletterBottom.html' /}
 		</footer>
+	</section>
+	
+	<section id="cta2">
+		<div class="col-md-12" style="background-color: #fff; padding-bottom: 30px; margin-bottom: 30px;">
+			<h3 style="text-transform: capitalize; color: #333333; font-size: 1.7em; font-weight: 900; margin: 0;">DICAS DE TECNOLOGIA <span style="color: #00CCFF;">#TMFTQS</span></h3>
+			<h4 style="text-transform: capitalize; color: #ccc; font-size: 1.2em; font-weight: 900; margin: 0;"><span style="color: #00CCFF;">T</span>odo <span style="color: #00CCFF;">M</span>undo <span style="color: #00CCFF;">F</span>alando, <span style="color: #00CCFF;">T</span>ambém <span style="color: #00CCFF;">Q</span>uero <span style="color: #00CCFF;">S</span>aber</h4>
+			#{list listArticles, as:'article'}
+				<div class="col-md-4 spl-left">
+					<div class="spl-one" style="padding-top: 5px">
+						<h4 style="text-transform: capitalize; margin-top: 10px;">&{article.getTitle().raw()}</h4>
+						<p style="font-size: 25px;">&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
+					</div>
+					<footer>
+						<ul class="buttons">
+							<li><a href="/dicas/${article.id}/${article.getFriendlyUrl()}" target="_blank" class="button small" style="color: #ccc">Leia mais</a></li>
+						</ul>
+					</footer>
+				</div>
+			#{/list}
+		</div>
 	</section>
 	
 	<!--end-about-->
