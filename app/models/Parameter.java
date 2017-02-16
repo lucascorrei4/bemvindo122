@@ -53,6 +53,9 @@ public class Parameter extends Model {
 	@Lob
 	public String embedThankLead;
 
+	@Lob
+	public String embedFirstStep;
+
 	public String toString() {
 		return "Mensalidade atual: " + currentPricePlan;
 	}
@@ -136,6 +139,14 @@ public class Parameter extends Model {
 
 	public void setEmbedThankLead(String embedThankLead) {
 		this.embedThankLead = embedThankLead;
+	}
+
+	public String getEmbedFirstStep() {
+		return embedFirstStep;
+	}
+
+	public void setEmbedFirstStep(String embedFirstStep) {
+		this.embedFirstStep = embedFirstStep;
 	}
 
 }
