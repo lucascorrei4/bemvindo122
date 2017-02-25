@@ -453,6 +453,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				<div class="col-md-4 spl-left">
 					<div class="spl-one" style="padding-top: 5px">
 						<h4 style="text-transform: capitalize; margin-top: 10px;">&{article.getTitle().raw()}</h4>
+						<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
 						<p style="font-size: 25px;">&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
 					</div>
 					<footer>
@@ -463,6 +464,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				</div>
 			#{/list}
 		</div>
+		<a href="/dicas" target="_blank" class="button small" style="color: #ccc">Todas As Dicas</a></li>
 	</section>
 	
 	<!--end-about-->

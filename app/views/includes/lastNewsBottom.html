@@ -5,7 +5,9 @@
 				<header>
 					<h3 style="text-transform: capitalize;"><strong>&{article.getTitle()}</strong></h3>
 				</header>
-				<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
+				<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured">
+					<img src="@{NewsController.getImage(article.id, '1')}" alt="" />
+				</a>
 				<p>&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
 				<footer>
 					<ul class="buttons">

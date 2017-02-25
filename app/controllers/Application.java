@@ -42,7 +42,7 @@ import util.Utils;
 public class Application extends Controller {
 
 	public static void index() {
-		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(3);
+		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
 		render(listArticles);
 	}
 
@@ -267,6 +267,7 @@ public class Application extends Controller {
 				flash.success("Instituição '" + institution.getInstitution() + "' criada com sucesso. Aproveite!", "");
 				Security.setCurrentSessionParameters(userInstitutionParameter.getUser());
 				Admin.index();
+				Admin.sendMailToMe(userInstitutionParameter);
 			}
 		}
 		render("@Admin.firstStep");

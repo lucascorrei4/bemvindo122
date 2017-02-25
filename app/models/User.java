@@ -284,5 +284,20 @@ public class User extends Model {
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
 	}
+	
+	public String getStateByStateId() {
+		return State.verifyById(Long.valueOf(this.stateId)) == null ? "Não informado" : State.verifyById(Long.valueOf(this.stateId)).name;
+	}
+
+	public String getCityByCityId() {
+		return City.verifyById(Long.valueOf(this.cityId)) == null ? "Não informado" : City.verifyById(Long.valueOf(this.cityId)).name;
+	}
+	
+	public String getInstitutionByInstitutionId() {
+		if (this.institutionId > 0) {
+			return Institution.verifyById(Long.valueOf(this.institutionId)) == null ? "Não informado" : Institution.verifyById(this.institutionId).getInstitution();
+		}
+		return "Não vinculado";
+	}
 
 }

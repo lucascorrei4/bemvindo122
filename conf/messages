@@ -113,6 +113,7 @@ FinancialController=Financeiro
 MessageController=Mensagens Recebidas
 StatusMailController=E-mails Enviados
 ArticleController=Artigos
+MailListController=Leads
 
 #Models
 ContactForm=Mensagens - Form. Contato
@@ -147,6 +148,7 @@ Parameter=Parâmetro
 Message=Mensagem Recebida
 StatusMail=E-mail Enviado
 Article=Artigo
+MailList=Lead
 
 #Labels
 highlight=Destaque

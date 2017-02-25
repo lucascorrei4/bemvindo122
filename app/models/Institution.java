@@ -331,6 +331,10 @@ public class Institution extends Model {
 		return find("byEmail", email).first();
 	}
 
+	public static Institution verifyById(Long institutionId) {
+		return find("byId", institutionId).first();
+	}
+
 	public String getInstitutionKey() {
 		if (this.institutionKey == null) {
 			setInstitutionKey(Utils.randomKey());

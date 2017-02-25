@@ -51,21 +51,22 @@
 													<p style="font-size: 15px; margin: 0">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{article.postedAtParsed}</p>
 													<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
 													<div id="share"></div>
-													<h3 style="text-align: left; text-transform: unset;">&{article.getHeadline().raw()}</h3>
+													<h3 style="text-align: left; text-transform: unset; margin-top: 20px; color: #444444">&{article.getHeadline().raw()}</h3>
 												</header>
 												
 												#{if article.getEmbed()}
 													<iframe width="560" height="315" src="&{article.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
-													<p>&{article.getDescription().raw()}</p>
-													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle().raw()}"></a>
+													<p style="color: #444444">&{article.getDescription().raw()}</p>
+													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
 												#{/if}
 												#{else}
-													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle().raw()}"></a>
-													<p>&{article.getDescription().raw()}</p>
+													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
+													<p style="color: #444444">&{article.getDescription().raw()}</p>
 												#{/else}
 												
 												#{if article.getComplement()}
-													<p>&{article.getComplement().raw()}</p>
+													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
+													<p style="color: #444444">&{article.getComplement().raw()}</p>
 												#{/if}
 											</section>
 											<div class="fb-comments" data-href="" data-numposts="5"></div>

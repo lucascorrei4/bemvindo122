@@ -1,14 +1,19 @@
 package controllers;
 
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 
+import models.BodyMail;
 import models.Client;
 import models.Country;
 import models.Institution;
 import models.Invoice;
 import models.OrderOfService;
+import models.OrderOfServiceStep;
 import models.Parameter;
+import models.SendTo;
+import models.Sender;
 import models.Service;
 import models.StatusMail;
 import models.StatusPUSH;
@@ -192,6 +197,39 @@ public class Admin extends Controller {
 
 	public static void setLoggedUserInstitution(UserInstitutionParameter loggedUserInstitution) {
 		Admin.loggedUserInstitution = loggedUserInstitution;
+	}
+
+	static void sendMailToMe(UserInstitutionParameter userInstitutionParameter) {
+		Parameter parameter = Parameter.all().first();
+		MailController mailController = new MailController();
+		/* SendTo object */
+		SendTo sendTo = new SendTo();
+		sendTo.setDestination("lucascorreiaevangelista@gmail.com");
+		sendTo.setName("Eu mesmo");
+		sendTo.setSex("");
+		sendTo.setStatus(new StatusMail());
+		/* Sender object */
+		Sender sender= new Sender();
+		sender.setCompany("Seu Pedido Online");
+		sender.setFrom("contato@seupedido.online");
+		sender.setKey("");
+		/* SendTo object */
+		BodyMail bodyMail = new BodyMail();
+		bodyMail.setTitle1("Ol&aacute;, Lucas e Thammy!");
+		bodyMail.setTitle2("Mais uma empresa cadastrada!");
+		bodyMail.setParagraph1(userInstitutionParameter.getInstitution().getInstitution());
+		bodyMail.setParagraph2(userInstitutionParameter.getInstitution().getCityStateCountry());
+		bodyMail.setParagraph3(userInstitutionParameter.getInstitution().getEmail());
+		bodyMail.setFooter1(Institution.findAll().size() + " empresas cadastradas.");
+		bodyMail.setImage1(parameter.getLogoUrl());
+		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
+		mailController.sendHTMLMail(sendTo , sender, bodyMail);
+		sendTo = new SendTo();
+		sendTo.setDestination("th4mmy@gmail.com");
+		sendTo.setName("Thammy");
+		sendTo.setSex("");
+		sendTo.setStatus(new StatusMail());
+		mailController.sendHTMLMail(sendTo , sender, bodyMail);
 	}
 
 }
