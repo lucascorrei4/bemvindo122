@@ -114,6 +114,7 @@ MessageController=Mensagens Recebidas
 StatusMailController=E-mails Enviados
 ArticleController=Artigos
 MailListController=Leads
+TheSystemController=O Sistema
 
 #Models
 ContactForm=Mensagens - Form. Contato
@@ -149,8 +150,16 @@ Message=Mensagem Recebida
 StatusMail=E-mail Enviado
 Article=Artigo
 MailList=Lead
+TheSystem= O Sistema
 
 #Labels
+headline2=Subtítulo 2
+headline3=Subtítulo 3
+titleDescription=Título da Descrição
+image3=Imagem 3
+showBottomNews=Mostrar Artigos Rodapé
+showLeadsForm=Mostrar Form. Leads
+shortenUrl=URL Encurtada
 highlight=Destaque
 image1=Imagem 1
 image2=Imagem 2

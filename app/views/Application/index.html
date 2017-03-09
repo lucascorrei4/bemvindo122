@@ -63,59 +63,44 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
 <script>
-    var OneSignal = window.OneSignal || [];
-    OneSignal.push(["init", {
-      appId: "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
-      autoRegister: true, /* Set to true to automatically prompt visitors */
-      subdomainName: 'https://seupedido.onesignal.com',   
-      httpPermissionRequest: {
-        enable: true
-      },
-      notifyButton: {
-          enable: true, /* Required to use the notify button */
-          size: 'large', /* One of 'small', 'medium', or 'large' */
-          theme: 'default', /* One of 'default' (red-white) or 'inverse" (white-red) */
-          position: 'bottom-left', /* Either 'bottom-left' or 'bottom-right' */
-          offset: {
-              bottom: '0px',
-              left: '0px', /* Only applied if bottom-left */
-              right: '0px' /* Only applied if bottom-right */
-          },
-          prenotify: true, /* Show an icon with 1 unread message for first-time site visitors */
-          showCredit: false, /* Hide the OneSignal logo */
-          text: {
-              'tip.state.unsubscribed': 'Clique para receber novidades sobre tecnologia!',
-              'tip.state.subscribed': "Ótimo! Você já está na lista de prioridade!",
-              'tip.state.blocked': "Fique tranquilo! Você não vai receber mais notificações!",
-              'message.prenotify': 'Clique para receber novidades!',
-              'message.action.subscribed': "Obrigado!",
-              'message.action.resubscribed': "Ótimo! Você receberá notificações em prioridade!",
-              'message.action.unsubscribed': "Fique tranquilo! Você não receberá mais notificações!",
-              'dialog.main.title': 'Confirmação de recebimento de notificações',
-              'dialog.main.button.subscribe': 'Quero receber!',
-              'dialog.main.button.unsubscribe': 'Eu não quero!',
-              'dialog.blocked.title': 'Desbloquear notificações',
-              'dialog.blocked.message': "Siga as instruções para receber notificações:"
-          }
-      },
-      promptOptions: {
-          /* Change bold title, limited to 30 characters */
-          siteName: 'Confirmação de recebimento',
-          /* Subtitle, limited to 90 characters */
-          actionMessage: "Confirme para receber todas as novidades sobre tecnologia.",
-          /* Example notification title */
-          exampleNotificationTitle: 'Este é um exemplo de notificação',
-          /* Example notification message */
-          exampleNotificationMessage: 'Aqui vai a descrição da notificação...',
-          /* Text below example notification, limited to 50 characters */
-          exampleNotificationCaption: 'Obs.: Você poderá cancelar em qualquer momento!',
-          /* Accept button text, limited to 15 characters */
-          acceptButtonText: "EU QUERO! :)",
-          /* Cancel button text, limited to 15 characters */
-          cancelButtonText: "EU NÃO QUERO!"
-      }
+		var OneSignal = window.OneSignal || [];
+		OneSignal.push(["init", {
+		appId: "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
+		autoRegister: true, /* Set to true to automatically prompt visitors */
+		subdomainName: 'https://seupedido.onesignal.com',   
+		persistNotification: false,
+		httpPermissionRequest: {
+			enable: false
+		},
+		httpPermissionRequest: {
+            modalTitle: 'Obrigado pela inscrição',
+            modalMessage: "Agora você receberá nossas notificações. Você pode cancelar sua inscrição a qualquer momento.",
+            modalButtonText: 'Fechar',
+            useCustomModal: true        
+		},
+        promptOptions: {
+			/* Change bold title, limited to 30 characters */
+			siteName: 'Confirmação de recebimento',
+			/* Subtitle, limited to 90 characters */
+			actionMessage: "Confirme para receber dicas úteis sobre tecnologia.",
+			/* Example notification title */
+			exampleNotificationTitle: 'Este é um exemplo de notificação',
+			/* Example notification message */
+			exampleNotificationMessage: 'Aqui vai a descrição da notificação...',
+			/* Text below example notification, limited to 50 characters */
+			exampleNotificationCaption: 'Obs.: Você poderá cancelar em qualquer momento!',
+			/* Accept button text, limited to 15 characters */
+			acceptButtonText: "EU QUERO! :)",
+			/* Cancel button text, limited to 15 characters */
+			cancelButtonText: "EU NÃO QUERO!"
+		},
+		welcomeNotification: {
+			"title": "Seu Pedido Online",
+			"message": "Obrigado pela inscrição",
+			 "url": "http://seupedido.online"
+		}
     }]);
-</script>
+    </script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->

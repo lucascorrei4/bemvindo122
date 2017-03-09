@@ -36,57 +36,55 @@
 						<p style="text-align: center; margin-bottom: 0px;"><strong>T</strong>odo <strong>M</strong>undo <strong>F</strong>alando, <strong>T</strong>ambém <strong>Q</strong>uero <strong>S</strong>aber</p>
 					</header>
 					
-					<!-- One -->
-						<section class="wrapper style4 container" style="padding: 15px">
-							<footer id="newsletterTips" style="width: 100%">
-								#{include 'includes/formNewsletterTips.html' /}
-							</footer>
-							<div class="row 150%">
-								<div class="8u 12u(narrower)">
-									<!-- Content -->
-										<div class="content">
-											<section>
-												<header>
-													<p style="font-size: 15px; margin: 0">Você está em: <a href="/"><strong>Seu Pedido Online</strong></a> > <a href="/dicas"><strong>Dicas</strong></a> > <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
-													<p style="font-size: 15px; margin: 0">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{article.postedAtParsed}</p>
-													<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
-													<div id="share"></div>
-													<h3 style="text-align: left; text-transform: unset; margin-top: 20px; color: #444444">&{article.getHeadline().raw()}</h3>
-												</header>
-												
-												#{if article.getEmbed()}
-													<iframe width="560" height="315" src="&{article.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
-													<p style="color: #444444">&{article.getDescription().raw()}</p>
-													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
-												#{/if}
-												#{else}
-													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
-													<p style="color: #444444">&{article.getDescription().raw()}</p>
-												#{/else}
-												
-												#{if article.getComplement()}
-													<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
-													<p style="color: #444444">&{article.getComplement().raw()}</p>
-												#{/if}
-											</section>
-											<div class="fb-comments" data-href="" data-numposts="5"></div>
-										</div>
-								</div>
-								<div class="4u 12u(narrower)" style="padding: 28px">
-									<!-- Sidebar -->
-									<div class="sidebar">
-										#{include 'includes/lastNewsSidebarRight.html' /}
+					<section class="wrapper style4 container" style="padding: 15px">
+						<footer id="newsletterTips" style="width: 100%">
+							#{include 'includes/formNewsletterTips.html' /}
+						</footer>
+						<div class="row 150%">
+							<div class="8u 12u(narrower)">
+								<!-- Content -->
+									<div class="content">
+										<section>
+											<header>
+												<p style="font-size: 15px; margin: 0">Você está em: <a href="/"><strong>Seu Pedido Online</strong></a> > <a href="/dicas"><strong>Dicas</strong></a> > <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
+												<p style="font-size: 15px; margin: 0">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{article.postedAtParsed}</p>
+												<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
+												<div id="share"></div>
+												<h3 style="text-align: left; text-transform: unset; margin-top: 20px; color: #444444">&{article.getHeadline().raw()}</h3>
+											</header>
+											
+											#{if article.getEmbed()}
+												<iframe width="560" height="315" src="&{article.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+												<p style="color: #444444">&{article.getDescription().raw()}</p>
+												<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
+											#{/if}
+											#{else}
+												<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
+												<p style="color: #444444">&{article.getDescription().raw()}</p>
+											#{/else}
+											
+											#{if article.getComplement()}
+												<a href="#" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
+												<p style="color: #444444">&{article.getComplement().raw()}</p>
+											#{/if}
+										</section>
+										<div class="fb-comments" data-href="" data-numposts="5"></div>
 									</div>
+							</div>
+							<div class="4u 12u(narrower)" style="padding: 28px">
+								<!-- Sidebar -->
+								<div class="sidebar">
+									#{include 'includes/lastNewsSidebarRight.html' /}
 								</div>
 							</div>
-						</section>
+						</div>
+					</section>
 
-					<!-- Two -->
-						<section class="wrapper style1 container special">
-							<div class="row">
-								#{include 'includes/lastNewsBottom.html' /}
-							</div>
-						</section>
+					<section class="wrapper style1 container special">
+						<div class="row">
+							#{include 'includes/lastNewsBottom.html' /}
+						</div>
+					</section>
 				</article>
 			<!-- Footer -->
 			#{include 'includes/footerTemplateFollow.html' /}

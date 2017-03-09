@@ -29,12 +29,28 @@ GET    	${ctx}/gratidao					   				 			Application.thankLead
 
 # Public News
 
+GET    	${ctx}/o-sistema					   				 			TheSystemPagesController.list
+GET    	${ctx}/o-sistema/{friendlyUrl}								TheSystemPagesController.details
+
+# Public News
+
 GET    	${ctx}/dicas					   				 			NewsController.list
 GET    	${ctx}/dicas/{id}/{friendlyUrl}								NewsController.details
 
 # Admin Update Order
 GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceController.updateOrder
 POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceController.updateRadioValue
+
+# The System
+
+GET		${ctx}/admin/o-sistema								TheSystemController.list
+GET		${ctx}/admin/o-sistema/novo							TheSystemController.blank
+GET		${ctx}/admin/o-sistema/{id}							TheSystemController.show
+GET		${ctx}/admin/o-sistema/{id}/{field}					TheSystemController.attachment
+GET		${ctx}/admin/o-sistema/{id}/editar					TheSystemController.edit
+POST	${ctx}/admin/o-sistema								TheSystemController.create
+POST	${ctx}/admin/o-sistema/{id}							TheSystemController.save
+DELETE	${ctx}/admin/o-sistema/{id}							TheSystemController.delete
 
 # Article Services
 
