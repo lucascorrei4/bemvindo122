@@ -53,7 +53,7 @@ public class TheSystemPagesController extends Controller {
 			}
 		} else if ("3".equals(index)) {
 			if (theSystem.getImage3() != null) {
-				renderBinary(theSystem.getImage2().get());
+				renderBinary(theSystem.getImage3().get());
 				return;
 			} else {
 				renderBinary(getVirtualFile());

@@ -37,9 +37,6 @@
 
 					<br />
 					
-					<footer id="newsletterTips" style="width: 100%">
-						#{include 'includes/formNewsletterTips.html' /}
-					</footer>
 					<section class="wrapper style4 container" style="padding: 15px">
 						<div class="row 150%">
 							<div class="4u 12u(narrower)">
@@ -51,6 +48,7 @@
 													<strong>&{theSystem.getTitle2().raw()}</strong>
 												</h3>
 											</header>
+											
 											<a href="#" class="image featured"><img src="@{TheSystemPagesController.getImage(theSystem.id, '2')}" alt="&{theSystem.getTitle2()}" /></a>
 											<p>&{theSystem.getHeadline2().raw()}</p>
 										</section>
@@ -72,7 +70,9 @@
 											<p style="font-size: 15px; margin: 0">Você está em: <a href="/"><strong>Seu Pedido Online</strong></a> > <a href="/o-sistema"><strong>O Sistema</strong></a> > <a href="#"><strong>&{theSystem.getTitle().raw()}</strong></a></p>
 											<p style="font-size: 15px; margin: 0">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{theSystem.postedAtParsed}</p>
 											<input id="shorten" type="hidden" value="&{theSystem.getShortenUrl()}" />
-											<a href="#" class="image featured"><img src="@{TheSystemPagesController.getImage(theSystem.id, '1')}" alt="&{theSystem.getTitleDescription()}" /></a>
+											#{if theSystem.getEmbed()}
+												<iframe width="560" height="315" src="&{theSystem.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+											#{/if}
 											<header>
 												<div id="share"></div>
 												<br />
@@ -80,14 +80,17 @@
 													<strong>&{theSystem.getTitleDescription().raw()}</strong>
 												</h3>
 											</header>
+											<a href="#" class="image featured"><img src="@{TheSystemPagesController.getImage(theSystem.id, '1')}" alt="&{theSystem.getTitleDescription()}" /></a>
 											<p>&{theSystem.getDescription().raw()}</p>
 										</section>
 									</div>
 									<div class="fb-comments" data-href="" data-numposts="5"></div>
 								</div>
 							</div>
+							<footer id="newsletterTips" style="width: 100%">
+								#{include 'includes/formNewsletterTips.html' /}
+							</footer>
 						</section>
-						
 						<section class="wrapper style1 container special">
 							<div class="row">
 								#{include 'includes/lastNewsBottom.html' /}

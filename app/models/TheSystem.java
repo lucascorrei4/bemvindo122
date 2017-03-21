@@ -66,7 +66,6 @@ public class TheSystem extends Model {
 
 	public String embed;
 
-	@Hidden
 	public String friendlyUrl;
 
 	public boolean highlight;
@@ -74,6 +73,8 @@ public class TheSystem extends Model {
 	public boolean showBottomNews;
 
 	public boolean showLeadsForm;
+	
+	public String actionButton;
 
 	@Hidden
 	public String postedAt;
@@ -291,6 +292,14 @@ public class TheSystem extends Model {
 
 	public void setShowLeadsForm(boolean showLeadsForm) {
 		this.showLeadsForm = showLeadsForm;
+	}
+
+	public String getActionButton() {
+		return actionButton;
+	}
+
+	public void setActionButton(String actionButton) {
+		this.actionButton = actionButton;
 	}
 
 }

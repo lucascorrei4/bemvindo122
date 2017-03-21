@@ -46,6 +46,11 @@ public class Application extends Controller {
 		render(listArticles);
 	}
 
+	public static void index2() {
+		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
+		render(listArticles);
+	}
+
 	public static void generateServiceCode() {
 		render();
 	}

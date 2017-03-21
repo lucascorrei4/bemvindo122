@@ -1607,7 +1607,7 @@
 		}
 
 	body, input, select, textarea {
-		color: #444444;
+		color: #000;
 		font-family: 'Lato', sans-serif;
 		font-size: 15pt;
 		font-weight: 300;
@@ -2234,7 +2234,7 @@
 		position: fixed;
 		top: 0;
 		width: 100%;
-		z-index: 10000;
+		z-index: 1000;
 	}
 
 		#header h1 {
@@ -2551,7 +2551,7 @@
 
 	#footer {
 		background: #E8EEF4;
-		color: #444444;
+		color: #000;
 		padding: 5em 5em 10em 5em;
 		text-align: center;
 	}

@@ -9,6 +9,7 @@
 
 # Home page
 GET     ${ctx}/                                       				Application.index
+GET     ${ctx}/index2                                  				Application.index2
 
 # Home page
 POST    ${ctx}/savemessage											MessageController.saveMessage

@@ -689,6 +689,7 @@
 		padding: 1em 0;
 		text-transform: uppercase;
 		margin-top: calc(-1em + 1px);
+		z-index: 999999 !important;
 	}
 
 		.dropotron.level-0 {
@@ -1613,4 +1614,10 @@
 				height: 34px;
 			}
 
+	}
+	
+	a:hover, a:focus {
+		color: #fff	!important;
+		background-color: #ccc	!important;
+		
 	}
