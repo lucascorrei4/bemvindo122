@@ -344,6 +344,9 @@ public class Application extends Controller {
 							.find("service_id = " + service.getId() + " and orderOfService_id = "
 									+ orderOfService.getId() + " and isActive = true")
 							.fetch();
+					if (mapOrderServiceSteps.containsKey(service)) {
+						service.setAux("new");
+					}
 					mapOrderServiceSteps.put(service, orderOfServiceStep);
 				}
 				render(clientName, company, orderOfService, mapOrderServiceSteps);

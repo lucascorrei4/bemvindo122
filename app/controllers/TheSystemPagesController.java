@@ -20,18 +20,16 @@ public class TheSystemPagesController extends Controller {
 	}
 
 	public static void details(String friendlyUrl) {
-		List<TheSystem> sidebarRightNews = null;
 		List<TheSystem> bottomNews = null;
 		TheSystem theSystem = TheSystem.findByFriendlyUrl(friendlyUrl);
 		List<TheSystem> listTheSystems = TheSystem.find(
 				"highlight = false and isActive = true and id <>  " + theSystem.id + " order by postedAt desc")
-				.fetch(6);
+				.fetch(3);
 		if (!listTheSystems.isEmpty()) {
-			sidebarRightNews = listTheSystems.subList(0, 2);
-			bottomNews = listTheSystems.subList(2, listTheSystems.size());
+			bottomNews = listTheSystems.subList(0, listTheSystems.size());
 		}
 		Parameter parameter = Parameter.all().first();
-		render(theSystem, bottomNews, sidebarRightNews, parameter);
+		render(theSystem, bottomNews, parameter);
 	}
 
 	public static void getImage(long id, String index) {

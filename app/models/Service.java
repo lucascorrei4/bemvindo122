@@ -29,6 +29,9 @@ public class Service extends Model {
 	@Transient
 	public String nameBasePrice;
 
+	@Transient
+	public String aux;
+	
 	public String toString() {
 		return title;
 	}
@@ -94,6 +97,14 @@ public class Service extends Model {
 	
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
+	}
+
+	public String getAux() {
+		return aux;
+	}
+
+	public void setAux(String aux) {
+		this.aux = aux;
 	}
 
 }
