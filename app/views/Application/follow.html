@@ -89,8 +89,15 @@
 						            <div class="tab-content">
 										#{list mapOrderServiceSteps.get(key), as:'orderServiceStep'}
 							                <div id="step_${orderServiceStep_index}_${orderServiceStep.step.id}" class="tab-pane &{orderServiceStep.status.value == 'inprogress' ? 'active' : orderServiceStep.status.value == 'finished' ? 'complete' : orderServiceStep.status.value == 'notstarted' ? 'disabled' : 'complete'}" >
-												<div class="text-center">&{orderServiceStep.step.title}</div>
-												<div class="text-center" style="color: #44545B; color: #44545b; font-size: 0.8em; padding: 0;"><strong>Obs.:</strong> &{orderServiceStep.obs}</div>
+												<div class="list-group">
+						                            <a class="list-group-item">
+						                                <h4 class="list-group-item-heading">&{orderServiceStep.step.title}</h4>
+						                                <p class="list-group-item-text">&{orderServiceStep.step.description}</p>
+						                            </a>
+						                            <a class="list-group-item">
+													<div class="text-center" style="color: #44545B; color: #44545b; font-size: 0.9em; padding: 0;"><strong>Obs.:</strong> &{orderServiceStep.obs}</div>
+						                            </a>
+						                        </div>
 							           	 	</div>
 										#{/list}
 						        	</div>

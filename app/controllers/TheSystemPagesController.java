@@ -5,10 +5,12 @@ import java.util.List;
 
 import models.Parameter;
 import models.TheSystem;
+import play.mvc.Before;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
 
 public class TheSystemPagesController extends Controller {
+	
 	public static void list() {
 		List<TheSystem> highlightTheSystems = TheSystem.find("highlight = true and isActive = true").fetch(2);
 		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")

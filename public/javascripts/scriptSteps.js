@@ -7,7 +7,7 @@ function newstep() {
 	var newRowContent = "<tr style=\"width: 240px;\">"
 			+ "<td><input type=\"text\" style=\"width: 150px\" class=\"title\" value=\"\" placeholder=\"Título da etapa\" onclick=\"this.select()\" accesskey=\"0\" /></td>"
 			+ "<td><input type=\"text\" style=\"width: 300px\" class=\"description\" value=\"\" placeholder=\"Descrição da etapa\" onclick=\"this.select()\" /></td>"
-			+ "<td><input type=\"text\" style=\"width: 60px\" class=\"duration\" value=\"0\" onclick=\"this.select()\" /></td>"
+			+ "<td><input type=\"text\" style=\"width: 60px\" class=\"duration numeric\" value=\"0\" onclick=\"this.select()\" /></td>"
 			+ "<td><button id=\"removerItem\" type=\"button\" class=\"btn btn-danger btn-circle\" onclick=\"$(this).closest('tr').remove();setTimeout(function() { resetTable() }, 500); \">"
 			+ "<i class=\"fa fa-times\"></i></button></td></tr>";
 	$("#stepsTable tbody").append(newRowContent);
@@ -41,3 +41,4 @@ function resetTable() {
 	JSON.stringify(inputContent);
 	$("#steps").val(JSON.stringify(inputContent));
 }
+

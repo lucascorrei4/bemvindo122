@@ -35,7 +35,7 @@ crud.cancel=Cancelar
 crud.hasErrors=Favor, corrija os erros.
 crud.blank.title=Adicionar &{%s}
 crud.saveAndAddAnother=Salvar e criar outro
-crud.delete=Deletar
+crud.delete=Excluir
 crud.created=Objeto salvo com sucesso.
 crud.saved=O objeto foi salvo.
 crud.deleted=O ítem foi deletado.
@@ -43,7 +43,6 @@ crud.delete.error=Não é possível excluir este objeto.
 crud.search=Pesquisar
 crud.none=(Nenhum)
 crud.selectValue=(Favor, selecione um valor.)
-crud.delete=Deletar
 
 crud.help.required=Obrigatório.
 crud.help.minlength=Tamanho mínimo: %d caracteres.

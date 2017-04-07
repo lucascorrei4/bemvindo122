@@ -27,8 +27,16 @@
 			         		<input type="text" value="${object.orderCode}" onclick="this.select()" readonly="readonly" style="font-weight: bold; width: 85px;" />
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
-				       		<a id="btnModalGenerateCode" class="btn btn-default" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);"><i class="fa fa-print"></i> PDF</a>
-				       		<a href="@{OrderOfServiceController.remove(object.id)}" class="btn btn-default" title="Atenção: Esta ação remove a ordem de serviço, o acompanhamento do cliente (Código: &{object.orderCode}) e os valores de serviços associados a esta ordem de serviço."><i class="fa fa-trash"></i> Remover</a>
+				        	<div class="dropdown">
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu${object.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								  <i class="fa fa-wrench"></i> <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu${object.id}">
+                                    <li><a href="#" id="btnModalGenerateCode" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);">Baixar PDF</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="@{OrderOfServiceController.remove(object.id)}" title="Atenção: Esta ação remove a ordem de serviço, o acompanhamento do cliente (Código: &{object.orderCode}) e os valores de serviços associados a esta ordem de serviço.">Remover</a></li>
+								</ul>
+							</div>
 				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">

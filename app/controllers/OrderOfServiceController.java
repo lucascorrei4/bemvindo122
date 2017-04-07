@@ -30,6 +30,7 @@ import models.Step;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
+import play.mvc.Before;
 import util.ApplicationConfiguration;
 import util.PushNotification;
 import util.StatusEnum;
@@ -40,6 +41,19 @@ public class OrderOfServiceController extends CRUD {
 	
 	public static String STR_PUSH_APP_ID = ApplicationConfiguration.getInstance().getOneSignalAppId();
 	public static String STR_PUSH_AUTH_ID = ApplicationConfiguration.getInstance().getOneSignalAuthId();
+	
+	@Before
+	static void globals() {
+		if (Admin.getLoggedUserInstitution() == null || Admin.getLoggedUserInstitution().getUser() == null) {
+			Application.index();
+		} 
+		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(Admin.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
+		renderArgs.put("logged", Admin.getLoggedUserInstitution().getUser().id);
+		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
+		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
+		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
+		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+	}
 
 	public static void blank() throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());

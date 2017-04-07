@@ -9,6 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import controllers.CRUD.ObjectType;
+import models.Client;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.OrderOfServiceValue;
@@ -17,11 +18,26 @@ import models.Step;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
+import play.mvc.Before;
 import util.StatusEnum;
 import util.Utils;
 
 @CRUD.For(models.Service.class)
 public class ServiceController extends CRUD {
+	
+	@Before
+	static void globals() {
+		if (Admin.getLoggedUserInstitution() == null || Admin.getLoggedUserInstitution().getUser() == null) {
+			Application.index();
+		} 
+		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(Admin.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
+		renderArgs.put("logged", Admin.getLoggedUserInstitution().getUser().id);
+		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
+		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
+		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
+		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+	}
+	
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
@@ -195,5 +211,20 @@ public class ServiceController extends CRUD {
 			orderServiceStep.save();
 		}
 	}
+	
+	public static void remove(String id) throws Exception {
+        ObjectType type = ObjectType.get(getControllerClass());
+        notFoundIfNull(type);
+        Service object = Service.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()).first();
+        notFoundIfNull(object);
+        try {
+            object.delete();
+        } catch (Exception e) {
+            flash.error(play.i18n.Messages.get("crud.delete.error", type.modelName));
+            redirect(request.controller + ".show", object._key());
+        }
+        flash.success(play.i18n.Messages.get("crud.deleted", type.modelName));
+        redirect(request.controller + ".list");
+    }
 
 }

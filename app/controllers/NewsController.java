@@ -5,10 +5,12 @@ import java.util.List;
 
 import models.Article;
 import models.Parameter;
+import play.mvc.Before;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
 
 public class NewsController extends Controller {
+	
 	public static void list() {
 		List<Article> highlightArticles = Article.find("highlight = true and isActive = true").fetch(2);
 		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);

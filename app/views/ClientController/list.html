@@ -27,7 +27,17 @@
 						    	<a href="@{ClientController.show(object.id)}">${object.isActive ? 'Sim' : 'Não'}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
-				       		<a href="@{ClientController.show(object.id)}" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                            <div class="dropdown">
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu${object.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								  <i class="fa fa-wrench"></i> <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu${object.id}">
+                                    <li><a href="@{ClientController.show(object.id)}">Editar</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="@{ClientController.remove(object.id)}">Excluir</a></li>
+								</ul>
+							</div>
 				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">

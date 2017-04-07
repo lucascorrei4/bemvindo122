@@ -45,6 +45,9 @@ public class Admin extends Controller {
 		renderArgs.put("id", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 		renderArgs.put("institutionName", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
 	}
+	
+	public void loadVariables() {
+	}
 
 	public static void firstStep() {
 		User connectedUser = getLoggedUserInstitution().getUser();

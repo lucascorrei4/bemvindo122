@@ -8342,3 +8342,7 @@ button.close {
 	max-height: 145%;
 	padding: 0;
 }
+
+h1.page-header {
+	color: #006936;	
+}

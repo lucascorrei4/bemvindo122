@@ -34,13 +34,14 @@ import models.StatusSMS;
 import models.User;
 import play.data.validation.Error;
 import play.data.validation.Valid;
+import play.mvc.Before;
 import play.mvc.Controller;
 import util.FromEnum;
 import util.UserInstitutionParameter;
 import util.Utils;
 
 public class Application extends Controller {
-
+	
 	public static void index() {
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
 		render(listArticles);
@@ -249,7 +250,8 @@ public class Application extends Controller {
 				/* The user needs to create a institution */
 				User connectedUser = userInstitutionParameter.getUser();
 				Admin.globals();
-				render("@Admin.firstStep", institution, connectedUser);
+				Parameter parameter = Parameter.all().first();
+				render("@Admin.firstStep", institution, connectedUser, parameter);
 				return;
 			} else {
 				// Links the user to institution

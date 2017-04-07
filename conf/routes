@@ -92,7 +92,7 @@ GET		${ctx}/admin/clientes								ClientController.list
 GET		${ctx}/admin/clientes/novo							ClientController.blank
 GET		${ctx}/admin/clientes/{id}							ClientController.show
 GET		${ctx}/admin/clientes/{id}/{field}					ClientController.attachment
-GET		${ctx}/admin/clientes/{id}/editar						ClientController.edit
+GET		${ctx}/admin/clientes/{id}/editar					ClientController.edit
 POST	${ctx}/admin/clientes								ClientController.create
 POST	${ctx}/admin/clientes/{id}							ClientController.save
 DELETE	${ctx}/admin/clientes/{id}							ClientController.delete
