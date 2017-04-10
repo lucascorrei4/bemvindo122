@@ -10,6 +10,9 @@
 				<a href="#">Navegação</a>
 				<ul>
 					<li><a href="/">Seu Pedido Online</a></li>
+					#{list listTheSystems, as:'theSystem'}
+						<li><a href="/o-sistema/&{theSystem.friendlyUrl}">&{theSystem.title}</a></li>
+					#{/list}
 					<li><a href="/dicas">Dicas</a></li>
 					<li><a href="/">Contato</a></li>
 				</ul>

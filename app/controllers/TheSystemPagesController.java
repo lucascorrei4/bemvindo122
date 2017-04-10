@@ -26,12 +26,12 @@ public class TheSystemPagesController extends Controller {
 		TheSystem theSystem = TheSystem.findByFriendlyUrl(friendlyUrl);
 		List<TheSystem> listTheSystems = TheSystem.find(
 				"highlight = false and isActive = true and id <>  " + theSystem.id + " order by postedAt desc")
-				.fetch(3);
+				.fetch();
 		if (!listTheSystems.isEmpty()) {
 			bottomNews = listTheSystems.subList(0, listTheSystems.size());
 		}
 		Parameter parameter = Parameter.all().first();
-		render(theSystem, bottomNews, parameter);
+		render(theSystem, bottomNews, parameter, listTheSystems);
 	}
 
 	public static void getImage(long id, String index) {

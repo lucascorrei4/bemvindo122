@@ -5,6 +5,7 @@ import java.util.List;
 
 import models.Article;
 import models.Parameter;
+import models.TheSystem;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
@@ -17,7 +18,9 @@ public class NewsController extends Controller {
 		List<Article> sidebarRightNews = listArticles.subList(0, 2);
 		List<Article> bottomNews = listArticles.subList(2, listArticles.size());
 		Parameter parameter = Parameter.all().first();
-		render(bottomNews, sidebarRightNews, highlightArticles, parameter);
+		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
+				.fetch(6);
+		render(bottomNews, sidebarRightNews, highlightArticles, parameter, listTheSystems);
 	}
 
 	public static void details(String id) {
@@ -26,7 +29,9 @@ public class NewsController extends Controller {
 		List<Article> sidebarRightNews = listArticles.subList(0, 2);
 		List<Article> bottomNews = listArticles.subList(2, listArticles.size());
 		Parameter parameter = Parameter.all().first();
-		render(article, bottomNews, sidebarRightNews, parameter);
+		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
+				.fetch(6);
+		render(article, bottomNews, sidebarRightNews, parameter, listTheSystems);
 	}
 	
 	public static void getImage(long id, String index) {

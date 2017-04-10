@@ -35,6 +35,7 @@ import util.ApplicationConfiguration;
 import util.PushNotification;
 import util.StatusEnum;
 import util.Utils;
+import util.VideoHelpEnum;
 
 @CRUD.For(models.OrderOfService.class)
 public class OrderOfServiceController extends CRUD {
@@ -53,6 +54,8 @@ public class OrderOfServiceController extends CRUD {
 		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
 		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("videohelp", VideoHelpEnum.OrderOfService);
+		renderArgs.put("videohelpUpdateOrders", VideoHelpEnum.UpdateOrders);
 	}
 
 	public static void blank() throws Exception {

@@ -8,7 +8,7 @@
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
 		<!-- End Google Tag Manager -->
-		<title>&{theSystem.getTitle()} #TMFTQS | Seu Pedido Online</title>
+		<title>&{theSystem.getTitle()} | Seu Pedido Online</title>
 		<meta name="description" content="&{theSystem.getHeadline()}">
 		<meta name="keywords" content="&{theSystem.getMetatags()}">
 		<meta property="twitter:title" content="&{theSystem.getTitle()} | Seu Pedido Online">
@@ -86,15 +86,19 @@
 									<div class="fb-comments" data-href="" data-numposts="5"></div>
 								</div>
 							</div>
-							<footer id="newsletterTips" style="width: 100%">
-								#{include 'includes/formNewsletterTips.html' /}
-							</footer>
+							#{if theSystem.showLeadsForm}
+								<footer id="newsletterTips" style="width: 100%">
+									#{include 'includes/formNewsletterTips.html' /}
+								</footer>
+							#{/if}
 						</section>
-						<section class="wrapper style1 container special">
-							<div class="row">
-								#{include 'includes/lastNewsBottom.html' /}
-							</div>
-						</section>
+						#{if theSystem.showBottomNews}
+							<section class="wrapper style1 container special">
+								<div class="row">
+									#{include 'includes/lastNewsBottom.html' /}
+								</div>
+							</section>
+						#{/if}
 				</article>
 			<!-- Footer -->
 			#{include 'includes/footerTemplateFollow.html' /}

@@ -26,6 +26,7 @@ import util.StatusInvoiceEnum;
 import util.StatusPaymentEnum;
 import util.UserInstitutionParameter;
 import util.Utils;
+import util.VideoHelpEnum;
 
 @With(Secure.class)
 public class Admin extends Controller {
@@ -44,6 +45,7 @@ public class Admin extends Controller {
 		renderArgs.put("idu", getLoggedUserInstitution().getUser().getId());
 		renderArgs.put("id", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 		renderArgs.put("institutionName", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("videohelp", VideoHelpEnum.Index);
 	}
 	
 	public void loadVariables() {

@@ -21,6 +21,7 @@ import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 import util.StatusEnum;
 import util.Utils;
+import util.VideoHelpEnum;
 
 @CRUD.For(models.Service.class)
 public class ServiceController extends CRUD {
@@ -36,6 +37,7 @@ public class ServiceController extends CRUD {
 		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
 		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("videohelp", VideoHelpEnum.Services);
 	}
 	
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {

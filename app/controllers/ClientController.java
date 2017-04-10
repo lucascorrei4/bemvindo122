@@ -7,6 +7,7 @@ import models.Client;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
+import util.VideoHelpEnum;
 
 @CRUD.For(models.Client.class)
 public class ClientController extends CRUD {
@@ -22,6 +23,7 @@ public class ClientController extends CRUD {
 		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
 		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("videohelp", VideoHelpEnum.Client);
 	}
 	
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {
