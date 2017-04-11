@@ -160,7 +160,7 @@ public class Utils extends Controller {
 
 	public static String getStringDateTime(Date date) {
 		DateFormat dateFormat = new SimpleDateFormat(STR_DEFAULT_DATE_FORMAT);
-		Calendar c = Calendar.getInstance();
+		Calendar c = getBrazilCalendar();
 		c.setTime(date);
 		return dateFormat.format(c.getTime());
 	}
@@ -183,7 +183,7 @@ public class Utils extends Controller {
 		Calendar calendar = GregorianCalendar.getInstance(tz);
 		return calendar;
 	}
-	
+
 	public static String randomKey() {
 		return UUID.randomUUID().toString();
 	}
@@ -365,7 +365,7 @@ public class Utils extends Controller {
 	}
 
 	public static Date addDays(Date date, int days) {
-		Calendar cal = Calendar.getInstance();
+		Calendar cal = getBrazilCalendar();
 		cal.setTime(date);
 		cal.add(Calendar.DATE, days);
 		return cal.getTime();
@@ -401,7 +401,7 @@ public class Utils extends Controller {
 	}
 
 	public static String dateNow() {
-		Calendar currentDate = Calendar.getInstance();
+		Calendar currentDate = getBrazilCalendar();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		String dateNow = formatter.format(currentDate.getTime());
 		return dateNow;
@@ -440,6 +440,30 @@ public class Utils extends Controller {
 
 	public static String normalizeString(String str) {
 		return str.replace("%", "%%");
+	}
+
+	public static String getFirstDayMonthDate() {
+		Calendar calendar = getBrazilCalendar();
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMinimum(Calendar.DAY_OF_MONTH));
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		String getFirstDay = getStringDateTime(calendar.getTime());
+		return getFirstDay;
+	}
+
+	public static String getLastDayMonthDate() {
+		Calendar calendar = getBrazilCalendar();
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		calendar.set(Calendar.HOUR, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		String getLastDay = getStringDateTime(calendar.getTime());
+		return getLastDay;
+	}
+	public static void main(String[] args) {
+		System.out.println(getFirstDayMonthDate());
+		System.out.println(getLastDayMonthDate());
 	}
 
 }

@@ -1,8 +1,11 @@
 package controllers;
 
 import java.net.URLDecoder;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import com.sun.mail.imap.protocol.Status;
 
 import models.BodyMail;
 import models.Client;
@@ -11,6 +14,7 @@ import models.Institution;
 import models.Invoice;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
+import models.OrderOfServiceValue;
 import models.Parameter;
 import models.SendTo;
 import models.Sender;
@@ -22,6 +26,7 @@ import models.User;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
+import util.StatusEnum;
 import util.StatusInvoiceEnum;
 import util.StatusPaymentEnum;
 import util.UserInstitutionParameter;
@@ -38,16 +43,20 @@ public class Admin extends Controller {
 	static void globals() {
 		if (getLoggedUserInstitution() == null || getLoggedUserInstitution().getUser() == null) {
 			Application.index();
-		} 
-		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
+		}
+		renderArgs.put("poweradmin",
+				"lucascorreiaevangelista@gmail.com".equals(getLoggedUserInstitution().getUser().getEmail()) ? "true"
+						: "false");
 		renderArgs.put("logged", getLoggedUserInstitution().getUser().id);
 		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
 		renderArgs.put("idu", getLoggedUserInstitution().getUser().getId());
-		renderArgs.put("id", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
-		renderArgs.put("institutionName", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("id", getLoggedUserInstitution().getInstitution() != null
+				? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
+		renderArgs.put("institutionName", getLoggedUserInstitution().getInstitution() != null
+				? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
 		renderArgs.put("videohelp", VideoHelpEnum.Index);
 	}
-	
+
 	public void loadVariables() {
 	}
 
@@ -81,14 +90,16 @@ public class Admin extends Controller {
 				int contSentSMSs = StatusSMS.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
 				int contSentPushs = StatusPUSH.find("institutionId = " + connectedUser.getInstitutionId()).fetch()
 						.size();
-				int contSentMails = StatusMail
-						.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
+				int contSentMails = StatusMail.find("institutionId = " + connectedUser.getInstitutionId()).fetch()
+						.size();
 				List<Client> listClients = Client.find("institutionId = " + connectedUser.getInstitutionId()
 						+ " and isActive = true order by postedAt desc").fetch(5);
 				List<Service> listServices = Service.find("institutionId = " + connectedUser.getInstitutionId()
 						+ " and isActive = true order by postedAt desc").fetch(5);
 				List<OrderOfService> listOrderOfServices = OrderOfService.find("institutionId = "
 						+ connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
+				List<OrderOfService> listOrderOfServicesByMonth = calculateTotalOrderOfService(connectedUser);
+				String totalOfOrderOfServiceByMonth = Utils.getCurrencyValue(calculateTotalRevenueOfMonth(listOrderOfServicesByMonth));
 				Institution institution = Institution.find("byId", connectedUser.getInstitutionId()).first();
 				String institutionName = institution.getInstitution();
 				Parameter parameter = Parameter.all().first();
@@ -97,12 +108,52 @@ public class Admin extends Controller {
 				int allSents = contSentSMSs + contSentPushs + contSentMails;
 				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices,
 						connectedUser, institutionName, contSentSMSs, institution, contSentPushs, parameter,
-						smsExceedLimit, userFreeTrial, allSents, contSentMails);
+						smsExceedLimit, userFreeTrial, allSents, contSentMails, listOrderOfServicesByMonth, totalOfOrderOfServiceByMonth);
 			} else {
 				/* Redirect to page of information about expired license */
 				render("@Admin.expiredLicense", connectedUser);
 			}
 		}
+	}
+
+	private static List<OrderOfService> calculateTotalOrderOfService(User connectedUser) {
+		String firstDayOfMonth = Utils.getFirstDayMonthDate();
+		String lastDayOfMonth = Utils.getLastDayMonthDate();
+		List<OrderOfService> listOrderOfServices = OrderOfService
+				.find("institutionId = " + connectedUser.getInstitutionId() + " and postedAt > '" + firstDayOfMonth
+						+ "' and postedAt < '" + lastDayOfMonth + "' and isActive = true order by postedAt desc")
+				.fetch();
+		for (OrderOfService order : listOrderOfServices) {
+			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
+					.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
+			/* Get somatories values */
+			Float totalGeral = 0f;
+			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+				totalGeral += orderOfServiceValue.getTotalPrice();
+			}
+			order.setTotalOrderOfService(totalGeral);
+			List<OrderOfServiceStep> listOrderOfServiceStep = OrderOfServiceStep
+					.find("orderOfService_id = " + Long.valueOf(order.id) + " and institutionId = "
+							+ order.getInstitutionId() + " and isActive = true")
+					.fetch();
+			boolean isOpened = false;
+			for (OrderOfServiceStep orderOfServiceStep : listOrderOfServiceStep) {
+				if (orderOfServiceStep.status != StatusEnum.Finished) {
+					isOpened = true;
+					break;
+				}
+			}
+			order.setCurrentStatus(isOpened ? StatusEnum.InProgress.getLabel() : StatusEnum.Finished.getLabel());
+		}
+		return listOrderOfServices;
+	}
+
+	private static Float calculateTotalRevenueOfMonth(List<OrderOfService> listOrderOfService) {
+		Float totalGeral = 0f;
+		for (OrderOfService order : listOrderOfService) {
+			totalGeral += order.getTotalOrderOfService();
+		}
+		return totalGeral;
 	}
 
 	// public static User getLoggedUser() {
@@ -192,7 +243,8 @@ public class Admin extends Controller {
 			if (loggedUser != null) {
 				loggedUserInstitution.setUser(loggedUser);
 				if (loggedUser.getInstitutionId() > 0) {
-					loggedUserInstitution.setInstitution((Institution) Institution.findById(loggedUser.getInstitutionId()));
+					loggedUserInstitution
+							.setInstitution((Institution) Institution.findById(loggedUser.getInstitutionId()));
 				}
 			}
 			loggedUserInstitution.setCurrentSession(session.get("username"));
@@ -214,7 +266,7 @@ public class Admin extends Controller {
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
-		Sender sender= new Sender();
+		Sender sender = new Sender();
 		sender.setCompany("Seu Pedido Online");
 		sender.setFrom("contato@seupedido.online");
 		sender.setKey("");
@@ -228,13 +280,13 @@ public class Admin extends Controller {
 		bodyMail.setFooter1(Institution.findAll().size() + " empresas cadastradas.");
 		bodyMail.setImage1(parameter.getLogoUrl());
 		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
-		mailController.sendHTMLMail(sendTo , sender, bodyMail);
+		mailController.sendHTMLMail(sendTo, sender, bodyMail);
 		sendTo = new SendTo();
 		sendTo.setDestination("th4mmy@gmail.com");
 		sendTo.setName("Thammy");
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
-		mailController.sendHTMLMail(sendTo , sender, bodyMail);
+		mailController.sendHTMLMail(sendTo, sender, bodyMail);
 	}
 
 }

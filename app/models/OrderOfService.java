@@ -47,6 +47,12 @@ public class OrderOfService extends Model {
 	@Hidden
 	public boolean isThanked = false;
 
+	@Transient
+	public Float totalOrderOfService = 0f;
+
+	@Transient
+	public String currentStatus;
+
 	public String toString() {
 		return orderCode;
 	}
@@ -145,6 +151,26 @@ public class OrderOfService extends Model {
 	
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
+	}
+
+	public Float getTotalOrderOfService() {
+		return totalOrderOfService;
+	}
+
+	public void setTotalOrderOfService(Float totalOrderOfService) {
+		this.totalOrderOfService = totalOrderOfService;
+	}
+	
+	public String getTotalPriceCurrency() {
+		return Utils.getCurrencyValue(totalOrderOfService);
+	}
+
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
+
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
 	}
 
 }

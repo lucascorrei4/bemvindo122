@@ -14,10 +14,6 @@ function newstep() {
 	setTimeout(function() {
 		resetTable()
 	}, 500);
-	var rowCount = $('#stepsTable tr').length;
-	if (rowCount == 5) {
-		$("#addNewStep").prop("disabled",true);
-	}
 }
 
 function resetTable() {

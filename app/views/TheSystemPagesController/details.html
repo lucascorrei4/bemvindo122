@@ -80,7 +80,26 @@
 												</h3>
 											</header>
 											<a href="#" class="image featured"><img src="@{TheSystemPagesController.getImage(theSystem.id, '1')}" alt="&{theSystem.getTitleDescription()}" /></a>
+											
 											<p>&{theSystem.getDescription().raw()}</p>
+											
+											#{if theSystem.actionButton}
+												<div style="width: 100%; margin-bottom: 50px">
+													<div style="text-align: center">
+														<script type="text/javascript">
+															function importHotmart(){ 
+														 		var imported = document.createElement('script'); 
+														 		imported.src = 'https://static.hotmart.com/checkout/widget.min.js'; 
+														 		document.head.appendChild(imported); 
+															} 
+														 	importHotmart(); 
+														 </script> 
+														 <a onclick="return false;" href="&{theSystem.actionButton}" class="hotmart-fb">
+														 	<img src='https://static.hotmart.com/img/btn-buy-green.png'>
+														 </a> 
+												 	</div>
+												 </div>
+											#{/if}
 										</section>
 									</div>
 									<div class="fb-comments" data-href="" data-numposts="5"></div>
