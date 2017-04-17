@@ -289,6 +289,14 @@ public class OrderOfServiceController extends CRUD {
 				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId()
 						+ " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
 				mapOrderServiceSteps.put(service, orderOfServiceStep);
+				boolean isOpened = false;
+				for (OrderOfServiceStep orderStep : orderOfServiceStep) {
+					if (orderStep.status != StatusEnum.Finished) {
+						isOpened = true;
+						break;
+					}
+				}
+				orderOfService.setCurrentStatus(isOpened ? StatusEnum.InProgress.getLabel() : StatusEnum.Finished.getLabel());
 				orderOfService.setMapOrderServiceSteps(mapOrderServiceSteps);
 			}
 		}
