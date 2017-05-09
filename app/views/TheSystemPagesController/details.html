@@ -66,14 +66,19 @@
 								<div class="8u 12u(narrower) important(narrower)">
 									<div class="content">
 										<section>
-											<p style="font-size: 15px; margin: 0">Você está em: <a href="/"><strong>Seu Pedido Online</strong></a> > <a href="/o-sistema"><strong>O Sistema</strong></a> > <a href="#"><strong>&{theSystem.getTitle().raw()}</strong></a></p>
 											<p style="font-size: 15px; margin: 0">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{theSystem.postedAtParsed}</p>
 											<input id="shorten" type="hidden" value="&{theSystem.getShortenUrl()}" />
 											#{if theSystem.getEmbed()}
-												<iframe width="560" height="315" src="&{theSystem.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+												<iframe width="560" height="315" src="&{theSystem.getEmbed()}?rel=0&autoplay=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
 											#{/if}
 											<header>
 												<div id="share"></div>
+												<br />
+												#{if theSystem.showLeadsForm}
+													<footer id="newsletterTheSystemTop" style="width: 100%">
+														#{include 'includes/formCapturePageTop.html' /}
+													</footer>
+												#{/if}
 												<br />
 												<h3 style="text-transform: capitalize;">
 													<strong>&{theSystem.getTitleDescription().raw()}</strong>
@@ -106,8 +111,8 @@
 								</div>
 							</div>
 							#{if theSystem.showLeadsForm}
-								<footer id="newsletterTips" style="width: 100%">
-									#{include 'includes/formNewsletterTips.html' /}
+								<footer id="newsletterTheSystemBottom" style="width: 100%">
+									#{include 'includes/formCapturePageBottom.html' /}
 								</footer>
 							#{/if}
 						</section>

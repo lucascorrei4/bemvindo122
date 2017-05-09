@@ -3,8 +3,9 @@ package util;
 public enum FromEnum {
 	HomePageTop("Página Inicial Topo", "homepagetop"), HomePageBottom("Página Inicial Rodapé",
 			"homepagebottom"), DoubtsForm("Formulário de Dúvidas", "doubtsform"), UserForm("Formulário de Usuário",
-					"userform"), FollowPage("Página de Acompanhamento",
-							"followpage"), NewsPage("Página de Notícias", "newspage");
+					"userform"), FollowPage("Página de Acompanhamento", "followpage"), NewsPage("Página de Notícias",
+							"newspage"), CapturePageTop("Página de Captura Topo", "capturepagetop"), CapturePageBottom(
+									"Página de Captura Rodapé", "capturepagebottom");
 
 	String label;
 	String value;

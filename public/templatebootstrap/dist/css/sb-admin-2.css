@@ -29,6 +29,7 @@ body {
 
 .navbar-top-links {
     margin-right: 0;
+    float: right;
 }
 
 .navbar-top-links li {

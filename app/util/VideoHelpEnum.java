@@ -1,9 +1,9 @@
 package util;
 
 public enum VideoHelpEnum {
-	Index("Página Inicial", "https://www.youtube.com/embed/jek-QOfiXOo"), Client("Clientes", "https://www.youtube.com/embed/6Wb4C0RNP2A"), Services("Serviços",
-			"https://www.youtube.com/embed/JGwWNGJdvx8"), OrderOfService("Ordens de Serviço", "https://www.youtube.com/embed/6Wb4C0RNP2A"), UpdateOrders("Atualizar Pedidos",
-					"https://www.youtube.com/embed/VpnUXY4-6W8");
+	Index("Página Inicial", "https://www.youtube.com/embed/12CHIXHYPJM"), Client("Clientes", "https://www.youtube.com/embed/YyR1ZE11wOc"), Services("Serviços",
+			"https://www.youtube.com/embed/Sdj2Tjf8JIs"), OrderOfService("Ordens de Serviço", "https://www.youtube.com/embed/12CHIXHYPJM"), UpdateOrders("Atualizar Pedidos",
+					"https://www.youtube.com/embed/yQYE5MJhyTI");
 
 	String label;
 	String value;

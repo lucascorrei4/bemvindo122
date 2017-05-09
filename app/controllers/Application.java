@@ -41,7 +41,7 @@ import util.UserInstitutionParameter;
 import util.Utils;
 
 public class Application extends Controller {
-	
+
 	public static void index() {
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
 		render(listArticles);
@@ -520,6 +520,10 @@ public class Application extends Controller {
 				render("includes/formNewsletterBottom.html", status, resp);
 			} else if ("newspage".equals(origin)) {
 				render("includes/formNewsletterTips.html", status, resp);
+			}	else if ("capturepagetop".equals(origin)) {
+				render("includes/formCapturePageTop.html", status, resp);
+			} else if ("capturepagebottom".equals(origin)) {
+				render("includes/formCapturePageBottom.html", status, resp);
 			}
 		} else {
 			status = "SUCCESS";
@@ -534,6 +538,10 @@ public class Application extends Controller {
 				render("includes/formNewsletterBottom.html", status, resp);
 			} else if ("newspage".equals(origin)) {
 				render("includes/formNewsletterTips.html", status, resp);
+			} else if ("capturepagetop".equals(origin)) {
+				render("includes/formCapturePageTop.html", status, resp);
+			} else if ("capturepagebottom".equals(origin)) {
+				render("includes/formCapturePageBottom.html", status, resp);
 			}
 		}
 	}
