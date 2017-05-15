@@ -20,7 +20,10 @@ public class NewsController extends Controller {
 		Parameter parameter = Parameter.all().first();
 		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
 				.fetch(6);
-		render(bottomNews, sidebarRightNews, highlightArticles, parameter, listTheSystems);
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		theSystem.setCommentTitle("SeuPedido.Online é um Sistema <br/> 			para Acompanhamento<br/>de Pedidos e Serviços.");
+		render(bottomNews, sidebarRightNews, highlightArticles, parameter, listTheSystems, theSystem);
 	}
 
 	public static void details(String id) {
@@ -31,7 +34,9 @@ public class NewsController extends Controller {
 		Parameter parameter = Parameter.all().first();
 		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
 				.fetch(6);
-		render(article, bottomNews, sidebarRightNews, parameter, listTheSystems);
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		render(article, bottomNews, sidebarRightNews, parameter, listTheSystems, theSystem);
 	}
 	
 	public static void getImage(long id, String index) {

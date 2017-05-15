@@ -3,7 +3,7 @@
 	<a href="/">
 		<h1 id="logo">&nbsp;</h1>
 	</a>
-	<nav id="nav">
+	<nav id="nav" style="display: &{theSystem.showTopMenu ? 'block' : 'none'}">
 		<ul style="z-index: 99999999">
 			<li class="current"><a href="/">Voltar para Página Inicial</a></li>
 			<li class="submenu">
@@ -21,8 +21,7 @@
 	</nav>
 	<div style="letter-spacing: 0.075em; position: absolute; left: 1.5em; text-transform: uppercase; top: 0.75em;">
 		<blockquote style="border: none; background: transparent url(/public/templatefollow/images/quotes.gif) no-repeat scroll left top;padding-left: 45px;padding-top: 5px;padding-bottom:10px;font-style:italic;">
-			<strong>SeuPedido.Online</strong> é um Sistema <br/>
-			para Prestadores de Serviço. <br/> 
+			&{theSystem.getCommentTitle().raw()}
 		</blockquote>
 	</div>
 </header>

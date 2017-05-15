@@ -31,6 +31,7 @@ import models.Sender;
 import models.Service;
 import models.StatusMail;
 import models.StatusSMS;
+import models.TheSystem;
 import models.User;
 import play.data.validation.Error;
 import play.data.validation.Valid;
@@ -507,6 +508,7 @@ public class Application extends Controller {
 		mailList.setMail(mail);
 		mailList.origin = FromEnum.getNameByValue(origin);
 		mailList.setUrl(url);
+		/* Making validations */
 		validation.clear();
 		validation.valid(mailList);
 		validation.email(mailList.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
@@ -514,17 +516,6 @@ public class Application extends Controller {
 		if (validation.hasErrors()) {
 			status = "ERROR";
 			resp = "Favor, insira o seu e-mail no formato nome@provedor.com.br.";
-			if ("homepagetop".equals(origin)) {
-				render("includes/formNewsletterTop.html", status, resp);
-			} else if ("homepagebottom".equals(origin)) {
-				render("includes/formNewsletterBottom.html", status, resp);
-			} else if ("newspage".equals(origin)) {
-				render("includes/formNewsletterTips.html", status, resp);
-			}	else if ("capturepagetop".equals(origin)) {
-				render("includes/formCapturePageTop.html", status, resp);
-			} else if ("capturepagebottom".equals(origin)) {
-				render("includes/formCapturePageBottom.html", status, resp);
-			}
 		} else {
 			status = "SUCCESS";
 			resp = "Incluído com sucesso.";
@@ -532,17 +523,25 @@ public class Application extends Controller {
 				mailList.setPostedAt(Utils.getCurrentDateTime());
 				mailList.merge();
 			}
-			if ("homepagetop".equals(origin)) {
-				render("includes/formNewsletterTop.html", status, resp);
-			} else if ("homepagebottom".equals(origin)) {
-				render("includes/formNewsletterBottom.html", status, resp);
-			} else if ("newspage".equals(origin)) {
-				render("includes/formNewsletterTips.html", status, resp);
-			} else if ("capturepagetop".equals(origin)) {
-				render("includes/formCapturePageTop.html", status, resp);
-			} else if ("capturepagebottom".equals(origin)) {
-				render("includes/formCapturePageBottom.html", status, resp);
-			}
+		}
+		
+		/* Render page based on origin */
+		switch (FromEnum.getNameByValue(origin)) {
+		case HomePageTop:
+			render("includes/formNewsletterTop.html", status, resp);
+			break;
+		case HomePageBottom:
+			render("includes/formNewsletterBottom.html", status, resp);
+			break;
+		case NewsPage:
+			render("includes/formNewsletterTips.html", status, resp);
+			break;
+		case CapturePageTop:
+			render("includes/formCapturePageTop.html", status, resp);
+			break;
+		case CapturePageBottom:
+			render("includes/formCapturePageBottom.html", status, resp);
+			break;
 		}
 	}
 
@@ -550,7 +549,9 @@ public class Application extends Controller {
 		Parameter parameter = Parameter.all().first();
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
 		List<Article> bottomNews = listArticles.subList(0, 3);
-		render(bottomNews, parameter);
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		render(bottomNews, parameter, theSystem);
 	}
 
 }

@@ -114,6 +114,7 @@ StatusMailController=E-mails Enviados
 ArticleController=Artigos
 MailListController=Leads
 TheSystemController=O Sistema
+MailBaseController=Base de E-mails
 
 #Models
 ContactForm=Mensagens - Form. Contato
@@ -150,8 +151,13 @@ StatusMail=E-mail Enviado
 Article=Artigo
 MailList=Lead
 TheSystem= O Sistema
+MailBase=Base de E-mail
 
 #Labels
+commentTitle=Título Comentário
+titlePersona=Persona
+mailsPersona=E-mails
+dateBase=Data
 headline2=Subtítulo 2
 headline3=Subtítulo 3
 titleDescription=Título da Descrição

@@ -73,6 +73,8 @@ public class TheSystem extends Model {
 	public boolean showBottomNews;
 
 	public boolean showLeadsForm;
+
+	public boolean showTopMenu;
 	
 	public String actionButton;
 
@@ -82,6 +84,8 @@ public class TheSystem extends Model {
 	public String shortenUrl;
 
 	public boolean isActive = true;
+
+	public String commentTitle;
 
 	public String toString() {
 		return title;
@@ -212,8 +216,7 @@ public class TheSystem extends Model {
 	public String getShortenUrl() {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id)
 				&& !Utils.isNullOrEmpty(this.friendlyUrl)) {
-			setShortenUrl(Utils.getShortenUrl("http://seupedido.online/dicas/".concat(String.valueOf(this.id))
-					.concat("/").concat(this.getFriendlyUrl())));
+			setShortenUrl(Utils.getShortenUrl("https://seupedido.online/o-sistema/".concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
@@ -300,6 +303,22 @@ public class TheSystem extends Model {
 
 	public void setActionButton(String actionButton) {
 		this.actionButton = actionButton;
+	}
+
+	public boolean isShowTopMenu() {
+		return showTopMenu;
+	}
+
+	public void setShowTopMenu(boolean showTopMenu) {
+		this.showTopMenu = showTopMenu;
+	}
+
+	public String getCommentTitle() {
+		return commentTitle;
+	}
+
+	public void setCommentTitle(String commentTitle) {
+		this.commentTitle = commentTitle;
 	}
 
 }

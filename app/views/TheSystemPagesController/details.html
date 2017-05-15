@@ -15,7 +15,7 @@
 		<meta property="twitter:description" content="&{theSystem.getHeadline()}">
 		<meta property="og:title" content="&{theSystem.getTitle()} | Seu Pedido Online">
 		<meta property="og:description" content="&{theSystem.getHeadline()}">
-		<meta property="og:image" content="http://seupedido.online/TheSystemPagesController/getimage?id=&{theSystem.id}&index=1">
+		<meta property="og:image" content="https://seupedido.online/thesystempagescontroller/getimage?id=&{theSystem.id}&index=1">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
 	</head>
@@ -30,7 +30,7 @@
 				<article id="main">
 					<header class="special container" style="margin-bottom: 0">
 						<span class="icon fa-hand-o-down"></span>
-						<h2 style="font-weight: bold; text-transform: capitalize;">&{theSystem.getTitle().raw()}</h2>
+						<h2 style="font-weight: bold; text-transform: uppercase;">&{theSystem.getTitle().raw()}</h2>
 						<p style="text-align: center; margin-bottom: 0px;"><strong>&{theSystem.getHeadline().raw()}</strong></p>
 					</header>
 
@@ -43,7 +43,7 @@
 									<div class="sidebar">
 										<section>
 											<header>
-												<h3 style="text-transform: capitalize;">
+												<h3 style="text-transform: uppercase;">
 													<strong>&{theSystem.getTitle2().raw()}</strong>
 												</h3>
 											</header>
@@ -54,7 +54,7 @@
 										
 										<section>
 											<header>
-												<h3 style="text-transform: capitalize;">
+												<h3 style="text-transform: uppercase;">
 													<strong>&{theSystem.getTitle3().raw()}</strong>
 												</h3>
 											</header>
@@ -80,7 +80,7 @@
 													</footer>
 												#{/if}
 												<br />
-												<h3 style="text-transform: capitalize;">
+												<h3 style="text-transform: uppercase;">
 													<strong>&{theSystem.getTitleDescription().raw()}</strong>
 												</h3>
 											</header>
