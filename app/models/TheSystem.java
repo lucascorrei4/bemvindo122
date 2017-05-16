@@ -78,6 +78,8 @@ public class TheSystem extends Model {
 	
 	public String actionButton;
 
+	public String phrase;
+
 	@Hidden
 	public String postedAt;
 
@@ -85,7 +87,6 @@ public class TheSystem extends Model {
 
 	public boolean isActive = true;
 
-	public String commentTitle;
 
 	public String toString() {
 		return title;
@@ -313,12 +314,15 @@ public class TheSystem extends Model {
 		this.showTopMenu = showTopMenu;
 	}
 
-	public String getCommentTitle() {
-		return commentTitle;
+	public String getPhrase() {
+		if (Utils.isNullOrEmpty(this.phrase)) {
+			setPhrase("SeuPedido.Online é um Sistema <br/> 			para Acompanhamento<br/>de Pedidos e Serviços.");
+		}
+		return phrase;
 	}
 
-	public void setCommentTitle(String commentTitle) {
-		this.commentTitle = commentTitle;
+	public void setPhrase(String phrase) {
+		this.phrase = phrase;
 	}
 
 }

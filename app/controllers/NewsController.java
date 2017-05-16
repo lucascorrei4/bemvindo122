@@ -22,7 +22,6 @@ public class NewsController extends Controller {
 				.fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
-		theSystem.setCommentTitle("SeuPedido.Online é um Sistema <br/> 			para Acompanhamento<br/>de Pedidos e Serviços.");
 		render(bottomNews, sidebarRightNews, highlightArticles, parameter, listTheSystems, theSystem);
 	}
 
