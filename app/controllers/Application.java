@@ -484,7 +484,9 @@ public class Application extends Controller {
 	}
 
 	public static void followAdmin() {
-		render();
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		render(theSystem);
 	}
 
 	public static void saveMailList() throws UnsupportedEncodingException {

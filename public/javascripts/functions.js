@@ -67,7 +67,7 @@ function updateRadioValue(name, value) {
 		name : name,
 		value : value
 	});
-	$('#accordion').load('/orderofservicecontroller/updateradiovalue', data,
+	$('#accordion').load('/OrderOfServiceCRUD/updateradiovalue', data,
 			function(response, status) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -92,7 +92,7 @@ function updateObsOrderStep(name, obs) {
 		name : name,
 		obs : obs
 	});
-	$('#accordion').load('/orderofservicecontroller/updateobsorderstep', data,
+	$('#accordion').load('/OrderOfServiceCRUD/updateobsorderstep', data,
 			function(response, status) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -116,7 +116,7 @@ function sendSMS(id, value) {
 		id : id,
 		value : value
 	});
-	$('#accordion').load('/orderofservicecontroller/sendsms', data,
+	$('#accordion').load('/OrderOfServiceCRUD/sendsms', data,
 			function(response, status) {
 				var status = $("#status").val();
 				var spplittedName = id.split('-');
@@ -141,7 +141,7 @@ function sendPUSH(id, value) {
 		id : id,
 		value : value
 	});
-	$('#accordion').load('/orderofservicecontroller/sendpush', data,
+	$('#accordion').load('/OrderOfServiceCRUD/sendpush', data,
 			function(response, status) {
 		var status = $("#status").val();
 		var spplittedName = id.split('-');
@@ -166,7 +166,7 @@ function sendEmail(id, value) {
 		id : id,
 		value : value
 	});
-	$('#accordion').load('/orderofservicecontroller/sendemail', data,
+	$('#accordion').load('/OrderOfServiceCRUD/sendemail', data,
 			function(response, status) {
 		var status = $("#status").val();
 		var spplittedName = id.split('-');

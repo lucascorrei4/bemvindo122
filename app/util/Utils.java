@@ -462,8 +462,7 @@ public class Utils extends Controller {
 		return getLastDay;
 	}
 	public static void main(String[] args) {
-		System.out.println(getFirstDayMonthDate());
-		System.out.println(getLastDayMonthDate());
+		System.out.println(Utils.removeHTML("<p>Assistência Técnica</p>"));
 	}
 
 }

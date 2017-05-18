@@ -3,5 +3,5 @@ function openModalOrderOfService(element) {
 	document.getElementById("osid").setAttribute('value', orderOfServicedId);
 	$('#orderServiceModal').modal('show');
 	$('#orderInvoice').load(
-			'/orderofservicecontroller/orderofservice?id=' + orderOfServicedId);
+			'/OrderOfServiceCRUD/orderofservice?id=' + orderOfServicedId);
 }

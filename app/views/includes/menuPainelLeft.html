@@ -4,27 +4,27 @@
 		<ul class="nav" id="side-menu">
 			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{ClientController.list}"><i class="fa fa-user-plus fa-fw"></i> 1º. Clientes</a>
+				<a href="@{ArticleCRUD.list}"><i class="fa fa-user-plus fa-fw"></i> 1º. Clientes</a>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{ServiceController.list}"><i class="fa fa-wrench fa-fw"></i> 2º. Serviços</a>
+				<a href="@{ServiceCRUD.list}"><i class="fa fa-wrench fa-fw"></i> 2º. Serviços</a>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceController.list}"><i class="fa fa-qrcode fa-fw"></i> 3º. Gerar Código (OS)</a>
+				<a href="@{OrderOfServiceCRUD.list}"><i class="fa fa-qrcode fa-fw"></i> 3º. Gerar Código (OS)</a>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceController.updateOrder}"><i class="fa fa-battery-half fa-fw"></i> 4º. Atualizar Pedidos</a>
+				<a href="@{OrderOfServiceCRUD.updateOrder}"><i class="fa fa-battery-half fa-fw"></i> 4º. Atualizar Pedidos</a>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-plane fa-fw"></i> Notificações Enviadas<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="@{StatusPUSHController.list}"><i class="fa fa-paper-plane fa-fw"></i> Push Enviadas</a></li>
-					<li><a href="@{StatusSMSController.list}"><i class="fa fa-paper-plane-o fa-fw"></i> SMSs Enviadas</a></li>
-					<li><a href="@{StatusMailController.list}"><i class="fa fa-mail-forward fa-fw"></i> E-mails Enviados</a></li>
+					<li><a href="@{StatusPushCRUD.list}"><i class="fa fa-paper-plane fa-fw"></i> Push Enviadas</a></li>
+					<li><a href="@{StatusSmsCRUD.list}"><i class="fa fa-paper-plane-o fa-fw"></i> SMSs Enviadas</a></li>
+					<li><a href="@{StatusMailCRUD.list}"><i class="fa fa-mail-forward fa-fw"></i> E-mails Enviados</a></li>
 				</ul>
 			</li>
 			
@@ -33,21 +33,22 @@
 				<ul class="nav nav-second-level">
 					<li><a href="/admin/empresa/${id}">Dados da Empresa</a></li>
 					<li><a href="/admin/usuario/${idu}">Meus dados</a></li>
-					<li><a href="/admin/financeiro/${id}">Financeiro</a></li>
+<!-- 					<li><a href="/admin/financeiro/${id}">Financeiro</a></li> -->
 				</ul>
 			</li>
 
 			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Admin<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="@{InstitutionController.listAll}">Empresas Cadastradas</a></li>
-					<li><a href="@{ParameterController.list}">Par&acirc;metros</a></li>
-					<li><a href="@{UserController.listAll}">Usuários Cadastrados</a></li>
-					<li><a href="@{MailListController.listAll}">Leads</a></li>
-					<li><a href="@{ArticleController.list}">Artigos</a></li>
-					<li><a href="@{TheSystemController.list}">O Sistema</a></li>
-					<li><a href="@{MessageController.list}">Mensagens</a></li>
-					<li><a href="@{MailBaseController.list}">Base de E-mails</a></li>
+					<li><a href="@{InstitutionCRUD.listAll}">Empresas Cadastradas</a></li>
+					<li><a href="@{ParameterCRUD.list}">Par&acirc;metros</a></li>
+					<li><a href="@{UserCRUD.listAll}">Usuários Cadastrados</a></li>
+					<li><a href="@{MailListCRUD.listAll}">Leads</a></li>
+					<li><a href="@{ArticleCRUD.list}">Artigos</a></li>
+					<li><a href="@{TheSystemCRUD.list}">O Sistema</a></li>
+					<li><a href="@{SimplePagesCRUD.list}">Páginas Simples</a></li>
+					<li><a href="@{MessageCRUD.list}">Mensagens</a></li>
+					<li><a href="@{MailBaseCRUD.list}">Base de E-mails</a></li>
 				</ul>
 			</li>
 			

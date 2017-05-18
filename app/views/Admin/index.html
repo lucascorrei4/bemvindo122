@@ -244,18 +244,18 @@
                                         <tbody>
                                         #{list listOrderOfServicesByMonth, as:'order'}
 											<tr>
-												<td><a href="@{OrderOfServiceController.list}">${order.orderCode}</a></td>
-												<td><a href="@{OrderOfServiceController.list}">${order.getPostedAtParsed()} </a></td>
-												<td><a href="@{OrderOfServiceController.list}">${order.client?.name} ${order.client?.lastName} </a></td>
-												<td><a href="@{OrderOfServiceController.list}">${order.getCurrentStatus()} </a></td>
-												<td><a href="@{OrderOfServiceController.list}">${order.getTotalPriceCurrency()} </a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.getPostedAtParsed()} </a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.getCurrentStatus()} </a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.getTotalPriceCurrency()} </a></td>
 											</tr>
 										#{/list}
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="text-right">
-                                    <a href="@{OrderOfServiceController.updateOrder}"> <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="@{OrderOfServiceCRUD.updateOrder}"> <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -313,8 +313,8 @@
                                     <tbody>
                                        #{list listOrderOfServices, as:'order'}
 											<tr>
-												<td><a href="@{OrderOfServiceController.list}">${order.orderCode}</a></td>
-												<td><a href="@{OrderOfServiceController.list}">${order.client?.name} ${order.client?.lastName} </a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
 											</tr>
 										#{/list}
                                     </tbody>
@@ -334,17 +334,17 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
-                                <a href="@{StatusPUSHController.list}" class="list-group-item">
+                                <a href="@{StatusPushCRUD.list}" class="list-group-item">
                                     <i class="fa fa-paper-plane fa-fw"></i>${contSentPushs} Push Enviadas
                                     <span class="pull-right text-muted small"><em>⇢</em>
                                     </span>
                                 </a>
-                                <a href="@{StatusSMSController.list}" class="list-group-item">
+                                <a href="@{StatusSmsCRUD.list}" class="list-group-item">
                                     <i class="fa fa-paper-plane-o fa-fw"></i>${contSentSMSs} SMSs Enviadas
                                     <span class="pull-right text-muted small"><em>⇢</em>
                                     </span>
                                 </a>
-                                <a href="@{StatusMailController.list}" class="list-group-item">
+                                <a href="@{StatusMailCRUD.list}" class="list-group-item">
                                     <i class="fa fa-mail-forward fa-fw"></i>${contSentMails} E-mails Enviados
                                     <span class="pull-right text-muted small"><em>⇢</em>
                                     </span>

@@ -20,7 +20,7 @@ import play.db.jpa.Model;
 import util.Utils;
 
 @Entity
-public class TheSystem extends Model {
+public class SimplePage extends Model {
 
 	@Required(message = "Campo obrigatório.")
 	public String title;
@@ -29,38 +29,23 @@ public class TheSystem extends Model {
 	@MaxSize(100000)
 	public String headline;
 
-	@Required(message = "Campo obrigatório.")
 	public String title2;
+
+	public String metatags;
 
 	@Lob
 	@MaxSize(100000)
 	public String headline2;
 
-	@Required(message = "Campo obrigatório.")
-	public String title3;
-
-	@Lob
-	@MaxSize(100000)
-	public String headline3;
-
-	@Required(message = "Campo obrigatório.")
-	public String titleDescription;
-
 	@Lob
 	@MaxSize(100000)
 	public String description;
 
-	@Lob
-	@MaxSize(100000)
-	public String complement;
+	public String buttonTitle;
 
-	public String metatags;
+	public String buttonAction;
 
 	public Blob image1;
-
-	public Blob image2;
-
-	public Blob image3;
 
 	public String tags;
 
@@ -68,25 +53,12 @@ public class TheSystem extends Model {
 
 	public String friendlyUrl;
 
-	public boolean highlight;
-
-	public boolean showBottomNews;
-
-	public boolean showLeadsForm;
-
-	public boolean showTopMenu;
-	
-	public String actionButton;
-
-	public String phrase;
-
 	@Hidden
 	public String postedAt;
 
 	public String shortenUrl;
 
 	public boolean isActive = true;
-
 
 	public String toString() {
 		return title;
@@ -98,18 +70,6 @@ public class TheSystem extends Model {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
-	}
-
-	@Hidden
-	public long institutionId;
-
-	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
-	}
-
-	public void setInstitutionId(long institutionId) {
-		this.institutionId = institutionId;
 	}
 
 	public String getTitle() {
@@ -151,28 +111,12 @@ public class TheSystem extends Model {
 		this.headline = headline;
 	}
 
-	public String getMetatags() {
-		return metatags;
-	}
-
-	public void setMetatags(String metatags) {
-		this.metatags = metatags;
-	}
-
 	public Blob getImage1() {
 		return image1;
 	}
 
 	public void setImage1(Blob image1) {
 		this.image1 = image1;
-	}
-
-	public Blob getImage2() {
-		return image2;
-	}
-
-	public void setImage2(Blob image2) {
-		this.image2 = image2;
 	}
 
 	public String getTags() {
@@ -202,36 +146,20 @@ public class TheSystem extends Model {
 		this.friendlyUrl = friendlyUrl;
 	}
 
-	public boolean isHighlight() {
-		return highlight;
-	}
-
-	public void setHighlight(boolean highlight) {
-		this.highlight = highlight;
-	}
-
-	public static TheSystem findByFriendlyUrl(String friendlyUrl) {
+	public static SimplePage findByFriendlyUrl(String friendlyUrl) {
 		return find("byFriendlyUrl", friendlyUrl).first();
 	}
 
 	public String getShortenUrl() {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id)
 				&& !Utils.isNullOrEmpty(this.friendlyUrl)) {
-			setShortenUrl(Utils.getShortenUrl("https://seupedido.online/o-sistema/".concat(this.getFriendlyUrl())));
+			setShortenUrl(Utils.getShortenUrl("https://seupedido.online/continue/".concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
 
 	public void setShortenUrl(String shortenUrl) {
 		this.shortenUrl = shortenUrl;
-	}
-
-	public String getComplement() {
-		return complement;
-	}
-
-	public void setComplement(String complement) {
-		this.complement = complement;
 	}
 
 	public String getTitle2() {
@@ -250,80 +178,28 @@ public class TheSystem extends Model {
 		this.headline2 = headline2;
 	}
 
-	public String getTitle3() {
-		return title3;
+	public String getButtonTitle() {
+		return buttonTitle;
 	}
 
-	public void setTitle3(String title3) {
-		this.title3 = title3;
+	public void setButtonTitle(String buttonTitle) {
+		this.buttonTitle = buttonTitle;
 	}
 
-	public String getHeadline3() {
-		return headline3;
+	public String getButtonAction() {
+		return buttonAction;
 	}
 
-	public void setHeadline3(String headline3) {
-		this.headline3 = headline3;
+	public void setButtonAction(String buttonAction) {
+		this.buttonAction = buttonAction;
 	}
 
-	public Blob getImage3() {
-		return image3;
+	public String getMetatags() {
+		return metatags;
 	}
 
-	public void setImage3(Blob image3) {
-		this.image3 = image3;
-	}
-
-	public boolean isShowBottomNews() {
-		return showBottomNews;
-	}
-
-	public void setShowBottomNews(boolean showBottomNews) {
-		this.showBottomNews = showBottomNews;
-	}
-
-	public String getTitleDescription() {
-		return titleDescription;
-	}
-
-	public void setTitleDescription(String titleDescription) {
-		this.titleDescription = titleDescription;
-	}
-
-	public boolean isShowLeadsForm() {
-		return showLeadsForm;
-	}
-
-	public void setShowLeadsForm(boolean showLeadsForm) {
-		this.showLeadsForm = showLeadsForm;
-	}
-
-	public String getActionButton() {
-		return actionButton;
-	}
-
-	public void setActionButton(String actionButton) {
-		this.actionButton = actionButton;
-	}
-
-	public boolean isShowTopMenu() {
-		return showTopMenu;
-	}
-
-	public void setShowTopMenu(boolean showTopMenu) {
-		this.showTopMenu = showTopMenu;
-	}
-
-	public String getPhrase() {
-		String standardMessage = "SeuPedido.Online é um Sistema <br/> 			para Acompanhamento<br/>de Pedidos e Serviços.";
-		if (Utils.isNullOrEmpty(this.phrase) || standardMessage.equals(this.phrase)) {
-			setPhrase(standardMessage);
-		}
-		return phrase;
-	}
-
-	public void setPhrase(String phrase) {
-		this.phrase = phrase;
+	public void setMetatags(String metatags) {
+		this.metatags = metatags;
 	}
 
 }

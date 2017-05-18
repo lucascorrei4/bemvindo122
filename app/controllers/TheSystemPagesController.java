@@ -8,6 +8,7 @@ import models.TheSystem;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
+import util.Utils;
 
 public class TheSystemPagesController extends Controller {
 	
@@ -31,7 +32,8 @@ public class TheSystemPagesController extends Controller {
 			bottomNews = listTheSystems.subList(0, listTheSystems.size());
 		}
 		Parameter parameter = Parameter.all().first();
-		render(theSystem, bottomNews, parameter, listTheSystems);
+		String title = Utils.removeHTML(theSystem.getTitle());
+		render(theSystem, bottomNews, parameter, listTheSystems, title);
 	}
 
 	public static void getImage(long id, String index) {

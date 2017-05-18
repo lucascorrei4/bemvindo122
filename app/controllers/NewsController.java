@@ -9,6 +9,7 @@ import models.TheSystem;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
+import util.Utils;
 
 public class NewsController extends Controller {
 	
@@ -35,7 +36,8 @@ public class NewsController extends Controller {
 				.fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
-		render(article, bottomNews, sidebarRightNews, parameter, listTheSystems, theSystem);
+		String title = Utils.removeHTML(article.getTitle());
+		render(article, bottomNews, sidebarRightNews, parameter, listTheSystems, theSystem, title);
 	}
 	
 	public static void getImage(long id, String index) {
