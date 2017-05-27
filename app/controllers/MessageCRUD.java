@@ -49,6 +49,7 @@ public class MessageCRUD extends CRUD {
 		Message message = new Message();
 		message = gson.fromJson(jsonElement, Message.class);
 		message.id = 0l;
+		message.setInstitutionId(Admin.getLoggedUserInstitution().getInstitution().getId());
 		message.willBeSaved = true;
 		/* Validate object before saving */
 		if (!validateObjectToSave(message)) {

@@ -6,56 +6,96 @@
 -->
 <html>
 	<head>
-		<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
-		<!-- End Google Tag Manager -->
-		<title>Também Quero Saber | Dicas de Inovação e Tecnologia | #TMFTQS | Seu Pedido Online</title>
-		<meta name="description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
-		<meta name="keywords" content="dicas de tecnologia, inovação, tecnologia, seu pedido online, computador, dicas de internet">
-		<meta property="twitter:title" content="Dicas de Inovação e Tecnologia | Seu Pedido Online">
-		<meta property="twitter:description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
-		<meta property="og:title" content="Dicas de Inovação e Tecnologia | Seu Pedido Online">
-		<meta property="og:description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
-		<meta property="og:image" content="http://seupedido.online/public/images/logo-admin.png">
+		<title>Sistema Para Acompanhamento de Serviços | Seu Pedido Online </title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Acompanhamento de Serviços e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
+		<meta name="author" content="Seu Pedido Online">
+		<meta name="keywords" content="acompanhamento de serviços, acompanhamento de pedido, contrato prestação de serviços, marketing digital, serviço, pedidos, orcamentos, ordem de servico">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
+		<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+		<script>
+			var OneSignal = window.OneSignal || [];
+			OneSignal.push(["init", {
+				appId: "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
+				autoRegister: true, /* Set to true to automatically prompt visitors */
+				subdomainName: 'https://seupedido.onesignal.com',   
+				persistNotification: false,
+			httpPermissionRequest: {
+				enable: false
+			},
+			httpPermissionRequest: {
+	            modalTitle: 'Obrigado pela inscrição',
+	            modalMessage: "Agora você receberá nossas notificações. Você pode cancelar sua inscrição a qualquer momento.",
+	            modalButtonText: 'Fechar',
+	            useCustomModal: true        
+			},
+	        promptOptions: {
+				/* Change bold title, limited to 30 characters */
+				siteName: 'Confirmação de recebimento',
+				/* Subtitle, limited to 90 characters */
+				actionMessage: "Confirme para receber dicas úteis sobre tecnologia.",
+				/* Example notification title */
+				exampleNotificationTitle: 'Este é um exemplo de notificação',
+				/* Example notification message */
+				exampleNotificationMessage: 'Aqui vai a descrição da notificação...',
+				/* Text below example notification, limited to 50 characters */
+				exampleNotificationCaption: 'Obs.: Você poderá cancelar em qualquer momento!',
+				/* Accept button text, limited to 15 characters */
+				acceptButtonText: "EU QUERO! :)",
+				/* Cancel button text, limited to 15 characters */
+				cancelButtonText: "EU NÃO QUERO!"
+			},
+			welcomeNotification: {
+				"title": "Seu Pedido Online",
+				"message": "Obrigado pela inscrição",
+				 "url": "http://seupedido.online"
+			}
+	    }]);
+    </script>
 	</head>
 	<body class="index">
+	<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">
 
 			<!-- Header -->
-				#{include 'includes/menuTemplateFollow.html' /}
+				<header id="header" class="alt">
+					<h1 id="logo"><a href="index.html">Acompanhamento<span> de Serviços</span></a></h1>
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="#main">Como funciona?</a></li>
+							<li class="current"><a href="index.html">Serve pra mim?</a></li>
+							<li class="current"><a href="/acompanhe" target="_blank">Acompanhar</a></li>
+							<li><a href="#" class="button special">Entrar</a></li>
+						</ul>
+					</nav>
+				</header>
 
 			<!-- Banner -->
 				<section id="banner">
 
-					<!--
-						".inner" is set up as an inline-block so it automatically expands
-						in both directions to fit whatever's inside it. This means it won't
-						automatically wrap lines, so be sure to use line breaks where
-						appropriate (<br />).
-					-->
-					<div class="inner">
-
-						<header>
-							<h2>TWENTY</h2>
-						</header>
-						<p>This is <strong>Twenty</strong>, a free
-						<br />
-						responsive template
-						<br />
-						by <a href="http://html5up.net">HTML5 UP</a>.</p>
-						<footer>
-							<ul class="buttons vertical">
-								<li><a href="#main" class="button fit scrolly">Tell Me More</a></li>
-							</ul>
-						</footer>
-
+				<div class="inner" style="background: rgba(224, 240, 226, 0.5); padding: 2em;">
+					<div>
+						<a href="@{Application.index}"><img src="@{'public/templatepublic/images/logo-small.png'}" alt="Seu Pedido Online - Acompanhamento de Serviços e Marketing Digital"
+							title="Seu Pedido Online - Acompanhamento de Serviços e Marketing Digital"></a>
 					</div>
+					
+					<header>
+						<h2>INCRÍVEL</h2>
+					</header>
+					
+					<p><strong>SEU CLIENTE</strong>
+					<p>PACIENTE</p>
+					
+					<footer>
+						<ul class="buttons vertical">
+							<li><a href="#main" class="button fit scrolly scroll" style="background-color: #F0A939">QUERO CONHECER</a></li>
+						</ul>
+					</footer>
+				</div>
 
 				</section>
 
@@ -156,7 +196,7 @@
 								<div class="6u 12u(narrower)">
 
 									<section>
-										<a href="@{'public/templatepublic/images/port-1.jpg'}" class="image featured"><img src="@{'public/templatepublic/images/port-1.jpg'}" alt="" /></a>
+										<a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
 										<header>
 											<h3>A Really Fast Train</h3>
 										</header>
@@ -167,7 +207,7 @@
 								<div class="6u 12u(narrower)">
 
 									<section>
-										<a href="#" class="image featured"><img src="@{'public/templatepublic/images/port-2.jpg'}" alt="" /></a>
+										<a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
 										<header>
 											<h3>An Airport Terminal</h3>
 										</header>
@@ -180,7 +220,7 @@
 								<div class="6u 12u(narrower)">
 
 									<section>
-										<a href="#" class="image featured"><img src="@{'public/templatepublic/images/port-3.jpg'}" alt="" /></a>
+										<a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
 										<header>
 											<h3>Hyperspace Travel</h3>
 										</header>
@@ -191,7 +231,7 @@
 								<div class="6u 12u(narrower)">
 
 									<section>
-										<a href="#" class="image featured"><img src="@{'public/templatepublic/images/port-4.jpg'}" alt="" /></a>
+										<a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
 										<header>
 											<h3>And Another Train</h3>
 										</header>
@@ -228,7 +268,33 @@
 				</section>
 
 			<!-- Footer -->
-		#{include 'includes/footerTemplateFollow.html' /}
+				<footer id="footer">
+
+					<ul class="icons">
+						<li><a href="#" class="icon circle fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon circle fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon circle fa-google-plus"><span class="label">Google+</span></a></li>
+						<li><a href="#" class="icon circle fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon circle fa-dribbble"><span class="label">Dribbble</span></a></li>
+					</ul>
+
+					<ul class="copyright">
+						<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
 
 	</body>
 </html>

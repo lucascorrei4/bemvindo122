@@ -53,12 +53,16 @@ public class SimplePage extends Model {
 
 	public String friendlyUrl;
 
+	public String messagePreFormLead;
+
 	@Hidden
 	public String postedAt;
 
 	public String shortenUrl;
 
 	public boolean isActive = true;
+	
+	public boolean showLeadsForm = true;
 
 	public String toString() {
 		return title;
@@ -200,6 +204,22 @@ public class SimplePage extends Model {
 
 	public void setMetatags(String metatags) {
 		this.metatags = metatags;
+	}
+
+	public boolean isShowLeadsForm() {
+		return showLeadsForm;
+	}
+
+	public void setShowLeadsForm(boolean showLeadsForm) {
+		this.showLeadsForm = showLeadsForm;
+	}
+
+	public String getMessagePreFormLead() {
+		return messagePreFormLead;
+	}
+
+	public void setMessagePreFormLead(String messagePreFormLead) {
+		this.messagePreFormLead = messagePreFormLead;
 	}
 
 }

@@ -18,13 +18,13 @@
             	<div class="dataTable_wrapper">
 			        #{crud.table fields:['postedAt', 'name', 'isActive', 'action']}
 			        	#{crud.custom 'postedAt'}
-			         		<a href="@{ArticleCRUD.show(object.id)}">${object.postedAtParsed}</a>
+			         		<a href="@{ClientCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'name'}
-			         		<a href="@{ArticleCRUD.show(object.id)}">${object.name} ${object.lastName}</a>
+			         		<a href="@{ClientCRUD.show(object.id)}">${object.name} ${object.lastName}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
-						    	<a href="@{ArticleCRUD.show(object.id)}">${object.isActive ? 'Sim' : 'Não'}</a>
+						    	<a href="@{ClientCRUD.show(object.id)}">${object.isActive ? 'Sim' : 'Não'}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
                             <div class="dropdown">
@@ -32,10 +32,10 @@
 								  <i class="fa fa-wrench"></i> <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu${object.id}">
-                                    <li><a href="@{ArticleCRUD.show(object.id)}">Editar</a>
+                                    <li><a href="@{ClientCRUD.show(object.id)}">Editar</a>
                                     </li>
                                     <li class="divider"></li>
-                                    <li><a href="@{ArticleCRUD.remove(object.id)}">Excluir</a></li>
+                                    <li><a href="@{ClientCRUD.remove(object.id)}">Excluir</a></li>
 								</ul>
 							</div>
 				        #{/crud.custom}

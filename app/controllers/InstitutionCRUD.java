@@ -77,22 +77,7 @@ public class InstitutionCRUD extends CRUD {
 	}
 
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {
-		ObjectType type = ObjectType.get(getControllerClass());
-		notFoundIfNull(type);
-		if (page < 1) {
-			page = 1;
-		}
-		String where = "userId = " + Admin.getLoggedUserInstitution().getUser().getId();
-		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
-		Long count = type.count(search, searchFields, where);
-		Long totalCount = type.count(null, null, where);
-		Institution institution = Institution.find("userId = " + Admin.getLoggedUserInstitution().getUser().getId())
-				.first();
-		try {
-			render(type, objects, count, totalCount, page, orderBy, order, institution);
-		} catch (TemplateNotFoundException e) {
-			render("InstitutionCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
-		}
+		redirect(request.controller + ".show", Admin.getLoggedUserInstitution().getInstitution().getId());
 	}
 
 	public static void blank() throws Exception {

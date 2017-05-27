@@ -85,6 +85,8 @@ true=Sim
 false=Não
 
 #Controllers
+ClientCRUD=Clientes
+SimplePagesCRUD=Páginas Simples
 SocialMediaCRUD=Mídias Sociais
 EventsCRUD=Eventos
 VisitorsCRUD=Visitantes
@@ -93,13 +95,12 @@ EmailMarketingCRUD=Enviar E-mail Marketing
 InstitutionCRUD=Empresa
 IntercessorsCRUD=Intercessores
 EventsCRUD=Eventos
-UsersCRUD=Usuário
 MembersCRUD=Membros
 MembersGroupCRUD=Grupo de Membros
 VisitorsGroupCRUD=Grupo de Visitantes
 VisitorPrayOrderCRUD=Pedidos de Oração
 ChalkBoardChildrenController=ChalkBoards Infantis
-ArticleCRUD=Clientes
+ArticleCRUD=Artigos
 ServiceCRUD=Serviços
 OrderOfServiceCRUD=Ordens de Serviço
 StepCRUD=Etapas do Serviço
@@ -117,6 +118,7 @@ TheSystemCRUD=O Sistema
 MailBaseCRUD=Base de E-mails
 
 #Models
+SimplePage=Página Simples
 ContactForm=Mensagens - Form. Contato
 ContactInfo=Informações de contato
 EmailExclusiveOffer=E-mails/Ofertas exclusivas
@@ -154,8 +156,12 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+actionButton=Ação do Botão Comprar
+phrase=Frase Superior
+messagePreFormLead=Msg Ação Form. Lead
 buttonTitle=Título do Botão
 buttonAction=Ação do Botão
+buttonActionBefore=Ação do Botão Voltar
 friendlyUrl=URL Amigável
 commentTitle=Título Comentário
 titlePersona=Persona

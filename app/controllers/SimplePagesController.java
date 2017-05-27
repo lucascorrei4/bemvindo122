@@ -13,10 +13,12 @@ import util.Utils;
 public class SimplePagesController extends Controller {
 	
 	public static void details(String friendlyUrl) {
+		
 		SimplePage simplePage = SimplePage.findByFriendlyUrl(friendlyUrl);
 		Parameter parameter = Parameter.all().first();
 		String title = Utils.removeHTML(simplePage.getTitle());
-		render(simplePage, parameter, title);
+		String headline = Utils.removeHTML(simplePage.getHeadline());
+		render(simplePage, parameter, title, headline);
 	}
 
 	public static void getImage(long id, String index) {

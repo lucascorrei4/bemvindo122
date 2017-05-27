@@ -80,6 +80,8 @@ public class TheSystem extends Model {
 
 	public String phrase;
 
+	public String buttonAction;
+
 	@Hidden
 	public String postedAt;
 
@@ -324,6 +326,14 @@ public class TheSystem extends Model {
 
 	public void setPhrase(String phrase) {
 		this.phrase = phrase;
+	}
+
+	public String getButtonAction() {
+		return buttonAction;
+	}
+
+	public void setButtonAction(String buttonAction) {
+		this.buttonAction = buttonAction;
 	}
 
 }

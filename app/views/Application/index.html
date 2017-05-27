@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
 <!-- Google Tag Manager -->
@@ -115,8 +114,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						<span class="menu"></span>
 						<ul class="navig">
 							<li><a href="#about" class="scroll">COMO FUNCIONA?</a></li>
-							<li><a href="#features" class="scroll active">SERVE PRA MIM?</a></li>
-							<!-- li><a class="popup-with-zoom-anim active" href="#small-dialog" onclick="$('#formQuickAccount').load(location.href+' #formQuickAccount>*',''); ">CRIE UMA CONTA</a></li -->
+							<li><a href="#features" class="scroll">SERVE PRA MIM?</a></li>
+							<li><a class="popup-with-zoom-anim active" href="#small-dialog" onclick="$('#formQuickAccount').load(location.href+' #formQuickAccount>*',''); ">CRIE UMA CONTA</a></li>
 							<li><a class="popup-with-zoom-anim" href="#small-dialog1" onclick="$('#formMessage').load(location.href+' #formMessage>*',''); ">TENHO DÚVIDAS</a></li>
 							<li><a href="/login" target="_blank">ENTRAR</a></li>
 						</ul>
@@ -135,11 +134,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					</div>
 					
 					<header>
-						<h2>É ÚTIL!</h2>
+						<h2>INCRÍVEL!</h2>
 					</header>
 					
 					<p>SISTEMA PARA</p>
-					<p>PRESTADORES DE SERVIÇO</p>
+					<p>ACOMPANHAMENTO DE SERVIÇOS</p>
 					
 					<footer>
 						<ul class="buttons vertical">
@@ -227,9 +226,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					<div class="portfolio-top">
 						<ul id="filters" class="clearfix">
 							<li style="margin: 5px;"><span class="filter">ASSISTÊNCIA TÉCNICA</span></li>
+							<li style="margin: 5px;"><span class="filter">CONFEITARIAS</span></li>
+							<li style="margin: 5px;"><span class="filter">CENTROS AUTOMOTIVOS</span></li>
 							<li style="margin: 5px;"><span class="filter">ENCOMENDAS</span></li>
 							<li style="margin: 5px;"><span class="filter">SERVIÇOS ARTESANAIS</span></li>
-							<li style="margin: 5px;"><span class="filter">ENTREGAS DE PIZZAS, SANDUÍCHES</span></li>
+							<li style="margin: 5px;"><span class="filter">ENTREGAS</span></li>
 							<li style="margin: 5px;"><span class="filter">CLÍNICAS</span></li>
 							<li style="margin: 5px;"><span class="filter">CONSULTÓRIOS</span></li>
 							<li style="margin: 5px;"><span class="filter">OFICINAS</span></li>
@@ -392,12 +393,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	
 	<section id="cta2">
 		<div class="col-md-12" style="background-color: #fff; padding-bottom: 30px; margin-bottom: 30px;">
-			<h3 style="text-transform: capitalize; color: #333333; font-size: 1.7em; font-weight: 900; margin: 0;">DICAS DE TECNOLOGIA <span style="color: #00CCFF;">#TMFTQS</span></h3>
-			<h4 style="text-transform: capitalize; color: #ccc; font-size: 1.2em; font-weight: 900; margin: 0;"><span style="color: #00CCFF;">T</span>odo <span style="color: #00CCFF;">M</span>undo <span style="color: #00CCFF;">F</span>alando, <span style="color: #00CCFF;">T</span>ambém <span style="color: #00CCFF;">Q</span>uero <span style="color: #00CCFF;">S</span>aber</h4>
+			<h3 style="text-transform: uppercase; color: #333333; font-size: 1.7em; font-weight: 900; margin: 0;">DICAS DE TECNOLOGIA <span style="color: #00CCFF;">#TMFTQS</span></h3>
+			<h4 style="text-transform: uppercase; color: #ccc; font-size: 1.2em; font-weight: 900; margin: 0;"><span style="color: #00CCFF;">T</span>odo <span style="color: #00CCFF;">M</span>undo <span style="color: #00CCFF;">F</span>alando, <span style="color: #00CCFF;">T</span>ambém <span style="color: #00CCFF;">Q</span>uero <span style="color: #00CCFF;">S</span>aber</h4>
 			#{list listArticles, as:'article'}
 				<div class="col-md-4 spl-left">
 					<div class="spl-one" style="padding-top: 5px">
-						<h4 style="text-transform: capitalize; margin-top: 10px;">&{article.getTitle().raw()}</h4>
+						<h4 style="text-transform: uppercase; margin-top: 10px;">&{article.getTitle().raw()}</h4>
 						<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
 						<p style="font-size: 25px;">&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
 					</div>

@@ -17,8 +17,10 @@ import util.Utils;
 public class Security extends Secure.Security {
 	
 	static boolean authenticate(String username, String password) {
+		String psw;
 		try {
-			return User.connect(username, Utils.encode(Utils.decodeUrl(password.trim()))) != null;
+			psw = Utils.encode(Utils.decodeUrl(password.trim()));
+			return User.connect(username, psw) != null;
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

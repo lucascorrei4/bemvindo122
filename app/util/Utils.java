@@ -421,7 +421,14 @@ public class Utils extends Controller {
 	public static String decode(String s) {
 		return StringUtils.newStringUtf8(Base64.decodeBase64(s));
 	}
-
+	
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		String val1 = String.valueOf(Utils.encode(decodeUrl("teste654321")));
+		String val2 = Utils.encode("teste654321");
+		System.out.println(val1.equals(val2));
+		System.out.println(val1.equalsIgnoreCase(val2));
+	}
+	
 	public static String encode(String s) {
 		return Base64.encodeBase64String(StringUtils.getBytesUtf8(s));
 	}
@@ -461,8 +468,5 @@ public class Utils extends Controller {
 		String getLastDay = getStringDateTime(calendar.getTime());
 		return getLastDay;
 	}
-	public static void main(String[] args) {
-		System.out.println(Utils.removeHTML("<p>Assistência Técnica</p>"));
-	}
-
+	
 }

@@ -38,6 +38,7 @@ function newsletterTips() {
 function newsletterTheSystemTop() {
 	var name = document.getElementsByName('mailList.name1')[0].value;
 	var mail = document.getElementsByName('mailList.mail1')[0].value;
+	var action = document.getElementById('action').value;
 	if (name === '') {
 		$('#message').css('color', 'red');
 		$('#message').show();
@@ -62,7 +63,7 @@ function newsletterTheSystemTop() {
 		var status = $("#status").val();
 		if ('SUCCESS' === status) {
 			$('#newsletterTheSystemTop').unbind('load');
-			window.location.href = "/gratidao";
+			window.location.href = action;
 		} else {
 			$("#message").fadeIn();
 			$("#message").css("color", "red");

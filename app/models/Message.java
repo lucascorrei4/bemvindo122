@@ -99,7 +99,7 @@ public class Message extends Model {
 	}
 
 	public Institution getInstitution() {
-		return institution;
+		return Institution.find("byId", institutionId).first();
 	}
 
 	public void setInstitution(Institution institution) {

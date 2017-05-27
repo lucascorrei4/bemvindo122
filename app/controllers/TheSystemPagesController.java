@@ -33,7 +33,8 @@ public class TheSystemPagesController extends Controller {
 		}
 		Parameter parameter = Parameter.all().first();
 		String title = Utils.removeHTML(theSystem.getTitle());
-		render(theSystem, bottomNews, parameter, listTheSystems, title);
+		String headline = Utils.removeHTML(theSystem.getHeadline());
+		render(theSystem, bottomNews, parameter, listTheSystems, title, headline);
 	}
 
 	public static void getImage(long id, String index) {

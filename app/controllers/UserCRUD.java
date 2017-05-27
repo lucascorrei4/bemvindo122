@@ -19,6 +19,7 @@ import models.State;
 import models.StatusSMS;
 import models.Step;
 import models.User;
+import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
@@ -61,22 +62,7 @@ public class UserCRUD extends CRUD {
     }
 
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {
-		ObjectType type = ObjectType.get(getControllerClass());
-		notFoundIfNull(type);
-		if (page < 1) {
-			page = 1;
-		}
-		String where = "institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId();
-		orderBy = "id";
-		order = "DESC";
-		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
-		Long count = type.count(search, searchFields, where);
-		Long totalCount = type.count(null, null, where);
-		try {
-			render(type, objects, count, totalCount, page, orderBy, order);
-		} catch (TemplateNotFoundException e) {
-			render("UserCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
-		}
+		redirect(request.controller + ".show", Admin.getLoggedUserInstitution().getUser().getId());
 	}
 
 	public static void show(String id) throws Exception {
@@ -101,5 +87,36 @@ public class UserCRUD extends CRUD {
 			redirect("Admin.index");
 		}
 	}
+	
+	public static void save(String id) throws Exception {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		Model object = type.findById(id);
+		notFoundIfNull(object);
+		Binder.bindBean(params.getRootParamNode(), "object", object);
+		validation.valid(object);
+		User user = User.findById(Long.valueOf(id).longValue());
+		Country country = Country.find("byId", user.getCountryId()).first();
+		State state = State.find("byId", user.getStateId()).first();
+		City city = City.find("byId", user.getCityId()).first();
+		if (validation.hasErrors()) {
+			renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
+			try {
+				render(request.controller.replace(".", "/") + "/show.html", type, object, country, state, city);
+			} catch (TemplateNotFoundException e) {
+				render("CRUD/show.html", type, object, country, state, city);
+			}
+		}
+		object._save();
+		country = Country.find("byId", user.getCountryId()).first();
+		state = State.find("byId", user.getStateId()).first();
+		city = City.find("byId", user.getCityId()).first();
+		flash.success(play.i18n.Messages.get("crud.saved", type.modelName));
+		if (params.get("_save") != null) {
+			redirect(request.controller + ".list");
+		}
+		redirect(request.controller + ".show", object._key(), country, state, city);
+	}
+
 	
 }

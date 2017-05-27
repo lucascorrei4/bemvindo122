@@ -50,7 +50,11 @@ public class Application extends Controller {
 
 	public static void index2() {
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
-		render(listArticles);
+		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
+				.fetch(6);
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		render(listArticles, listTheSystems);
 	}
 
 	public static void generateServiceCode() {

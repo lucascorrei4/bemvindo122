@@ -91,7 +91,10 @@ public class User extends Model {
 	}
 
 	public static User connect(String email, String password) {
-		return find("byEmailAndPassword", email, password).first();
+		User user = find("byEmail", email).first();
+		String pass1 = user.password.trim();
+		String pass2 = password.trim();
+		return pass1.equals(pass2) ? user : null;
 	}
 
 	public static User verifyByEmail(String email) {

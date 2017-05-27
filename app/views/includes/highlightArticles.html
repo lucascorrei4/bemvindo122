@@ -3,7 +3,7 @@
 	<section>
 		<header>
 			<p style="font-size: 15px; margin: 0;">Você está em: <a href="/"><strong>Seu Pedido Online</strong></a> > <a href="/dicas"><strong>Dicas</strong></a></p>
-			<h2 style="text-transform: capitalize; margin-top: 20px"><strong>&{highlightArticle.getTitle().raw()}</strong></h2>
+			<h2 style="text-transform: uppercase; margin-top: 20px"><strong>&{highlightArticle.getTitle().raw()}</strong></h2>
 			<input id="shorten" type="hidden" value="http://seupedido.online/dicas" />
 			<div id="share"></div>
 			<h3 style="text-transform: unset; color: #444444">&{highlightArticle.getHeadline().length() > 130 ? highlightArticle.getHeadline().substring(0, 128).concat("...") : highlightArticle.getHeadline().raw()}</h3>

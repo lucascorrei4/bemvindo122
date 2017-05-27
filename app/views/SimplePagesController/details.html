@@ -9,12 +9,12 @@
 		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
 		<!-- End Google Tag Manager -->
 		<title>&{title} | Seu Pedido Online</title>
-		<meta name="description" content="&{simplePage.getHeadline()}">
+		<meta name="description" content="&{headline}}">
 		<meta name="keywords" content="&{simplePage.getMetatags()}">
 		<meta property="twitter:title" content="&{title} | Seu Pedido Online">
-		<meta property="twitter:description" content="&{simplePage.getHeadline()}">
+		<meta property="twitter:description" content="&{headline}">
 		<meta property="og:title" content="&{title} | Seu Pedido Online">
-		<meta property="og:description" content="&{simplePage.getHeadline()}">
+		<meta property="og:description" content="&{headline}}">
 		<meta property="og:image" content="https://seupedido.online/simplepagescontroller/getimage?id=&{simplePage.id}&index=1">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
@@ -28,7 +28,7 @@
 				<article id="main" style="padding: 1em 0;">
 					<header class="special container" style="margin-bottom: 0">
 						<span class="icon fa-hand-o-down"></span>
-						<h2 style="font-weight: bold; text-transform: uppercase;">&{simplePage.getTitle().raw()}</h2>
+						<h2 style="font-weight: bold; text-transform: uppercase; font-size: 2em">&{simplePage.getTitle().raw()}</h2>
 						<p style="text-align: center; margin-bottom: 0px;"><strong>&{simplePage.getHeadline().raw()}</strong></p>
 					</header>
 
@@ -37,15 +37,17 @@
 					<section class="wrapper style4 container">
 						<div class="content">
 							<section>
-									#{if simplePage.getEmbed()}
-										<iframe width="560" height="315" src="&{simplePage.getEmbed()}?rel=0&autoplay=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
-									#{/if}
+								#{if simplePage.getEmbed()}
+									<iframe width="560" height="315" src="&{simplePage.getEmbed()}?rel=0&autoplay=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+								#{/if}
+								#{if simplePage.isShowLeadsForm()}
 									<header>
 										<footer id="newsletterTheSystemTop" style="width: 100%">
+											<input id="action" type="hidden" value="${simplePage.buttonAction}" />
 											<input id="response" type="hidden" value="${resp}" />
 											<input id="status" type="hidden" value="${status}" />
 											<h3 style="margin: 0; text-align: center;">
-												<strong>Veja o final dessa história. Clique em 'Continuar'.</strong>
+												<strong>&{simplePage.getMessagePreFormLead()?.raw()}</strong>
 											</h3>
 											<ul class="buttons" style="display: inherit; justify-content: center; display: block; text-align: center;">
 												<li><input type="text" name="mailList.name1" placeholder="Digite seu nome" value="${flash['mailList.name1']}"
@@ -56,12 +58,13 @@
 											</ul>
 											<p id="message" style="display: none; text-align: center; font-weight: bold;"></p>
 										</footer>
-										<br />
 									</header>
-									<p>&{simplePage.getDescription().raw()}</p>
-								</section>
-							</div>
-						</section>
+								#{/if}
+								<p>&{simplePage.getDescription()?.raw()}</p>
+							</section>
+						</div>
+					</section>
+					
 				</article>
 			<!-- Footer -->
 			#{include 'includes/footerTemplateFollow.html' /}

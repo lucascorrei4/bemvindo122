@@ -28,11 +28,13 @@ POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
 
-# Public News
+# Public TheSystem
 
 GET    	${ctx}/o-sistema					   				 		TheSystemPagesController.list
 GET    	${ctx}/o-sistema/{friendlyUrl}								TheSystemPagesController.details
-GET    	${ctx}/continue/{friendlyUrl}								SimplePagesController.details
+
+# Public SimplePages
+GET    	${ctx}/spl/{friendlyUrl}									SimplePagesController.details
 
 # Public News
 
@@ -111,14 +113,14 @@ DELETE	${ctx}/admin/paramadmin/{id}							ParameterCRUD.delete
 
 # Admin Clients
 
-GET		${ctx}/admin/clientes								ArticleCRUD.list
-GET		${ctx}/admin/clientes/novo							ArticleCRUD.blank
-GET		${ctx}/admin/clientes/{id}							ArticleCRUD.show
-GET		${ctx}/admin/clientes/{id}/{field}					ArticleCRUD.attachment
-GET		${ctx}/admin/clientes/{id}/editar					ArticleCRUD.edit
-POST	${ctx}/admin/clientes								ArticleCRUD.create
-POST	${ctx}/admin/clientes/{id}							ArticleCRUD.save
-DELETE	${ctx}/admin/clientes/{id}							ArticleCRUD.delete
+GET		${ctx}/admin/clientes								ClientCRUD.list
+GET		${ctx}/admin/clientes/novo							ClientCRUD.blank
+GET		${ctx}/admin/clientes/{id}							ClientCRUD.show
+GET		${ctx}/admin/clientes/{id}/{field}					ClientCRUD.attachment
+GET		${ctx}/admin/clientes/{id}/editar					ClientCRUD.edit
+POST	${ctx}/admin/clientes								ClientCRUD.create
+POST	${ctx}/admin/clientes/{id}							ClientCRUD.save
+DELETE	${ctx}/admin/clientes/{id}							ClientCRUD.delete
 
 # Admin StatusSMS
 
@@ -160,11 +162,13 @@ POST	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceCRUD.save
 DELETE	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceCRUD.delete
 
 GET		${ctx}/admin/empresa/{id}							InstitutionCRUD.show
+GET		${ctx}/admin/empresa								InstitutionCRUD.list
 GET		${ctx}/admin/empresas-cadastradas					InstitutionCRUD.listAll
 GET		${ctx}/admin/usuarios-cadastrados					UserCRUD.listAll
 GET		${ctx}/admin/leads									MailListCRUD.listAll
 
 GET		${ctx}/admin/usuario/{id}							UserCRUD.show
+GET		${ctx}/admin/usuario								UserCRUD.list
 
 GET		${ctx}/admin/financeiro/{id}							FinancialCRUD.signature
 
