@@ -43,18 +43,20 @@ import util.Utils;
 
 public class Application extends Controller {
 
-	public static void index() {
+	public static void indexOld() {
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
 		render(listArticles);
 	}
 
-	public static void index2() {
-		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
+	public static void index() {
+		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(4);
+		List<Article> listArticles12 = listArticles.subList(0, 2);
+		List<Article> listArticles34 = listArticles.subList(2, listArticles.size());
 		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
 				.fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
-		render(listArticles, listTheSystems);
+		render(listTheSystems, listArticles12, listArticles34);
 	}
 
 	public static void generateServiceCode() {
@@ -79,7 +81,11 @@ public class Application extends Controller {
 	}
 
 	public static void contact() {
-
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		render(theSystem, bottomNews);
 	}
 
 	public static int moipResponse() throws UnsupportedEncodingException {
