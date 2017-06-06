@@ -433,7 +433,7 @@ public class Utils extends Controller {
 	}
 
 	public static String getValueFromUrlParam(String param) {
-		if (!isNullOrEmpty(param)) {
+		if (!isNullOrEmpty(param) && param.contains("=")) {
 			return param.split("=")[1];
 		}
 		return "";
