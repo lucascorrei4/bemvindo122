@@ -256,7 +256,7 @@ public class Admin extends Controller {
 		Admin.loggedUserInstitution = loggedUserInstitution;
 	}
 
-	static void sendMailToMe(UserInstitutionParameter userInstitutionParameter) {
+	static void sendMailToMe(UserInstitutionParameter userInstitutionParameter, String message) {
 		Parameter parameter = Parameter.all().first();
 		MailController mailController = new MailController();
 		/* SendTo object */
@@ -273,7 +273,7 @@ public class Admin extends Controller {
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
 		bodyMail.setTitle1("Ol&aacute;, Lucas e Thammy!");
-		bodyMail.setTitle2("Mais uma empresa cadastrada!");
+		bodyMail.setTitle2(message);
 		bodyMail.setParagraph1(userInstitutionParameter.getInstitution().getInstitution());
 		bodyMail.setParagraph2(userInstitutionParameter.getInstitution().getCityStateCountry());
 		bodyMail.setParagraph3(userInstitutionParameter.getInstitution().getEmail());
@@ -286,6 +286,33 @@ public class Admin extends Controller {
 		sendTo.setName("Thammy");
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
+		mailController.sendHTMLMail(sendTo, sender, bodyMail);
+	}
+
+	static void sendMailToMeWithCustomInfo(String message, String info) {
+		Parameter parameter = Parameter.all().first();
+		MailController mailController = new MailController();
+		/* SendTo object */
+		SendTo sendTo = new SendTo();
+		sendTo.setDestination("lucascorreiaevangelista@gmail.com");
+		sendTo.setName("Eu mesmo");
+		sendTo.setSex("");
+		sendTo.setStatus(new StatusMail());
+		/* Sender object */
+		Sender sender = new Sender();
+		sender.setCompany("Seu Pedido Online");
+		sender.setFrom("contato@seupedido.online");
+		sender.setKey("");
+		/* SendTo object */
+		BodyMail bodyMail = new BodyMail();
+		bodyMail.setTitle1("Ol&aacute;, Lucas!");
+		bodyMail.setTitle2(message);
+		bodyMail.setParagraph1("Info: " + info);
+		bodyMail.setParagraph2("");
+		bodyMail.setParagraph3("");
+		bodyMail.setFooter1("");
+		bodyMail.setImage1(parameter.getLogoUrl());
+		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
 		mailController.sendHTMLMail(sendTo, sender, bodyMail);
 	}
 

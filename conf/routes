@@ -27,6 +27,10 @@ POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
 
+# Public MonetizzeController
+
+POST    ${ctx}/monetizze-postback		   				 			MonetizzeController.postback
+
 # Public TheSystem
 
 GET    	${ctx}/o-sistema					   				 		TheSystemPagesController.list
@@ -43,6 +47,11 @@ GET    	${ctx}/dicas/{id}/{friendlyUrl}								NewsController.details
 # Admin Update Order
 GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceCRUD.updateOrder
 POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
+
+# MonetizzeTransaction
+
+GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
+GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
 
 # MaiBase
 

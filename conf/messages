@@ -116,8 +116,10 @@ ArticleCRUD=Artigos
 MailListCRUD=Leads
 TheSystemCRUD=O Sistema
 MailBaseCRUD=Base de E-mails
+MonetizzeTransactionCRUD=Transações Monetizze
 
 #Models
+MonetizzeTransaction=Transação Monetizze
 SimplePage=Página Simples
 ContactForm=Mensagens - Form. Contato
 ContactInfo=Informações de contato
@@ -156,6 +158,7 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+productName=Produto
 actionButton=Ação do Botão Comprar
 phrase=Frase Superior
 messagePreFormLead=Msg Ação Form. Lead

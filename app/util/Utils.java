@@ -238,8 +238,7 @@ public class Utils extends Controller {
 			Map.Entry<String, JsonElement> entry = iterator.next();
 			String key = entry.getKey();
 			JsonElement value = entry.getValue();
-			parsedBody = parsedBody.concat("chalkBoardChildren.").concat(key).concat("=").concat(
-					Utils.isNullOrEmpty(value.getAsString()) ? "" : new String(value.getAsString()).replace(" ", "+"));
+			parsedBody = parsedBody.concat("chalkBoardChildren.").concat(key).concat("=").concat(Utils.isNullOrEmpty(value.getAsString()) ? "" : new String(value.getAsString()).replace(" ", "+"));
 			if (i < (set.size() + 1)) {
 				parsedBody = parsedBody.concat("&");
 			}
@@ -421,20 +420,32 @@ public class Utils extends Controller {
 	public static String decode(String s) {
 		return StringUtils.newStringUtf8(Base64.decodeBase64(s));
 	}
-	
-	public static void main(String[] args) throws UnsupportedEncodingException {
+
+	public static void mainssss(String[] args) throws UnsupportedEncodingException {
 		String val1 = String.valueOf(Utils.encode(decodeUrl("teste654321")));
 		String val2 = Utils.encode("teste654321");
 		System.out.println(val1.equals(val2));
 		System.out.println(val1.equalsIgnoreCase(val2));
 	}
-	
+
 	public static String encode(String s) {
 		return Base64.encodeBase64String(StringUtils.getBytesUtf8(s));
 	}
 
 	public static String getValueFromUrlParam(String param) {
-		return param.split("=")[1];
+		if (!isNullOrEmpty(param)) {
+			return param.split("=")[1];
+		}
+		return "";
+	}
+
+	public static String getValueParamByKey(String[] params, String key) {
+		for (int i = 0; i < params.length; i++) {
+			if (key.equals(params[i].split("=")[0])) {
+				return getValueFromUrlParam(params[i]);
+			}
+		}
+		return null;
 	}
 
 	public static String decodeUrl(String url) throws UnsupportedEncodingException {
@@ -468,5 +479,25 @@ public class Utils extends Controller {
 		String getLastDay = getStringDateTime(calendar.getTime());
 		return getLastDay;
 	}
+
+	public static String getNameByWholeName(String name) {
+		if (!isNullOrEmpty(name)) {
+			name = name.substring(0, name.indexOf(" ") > -1 ? name.indexOf(" ") : name.length());
+			return name;
+		}
+		return "";
+	}
+
+	public static String getLastNameByWholeName(String name) {
+		if (!isNullOrEmpty(name)) {
+			name = name.substring(name.indexOf(" ") > -1 ? name.indexOf(" ") + 1 : name.length());
+			return name;
+		}
+		return "";
+	}
 	
+	public static void main(String[] args) {
+		System.out.println(getNameByWholeName("Lucas Correia Evangelista"));
+		System.out.println(getLastNameByWholeName("Lucas Correia Evangelista"));
+	}
 }

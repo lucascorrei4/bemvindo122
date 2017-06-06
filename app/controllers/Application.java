@@ -285,7 +285,7 @@ public class Application extends Controller {
 				flash.success("Instituição '" + institution.getInstitution() + "' criada com sucesso. Aproveite!", "");
 				Security.setCurrentSessionParameters(userInstitutionParameter.getUser());
 				Admin.index();
-				Admin.sendMailToMe(userInstitutionParameter);
+				Admin.sendMailToMe(userInstitutionParameter, "Mais uma empresa cadastrada!");
 			}
 		}
 		render("@Admin.firstStep");
