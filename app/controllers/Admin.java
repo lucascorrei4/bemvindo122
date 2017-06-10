@@ -196,7 +196,11 @@ public class Admin extends Controller {
 		invoice.setPostedAt(Utils.getCurrentDateTime());
 		invoice.setActive(true);
 		invoice.setStatusInvoice(StatusInvoiceEnum.Current);
-		invoice.setStatusPayment(StatusPaymentEnum.Free);
+		if (userInstitutionParameter.getUser().isFromMonetizze()) {
+			invoice.setStatusPayment(StatusPaymentEnum.Paid);
+		} else {
+			invoice.setStatusPayment(StatusPaymentEnum.Free);
+		}
 		invoice.setSmsQtd(0l);
 		invoice.setSmsUnitPrice(parameter.getSmsPricePlan());
 		invoice.setSmsValue(0f);
@@ -312,7 +316,7 @@ public class Admin extends Controller {
 		bodyMail.setParagraph3("");
 		bodyMail.setFooter1("");
 		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
+		bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail));
 		mailController.sendHTMLMail(sendTo, sender, bodyMail);
 	}
 

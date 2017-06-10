@@ -24,7 +24,8 @@ public class MonetizzeController extends Controller {
 		String uniqueKey = "52a7196c41cb79b2e7539713270cc02f";
 		String productCode = "40605";
 		String productKey = "10f0468c26647f43d73aac2d4b829eaa";
-		String body = params.get("body", String.class);
+		//String body = params.get("body", String.class);
+		String body = "chave_unica=52a7196c41cb79b2e7539713270cc02f&produto[codigo]=42&produto[nome]=X-Wing&produto[chave]=b1a4e746c913ac058575403c6408622b&venda[codigo]=1&venda[dataInicio]=2017-06-03 17:32:27&venda[dataFinalizada]=2017-06-03 17:32:27&venda[meioPagamento]=Monetizze&venda[formaPagamento]=Boleto&venda[garantiaRestante]=7&venda[status]=Finalizada&venda[valor]=197.00&venda[quantidade]=1&venda[tipo_frete]=1&venda[frete]=15.00&venda[valorRecebido]=150.00&venda[plano]=&venda[cupom]=&venda[linkBoleto]=&venda[linha_digitavel]=&venda[src]=Origem&comissoes[0][nome]=Afiliado&comissoes[0][tipo_comissao]=Último Clique&comissoes[0][valor]=27,50&comissoes[0][porcentagem]=15,50&comprador[nome]=Comprador Teste&comprador[email]=teste@teste.com.br&comprador[data_nascimento]=1990-01-01&comprador[cnpj_cpf]=111.111.111-11&comprador[telefone]=(11) 1111-1111&comprador[cep]=11111-111&comprador[endereco]=Rua Sem fim&comprador[numero]=42&comprador[complemento]=casa 7&comprador[bairro]=Esperança&comprador[cidade]=Terra do nunca&comprador[estado]=AA&comprador[pais]=Maravilha";
 		String[] params = URLDecoder.decode(body, "UTF-8").split("&");
 		String uniqueKeyFromPost = Utils.getValueParamByKey(params, "chave_unica");
 		if (uniqueKeyFromPost.equals(uniqueKey)) {
@@ -131,7 +132,7 @@ public class MonetizzeController extends Controller {
 			monetizzeTransaction.setPostedAt(Utils.getCurrentDateTime());
 			monetizzeTransaction.merge();
 			if ("Finalizada".equals(sellStatusFromPost)) {
-				createNewCustomer(monetizzeTransaction);
+				createNewUserCustomer(monetizzeTransaction);
 				User newUser = User.verifyByEmail(monetizzeTransaction.getCustomerMail());
 				if (newUser != null) {
 					sendEmailToCustomer(newUser);
@@ -142,7 +143,7 @@ public class MonetizzeController extends Controller {
 		}
 	}
 
-	private static void createNewCustomer(MonetizzeTransaction monetizzeTransaction) {
+	private static void createNewUserCustomer(MonetizzeTransaction monetizzeTransaction) {
 		User user = new User();
 		user.setName(Utils.getNameByWholeName(monetizzeTransaction.getCustomerName()));
 		user.setLastName(Utils.getLastNameByWholeName(monetizzeTransaction.getCustomerName()));
@@ -162,6 +163,7 @@ public class MonetizzeController extends Controller {
 		user.setPostedAt(Utils.getCurrentDateTime());
 		user.setInstitutionId(0l);
 		user.setActive(true);
+		user.setFromMonetizze(true);
 		user.merge();
 	}
 
@@ -196,9 +198,7 @@ public class MonetizzeController extends Controller {
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		String body = "chave_unica=52a7196c41cb79b2e7539713270cc02f&produto[codigo]=42&produto[nome]=X-Wing&produto[chave]=b1a4e746c913ac058575403c6408622b&venda[codigo]=1&venda[dataInicio]=2017-06-03 17:32:27&venda[dataFinalizada]=2017-06-03 17:32:27&venda[meioPagamento]=Monetizze&venda[formaPagamento]=Boleto&venda[garantiaRestante]=7&venda[status]=Finalizada&venda[valor]=197.00&venda[quantidade]=1&venda[tipo_frete]=1&venda[frete]=15.00&venda[valorRecebido]=150.00&venda[plano]=&venda[cupom]=&venda[linkBoleto]=&venda[linha_digitavel]=&venda[src]=Origem&comissoes[0][nome]=Afiliado&comissoes[0][tipo_comissao]=Último Clique&comissoes[0][valor]=27,50&comissoes[0][porcentagem]=15,50&comprador[nome]=Comprador Teste&comprador[email]=teste@teste.com.br&comprador[data_nascimento]=1990-01-01&comprador[cnpj_cpf]=111.111.111-11&comprador[telefone]=(11) 1111-1111&comprador[cep]=11111-111&comprador[endereco]=Rua Sem fim&comprador[numero]=42&comprador[complemento]=casa 7&comprador[bairro]=Esperança&comprador[cidade]=Terra do nunca&comprador[estado]=AA&comprador[pais]=Maravilha";
-		String name = "null";
-		System.out.println(name.substring(0, name.indexOf(" ") > -1 ? name.indexOf(" ") : name.length()));
-		System.out.println(name.substring(name.indexOf(" ") > -1 ? name.indexOf(" ") + 1 : name.length()));
+		postBack();
 	}
 
 }

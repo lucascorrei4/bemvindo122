@@ -39,15 +39,15 @@ import util.VideoHelpEnum;
 
 @CRUD.For(models.OrderOfService.class)
 public class OrderOfServiceCRUD extends CRUD {
-	
+
 	public static String STR_PUSH_APP_ID = ApplicationConfiguration.getInstance().getOneSignalAppId();
 	public static String STR_PUSH_AUTH_ID = ApplicationConfiguration.getInstance().getOneSignalAuthId();
-	
+
 	@Before
 	static void globals() {
 		if (Admin.getLoggedUserInstitution() == null || Admin.getLoggedUserInstitution().getUser() == null) {
 			Application.index();
-		} 
+		}
 		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(Admin.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
 		renderArgs.put("logged", Admin.getLoggedUserInstitution().getUser().id);
 		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
@@ -64,12 +64,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
 		OrderOfService object = (OrderOfService) constructor.newInstance();
-		List<Client> clients = Client.find("institutionId = "
-				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc")
-				.fetch();
-		List<Service> services = Service.find("institutionId = "
-				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc")
-				.fetch();
+		List<Client> clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
+		List<Service> services = Service.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc").fetch();
 		try {
 			render(type, object, services, clients);
 		} catch (TemplateNotFoundException e) {
@@ -84,13 +80,17 @@ public class OrderOfServiceCRUD extends CRUD {
 			page = 1;
 		}
 		String where = "institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId();
-		orderBy = "id";
-		order = "DESC";
+		if (orderBy == null) {
+			orderBy = "id";
+		}
+		if (order == null) {
+			order = "DESC";
+		}
 		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
 		Long count = type.count(search, searchFields, where);
 		Long totalCount = type.count(null, null, where);
 		try {
-			render(type, objects, count, totalCount, page, orderBy, order);
+			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		} catch (TemplateNotFoundException e) {
 			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
@@ -101,15 +101,10 @@ public class OrderOfServiceCRUD extends CRUD {
 		notFoundIfNull(type);
 		// Filtro pelo usuário conectado para proteger os dados dos demais
 		// usuários
-		OrderOfService object = OrderOfService.find(
-				"id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId())
-				.first();
-		List<Service> services = Service.find("institutionId = "
-				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc")
-				.fetch();
+		OrderOfService object = OrderOfService.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()).first();
+		List<Service> services = Service.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc").fetch();
 		notFoundIfNull(object);
-		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
-				.find("orderOfServiceId = " + Long.valueOf(id)).fetch();
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(id)).fetch();
 		try {
 			render(type, object, services, orderOfServiceValues);
 		} catch (TemplateNotFoundException e) {
@@ -144,12 +139,9 @@ public class OrderOfServiceCRUD extends CRUD {
 
 	public static void orderOfService(final String id) {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
-		OrderOfService order = OrderOfService.find(
-				"id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true")
-				.first();
+		OrderOfService order = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		List<Service> services = order.getServices();
-		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
-				.find("orderOfServiceId = " + Long.valueOf(id)).fetch();
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(id)).fetch();
 		/* Get somatories values */
 		Float subTotalGeral = 0f;
 		Float discountGeral = 0f;
@@ -162,8 +154,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String subTotalGeralCurrency = Utils.getCurrencyValue(subTotalGeral);
 		String totalGeralCurrency = Utils.getCurrencyValue(totalGeral);
 		String discountGeralCurrency = Utils.getCurrencyValue(discountGeral);
-		render(order, institution, services, orderOfServiceValues, subTotalGeralCurrency, totalGeralCurrency,
-				discountGeralCurrency);
+		render(order, institution, services, orderOfServiceValues, subTotalGeralCurrency, totalGeralCurrency, discountGeralCurrency);
 	}
 
 	public static void orderByOrderOfServiceId(final String id) {
@@ -172,10 +163,7 @@ public class OrderOfServiceCRUD extends CRUD {
 	}
 
 	public static List<OrderOfService> getOrderByOrderOfServiceId(String id) {
-		return OrderOfService
-				.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()
-						+ " and isActive = true order by description asc")
-				.fetch();
+		return OrderOfService.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by description asc").fetch();
 	}
 
 	public static void create() throws Exception {
@@ -185,15 +173,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		constructor.setAccessible(true);
 		OrderOfService object = (OrderOfService) constructor.newInstance();
 		Binder.bindBean(params.getRootParamNode(), "object", object);
-		String initials = Admin.getLoggedUserInstitution().getInstitution().getInstitution().replaceAll(" ", "").toUpperCase()
-				.substring(0, 2).concat(Admin.getLoggedUserInstitution().getInstitution().getId().toString());
+		String initials = Admin.getLoggedUserInstitution().getInstitution().getInstitution().replaceAll(" ", "").toUpperCase().substring(0, 2).concat(Admin.getLoggedUserInstitution().getInstitution().getId().toString());
 		object.setOrderCode(initials.concat(String.valueOf(Utils.generateRandomId())));
 		validation.valid(object);
 		if (validation.hasErrors()) {
-			List<Service> services = Service
-					.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()
-							+ " and isActive = true order by title asc")
-					.fetch();
+			List<Service> services = Service.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc").fetch();
 			renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
 			try {
 				render(request.controller.replace(".", "/") + "/blank.html", type, object, services);
@@ -227,8 +211,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				Service service = Service.findById(Long.valueOf(jObject.get("serviceId").getAsString()));
 				orderOfServiceValue.setService(service);
 				orderOfServiceValue.setQtd(Float.valueOf(jObject.get("qtd").getAsString().replace(",", ".")));
-				orderOfServiceValue
-						.setUnitPrice(Float.valueOf(jObject.get("basePrice").getAsString().replace(",", ".")));
+				orderOfServiceValue.setUnitPrice(Float.valueOf(jObject.get("basePrice").getAsString().replace(",", ".")));
 				orderOfServiceValue.setDiscount(Float.valueOf(jObject.get("discount").getAsString().replace(",", ".")));
 				orderOfServiceValue.setSubTotal(Float.valueOf(jObject.get("subTotal").getAsString().replace(",", ".")));
 				orderOfServiceValue.setInstitutionId(orderOfService.getInstitutionId());
@@ -240,16 +223,13 @@ public class OrderOfServiceCRUD extends CRUD {
 
 	private static void generateStepsByService(OrderOfService orderOfService) {
 		List<Service> services = new ArrayList<Service>();
-		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
-				.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
 		for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
 			Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
 			services.add(service);
 		}
 		for (Service service : services) {
-			List<Step> steps = Step.find("service_id = " + service.getId() + " and institutionId = "
-					+ Admin.getLoggedUserInstitution().getInstitution().getId()
-					+ " and isActive = true order by position, id asc").fetch();
+			List<Step> steps = Step.find("service_id = " + service.getId() + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by position, id asc").fetch();
 			for (Step step : steps) {
 				OrderOfServiceStep orderServiceStep = new OrderOfServiceStep();
 				orderServiceStep.setOrderOfService(orderOfService);
@@ -273,21 +253,17 @@ public class OrderOfServiceCRUD extends CRUD {
 	}
 
 	private static List<OrderOfService> loadListOrderOfService() {
-		List<OrderOfService> listOrderOfService = OrderOfService.find("institutionId = "
-				+ Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by id desc")
-				.fetch();
+		List<OrderOfService> listOrderOfService = OrderOfService.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by id desc").fetch();
 		for (OrderOfService orderOfService : listOrderOfService) {
 			List<Service> services = new ArrayList<Service>();
-			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
-					.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
 			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
 				Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
 				services.add(service);
 			}
 			Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
 			for (Service service : services) {
-				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId()
-						+ " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
+				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId() + " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
 				mapOrderServiceSteps.put(service, orderOfServiceStep);
 				boolean isOpened = false;
 				for (OrderOfServiceStep orderStep : orderOfServiceStep) {
@@ -315,8 +291,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		/*
 		 * Find OrderOfServiceStep object to update object with newOrderStatus
 		 */
-		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
-				+ " and institutionId = " + institution.getId() + " and isActive = true").first();
+		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		orderOfServiceStep.setStatus(StatusEnum.getNameByValue(newOrderStatus));
 		orderOfServiceStep.save();
 		/*
@@ -324,10 +299,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		 * correctly
 		 */
 		orderOfServiceStep = new OrderOfServiceStep();
-		orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
-				+ " and institutionId = " + institution.getId() + " and isActive = true").first();
-		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getStatus().getValue())
-				.equals(String.valueOf(newOrderStatus));
+		orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
+		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getStatus().getValue()).equals(String.valueOf(newOrderStatus));
 		if (isSavedOrderOfServiceStep) {
 			status = "SUCCESS";
 			response = "Etapa do pedido ".concat(orderCode).concat(" atualizada com sucesso!");
@@ -353,8 +326,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		/*
 		 * Find OrderOfServiceStep object to update object with newOrderStatus
 		 */
-		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
-				+ " and institutionId = " + institution.getId() + " and isActive = true").first();
+		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		orderOfServiceStep.setObs(obsParam);
 		orderOfServiceStep.save();
 		/*
@@ -362,10 +334,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		 * correctly
 		 */
 		orderOfServiceStep = new OrderOfServiceStep();
-		orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
-				+ " and institutionId = " + institution.getId() + " and isActive = true").first();
-		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getObs())
-				.equals(String.valueOf(obsParam));
+		orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
+		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getObs()).equals(String.valueOf(obsParam));
 		if (isSavedOrderOfServiceStep) {
 			status = "SUCCESS";
 			response = "Observação do pedido ".concat(orderCode).concat(" inserida com sucesso!");
@@ -394,9 +364,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String message = decodedValue;
 		String sender = null;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
-		OrderOfService orderOfService = OrderOfService.find(
-				"orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true")
-				.first();
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
 		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
 		if (!Utils.isNullOrEmpty(destination)) {
 			StatusSMS statusSMS = new StatusSMS();
@@ -434,9 +402,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String orderCode = paramsSpplited[1];
 		String message = decodedValue;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
-		OrderOfService orderOfService = OrderOfService.find(
-				"orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true")
-				.first();
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
 		Map<String, String> paramTags = new HashMap<String, String>();
 		paramTags.put("orderCode", orderOfService.orderCode);
 		paramTags.put("message", message);
@@ -472,18 +438,15 @@ public class OrderOfServiceCRUD extends CRUD {
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
 
-
 	public static void remove(String id) throws Exception {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
-		OrderOfService orderOfService = OrderOfService.find(
-				"id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true")
-				.first();
+		OrderOfService orderOfService = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		OrderOfServiceStep.delete("orderOfService_id = " + orderOfService.getId());
 		OrderOfServiceValue.delete("orderOfServiceId = " + orderOfService.getId());
 		orderOfService.delete();
 		OrderOfServiceCRUD.list(0, null, null, null, null);
 	}
-	
+
 	public static void sendEmail() throws UnsupportedEncodingException {
 		String response = null;
 		String status = null;
@@ -496,8 +459,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		/* Institution object */
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		/* OrderOfServiceStep object */
-		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId)
-		+ " and institutionId = " + institution.getId() + " and isActive = true").first();
+		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		String phase = String.valueOf(orderOfServiceStep.getStep().getPosition());
 		String statusPhase = orderOfServiceStep.getStatus().getLabel();
 		String obs = orderOfServiceStep.getObs();
@@ -512,7 +474,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
-		Sender sender= new Sender();
+		Sender sender = new Sender();
 		sender.setCompany(institution.getInstitution());
 		sender.setFrom(institution.getEmail());
 		sender.setKey(orderOfService.orderCode);
@@ -526,7 +488,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
 		bodyMail.setImage1(parameter.getLogoUrl());
 		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
-		if (mailController.sendHTMLMail(sendTo , sender, bodyMail)) {
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail)) {
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
@@ -551,6 +513,5 @@ public class OrderOfServiceCRUD extends CRUD {
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
-	
-	
+
 }

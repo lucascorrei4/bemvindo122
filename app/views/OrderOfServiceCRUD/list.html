@@ -16,7 +16,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'action']}
+			        #{crud.table fields:['id', 'postedAt', 'client', 'orderCode', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a>${object.postedAtParsed}</a>
 				        #{/crud.custom}

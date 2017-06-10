@@ -75,6 +75,8 @@ public class User extends Model {
 	@Hidden
 	public boolean isActive = true;
 
+	public boolean isFromMonetizze;
+
 	@Hidden
 	public long institutionId;
 
@@ -301,6 +303,14 @@ public class User extends Model {
 			return Institution.verifyById(Long.valueOf(this.institutionId)) == null ? "Não informado" : Institution.verifyById(this.institutionId).getInstitution();
 		}
 		return "Não vinculado";
+	}
+
+	public boolean isFromMonetizze() {
+		return isFromMonetizze;
+	}
+
+	public void setFromMonetizze(boolean isFromMonetizze) {
+		this.isFromMonetizze = isFromMonetizze;
 	}
 
 }

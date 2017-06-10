@@ -80,3 +80,34 @@
     </tr>
     %{ } }%
 </table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+		$('#dataTables-example').DataTable({
+		    "language": {
+		        "sProcessing":    "Processando...",
+		        "sLengthMenu":    "Mostrar _MENU_ registros",
+		        "sZeroRecords":   "Não foi encontrado nenhum resultado.",
+		        "sEmptyTable":    "Nenhum registro disponível.",
+		        "sInfo":          "Mostrando registros de _START_ a _END_ de um total de _TOTAL_ registros",
+		        "sInfoEmpty":     "Não há registros para mostrar.",
+		        "sInfoFiltered":  "(filtrado de um total de _MAX_ registros)",
+		        "sInfoPostFix":   "",
+		        "sSearch":        "Buscar:",
+		        "sUrl":           "",
+		        "sInfoThousands":  ",",
+		        "sLoadingRecords": "Carregando...",
+		        "oPaginate": {
+		            "sFirst":    "Primeiro",
+		            "sLast":    "Último",
+		            "sNext":    "Próximo",
+		            "sPrevious": "Anterior"
+		        },
+		        "oAria": {
+		            "sSortAscending":  ": Ordenar a coluna de forma ascendente",
+		            "sSortDescending": ": Ordenar a coluna de forma descendente"
+		        }
+		    }
+		});
+	});
+</script>

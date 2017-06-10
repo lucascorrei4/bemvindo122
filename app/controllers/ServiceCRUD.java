@@ -47,13 +47,17 @@ public class ServiceCRUD extends CRUD {
 			page = 1;
 		}
 		String where = "institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId();
-		orderBy = "id";
-		order = "DESC";
+		if (orderBy == null) {
+			orderBy = "id";
+		}
+		if (order == null) {
+			order = "DESC";
+		}
 		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
 		Long count = type.count(search, searchFields, where);
 		Long totalCount = type.count(null, null, where);
 		try {
-			render(type, objects, count, totalCount, page, orderBy, order);
+			render("ServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		} catch (TemplateNotFoundException e) {
 			render("ServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
