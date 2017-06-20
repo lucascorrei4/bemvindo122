@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="col-lg-6">
-				#{crud.search /}
+				#{crud.searchAll /}
 			</div>
 			<div class="col-lg-6">
 				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
@@ -16,8 +16,8 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table}
-				    #{/crud.table}
+			        #{crud.tableAll}
+				    #{/crud.tableAll}
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}
 	   				</div>

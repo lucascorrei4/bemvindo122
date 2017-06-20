@@ -45,6 +45,8 @@ public class SimplePage extends Model {
 
 	public String buttonAction;
 
+	public String buttonActionCheckout;
+
 	public Blob image1;
 
 	public String tags;
@@ -63,6 +65,8 @@ public class SimplePage extends Model {
 	public boolean isActive = true;
 	
 	public boolean showLeadsForm = true;
+
+	public boolean autoPlayVideo = false;
 
 	public String toString() {
 		return title;
@@ -220,6 +224,22 @@ public class SimplePage extends Model {
 
 	public void setMessagePreFormLead(String messagePreFormLead) {
 		this.messagePreFormLead = messagePreFormLead;
+	}
+
+	public boolean isAutoPlayVideo() {
+		return autoPlayVideo;
+	}
+
+	public void setAutoPlayVideo(boolean autoPlayVideo) {
+		this.autoPlayVideo = autoPlayVideo;
+	}
+
+	public String getButtonActionCheckout() {
+		return buttonActionCheckout;
+	}
+
+	public void setButtonActionCheckout(String buttonActionCheckout) {
+		this.buttonActionCheckout = buttonActionCheckout;
 	}
 
 }

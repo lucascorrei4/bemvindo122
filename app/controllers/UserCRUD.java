@@ -49,15 +49,19 @@ public class UserCRUD extends CRUD {
         if (page < 1) {
             page = 1;
         }
+        if (orderBy == null) {
+        	orderBy = "id";
+        }
+        if (order == null) {
+        	order = "DESC";
+        }
         List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, (String) request.args.get("where"));
-        orderBy = "id";
-		order = "DESC";
         Long count = type.count(search, searchFields, (String) request.args.get("where"));
         Long totalCount = type.count(null, null, (String) request.args.get("where"));
         try {
             render(type, objects, count, totalCount, page, orderBy, order);
         } catch (TemplateNotFoundException e) {
-            render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+            render("UserCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order);
         }
     }
 

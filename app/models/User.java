@@ -75,6 +75,7 @@ public class User extends Model {
 	@Hidden
 	public boolean isActive = true;
 
+	@Hidden	
 	public boolean isFromMonetizze;
 
 	@Hidden

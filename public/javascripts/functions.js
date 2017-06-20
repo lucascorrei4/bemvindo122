@@ -55,7 +55,7 @@ function followordercode() {
 			} else {
 				$("#message2").css("color", "red");
 				$("#message2").show();
-				$("#message2").html($("#response2").val());               
+				$("#message2").html($("#response2").val());
 				$('#formFollow').reset();
 			}
 		});
@@ -143,22 +143,22 @@ function sendPUSH(id, value) {
 	});
 	$('#accordion').load('/OrderOfServiceCRUD/sendpush', data,
 			function(response, status) {
-		var status = $("#status").val();
-		var spplittedName = id.split('-');
-		if ('SUCCESS' === status) {
-			$("#message-" + id).css("color", "gray");
-			$("#message-" + id).show();
-			$("#message-" + id).html($("#response").val());
-			$("#message-" + id).fadeIn();
-			$("#collapse" + spplittedName[1]).collapse('show');
-		} else {
-			$("#message-" + id).css("color", "red");
-			$("#message-" + id).show();
-			$("#message-" + id).html($("#response").val());
-			$("#collapse" + spplittedName[1]).collapse('show');
-			setTimeout('$("#message").hide()', 10000);
-		}
-	});
+				var status = $("#status").val();
+				var spplittedName = id.split('-');
+				if ('SUCCESS' === status) {
+					$("#message-" + id).css("color", "gray");
+					$("#message-" + id).show();
+					$("#message-" + id).html($("#response").val());
+					$("#message-" + id).fadeIn();
+					$("#collapse" + spplittedName[1]).collapse('show');
+				} else {
+					$("#message-" + id).css("color", "red");
+					$("#message-" + id).show();
+					$("#message-" + id).html($("#response").val());
+					$("#collapse" + spplittedName[1]).collapse('show');
+					setTimeout('$("#message").hide()', 10000);
+				}
+			});
 }
 
 function sendEmail(id, value) {
@@ -168,22 +168,22 @@ function sendEmail(id, value) {
 	});
 	$('#accordion').load('/OrderOfServiceCRUD/sendemail', data,
 			function(response, status) {
-		var status = $("#status").val();
-		var spplittedName = id.split('-');
-		if ('SUCCESS' === status) {
-			$("#message-" + id).css("color", "gray");
-			$("#message-" + id).show();
-			$("#message-" + id).html($("#response").val());
-			$("#message-" + id).fadeIn();
-			$("#collapse" + spplittedName[1]).collapse('show');
-		} else {
-			$("#message-" + id).css("color", "red");
-			$("#message-" + id).show();
-			$("#message-" + id).html($("#response").val());
-			$("#collapse" + spplittedName[1]).collapse('show');
-			setTimeout('$("#message").hide()', 10000);
-		}
-	});
+				var status = $("#status").val();
+				var spplittedName = id.split('-');
+				if ('SUCCESS' === status) {
+					$("#message-" + id).css("color", "gray");
+					$("#message-" + id).show();
+					$("#message-" + id).html($("#response").val());
+					$("#message-" + id).fadeIn();
+					$("#collapse" + spplittedName[1]).collapse('show');
+				} else {
+					$("#message-" + id).css("color", "red");
+					$("#message-" + id).show();
+					$("#message-" + id).html($("#response").val());
+					$("#collapse" + spplittedName[1]).collapse('show');
+					setTimeout('$("#message").hide()', 10000);
+				}
+			});
 }
 
 function closeModal() {
@@ -203,8 +203,11 @@ function newsletterTop() {
 	if (mail === '') {
 		$('#message').css('color', 'red');
 		$('#message').show();
-		$('#message').html('Favor, insira seu e-mail no formato nome@provedor.com');
-		setTimeout(function() { $('#message').hide() }, 10000);
+		$('#message').html(
+				'Favor, insira seu e-mail no formato nome@provedor.com');
+		setTimeout(function() {
+			$('#message').hide()
+		}, 10000);
 		return;
 	}
 	var data = new Object();
@@ -214,17 +217,19 @@ function newsletterTop() {
 	data.url = window.location.href;
 	$('#mailListTop').load('/application/savemaillist', data,
 			function(response, status, xhr) {
-		var status = $("#status").val();
-		if ('SUCCESS' === status) {
-			$('#mailListTop').unbind('load');
-			window.location.href = "/gratidao";
-		} else {
-			$("#message").fadeIn();
-			$("#message").css("color", "red");
-			$("#message").html($("#response").val());
-			setTimeout(function() { $('#message').hide() }, 8000);
-		}
-	});
+				var status = $("#status").val();
+				if ('SUCCESS' === status) {
+					$('#mailListTop').unbind('load');
+					window.location.href = "/gratidao";
+				} else {
+					$("#message").fadeIn();
+					$("#message").css("color", "red");
+					$("#message").html($("#response").val());
+					setTimeout(function() {
+						$('#message').hide()
+					}, 8000);
+				}
+			});
 }
 
 function newsletterBottom() {
@@ -240,8 +245,11 @@ function newsletterBottom() {
 	if (mail === '') {
 		$('#message2').css('color', 'red');
 		$('#message2').show();
-		$('#message2').html('Favor, insira seu e-mail no formato nome@provedor.com');
-		setTimeout(function() { $('#message2').hide() }, 10000);
+		$('#message2').html(
+				'Favor, insira seu e-mail no formato nome@provedor.com');
+		setTimeout(function() {
+			$('#message2').hide()
+		}, 10000);
 		return;
 	}
 	var data = new Object();
@@ -251,16 +259,28 @@ function newsletterBottom() {
 	data.url = window.location.href;
 	$('#mailListBottom').load('/application/savemaillist', data,
 			function(response, status, xhr) {
-		var status = $("#status2").val();
-		if ('SUCCESS' === status) {
-			$('#mailListBottom').unbind('load');
-			window.location.href = "/gratidao";
-		} else {
-			$("#message2").fadeIn();
-			$("#message2").css("color", "red");
-			$("#message2").html($("#response2").val());
-			setTimeout(function() { $('#message2').hide() }, 8000);
-		}
-	});
+				var status = $("#status2").val();
+				if ('SUCCESS' === status) {
+					$('#mailListBottom').unbind('load');
+					window.location.href = "/gratidao";
+				} else {
+					$("#message2").fadeIn();
+					$("#message2").css("color", "red");
+					$("#message2").html($("#response2").val());
+					setTimeout(function() {
+						$('#message2').hide()
+					}, 8000);
+				}
+			});
 }
 
+function getQueryVariable(variable) {
+	var query = window.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split("=");
+		if (pair[0] == variable) {
+			return pair[1];
+		}
+	}
+}

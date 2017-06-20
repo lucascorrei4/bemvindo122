@@ -13,11 +13,11 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			       #{crud.table fields:['postedAt', 'name', 'mail', 'origin', 'url']}
+			       #{crud.tableAll fields:['postedAt', 'name', 'mail', 'origin', 'url']}
 			       		#{crud.custom 'postedAt'}
 			         		<a href="#">${object.postedAtParsed}</a>
 				        #{/crud.custom}
-				    #{/crud.table}
+				    #{/crud.tableAll}
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}
 	   				</div>

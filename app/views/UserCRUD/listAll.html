@@ -13,7 +13,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			       #{crud.table fields:['postedAt', 'name', 'email', 'phone1', 'stateId', 'cityId', 'institutionId', 'password']}
+			       #{crud.tableAll fields:['postedAt', 'name', 'email', 'phone1', 'stateId', 'cityId', 'institutionId', 'password']}
 			        	#{crud.custom 'postedAt'}
 			         		${object.getPostedAtParsed()}</a>
 				        #{/crud.custom}
@@ -29,7 +29,7 @@
 			        	#{crud.custom 'institutionId'}
 			         		${object.getInstitutionByInstitutionId()}</a>
 				        #{/crud.custom}
-				    #{/crud.table}
+				    #{/crud.tableAll}
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}
 	   				</div>
