@@ -284,13 +284,13 @@ public class Admin extends Controller {
 		bodyMail.setFooter1(Institution.findAll().size() + " empresas cadastradas.");
 		bodyMail.setImage1(parameter.getLogoUrl());
 		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
-		mailController.sendHTMLMail(sendTo, sender, bodyMail);
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
 		sendTo = new SendTo();
 		sendTo.setDestination("th4mmy@gmail.com");
 		sendTo.setName("Thammy");
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
-		mailController.sendHTMLMail(sendTo, sender, bodyMail);
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
 	}
 
 	static void sendMailToMeWithCustomInfo(String message, String info) {
@@ -317,7 +317,7 @@ public class Admin extends Controller {
 		bodyMail.setFooter1("");
 		bodyMail.setImage1(parameter.getLogoUrl());
 		bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail));
-		mailController.sendHTMLMail(sendTo, sender, bodyMail);
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
 	}
 
 }

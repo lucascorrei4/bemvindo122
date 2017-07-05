@@ -393,7 +393,7 @@ public class Application extends Controller {
 			bodyMail.setFooter1("http://seupedido.online/nova-senha/" + Utils.encode(user.getEmail()));
 			bodyMail.setImage1("http://seupedido.online/public/images/logo-admin.png");
 			bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail));
-			if (mailController.sendHTMLMail(sendTo, sender, bodyMail)) {
+			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
 				status = "SUCCESS";
 				response = "E-mail enviado com sucesso! Favor, verifique sua caixa de entrada, spam ou lixeira.";
 			} else {

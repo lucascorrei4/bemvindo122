@@ -89,10 +89,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
 		Long count = type.count(search, searchFields, where);
 		Long totalCount = type.count(null, null, where);
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		try {
-			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order, smsExceedLimit);
 		} catch (TemplateNotFoundException e) {
-			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order, smsExceedLimit);
 		}
 	}
 
@@ -156,6 +157,13 @@ public class OrderOfServiceCRUD extends CRUD {
 		String discountGeralCurrency = Utils.getCurrencyValue(discountGeral);
 		render(order, institution, services, orderOfServiceValues, subTotalGeralCurrency, totalGeralCurrency, discountGeralCurrency);
 	}
+	
+	public static void customerNotificationModal(final String id) {
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render(orderOfService, institution, smsExceedLimit);
+	}
 
 	public static void orderByOrderOfServiceId(final String id) {
 		List<OrderOfService> prayOrders = getOrderByOrderOfServiceId(id);
@@ -213,7 +221,13 @@ public class OrderOfServiceCRUD extends CRUD {
 				orderOfServiceValue.setQtd(Float.valueOf(jObject.get("qtd").getAsString().replace(",", ".")));
 				orderOfServiceValue.setUnitPrice(Float.valueOf(jObject.get("basePrice").getAsString().replace(",", ".")));
 				orderOfServiceValue.setDiscount(Float.valueOf(jObject.get("discount").getAsString().replace(",", ".")));
-				orderOfServiceValue.setSubTotal(Float.valueOf(jObject.get("subTotal").getAsString().replace(",", ".")));
+				/*
+				 * Saving subtotal without discount even it was calculated in
+				 * files orderofservicevalue.html and scriptOrderOfService.html
+				 * subtotal = unitprice * qtd
+				 */
+				Float subTotalWithoutDiscount = (orderOfServiceValue.getUnitPrice() * orderOfServiceValue.getQtd());
+				orderOfServiceValue.setSubTotal(subTotalWithoutDiscount);
 				orderOfServiceValue.setInstitutionId(orderOfService.getInstitutionId());
 				orderOfServiceValue.willBeSaved = true;
 				orderOfServiceValue.save();
@@ -358,6 +372,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String status = null;
 		String id = params.get("id", String.class);
 		String value = params.get("value", String.class);
+		String idUpdate = params.get("idUpdate", String.class);
 		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
 		String[] paramsSpplited = id.split("-");
 		String orderCode = paramsSpplited[1];
@@ -389,7 +404,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		if ("accordion".equals(idUpdate)) {
+			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		} else if ("notificationArea".equals(idUpdate)) {
+			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit);
+		}
 	}
 
 	public static void sendPUSH() throws UnsupportedEncodingException {
@@ -397,6 +416,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String status = null;
 		String id = params.get("id", String.class);
 		String value = params.get("value", String.class);
+		String idUpdate = params.get("idUpdate", String.class);
 		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
 		String[] paramsSpplited = id.split("-");
 		String orderCode = paramsSpplited[1];
@@ -435,7 +455,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		if ("accordion".equals(idUpdate)) {
+			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		} else if ("notificationArea".equals(idUpdate)) {
+			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit);
+		}
 	}
 
 	public static void remove(String id) throws Exception {
@@ -488,7 +512,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
 		bodyMail.setImage1(parameter.getLogoUrl());
 		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
-		if (mailController.sendHTMLMail(sendTo, sender, bodyMail)) {
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
@@ -512,6 +536,65 @@ public class OrderOfServiceCRUD extends CRUD {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+	}
+	
+	public static void sendEmailNotificationToCustomer() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String idUpdate = params.get("idUpdate", String.class);
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		/* Institution object */
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		/* OrderOfService object */
+		Parameter parameter = Parameter.all().first();
+		MailController mailController = new MailController();
+		/* SendTo object */
+		SendTo sendTo = new SendTo();
+		sendTo.setDestination(orderOfService.getClient().getMail());
+		sendTo.setName(orderOfService.getClient().getName());
+		sendTo.setSex("");
+		sendTo.setStatus(new StatusMail());
+		/* Sender object */
+		Sender sender = new Sender();
+		sender.setCompany(institution.getInstitution());
+		sender.setFrom(institution.getEmail());
+		sender.setKey(orderOfService.orderCode);
+		/* SendTo object */
+		BodyMail bodyMail = new BodyMail();
+		bodyMail.setTitle1("Ol&aacute;, " + orderOfService.getClient().getName() + "!");
+		bodyMail.setTitle2("Acompanhe seu pedido <br />" + orderOfService.getOrderCode() + " <br /> em: <br /> https://seupedido.online/acompanhe.");
+		bodyMail.setParagraph1("");
+		bodyMail.setParagraph2("");
+		bodyMail.setParagraph3("");
+		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
+		bodyMail.setImage1(parameter.getLogoUrl());
+		bodyMail.setBodyHTML(MailController.getHTMLTemplateSimple(bodyMail));
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", seu código de acompanhamento. :)")) {
+			/* Save sms object */
+			StatusMail statusMail = new StatusMail();
+			statusMail.setInstitutionId(institution.id);
+			statusMail.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
+			statusMail.setMessage(bodyMail.getBodyHTML());
+			statusMail.setPostedAt(Utils.getCurrentDateTime());
+			statusMail.setClientName(orderOfService.client.toString());
+			statusMail.setDestination(sendTo.getDestination());
+			statusMail.setSendDate(Utils.getCurrentDateTime());
+			statusMail.setPostedAt(Utils.getCurrentDateTime());
+			statusMail.setMailSent(true);
+			statusMail.willBeSaved = true;
+			statusMail.id = 0l;
+			statusMail.merge();
+			status = "SUCCESS";
+			response = "E-mail enviado com sucesso.";
+		} else {
+			status = "ERROR";
+			response = "Erro ao enviar o e-mail! Tente novamente em instantes.";
+		}
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit);
 	}
 
 }

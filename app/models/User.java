@@ -64,6 +64,7 @@ public class User extends Model {
 
 	@Required
 	@Password
+	@Hidden
 	public String password;
 
 	@Transient

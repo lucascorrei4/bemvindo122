@@ -190,7 +190,7 @@ public class MonetizzeController extends Controller {
 			bodyMail.setFooter1("https://seupedido.online/nova-senha/" + Utils.encode(user.getEmail()));
 			bodyMail.setImage1(parameter.getLogoUrl());
 			bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail));
-			if (mailController.sendHTMLMail(sendTo, sender, bodyMail)) {
+			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
 				Admin.sendMailToMeWithCustomInfo("Venda realizada e cliente cadastrado automaticamente!", "Nome: " + user.getName().concat(" - E-mail: ").concat(user.getEmail().concat(" - Fone: ").concat(user.getPhone1())));
 			}
 		}

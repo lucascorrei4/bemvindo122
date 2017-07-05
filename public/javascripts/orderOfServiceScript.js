@@ -5,3 +5,11 @@ function openModalOrderOfService(element) {
 	$('#orderInvoice').load(
 			'/OrderOfServiceCRUD/orderofservice?id=' + orderOfServicedId);
 }
+
+function openModalCustomerNotification(element) {
+	var orderOfServicedId = $(element).data('order-id');
+	document.getElementById("osid").setAttribute('value', orderOfServicedId);
+	$('#customerNotificationModal').modal('show');
+	$('#notificationArea').load(
+			'/OrderOfServiceCRUD/customerNotificationModal?id=' + orderOfServicedId);
+}

@@ -111,12 +111,13 @@ function updateObsOrderStep(name, obs) {
 			});
 }
 
-function sendSMS(id, value) {
+function sendSMS(id, value, idUpdate) {
 	var data = jQuery.param({
 		id : id,
-		value : value
+		value : value,
+		idUpdate : idUpdate
 	});
-	$('#accordion').load('/OrderOfServiceCRUD/sendsms', data,
+	$('#'+ idUpdate).load('/OrderOfServiceCRUD/sendsms', data,
 			function(response, status) {
 				var status = $("#status").val();
 				var spplittedName = id.split('-');
@@ -136,12 +137,13 @@ function sendSMS(id, value) {
 			});
 }
 
-function sendPUSH(id, value) {
+function sendPUSH(id, value, idUpdate) {
 	var data = jQuery.param({
 		id : id,
-		value : value
+		value : value,
+		idUpdate : idUpdate
 	});
-	$('#accordion').load('/OrderOfServiceCRUD/sendpush', data,
+	$('#'+ idUpdate).load('/OrderOfServiceCRUD/sendpush', data,
 			function(response, status) {
 				var status = $("#status").val();
 				var spplittedName = id.split('-');
@@ -161,12 +163,13 @@ function sendPUSH(id, value) {
 			});
 }
 
-function sendEmail(id, value) {
+function sendEmail(id, value, idUpdate) {
 	var data = jQuery.param({
 		id : id,
-		value : value
+		value : value,
+		idUpdate : idUpdate
 	});
-	$('#accordion').load('/OrderOfServiceCRUD/sendemail', data,
+	$('#'+ idUpdate).load('/OrderOfServiceCRUD/sendemail', data,
 			function(response, status) {
 				var status = $("#status").val();
 				var spplittedName = id.split('-');
@@ -184,6 +187,32 @@ function sendEmail(id, value) {
 					setTimeout('$("#message").hide()', 10000);
 				}
 			});
+}
+
+function sendEmailNotificationToCustomer(id, value, idUpdate) {
+	var data = jQuery.param({
+		id : id,
+		value : value,
+		idUpdate : idUpdate
+	});
+	$('#'+ idUpdate).load('/OrderOfServiceCRUD/sendEmailNotificationToCustomer', data,
+			function(response, status) {
+		var status = $("#status").val();
+		var spplittedName = id.split('-');
+		if ('SUCCESS' === status) {
+			$("#message-" + id).css("color", "gray");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#response").val());
+			$("#message-" + id).fadeIn();
+			$("#collapse" + spplittedName[1]).collapse('show');
+		} else {
+			$("#message-" + id).css("color", "red");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#response").val());
+			$("#collapse" + spplittedName[1]).collapse('show');
+			setTimeout('$("#message").hide()', 10000);
+		}
+	});
 }
 
 function closeModal() {

@@ -1,0 +1,22 @@
+<meta charset="utf-8" />
+<div class="form-group">
+	<label>Avisar  &{orderOfService.client.toString()}</label>
+	<label>&{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
+	<input class="form-control" id="sms-&{orderOfService.orderCode}" value="Ola, &{orderOfService.client.name.trim()}. Acompanhe seu pedido &{orderOfService.orderCode} em: www.seupedido.online/acompanhe. Att., &{institution.institution}." />
+</div>
+<div class="form-group" id="formNotifButtons">
+	<div class="row">
+		<div class="col-md-4">
+           	<input class="btn btn-default" type="button" value="Via PUSH" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+		</div>
+		<div class="col-md-4">
+           	<input class="btn btn-default" type="button" value="Via E-mail" onclick="sendEmailNotificationToCustomer(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+		</div>
+		<div class="col-md-4">
+           	<input class="btn btn-default" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" ${!smsExceedLimit ? '' : 'disabled'} />
+		</div>
+	</div>
+	<input type="hidden" id="response" name="response" value="${response}" /> 
+	<input type="hidden" id="status" name="status" value="${status}" />
+	<div id="message-sms-&{orderOfService.orderCode}"></div>
+</div>

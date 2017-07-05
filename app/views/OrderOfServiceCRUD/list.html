@@ -32,7 +32,8 @@
 								  <i class="fa fa-wrench"></i> <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu${object.id}">
-                                    <li><a href="#" id="btnModalGenerateCode" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);">Baixar PDF</a></li>
+                                    <li><a href="#" id="btnModalCustomerNotification" data-order-id="${object.id}" title="Enviar Código da OS por SMS ou E-mail" onclick="openModalCustomerNotification(this);">Notificar ${object.client?.name}</a></li>
+                                    <li><a href="#" id="btnModalGenerateCode" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);">Baixar OS em PDF</a></li>
                                     <li class="divider"></li>
                                     <li><a href="@{OrderOfServiceCRUD.remove(object.id)}" title="Atenção: Esta ação remove a ordem de serviço, o acompanhamento do cliente (Código: &{object.orderCode}) e os valores de serviços associados a esta ordem de serviço.">Remover</a></li>
 								</ul>
@@ -48,14 +49,6 @@
    			</div>
    		</div>
    	</div>
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-        	responsive: true
-        });
-    });
-    </script>
     #{include 'OrderOfServiceCRUD/orderOfServiceModal.html' /}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script type="text/javascript" src="@{'public/javascripts/print.js'}"></script>
