@@ -5,6 +5,7 @@ import java.io.File;
 import models.Article;
 import play.mvc.Before;
 import play.vfs.VirtualFile;
+import util.PlansEnum;
 
 @CRUD.For(models.Article.class)
 public class ArticleCRUD extends CRUD {
@@ -19,5 +20,6 @@ public class ArticleCRUD extends CRUD {
 		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
 		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("planSPO02", PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()));
 	}
 }

@@ -53,7 +53,7 @@
 				                                    <input class="btn btn-default" type="button" value="Via E-mail" onclick="sendEmail(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" />
 												</div>
 												<div class="col-lg-4">
-				                                    <input class="btn btn-default" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" style="display: ${!smsExceedLimit ? 'inline' : 'none'};" />
+				                                    <input class="btn btn-default ${planSPO02 ? '' : 'disabled'}" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" style="display: ${!smsExceedLimit ? 'inline' : 'none'};" />
 												</div>
 											</div>
 										</div>

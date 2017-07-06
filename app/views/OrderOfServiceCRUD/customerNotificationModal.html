@@ -6,17 +6,18 @@
 </div>
 <div class="form-group" id="formNotifButtons">
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-xs-6 col-sm-4">
            	<input class="btn btn-default" type="button" value="Via PUSH" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
 		</div>
-		<div class="col-md-4">
+		<div class="col-xs-6 col-sm-4">
            	<input class="btn btn-default" type="button" value="Via E-mail" onclick="sendEmailNotificationToCustomer(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
 		</div>
-		<div class="col-md-4">
-           	<input class="btn btn-default" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" ${!smsExceedLimit ? '' : 'disabled'} />
+		<div class="col-xs-6 col-sm-4">
+           	<input class="btn btn-default ${planSPO02 ? '' : 'disabled'}" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" ${!smsExceedLimit ? '' : 'disabled'} />
 		</div>
 	</div>
 	<input type="hidden" id="response" name="response" value="${response}" /> 
 	<input type="hidden" id="status" name="status" value="${status}" />
+	<br />
 	<div id="message-sms-&{orderOfService.orderCode}"></div>
 </div>

@@ -18,6 +18,7 @@ import controllers.CRUD.Hidden;
 import play.data.binding.As;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import util.PlansEnum;
 import util.StatusEnum;
 import util.StatusInvoiceEnum;
 import util.StatusPaymentEnum;
@@ -43,6 +44,9 @@ public class Invoice extends Model {
 
 	@Enumerated(EnumType.STRING)
 	public StatusPaymentEnum statusPayment = StatusPaymentEnum.Free;
+
+	@Enumerated(EnumType.STRING)
+	public PlansEnum plan = PlansEnum.SPO01;
 
 	public Float smsValue = 0f;
 
@@ -199,6 +203,14 @@ public class Invoice extends Model {
 	
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
+	}
+	
+	public PlansEnum getPlan() {
+		return plan;
+	}
+
+	public void setPlan(PlansEnum plan) {
+		this.plan = plan;
 	}
 
 }
