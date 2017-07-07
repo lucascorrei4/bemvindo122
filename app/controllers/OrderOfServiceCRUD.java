@@ -165,6 +165,13 @@ public class OrderOfServiceCRUD extends CRUD {
 		render(orderOfService, institution, smsExceedLimit);
 	}
 
+	public static void thankfulNotificationModal(final String id) {
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		render(orderOfService, institution, smsExceedLimit);
+	}
+
 	public static void orderByOrderOfServiceId(final String id) {
 		List<OrderOfService> prayOrders = getOrderByOrderOfServiceId(id);
 		render(prayOrders);

@@ -16,7 +16,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['id', 'postedAt', 'title', 'isActive', 'action']}
+			        #{crud.table fields:['postedAt', 'title', 'isActive', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{ServiceCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}

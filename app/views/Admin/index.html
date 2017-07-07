@@ -39,6 +39,14 @@
 	    	font-size: 18px;
     	}
     </style>
+    <script type="text/javascript">
+	    function openModalCustomerNotification(element) {
+	    	var orderOfServicedId = $(element).data('order-id');
+	    	document.getElementById("osid").setAttribute('value', orderOfServicedId);
+	    	$('#notificationArea').load(
+	    			'/OrderOfServiceCRUD/thankfulNotificationModal?id=' + orderOfServicedId);
+	    }
+    </script>
 
 </head>
 <body>
@@ -317,7 +325,7 @@
 											<tr>
 												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
 												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
-												<td><a href="@{OrderOfServiceCRUD.list}">${order.isThanked ? 'Sim :)' : 'Ainda não :('}</a></td>
+												<td>#{if !order.isThanked}<label style="float: right;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerNotification(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
 											</tr>
 										#{/list}
                                     </tbody>
@@ -399,25 +407,44 @@
 	<script src="@{'/public/templatebootstrap/js/flot-data.js'}"></script>
 
 	<div class="modal fade" id="modalVideoHelpIndex" tabindex="-1" role="dialog" aria-labelledby="modalVideoHelpIndexLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="modalVideoHelpIndexLabel">${videohelp?.label} - Veja o vídeo abaixo</h4>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="modalVideoHelpIndexLabel">${videohelp?.label} - Veja o vídeo abaixo</h4>
+				</div>
+				<div class="modal-body" id="modal-body">
+					<input type="hidden" id="response" name="response" value="${response}" /> 
+					<input type="hidden" id="status" name="status" value="${status}" />
+					<div class="form-group">
+						<iframe width="560" height="315" src="${videohelp?.value}?rel=0&autoplay=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
 					</div>
-					<div class="modal-body" id="modal-body">
-						<input type="hidden" id="response" name="response" value="${response}" /> 
-						<input type="hidden" id="status" name="status" value="${status}" />
-						<div class="form-group">
-							<iframe width="560" height="315" src="${videohelp?.value}?rel=0&autoplay=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
 				</div>
 			</div>
 		</div>
+	</div>
+	
+	<div class="modal fade" id="modalThankful" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<input id="osid" name="osid" type="hidden" />
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h3 class="modal-title" id="myModalLabel">Agradecimento</h3>
+				</div>
+				<div class="modal-body">
+					<div id="notificationArea"></div>
+				</div>
+				<div class="modal-footer" style="text-align: left">
+					<div id="editor"></div>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

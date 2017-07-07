@@ -16,7 +16,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['id', 'postedAt', 'client', 'orderCode', 'action']}
+			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a>${object.postedAtParsed}</a>
 				        #{/crud.custom}
@@ -33,7 +33,7 @@
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu${object.id}">
                                     <li><a href="#" id="btnModalCustomerNotification" data-order-id="${object.id}" title="Enviar Código da OS por SMS ou E-mail" onclick="openModalCustomerNotification(this);">Notificar ${object.client?.name}</a></li>
-                                    <li><a href="#" id="btnModalGenerateCode" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);">Baixar OS em PDF</a></li>
+                                    <li><a href="#" id="btnModalGenerateCode" data-order-id="${object.id}" title="Abrir Ordem de Serviço" onclick="openModalOrderOfService(this);">Visualizar OS</a></li>
                                     <li class="divider"></li>
                                     <li><a href="@{OrderOfServiceCRUD.remove(object.id)}" title="Atenção: Esta ação remove a ordem de serviço, o acompanhamento do cliente (Código: &{object.orderCode}) e os valores de serviços associados a esta ordem de serviço.">Remover</a></li>
 								</ul>

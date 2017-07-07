@@ -354,7 +354,7 @@ table.dataTable thead .sorting:after {
     color: #df8a13;
 }
 
-.disabled {
+.disableComponent {
 	pointer-events:none;
 	opacity:0.3;
 }

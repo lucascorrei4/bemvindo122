@@ -96,6 +96,9 @@ public class User extends Model {
 
 	public static User connect(String email, String password) {
 		User user = find("byEmail", email).first();
+		if (user == null) {
+			return null;
+		}
 		String pass1 = user.password.trim();
 		String pass2 = password.trim();
 		return pass1.equals(pass2) ? user : null;
