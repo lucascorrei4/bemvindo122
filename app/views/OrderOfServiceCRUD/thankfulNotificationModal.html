@@ -2,18 +2,18 @@
 <div class="form-group">
 	<label>Avisar  &{orderOfService.client.toString()}</label>
 	<label>&{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
-	<textarea class="form-control" id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Saiba que você é importante e é um prazer te servir. Gratidão. Att., &{institution.institution}.</textarea>
+	<textarea class="form-control ${planSPO02 ? '' : 'disableComponent'}" id="sms-&{orderOfService.orderCode}">Ol&aacute;, &{orderOfService.client.name.trim()}. Saiba que voc&ecirc; &eacute; importante e &eacute; um prazer te servir. Gratid&atilde;o. Att., &{institution.institution}.</textarea>
 </div>
 <div class="container" id="formNotifButtons" style="width: 100%">
 	<div class="row">
 		<div class="col-xs-4">
-           	<input class="btn btn-default" type="button" value="Via PUSH" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+           	<input class="btn btn-default ${planSPO02 ? '' : 'disableComponent'}" type="button" value="Via PUSH" onclick="sendPUSHThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
 		</div>
 		<div class="col-xs-4">
-           	<input class="btn btn-default" type="button" value="Via E-mail" onclick="sendEmailNotificationToCustomer(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+           	<input class="btn btn-default" type="button" value="Via E-mail" onclick="sendEmailNotificationThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
 		</div>
 		<div class="col-xs-4">
-           	<input class="btn btn-default ${planSPO02 ? '' : 'disableComponent'}" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" ${!smsExceedLimit ? '' : 'disabled'} />
+           	<input class="btn btn-default ${planSPO02 ? '' : 'disableComponent'}" type="button" value="Via SMS" onclick="sendSMSThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
 		</div>
 	</div>
 	<input type="hidden" id="response" name="response" value="${response}" /> 

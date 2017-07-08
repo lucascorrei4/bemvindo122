@@ -39,15 +39,6 @@
 	    	font-size: 18px;
     	}
     </style>
-    <script type="text/javascript">
-	    function openModalCustomerNotification(element) {
-	    	var orderOfServicedId = $(element).data('order-id');
-	    	document.getElementById("osid").setAttribute('value', orderOfServicedId);
-	    	$('#notificationArea').load(
-	    			'/OrderOfServiceCRUD/thankfulNotificationModal?id=' + orderOfServicedId);
-	    }
-    </script>
-
 </head>
 <body>
 
@@ -189,25 +180,25 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow">
+                    <div class="panel panel-yellow ${planSPO02 ? '' : 'disableComponent'}">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
                                     <i class="fa fa-paper-plane-o fa-5x"></i>
                                 </div>
-                                <div class="col-xs-9 text-right">
+                                <div class="col-xs-9 text-right ">
                                     #{if contSentSMSs == 0}
-										<div class="huge">0<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/5</span></div>
+										<div class="huge ">0<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div>
 	                                    <div>Nenhuma SMS enviada</div>
 									#{/if}
 									#{if contSentSMSs > 0}
 										#{if contSentSMSs == 1}
-											<div class="huge">1<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/5</span></div>
+											<div class="huge">1<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div>
 		                                    <div>SMS enviada</div>
 										#{/if}
 										#{else}
 											#{if !smsExceedLimit}
-												<div class="huge">&{contSentSMSs}<span style="display: 'inline';">/5</span></div>
+												<div class="huge ">&{contSentSMSs}<span style="display: 'inline';">/50</span></div>
 		                                    	<div>SMSs enviadas</div>
 											#{/if}
 											#{else}
@@ -325,7 +316,7 @@
 											<tr>
 												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
 												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
-												<td>#{if !order.isThanked}<label style="float: right;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerNotification(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
+												<td>#{if !order.isThanked}<label style="float: right;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
 											</tr>
 										#{/list}
                                     </tbody>
@@ -405,6 +396,7 @@
 	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.time.js'}"></script>
 	<script src="@{'/public/templatebootstrap/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js'}"></script>
 	<script src="@{'/public/templatebootstrap/js/flot-data.js'}"></script>
+	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
 
 	<div class="modal fade" id="modalVideoHelpIndex" tabindex="-1" role="dialog" aria-labelledby="modalVideoHelpIndexLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -414,8 +406,6 @@
 					<h4 class="modal-title" id="modalVideoHelpIndexLabel">${videohelp?.label} - Veja o vídeo abaixo</h4>
 				</div>
 				<div class="modal-body" id="modal-body">
-					<input type="hidden" id="response" name="response" value="${response}" /> 
-					<input type="hidden" id="status" name="status" value="${status}" />
 					<div class="form-group">
 						<iframe width="560" height="315" src="${videohelp?.value}?rel=0&autoplay=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
 					</div>
@@ -432,7 +422,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<input id="osid" name="osid" type="hidden" />
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload(true)">&times;</button>
 					<h3 class="modal-title" id="myModalLabel">Agradecimento</h3>
 				</div>
 				<div class="modal-body">
@@ -440,7 +430,7 @@
 				</div>
 				<div class="modal-footer" style="text-align: left">
 					<div id="editor"></div>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload(true)">Fechar</button>
 				</div>
 			</div>
 		</div>

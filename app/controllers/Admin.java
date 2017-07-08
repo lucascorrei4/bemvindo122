@@ -54,7 +54,7 @@ public class Admin extends Controller {
 		renderArgs.put("id", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 		renderArgs.put("institutionName", getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
 		renderArgs.put("videohelp", VideoHelpEnum.Index);
-		renderArgs.put("planSPO02", PlansEnum.isPlanSPO02(getInstitutionInvoice().getPlan().getValue()));
+		renderArgs.put("planSPO02", PlansEnum.isPlanSPO02(getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(getInstitutionInvoice().getPlan().getValue()));
 	}
 
 	public void loadVariables() {
@@ -213,7 +213,7 @@ public class Admin extends Controller {
 
 	public static boolean isSmsExceedLimit() {
 		int contSentSMSs = StatusSMS.find("institutionId = " + getLoggedUserInstitution().getInstitution().getId()).fetch().size();
-		if (isUserFreeTrial() && contSentSMSs >= 50) {
+		if (contSentSMSs >= 50) {
 			smsExceedLimit = true;
 		} else {
 			smsExceedLimit = false;

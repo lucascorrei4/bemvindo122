@@ -1,7 +1,7 @@
 package util;
 
 public enum PlansEnum {
-	SPO01("SPO-01", "SPO01"), SPO02("SPO-02", "SPO02");
+	SPO01("SPO-01", "SPO01"), SPO02("SPO-02", "SPO02"), BETA("BETA", "BETA");
 
 	String label;
 	String value;
@@ -46,6 +46,10 @@ public enum PlansEnum {
 
 	public static boolean isPlanSPO02(String value) {
 		return value.equals(PlansEnum.SPO02.getValue());
+	}
+
+	public static boolean isPlanBETA(String value) {
+		return value.equals(PlansEnum.BETA.getValue());
 	}
 	
 	public static void main(String[] args) {
