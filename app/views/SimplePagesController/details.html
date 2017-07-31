@@ -28,8 +28,8 @@
 				<article id="main" style="padding: 1em 0;">
 					<header class="special container" style="margin-bottom: 0">
 						<span class="icon fa-hand-o-down"></span>
-						<h2 style="font-weight: bold; text-transform: uppercase; font-size: 2em; font-variant: small-caps; color: #34495e">&{simplePage.getTitle().raw()}</h2>
-						<p style="text-align: center; margin-bottom: 0px; font-variant: small-caps; display: &{simplePage.embed == null ? 'block' : 'none'}"><strong>&{simplePage.getHeadline().raw()}</strong></p>
+						<h2 style="margin: 0;  padding: 10px; text-align: inherit; font-size:1.3em;font-family: sans-serif;font-style:normal;font-weight:600;color:#262626;letter-spacing:-2px;line-height:46px;">&{simplePage.getTitle().raw()}</h2>
+						<p style="margin: 0;  padding: 10px; text-align: inherit; font-size:1.3em;font-family: sans-serif;font-style:normal;font-weight:600;color:#262626;letter-spacing:-2px;line-height:46px; display: &{simplePage.embed == null ? 'block' : 'none'}"><strong>&{simplePage.getHeadline().raw()}</strong></p>
 					</header>
 
 					<br />
@@ -39,14 +39,12 @@
 							<section>
 								#{if simplePage.getEmbed()}
 									<iframe width="560" height="560" src="&{simplePage.getEmbed()}?wmode=opaque&amp;showinfo=0&amp;autoplay=&{simplePage.autoPlayVideo ? '1' : '0'}&amp;controls=0&amp;modestbranding=1&amp;vq=&amp;rel=0" frameborder="0" allowfullscreen="" style="width: 100%;"></iframe>
-									<div style="margin-top:10px;">
-										<div> 
-											<div style="margin-bottom:0px;width:100%%;line-height:46px;margin: 0 auto;text-align:center;padding-bottom:0px;">
-												<p style="font-variant: small-caps; margin: 15px;font-size:45px;font-family:&quot;Oswald&quot;, sans-serif;font-style:normal;font-weight:300;color:#262626;letter-spacing:-2px;line-height:46px;">
-													&{simplePage.getHeadline().raw()}
-												</p>
-											</div> 
-										</div>
+									<div style="width: 100%; margin: 0;  padding: 10px; text-align: inherit;">  
+										<div style="width:100%;line-height:46px;margin: 0 auto;text-align:center; padding-bottom:0px;">
+											<p style="margin: 0;  padding: 10px; text-align: inherit; font-size:1.3em;font-family: sans-serif;font-style:normal;font-weight:600;color:#262626;letter-spacing:-2px;line-height:46px;">
+												&{simplePage.getHeadline().raw()}
+											</p>
+										</div> 
 									</div>
 								#{/if}
 								#{if simplePage.isShowLeadsForm()}

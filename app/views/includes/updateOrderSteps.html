@@ -22,9 +22,9 @@
 							#{list orderOfService.mapOrderServiceSteps.get(key), as:'orderServiceStep'}
                             	Fase ${orderServiceStep_index} <label>&{orderServiceStep.step.title}</label> 
                                 <code>
-                                	O status atual é: <label style="font-style: italic; color: red;">&{orderServiceStep.status.label}</label>
+                                	Status atual: <label style="font-style: italic; color: red;">&{orderServiceStep.status.label}</label>
                                 </code>
-                                <blockquote id="option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}">
+                                <blockquote id="option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}" style="padding: 0px 5px;">
 									<div class="form-group">
 										#{list orderServiceStep.status.values(), as:'status'}
 	                                    	<label class="radio-inline">
@@ -43,15 +43,15 @@
 	                                	<label>Notificar  &{orderOfService.client.toString()}</label>
 	                                    <input class="form-control" id="sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" value="Ola, &{orderOfService.client.name.trim()}. Status atual do pedido &{orderOfService.orderCode}: Fase ${orderServiceStep_index}, &{orderServiceStep.status.label}. Acompanhe! Att., &{institution.institution}." />
 	                                </div>
-	                                <div class="container" id="formNotifButtons" style="width: 100%">
-											<div class="col-xs-4">
-			                                    <input class="btn btn-default" type="button" value="Via PUSH" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" />
+	                                <div class="container" id="formNotifButtons" style="width: 100%; padding: 0; margin: 0">
+											<div class="col-xs-4" style="padding: 0">
+			                                    <input class="btn btn-default" type="button" value="Push" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" />
 											</div>
-											<div class="col-xs-4">
-			                                    <input class="btn btn-default" type="button" value="Via E-mail" onclick="sendEmail(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" />
+											<div class="col-xs-4" style="padding: 0">
+			                                    <input class="btn btn-default" type="button" value="E-mail" onclick="sendEmail(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" />
 											</div>
-											<div class="col-xs-4">
-			                                    <input class="btn btn-default ${planSPO02 ? '' : 'disableComponent'}" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" style="display: ${!smsExceedLimit ? 'inline' : 'none'};" />
+											<div class="col-xs-4" style="padding: 0">
+			                                    <input class="btn btn-default ${planSPO02 ? '' : 'disableComponent'}" type="button" value="SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, 'accordion');" style="display: ${!smsExceedLimit ? 'inline' : 'none'};" />
 											</div>
 	                                </div>
                                 	<div id="message-option-&{orderOfService.orderCode}-&{orderServiceStep.step.id}"></div>
