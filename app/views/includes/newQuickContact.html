@@ -90,4 +90,29 @@
 			}
 		}
 </script>
+	<script type="text/javascript" src="@{'public/javascripts/jquery.mask.min.js'}"></script>
+	<script type="text/javascript">
+		$(function() {
+
+			var SPMaskBehavior = function(val) {
+				return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000'
+						: '(00) 0000-00009';
+			}, spOptions = {
+				onKeyPress : function(val, e, field, options) {
+					field.mask(SPMaskBehavior.apply({}, arguments), options);
+				}
+			};
+
+			$('.sp_celphones').mask(SPMaskBehavior, spOptions);
+
+			$(".bt-mask-it").click(function() {
+				$(".mask-on-div").mask("000.000.000-00");
+				$(".mask-on-div").fadeOut(500).fadeIn(500)
+			})
+
+			$('pre').each(function(i, e) {
+				hljs.highlightBlock(e)
+			});
+		});
+	</script>
 </div>

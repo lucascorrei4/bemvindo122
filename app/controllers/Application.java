@@ -52,8 +52,7 @@ public class Application extends Controller {
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(4);
 		List<Article> listArticles12 = listArticles.subList(0, 2);
 		List<Article> listArticles34 = listArticles.subList(2, listArticles.size());
-		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
-				.fetch(6);
+		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
 		render(listTheSystems, listArticles12, listArticles34);
@@ -64,7 +63,11 @@ public class Application extends Controller {
 	}
 
 	public static void newAccount() {
-		render();
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		render(theSystem, bottomNews);
 	}
 
 	private static boolean validatePassword(String password, String confirmationPassword) {
@@ -132,8 +135,7 @@ public class Application extends Controller {
 				user.save();
 				flash.clear();
 				validation.errors().clear();
-				flash.success("Cadastro realizado com sucesso! Você está quase lá, " + user.getName()
-						+ "! Para entrar, preencha os campos abaixo. :)", "");
+				flash.success("Cadastro realizado com sucesso! Você está quase lá, " + user.getName() + "! Para entrar, preencha os campos abaixo. :)", "");
 				redirect("/login");
 			}
 		}
@@ -145,14 +147,11 @@ public class Application extends Controller {
 		validation.required(user.getName()).message("Favor, insira o seu nome.").key("user.name");
 		validation.required(user.getLastName()).message("Favor, insira o seu sobrenome.").key("user.lastName");
 		validation.required(user.getEmail()).message("Favor, insira o seu e-mail.").key("user.email");
-		validation.email(user.getEmail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
-				.key("user.email");
-		validation.isTrue(User.verifyByEmail(user.getEmail()) == null).message("Já existe um usuário com este e-mail.")
-				.key("user.email");
+		validation.email(user.getEmail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.").key("user.email");
+		validation.isTrue(User.verifyByEmail(user.getEmail()) == null).message("Já existe um usuário com este e-mail.").key("user.email");
 		validation.required(user.getPassword()).message("Favor, insira uma senha.").key("user.password");
 		validation.required(confirmPassword).message("Favor, digite novamente a senha.").key("confirmPassword");
-		validation.isTrue(validatePassword(user.getPassword(), confirmPassword))
-				.message("As senhas digitadas devem ser iguais.").key("confirmPassword");
+		validation.isTrue(validatePassword(user.getPassword(), confirmPassword)).message("As senhas digitadas devem ser iguais.").key("confirmPassword");
 		params.flash();
 		validation.keep();
 		if (!validation.hasErrors())
@@ -166,51 +165,52 @@ public class Application extends Controller {
 	}
 
 	public static void saveQuickAccount(String json) throws UnsupportedEncodingException {
-		String response = "";
-		String status = "";
+		String body = params.get("body", String.class);
+		String decodedParams = URLDecoder.decode(body, "UTF-8");
+		String[] bodyParam = decodedParams.split("&");
+		String name = Utils.getValueFromUrlParam(bodyParam[0]);
+		String lastName = Utils.getValueFromUrlParam(bodyParam[1]);
+		String phone = Utils.getValueFromUrlParam(bodyParam[2]);
+		String mail = Utils.getValueFromUrlParam(bodyParam[3]);
+		String password = Utils.getValueFromUrlParam(bodyParam[4]);
+		String repeatePassword = Utils.getValueFromUrlParam(bodyParam[5]);
+		String responseQuickAccount = "";
+		String statusQuickAccount = "";
 		/* Get body content from client request */
-		String[] fields = request.params.data.get("body");
-		String decodedFields = URLDecoder.decode(fields[0], "UTF-8");
-		Gson gson = new GsonBuilder().create();
-		/* Parse form content to JSON element */
-		String jsonParam = Utils.transformQueryParamToJson(decodedFields, "user.");
-		JsonParser parser = new JsonParser();
-		JsonObject jsonElement = (JsonObject) parser.parse(jsonParam);
-		jsonElement.addProperty("id", Long.valueOf(0));
-		/* Save Client */
-		/* Create object parsing JSON element */
 		User user = new User();
-		user = gson.fromJson(jsonElement, User.class);
 		user.id = 0l;
+		user.setName(name);
+		user.setLastName(lastName);
+		user.setPhone1(phone);
+		user.setEmail(mail);
+		user.setPassword(password);
+		user.setRepeatPassword(repeatePassword);
 		user.willBeSaved = true;
 		/* Validate object before saving */
-		if (!validateObjectToSave(user)) {
-			List<Error> errors = validation.errors();
-			for (Error error : errors) {
-				if (error != null) {
-					response += error.message() + " ";
-				}
-			}
-			status = "ERROR";
-			render("includes/newQuickAccount.html", user, response, status, errors);
-		} else if (!validatePassword(user.getPassword(), user.getRepeatPassword())) {
+		if (!validateForm(user)) {
+			responseQuickAccount = "Favor, preencha todos os campos corretamente!";
+			statusQuickAccount = "ERROR";
+			render("includes/newQuickAccount.html", user, responseQuickAccount, statusQuickAccount);
+		} else if (user != null && !validatePassword(user.getPassword(), user.getRepeatPassword())) {
 			params.flash();
 			validation.keep();
-			status = "ERROR";
-			response = "As senhas que você digitou não são iguais. :(";
-			render("includes/newQuickAccount.html", user, response, status);
+			statusQuickAccount = "ERROR";
+			responseQuickAccount = "As senhas que você digitou não são iguais. :(";
+			render("includes/newQuickAccount.html", user, responseQuickAccount, statusQuickAccount);
 		} else {
 			user.setPassword(Utils.encode(user.password));
 			user.setAdmin(true);
 			user.setPostedAt(Utils.getCurrentDateTime());
 			user.setInstitutionId(0l);
 			user.setActive(true);
+			user.setFromMonetizze(false);
 			user.merge();
-			response = "Ótimo. Seu cadastro foi criado com sucesso. :)";
-			status = "SUCCESS";
+			responseQuickAccount = "Ótimo. Seu cadastro foi criado com sucesso. :)";
+			statusQuickAccount = "SUCCESS";
 			user = new User();
-			render("includes/newQuickAccount.html", user, response, status);
+			render("includes/newQuickAccount.html", user, responseQuickAccount, statusQuickAccount);
 		}
+
 	}
 
 	private static boolean validateObjectToSave(User user) {
@@ -233,15 +233,11 @@ public class Application extends Controller {
 		validation.required(user.getName()).message("Favor, insira o seu nome.").key("user.name");
 		validation.required(user.getLastName()).message("Favor, insira o seu sobrenome.").key("user.lastName");
 		validation.required(user.getEmail()).message("Favor, insira o seu e-mail.").key("user.email");
-		validation.email(user.getEmail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
-				.key("user.email");
-		validation.isTrue(User.verifyByEmail(user.getEmail()) == null).message("Já existe um usuário com este e-mail.")
-				.key("user.email");
+		validation.email(user.getEmail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.").key("user.email");
+		validation.isTrue(User.verifyByEmail(user.getEmail()) == null).message("Já existe um usuário com este e-mail.").key("user.email");
 		validation.required(user.getPassword()).message("Favor, insira uma senha.").key("user.password");
-		validation.required(user.getRepeatPassword()).message("Favor, digite novamente a senha.")
-				.key("confirmPassword");
-		validation.isTrue(validatePassword(user.getPassword(), user.getRepeatPassword()))
-				.message("As senhas digitadas devem ser iguais.").key("confirmPassword");
+		validation.required(user.getRepeatPassword()).message("Favor, digite novamente a senha.").key("confirmPassword");
+		validation.isTrue(validatePassword(user.getPassword(), user.getRepeatPassword())).message("As senhas digitadas devem ser iguais.").key("confirmPassword");
 		params.flash();
 		validation.keep();
 		if (!validation.hasErrors())
@@ -293,14 +289,11 @@ public class Application extends Controller {
 
 	private static boolean validateForm(Institution institution) {
 		boolean ret = false;
-		validation.required(institution.getInstitution()).message("Favor, insira o nome da Instituição.")
-				.key("institution.institution");
+		validation.required(institution.getInstitution()).message("Favor, insira o nome da Instituição.").key("institution.institution");
 		validation.required(institution.getEmail()).message("Favor, insira o e-mail.").key("institution.email");
-		validation.email(institution.getEmail()).message("Favor, insira o e-mail no formato nome@provedor.com.br.")
-				.key("institution.email");
+		validation.email(institution.getEmail()).message("Favor, insira o e-mail no formato nome@provedor.com.br.").key("institution.email");
 		validation.required(institution.getLogo()).message("Favor, insira a logomarca.").key("institution.logo");
-		validation.isTrue(Institution.verifyByEmail(institution.getEmail()) == null)
-				.message("Já existe uma instituição com este e-mail.").key("institution.email");
+		validation.isTrue(Institution.verifyByEmail(institution.getEmail()) == null).message("Já existe uma instituição com este e-mail.").key("institution.email");
 		// if (!Utils.isNullOrEmpty(institution.getCnpj())) {
 		// validation.isTrue(Utils.validateCPFOrCNPJ(institution.getCnpj())).message("CNPJ
 		// inválido.")
@@ -311,8 +304,7 @@ public class Application extends Controller {
 		// CNPJ.").key("institution.cnpj");
 		// }
 		validation.required(institution.getAddress()).message("Favor, digite o endereço.").key("institution.address");
-		validation.required(institution.getNeighborhood()).message("Favor, informe o bairro.")
-				.key("institution.neighborhood");
+		validation.required(institution.getNeighborhood()).message("Favor, informe o bairro.").key("institution.neighborhood");
 		validation.required(institution.getCep()).message("Favor, informe o CEP.").key("institution.cep");
 		validation.required(institution.getPhone1()).message("Favor, informe o telefone.").key("institution.phone1");
 		params.flash();
@@ -345,18 +337,14 @@ public class Application extends Controller {
 				Institution institution = Institution.find("id", orderOfService.institutionId).first();
 				String company = institution.getInstitution();
 				List<Service> services = new ArrayList<Service>();
-				List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue
-						.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+				List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
 				for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
 					Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
 					services.add(service);
 				}
 				Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
 				for (Service service : services) {
-					List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep
-							.find("service_id = " + service.getId() + " and orderOfService_id = "
-									+ orderOfService.getId() + " and isActive = true")
-							.fetch();
+					List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId() + " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
 					if (mapOrderServiceSteps.containsKey(service)) {
 						service.setAux("new");
 					}
@@ -480,8 +468,7 @@ public class Application extends Controller {
 	private static boolean validateObjectToSave(Message message) {
 		validation.clear();
 		validation.valid(message);
-		validation.email(message.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
-				.key("message.mail");
+		validation.email(message.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.").key("message.mail");
 		if (validation.hasErrors()) {
 			for (play.data.validation.Error e : validation.errors()) {
 				System.out.println(e.message());
@@ -523,8 +510,7 @@ public class Application extends Controller {
 		/* Making validations */
 		validation.clear();
 		validation.valid(mailList);
-		validation.email(mailList.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.")
-				.key("mailList.mail1");
+		validation.email(mailList.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.").key("mailList.mail1");
 		if (validation.hasErrors()) {
 			status = "ERROR";
 			resp = "Favor, insira o seu e-mail no formato nome@provedor.com.br.";
@@ -536,7 +522,7 @@ public class Application extends Controller {
 				mailList.merge();
 			}
 		}
-		
+
 		/* Render page based on origin */
 		switch (FromEnum.getNameByValue(origin)) {
 		case HomePageTop:

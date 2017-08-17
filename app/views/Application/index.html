@@ -8,6 +8,8 @@
 		<meta name="keywords" content="acompanhamento de serviços, acompanhamento de pedido, contrato prestação de serviços, marketing digital, serviço, pedidos, orcamentos, ordem de servico">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
+		<script type="text/javascript">
+		</script>
 	</head>
 	<body class="index">
 	<!-- Google Tag Manager (noscript) -->
@@ -21,8 +23,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					<h1 id="logo"><a href="/">Acompanhamento <span>de Pedidos e Serviços</span></a></h1>
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="#main">Serve pra mim?</a></li>
-							<li><a href="#howitworks">Como funciona?</a></li>
+							<li><a href="#main">Serve pra mim?</a></li>
+							<li class="current"><a href="/novo">Nova conta</a></li>
 							<li><a href="/acompanhe">Acompanhar</a></li>
 							<li><a href="/contato">Contato</a></li>
  							<li><a href="/login" class="button special">Entrar</a></li>
@@ -40,10 +42,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					</div>
 					
 					<header>
-						<h2>INCRÍVEL</h2>
+						<h2>SEU CLIENTE PACIENTE</h2>
 					</header>
 					
-					<p><strong>SEU CLIENTE</strong> PACIENTE</p>
+					<p><strong>USE.</strong> É GRATUITO.</p>
 					
 					<footer>
 						<ul class="buttons vertical">
@@ -58,7 +60,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				<article id="main">
 
 					<header class="special container">
-						<span class="icon fa-bar-chart-o"></span>
+						<span class="icon fa-quote-left"></span>
 						<h2>SEU CLIENTE NÃO PRECISA <strong>FICAR TE LIGANDO</strong> 
 						<br />
 						PRA SABER SE O SERVIÇO ESTÁ PRONTO
@@ -67,7 +69,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						<p>Você gera um <strong>código de acompanhamento</strong> e ele(a) fica por dentro do que está acontecendo em tempo real.</p>
 						<p>Você também pode controlar pedidos, serviços e faturamento.</p>
 					</header>
-
+							
 					<!-- One -->
 						<section class="wrapper style2 container special-alt">
 							<div class="row 50%">
@@ -76,7 +78,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 									<header>
 										<h2>
 											<strong>
-												ASSISTÊNCIA TÉCNICA, 
+												ASSISTÊNCIAS TÉCNICAS, 
 												CONFEITARIAS, 
 												CENTROS AUTOMOTIVOS, 
 												ENCOMENDAS, 
@@ -117,6 +119,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 					<!-- Two -->
 						<section id="howitworks"  class="wrapper style1 container special">
+							<header class="special container">
+								<span class="icon fa-question-circle-o"></span>
+								<h2>COMO FUNCIONA?</H2> 
+							</header>
 							<div class="row">
 								<div class="4u 12u(narrower)">
 
@@ -224,6 +230,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 							<footer class="major">
 								<ul class="buttons">
 									<li><a href="/dicas" target="_blank" class="button">Todas as dicas</a></li>
+									<li><a href="/novo" target="_blank" class="button">Nova conta</a></li>
 								</ul>
 							</footer>
 
@@ -250,5 +257,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			#{include 'includes/footerTemplateFollow.html' /}
 		</div>
 		<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
+		<script type="text/javascript" src="@{'public/javascripts/jquery.mask.min.js'}"></script>
+		<script type="text/javascript">
+			$(function() {
+		
+				var SPMaskBehavior = function(val) {
+					return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000'
+							: '(00) 0000-00009';
+				}, spOptions = {
+					onKeyPress : function(val, e, field, options) {
+						field.mask(SPMaskBehavior.apply({}, arguments), options);
+					}
+				};
+		
+				$('.sp_celphones').mask(SPMaskBehavior, spOptions);
+		
+				$(".bt-mask-it").click(function() {
+					$(".mask-on-div").mask("000.000.000-00");
+					$(".mask-on-div").fadeOut(500).fadeIn(500)
+				})
+		
+				$('pre').each(function(i, e) {
+					hljs.highlightBlock(e)
+				});
+			});
+		</script>
 	</body>
 </html>

@@ -306,7 +306,13 @@ public class Admin extends Controller {
 	}
 
 	public static Invoice getInstitutionInvoice() {
-		Invoice invoice = Invoice.find("institutionId = " + getLoggedUserInstitution().getInstitution().getId() + " and statusInvoice = 'Current' and isActive = true order by postedAt desc").first();
+		Invoice invoice = null;
+		if ( getLoggedUserInstitution().getInstitution() == null) {
+			invoice = new Invoice();
+			invoice.setPlan(PlansEnum.SPO01);
+			return invoice;
+		}
+		invoice = Invoice.find("institutionId = " + getLoggedUserInstitution().getInstitution().getId() + " and statusInvoice = 'Current' and isActive = true order by postedAt desc").first();
 		institutionInvoice = invoice;
 		return institutionInvoice;
 	}
