@@ -278,7 +278,7 @@ public class Admin extends Controller {
 		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
 	}
 
-	static void sendMailToMeWithCustomInfo(String message, String info) {
+	public static void sendMailToMeWithCustomInfo(String message, String info) {
 		Parameter parameter = Parameter.all().first();
 		MailController mailController = new MailController();
 		/* SendTo object */

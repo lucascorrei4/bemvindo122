@@ -1,0 +1,59 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.show.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            &{'crud.show.title', type.modelName}
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-8">
+					#{form id:'form', action:@save(object._key()), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'url'}
+								<div class="form-group">
+								    <label for="object_services">
+								        Página
+								    </label>
+							        #{select id:'object.url', name:'object.url', items:mailList, valueProperty:'url', labelProperty:'url', class:'form-control' /}
+								    <p class="help-block">
+								    </p>
+   								</div>	
+							#{/crud.custom}
+							#{crud.custom 'sequence'}
+								<div class="form-group">
+								    <label for="object_services">
+								        Ordem de Envio
+								    </label>
+							        #{select id:'object.sequence', name:'object.sequence', items:sequence1to5, class:'form-control' /}
+								    <p class="help-block">
+								    </p>
+   								</div>	
+							#{/crud.custom}
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Habilitar </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: right">
+							<input type="submit" name="_save" value="&{'crud.save', type.modelName}" class="btn btn-primary  btn-lg" />
+						</div>
+					#{/form}
+				</div>
+				<script type="text/javascript" src="@{'public/javascripts/scriptSteps.js'}" charset="ISO-8859-1"></script>
+			</div>
+		</div>
+	</div>
+</div>

@@ -43,6 +43,8 @@ public class Article extends Model {
 
 	public Blob image2;
 
+	public String titleCaptureForm;
+
 	public String tags;
 
 	public String embed;
@@ -58,7 +60,7 @@ public class Article extends Model {
 	public String shortenUrl;
 
 	public boolean isActive = true;
-
+	
 	public String toString() {
 		return title;
 	}
@@ -203,6 +205,14 @@ public class Article extends Model {
 
 	public void setComplement(String complement) {
 		this.complement = complement;
+	}
+	
+	public String getTitleCaptureForm() {
+		return titleCaptureForm;
+	}
+	
+	public void setTitleCaptureForm(String titleCaptureForm) {
+		this.titleCaptureForm = titleCaptureForm;
 	}
 
 }

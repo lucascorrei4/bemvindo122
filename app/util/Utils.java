@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -87,6 +88,13 @@ public class Utils extends Controller {
 
 	public static boolean isNullOrEmpty(Object text) {
 		if (text == null || text.equals(" ") || text.equals("")) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isNullOrEmpty(List list) {
+		if (list == null || list.isEmpty()) {
 			return true;
 		}
 		return false;

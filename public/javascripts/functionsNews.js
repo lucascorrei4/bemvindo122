@@ -11,8 +11,11 @@ function newsletterTips() {
 	if (mail === '') {
 		$('#message').css('color', 'red');
 		$('#message').show();
-		$('#message').html('Favor, insira seu e-mail no formato nome@provedor.com');
-		setTimeout(function() { $('#message').hide() }, 10000);
+		$('#message').html(
+				'Favor, insira seu e-mail no formato nome@provedor.com');
+		setTimeout(function() {
+			$('#message').hide()
+		}, 10000);
 		return;
 	}
 	var data = new Object();
@@ -22,17 +25,23 @@ function newsletterTips() {
 	data.url = window.location.href;
 	$('#newsletterTips').load('/application/savemaillist', data,
 			function(response, status, xhr) {
-		var status = $("#status").val();
-		if ('SUCCESS' === status) {
-			$('#newsletterTips').unbind('load');
-			window.location.href = "/gratidao";
-		} else {
-			$("#message").fadeIn();
-			$("#message").css("color", "red");
-			$("#message").html($("#response").val());
-			setTimeout(function() { $('#message').hide() }, 8000);
-		}
-	});
+				var status = $("#status").val();
+				if ('SUCCESS' === status) {
+					$("#message").fadeIn();
+					$("#message").css("color", "gray");
+					$("#message").html($("#response").val());
+					setTimeout(function() {
+						$('#message').hide()
+					}, 8000);
+				} else {
+					$("#message").fadeIn();
+					$("#message").css("color", "red");
+					$("#message").html($("#response").val());
+					setTimeout(function() {
+						$('#message').hide()
+					}, 8000);
+				}
+			});
 }
 
 function newsletterTheSystemTop() {
@@ -49,8 +58,11 @@ function newsletterTheSystemTop() {
 	if (mail === '') {
 		$('#message').css('color', 'red');
 		$('#message').show();
-		$('#message').html('Favor, insira seu e-mail no formato nome@provedor.com');
-		setTimeout(function() { $('#message').hide() }, 10000);
+		$('#message').html(
+				'Favor, insira seu e-mail no formato nome@provedor.com');
+		setTimeout(function() {
+			$('#message').hide()
+		}, 10000);
 		return;
 	}
 	var data = new Object();
@@ -60,17 +72,19 @@ function newsletterTheSystemTop() {
 	data.url = window.location.href;
 	$('#newsletterTheSystemTop').load('/application/savemaillist', data,
 			function(response, status, xhr) {
-		var status = $("#status").val();
-		if ('SUCCESS' === status) {
-			$('#newsletterTheSystemTop').unbind('load');
-			window.location.href = action;
-		} else {
-			$("#message").fadeIn();
-			$("#message").css("color", "red");
-			$("#message").html($("#response").val());
-			setTimeout(function() { $('#message').hide() }, 8000);
-		}
-	});
+				var status = $("#status").val();
+				if ('SUCCESS' === status) {
+					$('#newsletterTheSystemTop').unbind('load');
+					window.location.href = action;
+				} else {
+					$("#message").fadeIn();
+					$("#message").css("color", "red");
+					$("#message").html($("#response").val());
+					setTimeout(function() {
+						$('#message').hide()
+					}, 8000);
+				}
+			});
 }
 
 function newsletterTheSystemBottom() {
@@ -86,8 +100,11 @@ function newsletterTheSystemBottom() {
 	if (mail === '') {
 		$('#message2').css('color', 'red');
 		$('#message2').show();
-		$('#message2').html('Favor, insira seu e-mail no formato nome@provedor.com');
-		setTimeout(function() { $('#message2').hide() }, 10000);
+		$('#message2').html(
+				'Favor, insira seu e-mail no formato nome@provedor.com');
+		setTimeout(function() {
+			$('#message2').hide()
+		}, 10000);
 		return;
 	}
 	var data = new Object();
@@ -97,15 +114,17 @@ function newsletterTheSystemBottom() {
 	data.url = window.location.href;
 	$('#newsletterTheSystemBottom').load('/application/savemaillist', data,
 			function(response, status, xhr) {
-		var status = $("#status").val();
-		if ('SUCCESS' === status) {
-			$('#newsletterTheSystemBottom').unbind('load');
-			window.location.href = "/gratidao";
-		} else {
-			$("#message2").fadeIn();
-			$("#message2").css("color", "red");
-			$("#message2").html($("#response2").val());
-			setTimeout(function() { $('#message2').hide() }, 8000);
-		}
-	});
+				var status = $("#status").val();
+				if ('SUCCESS' === status) {
+					$('#newsletterTheSystemBottom').unbind('load');
+					window.location.href = "/gratidao";
+				} else {
+					$("#message2").fadeIn();
+					$("#message2").css("color", "red");
+					$("#message2").html($("#response2").val());
+					setTimeout(function() {
+						$('#message2').hide()
+					}, 8000);
+				}
+			});
 }

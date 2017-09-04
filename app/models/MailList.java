@@ -24,12 +24,22 @@ public class MailList extends Model {
 
 	@Required(message = "Campo obrigatório.")
 	public String url;
+	
+	public boolean isActive = true;
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
 	@Hidden
 	public String postedAt;
 
 	public String toString() {
-		return mail;
+		return url;
 	}
 
 	public String getPostedAt() throws ParseException {

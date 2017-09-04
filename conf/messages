@@ -117,8 +117,10 @@ MailListCRUD=Leads
 TheSystemCRUD=O Sistema
 MailBaseCRUD=Base de E-mails
 MonetizzeTransactionCRUD=Transações Monetizze
+SequenceMailCRUD=Sequência de E-mails
 
 #Models
+SequenceMail=Sequência de E-mail
 MonetizzeTransaction=Transação Monetizze
 SimplePage=Página Simples
 ContactForm=Mensagens - Form. Contato
@@ -158,6 +160,9 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+titleCaptureForm=Título Form. Captura
+url=URL
+sequence=Sequência
 productName=Produto
 actionButton=Ação do Botão Comprar
 phrase=Frase Superior
@@ -263,7 +268,7 @@ adultAge=Faixa etária Adultos. Ex.: 29-130
 youngAge=Faixa etária Jovens. Ex.: 16-28
 teenAge=Faixa etária Adolescentes. Ex.: 12-15
 childrenAge=Faixa etária Crianças. Ex.: 0-11
-attachment=Anexar arquivo
+attachment=Anexo
 maritalStatus=Estado civil
 cnpj=CNPJ
 userId=Id Usuário

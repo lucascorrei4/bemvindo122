@@ -53,6 +53,17 @@ POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
 GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
 GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
 
+# CampaingMail
+
+GET		${ctx}/admin/sequencia-emails									SequenceMailCRUD.listAll
+GET		${ctx}/admin/sequencia-emails/novo								SequenceMailCRUD.blank
+GET		${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.show
+GET		${ctx}/admin/sequencia-emails/{id}/{field}						SequenceMailCRUD.attachment
+GET		${ctx}/admin/sequencia-emails/{id}/editar						SequenceMailCRUD.edit
+POST	${ctx}/admin/sequencia-emails									SequenceMailCRUD.create
+POST	${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.save
+DELETE	${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.delete
+
 # MaiBase
 
 GET		${ctx}/admin/base-de-emails									MailBaseCRUD.list
@@ -103,7 +114,7 @@ GET		${ctx}/admin/msgadmin									MessageCRUD.list
 GET		${ctx}/admin/msgadmin/novo								MessageCRUD.blank
 GET		${ctx}/admin/msgadmin/{id}								MessageCRUD.show
 GET		${ctx}/admin/msgadmin/{id}/{field}						MessageCRUD.attachment
-GET		${ctx}/admin/msgadmin/{id}/editar							MessageCRUD.edit
+GET		${ctx}/admin/msgadmin/{id}/editar						MessageCRUD.edit
 POST	${ctx}/admin/msgadmin									MessageCRUD.create
 POST	${ctx}/admin/msgadmin/{id}								MessageCRUD.save
 DELETE	${ctx}/admin/msgadmin/{id}								MessageCRUD.delete
@@ -111,7 +122,7 @@ DELETE	${ctx}/admin/msgadmin/{id}								MessageCRUD.delete
 # Admin Parameter
 
 GET		${ctx}/admin/paramadmin									ParameterCRUD.list
-GET		${ctx}/admin/paramadmin/novo								ParameterCRUD.blank
+GET		${ctx}/admin/paramadmin/novo							ParameterCRUD.blank
 GET		${ctx}/admin/paramadmin/{id}							ParameterCRUD.show
 GET		${ctx}/admin/paramadmin/{id}/{field}					ParameterCRUD.attachment
 GET		${ctx}/admin/paramadmin/{id}/editar						ParameterCRUD.edit
@@ -142,7 +153,7 @@ GET		${ctx}/admin/servicos								ServiceCRUD.list
 GET		${ctx}/admin/servicos/novo							ServiceCRUD.blank
 GET		${ctx}/admin/servicos/{id}							ServiceCRUD.show
 GET		${ctx}/admin/servicos/{id}/{field}					ServiceCRUD.attachment
-GET		${ctx}/admin/servicos/{id}/editar						ServiceCRUD.edit
+GET		${ctx}/admin/servicos/{id}/editar					ServiceCRUD.edit
 POST	${ctx}/admin/servicos								ServiceCRUD.create
 POST	${ctx}/admin/servicos/{id}							ServiceCRUD.save
 DELETE	${ctx}/admin/servicos/{id}							ServiceCRUD.delete
@@ -153,7 +164,7 @@ GET		${ctx}/admin/etapas-dos-servicos								StepCRUD.list
 GET		${ctx}/admin/etapas-dos-servicos/novo							StepCRUD.blank
 GET		${ctx}/admin/etapas-dos-servicos/{id}							StepCRUD.show
 GET		${ctx}/admin/etapas-dos-servicos/{id}/{field}					StepCRUD.attachment
-GET		${ctx}/admin/etapas-dos-servicos/{id}/editar						StepCRUD.edit
+GET		${ctx}/admin/etapas-dos-servicos/{id}/editar					StepCRUD.edit
 POST	${ctx}/admin/etapas-dos-servicos								StepCRUD.create
 POST	${ctx}/admin/etapas-dos-servicos/{id}							StepCRUD.save
 DELETE	${ctx}/admin/etapas-dos-servicos/{id}							StepCRUD.delete

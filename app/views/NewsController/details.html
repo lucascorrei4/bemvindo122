@@ -32,25 +32,20 @@
 					<header class="special container" style="margin-bottom: 0">
 						<span class="icon fa-hand-o-down"></span>
 						<h2 style="font-weight: bold; text-transform: uppercase;">&{article.getTitle().raw()}</h2>
-						<h3 style="font-weight: bold; text-align: center; margin-bottom: 0px;">#TMFTQS</h3>
-						<p style="text-align: center; margin-bottom: 0px;"><strong>T</strong>odo <strong>M</strong>undo <strong>F</strong>alando, <strong>T</strong>ambém <strong>Q</strong>uero <strong>S</strong>aber</p>
+						<p style="text-align: center; margin-bottom: 0px;"><strong>#TMFTQS</strong> <strong>T</strong>odo <strong>M</strong>undo <strong>F</strong>alando, <strong>T</strong>ambém <strong>Q</strong>uero <strong>S</strong>aber</p>
 					</header>
 					
 					<section class="wrapper style4 container" style="padding: 15px">
-						<footer id="newsletterTips" style="width: 100%">
-							#{include 'includes/formNewsletterTips.html' /}
-						</footer>
 						<div class="row 150%">
 							<div class="8u 12u(narrower)">
 								<!-- Content -->
 									<div class="content">
 										<section>
 											<header>
-												<p style="font-size: 15px; margin: 0">Você está em: <a href="/"><strong>Seu Pedido Online</strong></a> > <a href="/dicas"><strong>Dicas</strong></a> > <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
-												<p style="font-size: 15px; margin: 0">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{article.postedAtParsed}</p>
+												<p style="font-size: 15px; margin: 0; text-align: left">Você está em: <a href="/"><strong>Seu Pedido Online</strong></a> > <a href="/dicas"><strong>Dicas</strong></a> > <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
+												<p style="font-size: 15px; margin: 0; text-align: left">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{article.postedAtParsed}</p>
 												<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
-												<div id="share"></div>
-												<h3 style="text-align: left; text-transform: unset; margin-top: 20px; color: #444444">&{article.getHeadline().raw()}</h3>
+												<h3 style="text-align: left; text-transform: unset; margin-top: 20px; color: #0f0f0f; font-weight: 600">&{article.getHeadline().raw()}</h3>
 											</header>
 											
 											#{if article.getEmbed()}
@@ -68,10 +63,14 @@
 												<p style="color: #444444">&{article.getComplement().raw()}</p>
 											#{/if}
 										</section>
+										<footer id="newsletterTips" style="width: 100%">
+											#{include 'includes/formNewsletterTips.html' /}
+										</footer>
+										<div id="share"></div>
 										<div class="fb-comments" data-href="" data-numposts="5"></div>
 									</div>
 							</div>
-							<div class="4u 12u(narrower)" style="padding: 28px">
+							<div class="4u 12u(narrower)">
 								<!-- Sidebar -->
 								<div class="sidebar">
 									#{include 'includes/lastNewsSidebarRight.html' /}

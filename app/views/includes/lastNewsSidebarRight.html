@@ -1,5 +1,5 @@
 <meta charset="utf-8" />
-<h2>E MAIS...</h2>
+<h2></h2>
 <!-- Tweet Embed Content  -->
 &{parameter.getTweet().raw()}
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -17,7 +17,7 @@
 		</h3>
 	</header>
 	<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
-	<p>&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
+	<p style="margin: 0 0 1em 0;">&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
 	<footer>
 		<ul class="buttons">
 			<li><a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="button small">Leia mais</a></li>

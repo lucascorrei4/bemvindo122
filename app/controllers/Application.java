@@ -516,7 +516,7 @@ public class Application extends Controller {
 			resp = "Favor, insira o seu e-mail no formato nome@provedor.com.br.";
 		} else {
 			status = "SUCCESS";
-			resp = "Incluído com sucesso.";
+			resp = "E-mail incluído com sucesso. Gratidão.";
 			if (MailList.verifyByEmail(mail) == null) {
 				mailList.setPostedAt(Utils.getCurrentDateTime());
 				mailList.merge();
