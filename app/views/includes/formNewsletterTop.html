@@ -1,0 +1,10 @@
+<meta charset="utf-8" />
+<input id="response" type="hidden" value="${resp}" /> 
+<input id="status" type="hidden" value="${status}" />
+<h3 style="margin:0; font-weight:  bold">Quer informações sobre o sistema?</h3>
+<ul class="buttons">
+	<li><input type="text" name="mailList.name1" placeholder="Digite seu nome" value="${flash['mailList.name1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
+	<li><input type="text" name="mailList.mail1" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
+	<li><a id="btnNews1" class="button" onclick="newsletterTop()" style="background-color: #F0A939">QUERO RECEBER</a></li>
+</ul>
+<p id="message" style="display: none;"></p>

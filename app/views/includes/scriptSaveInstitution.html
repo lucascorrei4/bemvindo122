@@ -1,0 +1,13 @@
+<meta charset="utf-8" />
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#save_institution').post('#', function(e) {
+		var items = this.params.toHash();
+		var action = #{jsAction @Application.saveNewInstitution() /}
+        this.send($.post, action(), items)
+            .then(function(contents) {
+                this.swap(contents);
+            });
+	});
+});
+</script>

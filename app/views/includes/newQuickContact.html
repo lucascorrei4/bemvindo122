@@ -1,0 +1,118 @@
+<meta charset="utf-8" />
+<div class="content">
+	<form action="/" method="post" id="formMessage">
+		<div class="row 50%">
+			<div class="6u 12u(mobile)">
+				<input id="name" name="message.name" type="text" placeholder="Seu nome * #{error 'message.name' /}" value="${flash['message.name']}" />
+			</div>
+			<div class="6u 12u(mobile)">
+				<input id="lastName" name="message.lastName" type="text" placeholder="Seu sobrenome * #{error 'message.lastName' /}" value="${flash['message.lastName']}" />
+			</div>
+		</div>
+		<div class="row 50%">
+			<div class="6u 12u(mobile)">
+				<input id="phone" name="message.phone" type="text" placeholder="Telefone (99) 9 9999-9999 * #{error 'message.phone' /}" class="sp_celphones" value="${flash['message.phone']}" />
+			</div>
+			<div class="6u 12u(mobile)">
+				<input id="mail" name="message.mail" type="text" placeholder="Seu e-mail * #{error 'message.mail' /}" value="${flash['message.mail']}" />
+			</div>
+		</div>
+		<div class="row 50%">
+			<div class="12u">
+				<input id="title" name="message.title" type="text" placeholder="Digite o título" value="${flash['message.title']}" />
+			</div>
+		</div>
+		<div class="row 50%">
+			<div class="12u">
+				<textarea id="description" name="message.description" placeholder="Insira a mensagem aqui" rows="7"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="12u">
+				<ul class="buttons">
+					<li><input type="button" class="special" value="Enviar" onclick="saveMessage()" /></li>
+				</ul>
+			</div>
+		</div>
+		
+		<div id="message">
+			#{list errors, as:'error'}
+				<p>&{error.message()}</p>
+			#{/list}		
+		</div>
+		
+		<input type="hidden" id="response" name="response" value="${response}" /> 
+		<input type="hidden" id="status" name="status" value="${status}" /> 
+	</form>
+	<script type="text/javascript">
+		function saveMessage() {
+			if ($('#title').val() == '') {
+				$("#message").show();
+				$("#message").html('Favor, preencha todos os campos!');
+				setTimeout('$("#message").hide()', 5000);
+				return;
+			} else {
+				var formDataJSON = {};
+				var formData = $('#formMessage').serializeArray();
+				decodeURIComponent(formData);
+				$.each(formData, function() {
+					if (formDataJSON[this.name] !== undefined) {
+						if (!formDataJSON[this.name].push) {
+							formDataJSON[this.name] = [ formDataJSON[this.name] ];
+						}
+						formDataJSON[this.name].push(this.value || '');
+					} else {
+						formDataJSON[this.name] = this.value || '';
+					}
+				});
+				$('#formMessage').load('/application/savemessage', formDataJSON,
+					function(response, status) {
+						var status = $("#status").val();
+						if ('SUCCESS' === status) {
+							$("#message").css("color", "gray");
+							$("#message").show();
+							$("#message").html($("#response").val());
+							$("#saveUser").fadeOut();
+							$("#btnLogin").fadeIn();
+							setTimeout(function() {
+								location.reload(true)
+								$('#title').val('');
+								$('#description').val('');
+							}, 2000);
+						} else {
+							$("#formMessage").load(location.href+" #formMessage>*","");
+							$("#message").css("color", "red");
+							$("#message").show();
+							$("#message").html($("#response").val());
+							setTimeout('$("#message").hide()', 10000);
+						}
+					});
+			}
+		}
+</script>
+	<script type="text/javascript" src="@{'public/javascripts/jquery.mask.min.js'}"></script>
+	<script type="text/javascript">
+		$(function() {
+
+			var SPMaskBehavior = function(val) {
+				return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000'
+						: '(00) 0000-00009';
+			}, spOptions = {
+				onKeyPress : function(val, e, field, options) {
+					field.mask(SPMaskBehavior.apply({}, arguments), options);
+				}
+			};
+
+			$('.sp_celphones').mask(SPMaskBehavior, spOptions);
+
+			$(".bt-mask-it").click(function() {
+				$(".mask-on-div").mask("000.000.000-00");
+				$(".mask-on-div").fadeOut(500).fadeIn(500)
+			})
+
+			$('pre').each(function(i, e) {
+				hljs.highlightBlock(e)
+			});
+		});
+	</script>
+</div>

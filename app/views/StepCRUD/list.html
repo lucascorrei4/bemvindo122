@@ -1,0 +1,58 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.list.title', type.name) /}
+<meta charset="utf-8" />
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				#{crud.search /}
+			</div>
+			<div class="col-lg-6">
+				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12 ${type.name}">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+            	<div class="dataTable_wrapper">
+			        #{crud.table fields:['postedAt', 'service', 'title', 'description', 'estimatedDuration', 'position', 'isActive', 'action']}
+			        	#{crud.custom 'postedAt'}
+			         		<a href="@{StepCRUD.show(object.id)}">${object.postedAtParsed}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'service'}
+			         		<a href="@{StepCRUD.show(object.id)}">${object.service.title}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'title'}
+			         		<a href="@{StepCRUD.show(object.id)}">${object.title}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'description'}
+			         		<a href="@{StepCRUD.show(object.id)}">${object.description}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'estimatedDuration'}
+			         		<a href="@{StepCRUD.show(object.id)}">${object.estimatedDuration}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'position'}
+			         		<a href="@{StepCRUD.show(object.id)}">${object.position}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'isActive'}
+					        #{if object.isActive}
+						    	<a href="@{StepCRUD.show(object.id)}">${object.isActive='Sim'}</a>
+						    #{/if}
+						    #{else} 
+						    	<a href="@{StepCRUD.show(object.id)}">${object.isActive='Não'}</a>
+				            #{/else}
+				        #{/crud.custom}
+				        #{crud.custom 'action'}
+				       		<a href="@{StepCRUD.show(object.id)}" class="btn btn-default"><i class="fa fa-edit"></i></a>
+				        #{/crud.custom}
+				    #{/crud.table}
+    				<div class="alert alert-info alert-dismissable">
+						#{crud.pagination /}
+	   				</div>
+   				</div>
+   			</div>
+   				<div class="col-lg-6">
+   			</div>
+   		</div>
+   	</div>

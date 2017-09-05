@@ -1,0 +1,9 @@
+<label for="object_stateId"> Estado </label>
+#{ifError 'object.stateId'}
+    <label class="control-label-red" for="${object.stateId}">#{error 'object.stateId' /}</label>
+#{/ifError}
+#{select id:'object_stateId', name:'object.stateId', items:listStates, valueProperty:'id', labelProperty:'name', class:'form-control'}
+	#{if state != null}
+		<option value="${state.id}" selected="selected">${state.name}</option>
+	#{/if}
+#{/select}

@@ -1,0 +1,43 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.list.title', type.name) /}
+<meta charset="utf-8" />
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				#{crud.search /}
+			</div>
+			<div class="col-lg-6">
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12 ${type.name}">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+            	<div class="dataTable_wrapper">
+			        #{crud.table fields:['msgId', 'destination', 'sendDate', 'message', 'smsSent']}
+			        	#{crud.custom 'msgId'}
+			         		<a href="#">${object.msgId}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'destination'}
+			         		<a href="#">${object.destination} - ${object.clientName}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'sendDate'}
+			         		<a href="#">${object.sendDateConverted.format("dd/MM/yyyy HH'h'mm")}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'message'}
+			         		<a href="#">${object.message}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'smsSent'}
+			         		<a href="#">${object.smsSent ? 'Sim' : 'Não'}</a>
+				        #{/crud.custom}
+				    #{/crud.table}
+    				<div class="alert alert-info alert-dismissable">
+						#{crud.pagination /}
+	   				</div>
+   				</div>
+   			</div>
+   				<div class="col-lg-6">
+   			</div>
+   		</div>
+   	</div>

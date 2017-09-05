@@ -1,0 +1,92 @@
+<meta charset="utf-8" />
+<div class="content">
+	<form action="/" method="post" id="formQuickAccount">
+	
+<input type="email" style="display: none"  />
+<input type="password" style="display: none" />
+		<div class="row 50%">
+			<div class="6u 12u(mobile)">
+				<input id="name" name="user.name" type="text" placeholder="Seu nome * #{error 'user.name' /}" value="${flash['user.name']}" />
+				#{error 'user.name' /}
+			</div>
+			<div class="6u 12u(mobile)">
+				<input id="lastName" name="user.lastName" type="text" placeholder="Seu sobrenome * #{error 'user.lastName' /}" value="${flash['user.lastName']}" />
+				#{error 'user.lastName' /}
+			</div>
+		</div>
+		<div class="row 50%">
+			<div class="6u 12u(mobile)">
+				<input id="phone" name="user.phone1" type="text" placeholder="Telefone (99) 9 9999-9999 * #{error 'user.phone1' /}" class="sp_celphones" value="${flash['user.phone1']}" />
+				#{error 'user.phone1' /}
+			</div>
+			<div class="6u 12u(mobile)">
+				<input id="mail" name="user.email" type="text" placeholder="Seu e-mail * #{error 'user.email' /}" value="${flash['user.email']}" />
+				#{error 'user.email' /}
+			</div>
+		</div>
+		<div class="row 50%">
+			<div class="6u">
+				<input type="password" id="password" name="user.password"  placeholder="Digite uma senha * #{error 'user.password' /}" />
+				#{error 'user.password' /}
+			</div>
+			<div class="6u">
+				<input type="password" id="confirmPassword" name="confirmPassword" placeholder="Digite novamente a senha #{error 'user.repeatPassword' /}" /> 
+				#{error 'user.repeatPassword' /}
+			</div>
+		</div>
+		<div id="messageQuickAccount">
+		</div>
+		<div class="row">
+			<div class="12u">
+				<ul class="buttons">
+					<li><input id="saveUser" type="button" class="special" value="Enviar" onclick="saveQuickAccount()" /></li>
+					<li><input id="btnLogin" type="button" class="special" value="Entrar" onclick="window.location.href='/login'" style="display: none; background: #D5E1F4 none repeat scroll 0 0;" /></li>
+				</ul>
+			</div>
+		</div>
+		<input type="hidden" id="responseQuickAccountVar" name="response" value="${responseQuickAccount}" /> 
+		<input type="hidden" id="statusQuickAccountVar" name="status" value="${statusQuickAccount}" /> 
+	</form>
+</div>
+
+<script type="text/javascript">
+function saveQuickAccount() {
+	if ($('#name').val() == '') {
+		$("#messageQuickAccount").show();
+		$("#messageQuickAccount").html('Favor, preencha todos os campos!');
+		setTimeout('$("#messageQuickAccount").hide()', 5000);
+		return;
+	} else {
+		var formDataJSON = {};
+		var formData = $('#formQuickAccount').serializeArray();
+		decodeURIComponent(formData);
+		$.each(formData, function() {
+			if (formDataJSON[this.name] !== undefined) {
+				if (!formDataJSON[this.name].push) {
+					formDataJSON[this.name] = [ formDataJSON[this.name] ];
+				}
+				formDataJSON[this.name].push(this.value || '');
+			} else {
+				formDataJSON[this.name] = this.value || '';
+			}
+		});
+		$('#formQuickAccount').load('/savequickaccount', formDataJSON,
+			function(response, status) {
+				var status = $("#statusQuickAccountVar").val();
+				if ('SUCCESS' === status) {
+					$("#messageQuickAccount").css("color", "gray");
+					$("#messageQuickAccount").show();
+					$("#messageQuickAccount").html($("#responseQuickAccountVar").val());
+					$("#saveUser").fadeOut();
+					$("#btnLogin").fadeIn();
+				} else {
+					$("#messageQuickAccount").css("color", "red");
+					$("#messageQuickAccount").show();
+					$("#messageQuickAccount").html($("#responseQuickAccountVar").val());
+					setTimeout('$("#messageQuickAccount").hide(); document.getElementById("formQuickAccount").reset(); $("#formQuickAccount").load(location.href+" #formQuickAccount>*","");', 3000);
+				}
+			});
+	}
+}
+
+</script>

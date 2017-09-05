@@ -1,0 +1,30 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.list.title', type.name) /}
+<meta charset="utf-8" />
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				#{crud.search /}
+			</div>
+			<div class="col-lg-6">
+				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12 ${type.name}">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+            	<div class="dataTable_wrapper">
+			        #{crud.table fields:['postedAt', 'productName']}
+			        	#{crud.custom 'postedAt'}
+			         		<a href="@{show(object.id)}">${object.postedAtParsed}</a>
+				        #{/crud.custom}
+				    #{/crud.table}
+    				<div class="alert alert-info alert-dismissable">
+						#{crud.pagination /}
+	   				</div>
+   				</div>
+   			</div>
+   		</div>
+   	</div>

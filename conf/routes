@@ -1,0 +1,217 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+%{ctx = play.configuration.getProperty('apache.context', '')}%
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     ${ctx}/                                       				Application.index
+
+# Home page
+POST    ${ctx}/savemessage											MessageCRUD.saveMessage
+
+POST    ${ctx}/savequickaccount										Application.saveQuickAccount
+GET    	${ctx}/como-funciona										Application.howItWorks
+GET    	${ctx}/contato												Application.contact
+POST	${ctx}/chalk-moip-response									Application.moipResponse
+GET     ${ctx}/novo			                     					Application.newAccount
+POST    ${ctx}/novo			       				 					Application.saveNewAccount
+POST    ${ctx}/primeiros-passos    				 					Application.saveNewInstitution
+POST    ${ctx}/follow	 		   				 					Application.follow
+GET    	${ctx}/follow	 		   				 					Application.follow
+GET     ${ctx}/acompanhe	 		   				 				Application.followAdmin
+POST    ${ctx}/resetpass	   				 						Application.resetPass
+GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
+GET    	${ctx}/gratidao					   				 			Application.thankLead
+
+# Public MonetizzeController
+
+POST    ${ctx}/monetizze-postback		   				 			MonetizzeController.postback
+
+# Public TheSystem
+
+GET    	${ctx}/o-sistema					   				 		TheSystemPagesController.list
+GET    	${ctx}/o-sistema/{friendlyUrl}								TheSystemPagesController.details
+
+# Public SimplePages
+GET    	${ctx}/spl/{friendlyUrl}									SimplePagesController.details
+
+# Public News
+
+GET    	${ctx}/dicas					   				 			NewsController.list
+GET    	${ctx}/dicas/{id}/{friendlyUrl}								NewsController.details
+
+# Admin Update Order
+GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceCRUD.updateOrder
+POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
+
+# MonetizzeTransaction
+
+GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
+GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
+
+# CampaingMail
+
+GET		${ctx}/admin/sequencia-emails									SequenceMailCRUD.listAll
+GET		${ctx}/admin/sequencia-emails/novo								SequenceMailCRUD.blank
+GET		${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.show
+GET		${ctx}/admin/sequencia-emails/{id}/{field}						SequenceMailCRUD.attachment
+GET		${ctx}/admin/sequencia-emails/{id}/editar						SequenceMailCRUD.edit
+POST	${ctx}/admin/sequencia-emails									SequenceMailCRUD.create
+POST	${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.save
+DELETE	${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.delete
+
+# MaiBase
+
+GET		${ctx}/admin/base-de-emails									MailBaseCRUD.list
+GET		${ctx}/admin/base-de-emails/novo							MailBaseCRUD.blank
+GET		${ctx}/admin/base-de-emails/{id}							MailBaseCRUD.show
+GET		${ctx}/admin/base-de-emails/{id}/{field}					MailBaseCRUD.attachment
+GET		${ctx}/admin/base-de-emails/{id}/editar						MailBaseCRUD.edit
+POST	${ctx}/admin/base-de-emails									MailBaseCRUD.create
+POST	${ctx}/admin/base-de-emails/{id}							MailBaseCRUD.save
+DELETE	${ctx}/admin/base-de-emails/{id}							MailBaseCRUD.delete
+
+# SimplePage
+
+GET		${ctx}/admin/pagina-simples									SimplePagesCRUD.list
+GET		${ctx}/admin/pagina-simples/novo							SimplePagesCRUD.blank
+GET		${ctx}/admin/pagina-simples/{id}							SimplePagesCRUD.show
+GET		${ctx}/admin/pagina-simples/{id}/{field}					SimplePagesCRUD.attachment
+GET		${ctx}/admin/pagina-simples/{id}/editar						SimplePagesCRUD.edit
+POST	${ctx}/admin/pagina-simples									SimplePagesCRUD.create
+POST	${ctx}/admin/pagina-simples/{id}							SimplePagesCRUD.save
+DELETE	${ctx}/admin/pagina-simples/{id}							SimplePagesCRUD.delete
+
+# The System
+
+GET		${ctx}/admin/o-sistema								TheSystemCRUD.list
+GET		${ctx}/admin/o-sistema/novo							TheSystemCRUD.blank
+GET		${ctx}/admin/o-sistema/{id}							TheSystemCRUD.show
+GET		${ctx}/admin/o-sistema/{id}/{field}					TheSystemCRUD.attachment
+GET		${ctx}/admin/o-sistema/{id}/editar					TheSystemCRUD.edit
+POST	${ctx}/admin/o-sistema								TheSystemCRUD.create
+POST	${ctx}/admin/o-sistema/{id}							TheSystemCRUD.save
+DELETE	${ctx}/admin/o-sistema/{id}							TheSystemCRUD.delete
+
+# Article Services
+
+GET		${ctx}/admin/noticias								ArticleCRUD.list
+GET		${ctx}/admin/noticias/novo							ArticleCRUD.blank
+GET		${ctx}/admin/noticias/{id}							ArticleCRUD.show
+GET		${ctx}/admin/noticias/{id}/{field}					ArticleCRUD.attachment
+GET		${ctx}/admin/noticias/{id}/editar					ArticleCRUD.edit
+POST	${ctx}/admin/noticias								ArticleCRUD.create
+POST	${ctx}/admin/noticias/{id}							ArticleCRUD.save
+DELETE	${ctx}/admin/noticias/{id}							ArticleCRUD.delete
+
+# Admin Messages
+
+GET		${ctx}/admin/msgadmin									MessageCRUD.list
+GET		${ctx}/admin/msgadmin/novo								MessageCRUD.blank
+GET		${ctx}/admin/msgadmin/{id}								MessageCRUD.show
+GET		${ctx}/admin/msgadmin/{id}/{field}						MessageCRUD.attachment
+GET		${ctx}/admin/msgadmin/{id}/editar						MessageCRUD.edit
+POST	${ctx}/admin/msgadmin									MessageCRUD.create
+POST	${ctx}/admin/msgadmin/{id}								MessageCRUD.save
+DELETE	${ctx}/admin/msgadmin/{id}								MessageCRUD.delete
+
+# Admin Parameter
+
+GET		${ctx}/admin/paramadmin									ParameterCRUD.list
+GET		${ctx}/admin/paramadmin/novo							ParameterCRUD.blank
+GET		${ctx}/admin/paramadmin/{id}							ParameterCRUD.show
+GET		${ctx}/admin/paramadmin/{id}/{field}					ParameterCRUD.attachment
+GET		${ctx}/admin/paramadmin/{id}/editar						ParameterCRUD.edit
+POST	${ctx}/admin/paramadmin									ParameterCRUD.create
+POST	${ctx}/admin/paramadmin/{id}							ParameterCRUD.save
+DELETE	${ctx}/admin/paramadmin/{id}							ParameterCRUD.delete
+
+# Admin Clients
+
+GET		${ctx}/admin/clientes								ClientCRUD.list
+GET		${ctx}/admin/clientes/novo							ClientCRUD.blank
+GET		${ctx}/admin/clientes/{id}							ClientCRUD.show
+GET		${ctx}/admin/clientes/{id}/{field}					ClientCRUD.attachment
+GET		${ctx}/admin/clientes/{id}/editar					ClientCRUD.edit
+POST	${ctx}/admin/clientes								ClientCRUD.create
+POST	${ctx}/admin/clientes/{id}							ClientCRUD.save
+DELETE	${ctx}/admin/clientes/{id}							ClientCRUD.delete
+
+# Admin StatusSMS
+
+GET		${ctx}/admin/smss-enviadas							StatusSmsCRUD.list
+GET		${ctx}/admin/push-enviadas							StatusPushCRUD.list
+GET		${ctx}/admin/e-mails-enviados						StatusMailCRUD.list
+
+# Admin Services
+
+GET		${ctx}/admin/servicos								ServiceCRUD.list
+GET		${ctx}/admin/servicos/novo							ServiceCRUD.blank
+GET		${ctx}/admin/servicos/{id}							ServiceCRUD.show
+GET		${ctx}/admin/servicos/{id}/{field}					ServiceCRUD.attachment
+GET		${ctx}/admin/servicos/{id}/editar					ServiceCRUD.edit
+POST	${ctx}/admin/servicos								ServiceCRUD.create
+POST	${ctx}/admin/servicos/{id}							ServiceCRUD.save
+DELETE	${ctx}/admin/servicos/{id}							ServiceCRUD.delete
+
+# Admin Steps
+
+GET		${ctx}/admin/etapas-dos-servicos								StepCRUD.list
+GET		${ctx}/admin/etapas-dos-servicos/novo							StepCRUD.blank
+GET		${ctx}/admin/etapas-dos-servicos/{id}							StepCRUD.show
+GET		${ctx}/admin/etapas-dos-servicos/{id}/{field}					StepCRUD.attachment
+GET		${ctx}/admin/etapas-dos-servicos/{id}/editar					StepCRUD.edit
+POST	${ctx}/admin/etapas-dos-servicos								StepCRUD.create
+POST	${ctx}/admin/etapas-dos-servicos/{id}							StepCRUD.save
+DELETE	${ctx}/admin/etapas-dos-servicos/{id}							StepCRUD.delete
+
+# Admin Order of Services
+
+GET		${ctx}/admin/ordens-de-servico								OrderOfServiceCRUD.list
+GET		${ctx}/admin/ordens-de-servico/novo							OrderOfServiceCRUD.blank
+GET		${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceCRUD.show
+GET		${ctx}/admin/ordens-de-servico/{id}/{field}					OrderOfServiceCRUD.attachment
+GET		${ctx}/admin/ordens-de-servico/{id}/editar					OrderOfServiceCRUD.edit
+POST	${ctx}/admin/ordens-de-servico								OrderOfServiceCRUD.create
+POST	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceCRUD.save
+DELETE	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceCRUD.delete
+
+GET		${ctx}/admin/empresa/{id}							InstitutionCRUD.show
+GET		${ctx}/admin/empresa								InstitutionCRUD.list
+GET		${ctx}/admin/empresas-cadastradas					InstitutionCRUD.listAll
+GET		${ctx}/admin/usuarios-cadastrados					UserCRUD.listAll
+GET		${ctx}/admin/leads									MailListCRUD.listAll
+
+GET		${ctx}/admin/usuario/{id}							UserCRUD.show
+GET		${ctx}/admin/usuario								UserCRUD.list
+
+GET		${ctx}/admin/financeiro/{id}							FinancialCRUD.signature
+
+# Administration
+GET    	${ctx}/popular                     			PopulateDB.populate
+GET     ${ctx}/primeiros-passos						Admin.firstStep
+GET     ${ctx}/admin/?	                      		Admin.index
+GET     ${ctx}/admin/{id}                     		Admin.form
+POST    ${ctx}/admin/{id}                     		Admin.save
+GET     ${ctx}/admin/novo                        	Admin.form
+POST    ${ctx}/admin/novo                        	Admin.save
+
+# Import CRUD routes
+*       ${ctx}/admin                      			module:crud
+
+
+# Import Secure routes
+*      	${ctx}/                            			module:secure
+
+# Ignore favicon requests
+GET     ${ctx}/favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     ${ctx}/public/                                staticDir:public
+
+# Catch all
+*       ${ctx}/{controller}/{action}                  {controller}.{action}

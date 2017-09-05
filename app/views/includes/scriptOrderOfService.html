@@ -1,0 +1,93 @@
+<script type="text/javascript">
+	function addOrderService() {
+		var selectServices = document.getElementById('services');
+		var serviceName = selectServices.options[selectServices.selectedIndex].innerHTML;
+		var service = serviceName.substring(0, serviceName.indexOf(" R$"));
+		var basePrice = serviceName.substring(serviceName.indexOf(" R$") + 4,
+				serviceName.length);
+		var serviceId = selectServices.options[selectServices.selectedIndex].value;
+		var newRowContent = "<tr style=\"width: 240px;\">"
+				+ "<td><span id=\"" + serviceId + "\" class=\"serviceId\">"
+				+ service
+				+ "</span></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"qtd\" value=\"1\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number basePrice\" value=\""
+				+ basePrice
+				+ "\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"percent discount\" value=\"0,00\" onclick=\"this.select()\" /></td>"
+				+ "<td><input type=\"text\" style=\"width: 60px\" class=\"number subTotal\" value=\""
+				+ basePrice
+				+ "\" onclick=\"this.select()\" /></td>"
+				+ "<td><button id=\"removerItem\" type=\"button\" class=\"btn btn-danger btn-circle\" onclick=\"$(this).closest('tr').remove();setTimeout(function() { resetTable() }, 500); \">"
+				+ "<i class=\"fa fa-times\"></i></button></td></tr>";
+		$("#orderOfServiceTable tbody").append(newRowContent);
+		calcInputs();
+		setTimeout(function() {
+			resetTable()
+		}, 500);
+	}
+
+	function calcInputs() {
+		$('input').each(function() {
+			$(this).keyup(function() {
+				newSum.call(this);
+			});
+		});
+	}
+
+	function newSum() {
+		var sum = 0;
+		var percentValue = 0;
+		var thisRow = $(this).closest('tr');
+		$(thisRow).find('td:not(.subTotal)').each(
+				function() {
+					var qtd = $(thisRow).find('.qtd').val();
+					if (qtd === '') {
+						$(thisRow).find('.qtd').val('1');
+					}
+					var basePrice = $(thisRow).find('.basePrice').val();
+					var discount = $(thisRow).find('.discount').val();
+					if (discount === '') {
+						$(thisRow).find('.discount').val('0,00');
+					}
+					sum = (parseFloat(basePrice) * parseInt(qtd));
+					percentValue = (sum * parseFloat(discount)) / 100;
+					sum -= percentValue;
+					$(thisRow).find('.subTotal').val(
+							sum.toFixed(2).replace('.', ','));
+				});
+	}
+
+	function resetTable() {
+		var percentValue = 0;
+		var sum = 0;
+		var inputContent = [];
+		var content;
+		var obj;
+		var i = 0;
+		$('#orderOfServiceTable tr').each(function() {
+			if (i > 0) {
+				var row = $(this);
+				obj = new Object();
+				obj.id = row.find('.serviceId').attr('accesskey');
+				obj.serviceId = row.find('.serviceId').attr('id');
+				obj.qtd = row.find('.qtd').prop("value");
+				obj.basePrice = row.find('.basePrice').val();
+				sum = (parseFloat(obj.basePrice) * parseInt(obj.qtd));
+				percentValue = (sum * parseFloat(row.find('.discount').val())) / 100;
+				obj.discount = percentValue;
+				obj.subTotal = row.find('.subTotal').val();
+				inputContent.push(obj);
+			}
+			i++;
+		});
+		JSON.stringify(inputContent);
+		$("#orderOfServiceValue").val(JSON.stringify(inputContent));
+	}
+	
+	document.getElementById("formgeneorder").onsubmit = function() {
+		resetTable();
+		return true;
+	};
+	
+</script>

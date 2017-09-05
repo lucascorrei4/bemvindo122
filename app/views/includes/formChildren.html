@@ -1,0 +1,177 @@
+<meta charset="utf-8" />
+<form action="/" method="get" id="formChalkBoardChildren">
+
+	<input type="hidden" id="response" name="response" value="${error}" />
+	<input type="hidden" id="status" name="status" value="${status}" /> <input
+		type="hidden" id="model" name="chalkBoardChildren.model"
+		value="${chalkBoardChildren?.model}" /> <input type="hidden"
+		id="idChalk" name="chalkBoardChildren.id"
+		value="${chalkBoardChildren?.id}" /> <input type="hidden"
+		id="orderCode" name="chalkBoardChildren.orderCode"
+		value="${chalkBoardChildren?.orderCode}" />
+
+	<h2 class="general">SOLICITANTE</h2>
+
+	<p class="er">#{error 'chalkBoardChildren.userName' /}</p>
+	<input type="text" id="userName"
+		placeholder="Seu nome, ex.: Paulo(a) da Silva "
+		name="chalkBoardChildren.userName"
+		value="${chalkBoardChildren?.userName}">
+
+	<p class="er">#{error 'chalkBoardChildren.mail' /}</p>
+	<input type="text" id="mail"
+		placeholder="Seu e-mail, ex.: paulosilva@provedor.com"
+		name="chalkBoardChildren.mail"
+		value="${chalkBoardChildren?.mail}">
+
+	<p class="er">#{error 'chalkBoardChildren.phone' /}</p>
+	<input type="text" id="phone"
+		placeholder="Seu telefone, ex.: (62) 99999-9999"
+		name="chalkBoardChildren.phone"
+		value="${chalkBoardChildren?.phone}" class="sp_celphones">
+
+	<h2 class="general">CHALKBOARD</h2>
+
+	<p class="er">#{error 'chalkBoardChildren.name' /}</p>
+	<input type="text" id="name" placeholder="Nome, ex.: Louise"
+		name="chalkBoardChildren.name" value="${chalkBoardChildren?.name}">
+
+	<p class="er">#{error 'chalkBoardChildren.birthDay' /}</p>
+	<input type="text" id="birthDay"
+		placeholder="Data do aniversário/evento, ex.: 26/08/2016"
+		name="chalkBoardChildren.birthDay"
+		value="${chalkBoardChildren?.birthDay}" class="date">
+
+	<p class="er">#{error 'chalkBoardChildren.age' /}</p>
+	<input type="text" id="age" placeholder="Idade, ex.: 1 aninho"
+		name="chalkBoardChildren.age" value="${chalkBoardChildren?.age}">
+
+	<p class="er">#{error 'chalkBoardChildren.bornWeight' /}</p>
+	<input type="text" id="bornWeight"
+		placeholder="Nasci com (peso), ex.: 3,570 kg"
+		name="chalkBoardChildren.bornWeight"
+		value="${chalkBoardChildren?.bornWeight}">
+
+	<p class="er">#{error 'chalkBoardChildren.bornHeight' /}</p>
+	<input type="text" id="bornHeight"
+		placeholder="Nasci com (comprimento), ex.: 51 cm"
+		name="chalkBoardChildren.bornHeight"
+		value="${chalkBoardChildren?.bornHeight}">
+
+	<p class="er">#{error 'chalkBoardChildren.heightNow' /}</p>
+	<input type="text" id="heightNow"
+		placeholder="Eu tenho (de altura hoje), ex.: 73 cm"
+		name="chalkBoardChildren.heightNow"
+		value="${chalkBoardChildren?.heightNow}">
+
+	<p class="er">#{error 'chalkBoardChildren.weightNow' /}</p>
+	<input type="text" id="weightNow" placeholder="Eu peso, ex.: 8,850 kg"
+		name="chalkBoardChildren.weightNow"
+		value="${chalkBoardChildren?.weightNow}">
+
+	<p class="er">#{error 'chalkBoardChildren.teeth' /}</p>
+	<input type="text" id="teeth" placeholder="Tenho (dentes), ex.: 8"
+		name="chalkBoardChildren.teeth" value="${chalkBoardChildren?.teeth}">
+
+	<p class="er">#{error 'chalkBoardChildren.likeToDo1' /}</p>
+	<input type="text" id="likeToDo1"
+		placeholder="Gosto muito de (1), ex.: Passear"
+		name="chalkBoardChildren.likeToDo1"
+		value="${chalkBoardChildren?.likeToDo1}">
+
+	<p class="er">#{error 'chalkBoardChildren.likeToDo2' /}</p>
+	<input type="text" id="likeToDo2"
+		placeholder="Gosto muito de (2), ex.: Livros"
+		name="chalkBoardChildren.likeToDo2"
+		value="${chalkBoardChildren?.likeToDo2}">
+
+	<p class="er">#{error 'chalkBoardChildren.likeToDo3' /}</p>
+	<input type="text" id="likeToDo3"
+		placeholder="Gosto muito de (3), ex.: Colinho"
+		name="chalkBoardChildren.likeToDo3"
+		value="${chalkBoardChildren?.likeToDo3}">
+
+	<p class="er">#{error 'chalkBoardChildren.likeToDo4' /}</p>
+	<input type="text" id="likeToDo4"
+		placeholder="Gosto muito de (4), ex.: Controle remoto"
+		name="chalkBoardChildren.likeToDo4"
+		value="${chalkBoardChildren?.likeToDo4}">
+
+	<p class="er">#{error 'chalkBoardChildren.likeToWatch1' /}</p>
+	<input type="text" id="likeToWatch1"
+		placeholder="Gosto de assistir (1), ex.: 3 palavrinhas"
+		name="chalkBoardChildren.likeToWatch1"
+		value="${chalkBoardChildren?.likeToWatch1}">
+
+	<p class="er">#{error 'chalkBoardChildren.likeToWatch2' /}</p>
+	<input type="text" id="likeToWatch2"
+		placeholder="Gosto de assistir (2), ex.: Galinha pintadinha"
+		name="chalkBoardChildren.likeToWatch2"
+		value="${chalkBoardChildren?.likeToWatch2}">
+
+	<p class="er">#{error 'chalkBoardChildren.know1' /}</p>
+	<input type="text" id="know1"
+		placeholder="Eu sei (1), ex.: Bater palminha"
+		name="chalkBoardChildren.know1" value="${chalkBoardChildren?.know1}">
+
+	<p class="er">#{error 'chalkBoardChildren.know2' /}</p>
+	<input type="text" id="know2" placeholder="Eu sei (2), ex.: Dar tchau"
+		name="chalkBoardChildren.know2" value="${chalkBoardChildren?.know2}">
+
+	<p class="er">#{error 'chalkBoardChildren.know3' /}</p>
+	<input type="text" id="know3" placeholder="Eu sei (3), ex.: Engatinhar"
+		name="chalkBoardChildren.know3" value="${chalkBoardChildren?.know3}">
+
+	<p class="er">#{error 'chalkBoardChildren.likeToEat1' /}</p>
+	<input type="text" id="likeToEat1"
+		placeholder="Gosto de comer (1), ex.: Banana"
+		name="chalkBoardChildren.likeToEat1"
+		value="${chalkBoardChildren?.likeToEat1}">
+
+	<p class="er">#{error 'chalkBoardChildren.likeToEat2' /}</p>
+	<input type="text" id="likeToEat2"
+		placeholder="Gosto de comer (2), ex.: Carninha"
+		name="chalkBoardChildren.likeToEat2"
+		value="${chalkBoardChildren?.likeToEat2}">
+
+	<p class="er">#{error 'chalkBoardChildren.firstWord1' /}</p>
+	<input type="text" id="firstWord1"
+		placeholder="Primeiras palavras (1), ex.: Auau"
+		name="chalkBoardChildren.firstWord1"
+		value="${chalkBoardChildren?.firstWord1}">
+
+	<p class="er">#{error 'chalkBoardChildren.firstWord2' /}</p>
+	<input type="text" id="firstWord2"
+		placeholder="Primeiras palavras (2), ex.: Papa"
+		name="chalkBoardChildren.firstWord2"
+		value="${chalkBoardChildren?.firstWord2}">
+
+	<p class="er">#{error 'chalkBoardChildren.firstWord3' /}</p>
+	<input type="text" id="firstWord3"
+		placeholder="Primeiras palavras (3), ex.: Mama"
+		name="chalkBoardChildren.firstWord3"
+		value="${chalkBoardChildren?.firstWord3}">
+
+	<p class="er">#{error 'chalkBoardChildren.nickName1' /}</p>
+	<input type="text" id="nickName1" placeholder="Apelidos (1), ex.: Lou"
+		name="chalkBoardChildren.nickName1"
+		value="${chalkBoardChildren?.nickName1}">
+
+	<p class="er">#{error 'chalkBoardChildren.nickName2' /}</p>
+	<input type="text" id="nickName2"
+		placeholder="Apelidos (2), ex.: Lolou"
+		name="chalkBoardChildren.nickName2"
+		value="${chalkBoardChildren?.nickName2}">
+
+	<p class="er">#{error 'chalkBoardChildren.nickName3' /}</p>
+	<input type="text" id="nickName3"
+		placeholder="Apelidos (3), ex.: Babylou"
+		name="chalkBoardChildren.nickName3"
+		value="${chalkBoardChildren?.nickName3}">
+
+	<div class="contact-but">
+		<input id="saveAndPay" type="button" value="Salvar e pagar"
+			onclick="saveChildrenChalkBoardObj();" /> <a style="display: none;"
+			id="toPayment" href="#message"></a>
+	</div>
+</form>

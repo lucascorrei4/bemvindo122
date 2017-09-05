@@ -1,0 +1,94 @@
+<html lang="${lang}">
+<head>
+<meta charset="utf-8" />
+#{set title:'Primeiros passos' /} #{include 'includes/headCrud.html' /}
+<link href="@{'public/stylesheets/prettify.css'}" rel="stylesheet">
+</head>
+<body>
+	<div id="wrapper">
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			<!-- Logo navbar -->
+			#{include 'includes/logoNavBar.html' /}
+			<!-- Logo navbar -->
+			<!-- Menu Top Side -->
+			#{include 'includes/menuPainelTop.html' /}
+			<!-- Menu Top Side -->
+			<!-- Menu Left Side -->
+			#{include 'includes/menuPainelLeft.html' /}
+			<!-- Menu Left Side -->
+		</nav>
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Poxa! :( Sua licença expirou!</h1>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<ol class="breadcrumb">
+				<li><a href="@{CRUD.index()}">&{'crud.home'}</a></li>
+				<li><a href="@{CRUD.index()}">Licença expirada</a></li>
+			</ol>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<h4></h4>
+										<h4>
+											Que pena, <b>${connectedUser}</b>!<br> Sua licença de <b>30</b> dias expirou! 
+											<br><br> 
+											Para voltar a utilizar o sistema, por favor, entre em contato através do formulário ao lado.
+											<br><br> 
+											A sua experiência é muito importante para nós. Portanto, muito obrigado por experimentar o sistema neste período.
+											<br><br> 
+											O nosso objetivo é que o sistema tenha superado as suas expectativas.<br><br>
+											Mais uma vez, <b>obrigado</b>. Esperamos que continue com a gente.
+										</h4>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<h2>Deixe uma mensagem pra nós! :)</h2>
+									<h5>É bom a gente saber se estamos no caminho certo ou se precisamos melhorar.</h5>
+									#{include 'includes/formSaveMessage.html' /}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+										<div class="panel-heading" style="text-align: center">© &{'project.name'} - Versão: &{'project.version'}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- JQueryUI JS -->
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<!-- JQueryUI JS -->
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.js'}"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+
+	<!-- Custom Theme JavaScript -->
+	<script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
+	<!-- Custom Theme JavaScript -->
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="@{'public/templatebootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+
+	<!-- JQuery Mask -->
+	#{include 'includes/jQueryMask.html' /}
+	<!-- JQuery Mask -->
+
+</body>
+
+</html>

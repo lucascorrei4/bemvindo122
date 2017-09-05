@@ -1,0 +1,23 @@
+<meta charset="utf-8" />
+<div class="form-group">
+	<label>Avisar  &{orderOfService.client.toString()}</label>
+	<label>&{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
+	<textarea class="form-control ${planSPO02 ? '' : 'disableComponent'}" id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Acompanhe seu pedido &{orderOfService.orderCode} em: www.seupedido.online/acompanhe. Att., &{institution.institution}.</textarea>
+</div>
+<div class="container" id="formNotifButtons" style="width: 100%">
+	<div class="row">
+		<div class="col-xs-4">
+           	<input class="btn btn-default ${planSPO02 ? '' : 'disableComponent'}" type="button" value="Via PUSH" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+		</div>
+		<div class="col-xs-4">
+           	<input class="btn btn-default" type="button" value="Via E-mail" onclick="sendEmailNotificationToCustomer(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+		</div>
+		<div class="col-xs-4">
+           	<input class="btn btn-default ${planSPO02 ? '' : 'disableComponent'}" type="button" value="Via SMS" onclick="sendSMS(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+		</div>
+	</div>
+	<input type="hidden" id="response" name="response" value="${response}" /> 
+	<input type="hidden" id="status" name="status" value="${status}" />
+	<br />
+	<div id="message-sms-&{orderOfService.orderCode}"></div>
+</div>

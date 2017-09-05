@@ -1,0 +1,16 @@
+<meta charset="utf-8" />
+<div class="navbar-default sidebar" role="navigation">
+	<div class="sidebar-nav navbar-collapse">
+		<ul class="nav" id="side-menu">
+			<li style="display: ${session.get("enableUser") == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-edit fa-fw"></i> Meus Pedidos<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ServiceCRUD.list}">Novo Serviço</a></li>
+					<li><a href="@{StepCRUD.list}">Etapas para Conclusão</a></li>
+				</ul>
+			</li>
+			<li><a href="@{Secure.logout()}"><i class="fa fa-power-off fa-fw"></i> Sair</a></li>
+		</ul>
+	</div>
+	<!-- /.sidebar-collapse -->
+</div>

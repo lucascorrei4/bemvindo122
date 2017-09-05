@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		<!-- End Google Tag Manager -->
+		<title>Acompanhe | Seu Pedido Online</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Página Para Acompanhar O Seu Pedido | Acompanhamento de Pedidos e Serviços | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
+		<meta name="author" content="Seu Pedido Online">
+		<link rel="apple-touch-icon" sizes="57x57" href="@{'public/images/apple57x57.png'}">
+		<link rel="apple-touch-icon" sizes="60x60" href="@{'public/images/apple60x60.png'}">
+		<link rel="apple-touch-icon" sizes="72x72" href="@{'public/images/apple72x72.png'}">
+		<link rel="apple-touch-icon" sizes="76x76" href="@{'public/images/apple76x76.png'}">
+		<link rel="apple-touch-icon" sizes="114x114" href="@{'public/images/apple114x114.png'}">
+		<link rel="apple-touch-icon" sizes="120x120" href="@{'public/images/apple120x120.png'}">
+		<link rel="apple-touch-icon" sizes="144x144" href="@{'public/images/apple144x144.png'}">
+		<link rel="apple-touch-icon" sizes="152x152" href="@{'public/images/apple152x152.png'}">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon16x16.png'}" sizes="16x16">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon32x32.png'}" sizes="32x32">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon96x96.png'}" sizes="96x96">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon160x160.png'}" sizes="160x160">
+		<link rel="icon" type="image/png" href="@{'public/images/favicon196x196.png'}" sizes="196x196">
+		<meta name="msapplication-TileColor" content="#000000">
+		<meta name="msapplication-TileImage" content="@{'public/images/logo-admin.png'}">
+		<meta name="keywords" content="acompanhe seu pedido, acompanhamento de pedido, marketing digital, serviço, pedidos, orcamentos, ordem de servico">
+		<meta property="twitter:card" content="acompanhe seu pedido e Marketing Digital">
+		<meta property="twitter:site" content="www.seupedido.online">
+		<meta property="twitter:title" content="Acompanhe | Seu Pedido Online">
+		<meta property="twitter:description" content="acompanhe seu pedido e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
+		<meta property="og:title" content="Acompanhe | Seu Pedido Online">
+		<meta property="og:description" content="acompanhe seu pedido e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
+		<meta property="og:site_name" content="Seu Pedido Online">
+		<meta property="og:image" content="@{'public/images/logo-admin.png'}">
+		<link rel="shortcut icon" type="image/png" href="@{'public/images/favicon16x16.png'}" />
+		<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'></script>
+		<script>
+		    var OneSignal = window.OneSignal || [];
+		    OneSignal.push(["init", {
+		      appId: "7257d6a5-5298-43ee-b0d5-e2b89cfaab11",
+		      autoRegister: true, /* Set to true to automatically prompt visitors */
+		      subdomainName: 'https://seupedido.onesignal.com',   
+		      httpPermissionRequest: {
+		        enable: true
+		      },
+		      notifyButton: {
+		          enable: true, /* Required to use the notify button */
+		          size: 'large', /* One of 'small', 'medium', or 'large' */
+		          theme: 'default', /* One of 'default' (red-white) or 'inverse" (white-red) */
+		          position: 'bottom-left', /* Either 'bottom-left' or 'bottom-right' */
+		          offset: {
+		              bottom: '0px',
+		              left: '0px', /* Only applied if bottom-left */
+		              right: '0px' /* Only applied if bottom-right */
+		          },
+		          prenotify: true, /* Show an icon with 1 unread message for first-time site visitors */
+		          showCredit: false, /* Hide the OneSignal logo */
+		          text: {
+		              'tip.state.unsubscribed': 'Clique para receber notificações!',
+		              'tip.state.subscribed': "Ótimo! Você já está registrado para receber notificações!",
+		              'tip.state.blocked': "Fique tranquilo! Você não vai receber mais notificações!",
+		              'message.prenotify': 'Clique para receber notificações!',
+		              'message.action.subscribed': "Obrigado!",
+		              'message.action.resubscribed': "Ótimo! Você receberá avisos sobre este pedido!",
+		              'message.action.unsubscribed': "Fique tranquilo! Você não receberá mais notificações!",
+		              'dialog.main.title': 'Confirmação de recebimento de notificações',
+		              'dialog.main.button.subscribe': 'Quero receber!',
+		              'dialog.main.button.unsubscribe': 'Eu não quero!',
+		              'dialog.blocked.title': 'Desbloquear notificações',
+		              'dialog.blocked.message': "Siga as instruções para receber notificações:"
+		          }
+		      },
+		      promptOptions: {
+		          /* Change bold title, limited to 30 characters */
+		          siteName: 'Confirmação de recebimento',
+		          /* Subtitle, limited to 90 characters */
+		          actionMessage: "Confirme para receber todas as atualizações do seu pedido.",
+		          /* Example notification title */
+		          exampleNotificationTitle: 'Este é um exemplo de notificação',
+		          /* Example notification message */
+		          exampleNotificationMessage: 'Aqui vai a descrição da notificação...',
+		          /* Text below example notification, limited to 50 characters */
+		          exampleNotificationCaption: 'Obs.: Você poderá cancelar em qualquer momento!',
+		          /* Accept button text, limited to 15 characters */
+		          acceptButtonText: "EU QUERO! :)",
+		          /* Cancel button text, limited to 15 characters */
+		          cancelButtonText: "EU NÃO QUERO!"
+		      }
+		    }]);
+		</script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="@{'public/templatefollow/assets/js/ie/html5shiv.js'}"></script><![endif]-->
+		<link rel="stylesheet" href="@{'public/templatefollow/assets/css/main.css'}" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="@{'public/templatefollow/assets/css/ie8.css'}" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="@{'public/templatefollow/assets/css/ie9.css'}" /><![endif]-->
+		<script type="text/javascript">
+			function loadIframe(iframeName, url) {
+	       	    var $iframe = $('#' + iframeName);
+	       	    $iframe.show();
+	       	    if ($iframe.length) {
+	       	        $iframe.attr('src', url);   
+	       	        return false;
+	       	    }
+	       	    return true;
+	       	}
+		</script>
+	</head>
+	<body class="contact">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div id="page-wrapper">
+
+			<!-- Header -->
+			#{include 'includes/menuTemplateFollow.html' /}
+
+			<!-- Main -->
+				<article id="main">
+					<header class="special container">
+						<span class="icon fa-hand-o-down fa-fw"></span>
+						<h2><strong>Acompanhe</strong></h2>
+						<p>Insira o código abaixo:</p>
+						<div class="row">
+							<div class="12u">
+								<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" style="text-transform: uppercase;  font-size: 30px; border-radius: 0; margin: 0 auto; width: 8em;" />
+							</div>
+						</div>
+						<div class="row">
+							<div class="12u">
+                                <label>
+                                    <input id="checkReceive" name="checkReceive" type="checkbox" checked="checked">Quero ser notificado a cada mudança de status
+                                </label>
+								<ul class="buttons">
+									<li><input id="followOrderCode" type="button" class="special" value="Enviar" onclick="loadIframe('ifollow', '/follow?orderCode=' + document.getElementById('orderCode').value);" style="background-color: #F0A939" /></li>
+								</ul>
+							</div>
+						</div>
+					</header>
+					<!-- One -->
+						<section class="wrapper style4 special container" style="padding: 0">
+							<iframe id="ifollow" src="#" style="display: none; max-width: 100%;  width: 100%; height: 600px; left: 0; overflow-x:hidden" frameborder="0" width="100%" height="100%"></iframe> 
+						</section>
+
+				</article>
+
+			<!-- Footer -->
+				<footer id="footer">
+
+					<ul class="copyright">
+						<li>&copy; <a href="/">Seu Pedido Online</a></li><li>contato@seupedido.online</li>
+					</ul>
+
+					<ul class="icons" style="vertical-align: bottom;">
+						<li style="vertical-align: bottom; line-height: 0;"><div class="fb-like" data-href="http://seupedido.online" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div></li>
+						<li style="vertical-align: bottom; line-height: 0;"><a href="https://twitter.com/seupedidoonline" class="twitter-follow-button" data-show-count="false">Seguir @seupedidoonline</a></li>
+					</ul>
+					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="@{'public/templatefollow/assets/js/jquery.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/jquery.dropotron.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/jquery.scrolly.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/jquery.scrollgress.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/skel.min.js'}"></script>
+			<script src="@{'public/templatefollow/assets/js/util.js'}"></script>
+			<!--[if lte IE 8]><script src="@{'public/templatefollow/assets/js/ie/respond.min.js'}"></script><![endif]-->
+			<script src="@{'public/templatefollow/assets/js/main.js'}"></script>
+			
+			<script>
+         var OneSignal = OneSignal || [];
+         function subscribe() {
+         	OneSignal.push(["registerForPushNotifications"]);
+         	OneSignal.push(function() {
+         		setTimeout(function myFunction() {
+         			var orderCode = jQuery('#ifollow').contents().find('#orderCode').val();
+	         		if($('#checkReceive').is(':checked') && orderCode) {
+	            		OneSignal.sendTags({orderCode: orderCode});
+	            		return false;
+	         		}
+         		}, 2000)
+            });
+            event.preventDefault();
+         }
+
+         /* This example assumes you've already initialized OneSignal */
+         OneSignal.push(function() {
+             // If we're on an unsupported browser, do nothing
+             if (!OneSignal.isPushNotificationsSupported()) {
+                 return;
+             }
+             OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+                 if (isEnabled) {
+                     // The user is subscribed to notifications
+                 } else {
+                     document.getElementById("followOrderCode").addEventListener('click', subscribe);
+                     document.getElementById("subscribe-link").style.display = '';
+                 }
+             });
+         });
+     </script>
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+     <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-91777562-1', 'auto');
+	  ga('send', 'pageview');
+	</script>
+	</body>
+</html>

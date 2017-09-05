@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>&{'crud.title'} - Painel Gestor</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="@{'public/templatebootstrap/bower_components/bootstrap/dist/css/bootstrap.css'}" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.css'}" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="@{'public/templatebootstrap/dist/css/timeline.css'}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="@{'public/templatebootstrap/dist/css/sb-admin-2.css'}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="@{'public/templatebootstrap/bower_components/morrisjs/morris.css'}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="@{'public/templatebootstrap/bower_components/font-awesome/css/font-awesome.min.css'}" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js'} IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js'} doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js'}/1.4.2/respond.min.js'}"></script>
+    <![endif]-->
+    <style type="text/css">
+    	h3.panel-title, .panel-heading {
+	    	font-size: 18px;
+    	}
+    </style>
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+            <!-- Logo navbar -->
+           	#{include 'includes/logoNavBar.html' /}
+            <!-- Logo navbar -->
+            <!-- Menu Top Side -->
+           	#{include 'includes/menuPainelTop.html' /}
+            <!-- Menu Top Side -->
+            <!-- Menu Left Side -->
+           	#{include 'includes/menuPainelLeft.html' /}
+            <!-- Menu Left Side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Olá, <b>${connectedUser.name}</b>!</h1>
+                    <h5 style="text-align: right"><i>Conectado a</i> <b>${institutionName}</b></h5>
+                    <label style="float: right; display: &{videohelp == null ? 'none' : 'block'}"><a data-toggle="modal" data-target="#modalVideoHelpIndex" >Quer ajuda?</a></label>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-info alert-dismissable" style="display: ${userFreeTrial ? 'block' : 'none'};">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <i class="fa fa-info-circle"></i>${userFreeTrial ? parameter.msgNewUsers.raw() : parameter.msgActiveUsers.raw()} 
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-handshake-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+	                                #{if contClients == 0}
+										<div class="huge">0</div>
+	                                    <div>Cliente</div>
+									#{/if}
+									#{if contClients > 0}
+										#{if contClients == 1}
+											<div class="huge">1</div>
+		                                    <div>Cliente</div>
+										#{/if}
+										#{else}
+											<div class="huge">&{contClients}</div>
+		                                    <div>Clientes</div>
+										#{/else}
+									#{/if}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/admin/clientes">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acessar</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-file-text-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    #{if contOrderOfServices == 0}
+										<div class="huge">0</div>
+	                                    <div>Ordem de Serviço</div>
+									#{/if}
+									#{if contOrderOfServices > 0}
+										#{if contOrderOfServices == 1}
+											<div class="huge">1</div>
+		                                    <div>Ordem de Serviço</div>
+										#{/if}
+										#{else}
+											<div class="huge">&{contOrderOfServices}</div>
+		                                    <div>Ordens de Serviço</div>
+										#{/else}
+									#{/if}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/admin/ordens-de-servico">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acessar</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-cogs fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                   #{if contServices == 0}
+										<div class="huge">0</div>
+	                                    <div>Serviço</div>
+									#{/if}
+									#{if contServices > 0}
+										#{if contServices == 1}
+											<div class="huge">1</div>
+		                                    <div>Serviço</div>
+										#{/if}
+										#{else}
+											<div class="huge">&{contServices}</div>
+		                                    <div>Serviços</div>
+										#{/else}
+									#{/if}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/admin/servicos">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acessar</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow ${planSPO02 ? '' : 'disableComponent'}">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-paper-plane-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right ">
+                                    #{if contSentSMSs == 0}
+										<div class="huge ">0<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div>
+	                                    <div>Nenhuma SMS enviada</div>
+									#{/if}
+									#{if contSentSMSs > 0}
+										#{if contSentSMSs == 1}
+											<div class="huge">1<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div>
+		                                    <div>SMS enviada</div>
+										#{/if}
+										#{else}
+											#{if !smsExceedLimit}
+												<div class="huge ">&{contSentSMSs}<span style="display: 'inline';">/50</span></div>
+		                                    	<div>SMSs enviadas</div>
+											#{/if}
+											#{else}
+												<div class="huge">&{allSents}</div>
+		                                    	<div>Notificações enviadas</div>
+											#{/else}
+										#{/else}
+									#{/if}
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/admin/smss-enviadas">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acessar</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- /.row -->
+            
+            <div class="row" style="display: ${planSPO02 ? 'block' : 'none'}">
+           			<div class="col-lg-12">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Previsão de Faturamento do Mês: <label style="font-weight: bold"> R$ &{totalOfOrderOfServiceByMonth}</label></h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>OS #</th>
+                                                <th>Data</th>
+                                                <th>Cliente</th>
+                                                <th>Status</th>
+                                                <th>Valor (R$)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        #{list listOrderOfServicesByMonth, as:'order'}
+											<tr>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.getPostedAtParsed()} </a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.getCurrentStatus()} </a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.getTotalPriceCurrency()} </a></td>
+											</tr>
+										#{/list}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-right">
+                                    <a href="@{OrderOfServiceCRUD.updateOrder}"> <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            
+            <div class="row">
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                        	<i class="fa fa-user-plus fa-2" aria-hidden="true"></i> Últimos Clientes
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Data</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+	                                    #{list listClients, as:'client'}
+											<tr>
+												<td><a href="/admin/clientes">&{client.getName()} ${client.lastName} </a></td>
+												<td><a href="/admin/clientes">&{client.getPostedAtParsed()}</a></td>
+											</tr>
+										#{/list}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-4">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                           <i class="fa fa-smile-o fa-2" aria-hidden="true"></i> Painel de Gratidão
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Cliente</th>
+                                            <th>Agradeceu?</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       #{list listOrderOfServices, as:'order'}
+											<tr>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
+												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
+												<td>#{if !order.isThanked}<label style="float: right;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
+											</tr>
+										#{/list}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <i class="fa fa-plane fa-fw"></i> Painel de Notificações
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="@{StatusPushCRUD.list}" class="list-group-item">
+                                    <i class="fa fa-paper-plane fa-fw"></i>${contSentPushs} Push Enviadas
+                                    <span class="pull-right text-muted small"><em>⇢</em>
+                                    </span>
+                                </a>
+                                <a href="@{StatusSmsCRUD.list}" class="list-group-item">
+                                    <i class="fa fa-paper-plane-o fa-fw"></i>${contSentSMSs} SMSs Enviadas
+                                    <span class="pull-right text-muted small"><em>⇢</em>
+                                    </span>
+                                </a>
+                                <a href="@{StatusMailCRUD.list}" class="list-group-item">
+                                    <i class="fa fa-mail-forward fa-fw"></i>${contSentMails} E-mails Enviados
+                                    <span class="pull-right text-muted small"><em>⇢</em>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="text-align: center">
+                        &{'project.name'} &#169; &{'project.year'} - &{'project.version'}
+                        </div>
+                        <!-- /.panel-heading -->
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    
+    <!-- jQuery -->
+    <script src="@{'public/templatebootstrap/bower_components/jquery/dist/jquery.min.js'}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="@{'public/templatebootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.js'}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
+
+  	<!-- Flot Charts JavaScript -->
+	<script src="@{'/public/templatebootstrap/bower_components/flot/excanvas.min.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.pie.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.resize.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.time.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js'}"></script>
+	<script src="@{'/public/templatebootstrap/js/flot-data.js'}"></script>
+	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
+
+	<div class="modal fade" id="modalVideoHelpIndex" tabindex="-1" role="dialog" aria-labelledby="modalVideoHelpIndexLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="modalVideoHelpIndexLabel">${videohelp?.label} - Veja o vídeo abaixo</h4>
+				</div>
+				<div class="modal-body" id="modal-body">
+					<div class="form-group">
+						<iframe width="560" height="315" src="${videohelp?.value}?rel=0&autoplay=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" id="modalThankful" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<input id="osid" name="osid" type="hidden" />
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload(true)">&times;</button>
+					<h3 class="modal-title" id="myModalLabel">Agradecimento</h3>
+				</div>
+				<div class="modal-body">
+					<div id="notificationArea"></div>
+				</div>
+				<div class="modal-footer" style="text-align: left">
+					<div id="editor"></div>
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload(true)">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

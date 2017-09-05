@@ -1,0 +1,17 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		var selectActionStates = #{jsAction @CEPController.getStatesByCountryId(':countryId') /};
+    	$('#object_stateId').load(
+    		selectActionStates({countryId: '1'})
+    	);
+		$('#object_stateId').change(function() {
+			var elementState = document.getElementById("object_stateId");
+			var stateIdValue = elementState.value;
+			var selectActionCities = #{jsAction @CEPController.getCitiesByCountryIdAndStateId(':stateId') /};
+	    	$('#object_cityId').load(
+	    		selectActionCities({stateId: stateIdValue})
+	    	);
+		});
+		$('<option value="0">Estado</option>').appendTo("#object_stateId");
+	});
+</script>

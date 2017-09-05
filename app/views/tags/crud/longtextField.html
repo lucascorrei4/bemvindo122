@@ -1,0 +1,9 @@
+#{field 'object.' +     _name}
+    <label for="${field.id}">
+        &{_name}
+    </label>
+    <textarea id="${field.id}" cols="48" rows="5" class="form-control ${field.errorClass}" name="${field.name}" class="form-control">${params[field.name]?.escape()?.raw() ?: field.error?.message == 'validation.required' ? '' : _value?.escape()?.raw()}</textarea>
+    #{ifError field.name}
+        <span class="error">${field.error.raw()}</span>
+    #{/ifError}
+#{/field}

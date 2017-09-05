@@ -1,0 +1,100 @@
+<meta charset="utf-8" />
+
+<div class="modal fade" id="modalVideoHelp" tabindex="-1" role="dialog" aria-labelledby="modalVideoHelpLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="modalVideoHelpLabel">${videohelp?.label} - Veja o vídeo abaixo</h4>
+			</div>
+			<div class="modal-body" id="modal-body">
+				<input type="hidden" id="response" name="response" value="${response}" /> 
+				<input type="hidden" id="status" name="status" value="${status}" />
+				<div class="form-group">
+					<iframe width="560" height="315" src="${videohelp?.value}?rel=0&autoplay=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- JQueryUI JS -->
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="@{'public/templatebootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.js'}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
+
+<!-- DataTables JavaScript -->
+<script src="@{'public/templatebootstrap/bower_components/datatables/media/js/jquery.dataTables.min.js'}"></script>
+
+<!-- Bootstrap JS -->
+<script src="@{'public/templatebootstrap/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js'}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script>
+	$('.tooltip-demo').tooltip({
+		selector : "[data-toggle=tooltip]",
+		container : "body"
+	})
+
+	// popover demo
+	$("[data-toggle=popover]").popover()
+</script>
+
+<!-- Datepicker Bootstrap -->
+<script src="@{'public/bootstrapdatepicker/js/bootstrap-datepicker.js'}"></script>
+<script src="@{'public/bootstrapdatepicker/locales/bootstrap-datepicker.pt-BR.min.js'}" charset="UTF-8"></script>
+<script>
+	$('#sandbox-container .input-group.date').datepicker({
+		format : "dd/mm/yyyy",
+		todayBtn : "linked",
+		language : "pt-BR",
+		orientation : "top auto"
+	});
+</script>
+
+
+<!-- Datatable Bootstrap -->
+<script type="text/javascript">
+    $(document).ready(function() {
+		$('#dataTables-example').DataTable({
+			responsive: true,
+		    "language": {
+		        "sProcessing":    "Processando...",
+		        "sLengthMenu":    "Mostrar _MENU_ registros",
+		        "sZeroRecords":   "Não foi encontrado nenhum resultado.",
+		        "sEmptyTable":    "Nenhum registro disponível.",
+		        "sInfo":          "Mostrando registros de _START_ a _END_ de um total de _TOTAL_ registros",
+		        "sInfoEmpty":     "Não há registros para mostrar.",
+		        "sInfoFiltered":  "(filtrado de um total de _MAX_ registros)",
+		        "sInfoPostFix":   "",
+		        "sSearch":        "Buscar:",
+		        "sUrl":           "",
+		        "sInfoThousands":  ",",
+		        "sLoadingRecords": "Carregando...",
+		        "oPaginate": {
+		            "sFirst":    "Primeiro",
+		            "sLast":    "Último",
+		            "sNext":    "Próximo",
+		            "sPrevious": "Anterior"
+		        },
+		        "oAria": {
+		            "sSortAscending":  ": Ordenar a coluna de forma ascendente",
+		            "sSortDescending": ": Ordenar a coluna de forma descendente"
+		        }
+		    }
+		});
+	});
+</script>
+<!-- JQuery Mask -->
+#{include 'includes/jQueryMask.html' /}
+<!-- JQuery Mask -->

@@ -1,0 +1,100 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.show.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            &{'crud.show.title', type.modelName}
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-6">
+					#{form action:@save(object._key()), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'cep'}
+								<div class="form-group">
+									<label for="object_cep"> CEP </label>
+									<input id="object_cep" class="form-control cep" type="text" size="50" name="object.cep" value="${object.cep}">
+								</div>
+							#{/crud.custom}
+	    					#{crud.custom 'phone1'}
+								<div class="form-group">
+									<label for="object_phone1"> Telefone 1</label>
+									<input id="object_phone1" class="form-control sp_celphones" type="text" size="50" name="object.phone1" value="${object.phone1}">
+								</div>
+							#{/crud.custom}
+	    					#{crud.custom 'phone2'}
+								<div class="form-group">
+									<label for="object_phone2"> Telefone 2</label>
+									<input id="object_phone2" class="form-control sp_celphones" type="text" size="50" name="object.phone2" value="${object.phone2}">
+								</div>
+							#{/crud.custom}
+	    					#{crud.custom 'phone3'}
+								<div class="form-group">
+									<label for="object_phone3"> Telefone 3</label>
+									<input id="object_phone3" class="form-control sp_celphones" type="text" size="50" name="object.phone3" value="${object.phone3}">
+								</div>
+							#{/crud.custom}
+	    					#{crud.custom 'cpf'}
+								<div class="form-group">
+									<label for="object_cpf"> CPF </label>
+									<input id="object_cpf" class="form-control cpf" type="text" size="50" name="object.cpf" value="${object.cpf}">
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'email'}
+								<div class="form-group">
+									<label for="object_email"> E-mail </label>
+									<input id="object_email" class="form-control" type="text" size="50" name="object.email" value="${object.email}" disabled="disabled">
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'birthdate'}
+								<div class="form-group">
+									<label for="object_birthdate"> Data de Nascimento </label>
+									<input id="object_birthdate" class="form-control datemask" type="text" size="50" name="object.birthdate" value="${object.birthdate}">
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'countryId'}
+								<input id="object_countryId" type="hidden" name="object.countryId" value="1">
+							#{/crud.custom}
+	    					#{crud.custom 'stateId'}
+								<div class="form-group">
+									#{include 'includes/selectStates.html' /}
+									<input id="auxStates" type="hidden" name="auxStates" value="${state?.id}" />
+								</div>
+							#{/crud.custom}
+	    					#{crud.custom 'cityId'}
+								<div class="form-group">
+									#{include 'includes/selectCities.html' /}
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: right">
+				            <input type="submit" name="_saveAndContinue" value="&{'crud.save', type.modelName}" class="btn btn-primary  btn-lg" />
+						</div>
+						<script type="text/javascript">
+							$(document).ready(function() {
+								var selectActionStates = #{jsAction @CEPController.getStatesByCountryId(':countryId') /};
+						    	$('#object_stateId').load(
+						    		selectActionStates({countryId: '1'})
+						    	);
+								$('#object_stateId').change(function() {
+									var elementState = document.getElementById("object_stateId");
+									var stateIdValue = elementState.value;
+									var selectActionCities = #{jsAction @CEPController.getCitiesByCountryIdAndStateId(':stateId') /};
+							    	$('#object_cityId').load(
+							    		selectActionCities({stateId: stateIdValue})
+							    	);
+								});
+								#{if state != null}
+									setTimeout(function() { $('#object_stateId').children('option[value="'+ ${state.id} +'"]').attr('selected', 'selected'); }, 2000);
+								#{/if}
+							});
+						</script>
+					#{/form}
+				</div>
+				<div class="col-lg-6">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,17 @@
+<meta charset="utf-8" />
+<ul class="buttons">
+	<!--  li><a class="button special popup-with-zoom-anim" href="#small-dialog" onclick="$('#formQuickAccount').load(location.href+' #formQuickAccount>*',''); " style="background-color: #F0A939">QUERO UMA CONTA</a></li-->
+	<li><a class="button popup-with-zoom-anim" href="/contato">TENHO DÚVIDAS</a></li>
+	<li><a class="button popup-with-zoom-anim" href="/novo">NOVA CONTA</a></li>
+</ul>
+<input id="response2" type="hidden" value="${resp}" /> 
+<input id="status2" type="hidden" value="${status}" />
+<br />
+<br />
+<h3 style="margin:0; font-weight:  bold">Quero saber mais do sistema</h3>
+<ul class="buttons">
+	<li><input type="text" name="mailList.name2" placeholder="Digite seu nome" value="${flash['mailList.name2']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
+	<li><input type="text" name="mailList.mail2" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail2']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
+	<li><a id="btnNews2" class="button" onclick="newsletterBottom()" style="background-color: #F0A939">ENVIAR</a></li>
+</ul>
+<p id="message2" style="display: none;"></p>

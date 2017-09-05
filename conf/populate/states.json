@@ -1,0 +1,138 @@
+{
+	"states": [{
+		"id": 1,
+		"acronym": "AC",
+		"countryId": 1,
+		"name": "Acre"
+	}, {
+		"id": 2,
+		"acronym": "AL",
+		"countryId": 1,
+		"name": "Alagoas"
+	}, {
+		"id": 3,
+		"acronym": "AP",
+		"countryId": 1,
+		"name": "Amap\u00e1"
+	}, {
+		"id": 4,
+		"acronym": "AM",
+		"countryId": 1,
+		"name": "Amazonas"
+	}, {
+		"id": 5,
+		"acronym": "BA",
+		"countryId": 1,
+		"name": "Bahia"
+	}, {
+		"id": 6,
+		"acronym": "CE",
+		"countryId": 1,
+		"name": "Cear\u00e1"
+	}, {
+		"id": 7,
+		"acronym": "DF",
+		"countryId": 1,
+		"name": "Distrito Federal"
+	}, {
+		"id": 8,
+		"acronym": "ES",
+		"countryId": 1,
+		"name": "Esp\u00edrito Santo"
+	}, {
+		"id": 9,
+		"acronym": "GO",
+		"countryId": 1,
+		"name": "Goi\u00e1s"
+	}, {
+		"id": 10,
+		"acronym": "MA",
+		"countryId": 1,
+		"name": "Maranh\u00e3o"
+	}, {
+		"id": 11,
+		"acronym": "MT",
+		"countryId": 1,
+		"name": "Mato Grosso"
+	}, {
+		"id": 12,
+		"acronym": "MS",
+		"countryId": 1,
+		"name": "Mato Grosso do Sul"
+	}, {
+		"id": 13,
+		"acronym": "MG",
+		"countryId": 1,
+		"name": "Minas Gerais"
+	}, {
+		"id": 14,
+		"acronym": "PA",
+		"countryId": 1,
+		"name": "Par\u00e1"
+	}, {
+		"id": 15,
+		"acronym": "PB",
+		"countryId": 1,
+		"name": "Para\u00edba"
+	}, {
+		"id": 16,
+		"acronym": "PR",
+		"countryId": 1,
+		"name": "Paran\u00e1"
+	}, {
+		"id": 17,
+		"acronym": "PE",
+		"countryId": 1,
+		"name": "Pernambuco"
+	}, {
+		"id": 18,
+		"acronym": "PI",
+		"countryId": 1,
+		"name": "Piau\u00ed"
+	}, {
+		"id": 19,
+		"acronym": "RJ",
+		"countryId": 1,
+		"name": "Rio de Janeiro"
+	}, {
+		"id": 20,
+		"acronym": "RN",
+		"countryId": 1,
+		"name": "Rio Grande do Norte"
+	}, {
+		"id": 21,
+		"acronym": "RS",
+		"countryId": 1,
+		"name": "Rio Grande do Sul"
+	}, {
+		"id": 22,
+		"acronym": "RO",
+		"countryId": 1,
+		"name": "Rond\u00f4nia"
+	}, {
+		"id": 23,
+		"acronym": "RR",
+		"countryId": 1,
+		"name": "Roraima"
+	}, {
+		"id": 24,
+		"acronym": "SC",
+		"countryId": 1,
+		"name": "Santa Catarina"
+	}, {
+		"id": 25,
+		"acronym": "SP",
+		"countryId": 1,
+		"name": "S\u00e3o Paulo"
+	}, {
+		"id": 26,
+		"acronym": "SE",
+		"countryId": 1,
+		"name": "Sergipe"
+	}, {
+		"id": 27,
+		"acronym": "TO",
+		"countryId": 1,
+		"name": "Tocantins"
+	}]
+}

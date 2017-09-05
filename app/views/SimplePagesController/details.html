@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		<!-- End Google Tag Manager -->
+		<title>&{title} | Seu Pedido Online</title>
+		<meta name="description" content="&{headline}}">
+		<meta name="keywords" content="&{simplePage.getMetatags()}">
+		<meta property="twitter:title" content="&{title} | Seu Pedido Online">
+		<meta property="twitter:description" content="&{headline}">
+		<meta property="og:title" content="&{title} | Seu Pedido Online">
+		<meta property="og:description" content="&{headline}}">
+		<meta property="og:image" content="https://seupedido.online/simplepagescontroller/getimage?id=&{simplePage.id}&index=1">
+		<meta charset="utf-8" />
+		#{include 'includes/headerTemplateFollow.html' /}
+	</head>
+	<body class="left-sidebar">
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div id="page-wrapper">
+			<!-- Main -->
+				<article id="main" style="padding: 1em 0;">
+					<header class="special container" style="margin-bottom: 0">
+						<span class="icon fa-hand-o-down"></span>
+						<h2 style="margin: 0;  padding: 10px; text-align: inherit; font-size:1.3em;font-family: sans-serif;font-style:normal;font-weight:600;color:#262626;letter-spacing:-2px;line-height:46px;">&{simplePage.getTitle().raw()}</h2>
+						<p style="margin: 0;  padding: 10px; text-align: inherit; font-size:1.3em;font-family: sans-serif;font-style:normal;font-weight:600;color:#262626;letter-spacing:-2px;line-height:46px; display: &{simplePage.embed == null ? 'block' : 'none'}"><strong>&{simplePage.getHeadline().raw()}</strong></p>
+					</header>
+
+					<br />
+					
+					<section class="wrapper style4 container" style="padding: 0;">
+						<div class="content">
+							<section>
+								#{if simplePage.getEmbed()}
+									<iframe width="560" height="560" src="&{simplePage.getEmbed()}?wmode=opaque&amp;showinfo=0&amp;autoplay=&{simplePage.autoPlayVideo ? '1' : '0'}&amp;controls=0&amp;modestbranding=1&amp;vq=&amp;rel=0" frameborder="0" allowfullscreen="" style="width: 100%;"></iframe>
+									<div style="width: 100%; margin: 0;  padding: 10px; text-align: inherit;">  
+										<div style="width:100%;line-height:46px;margin: 0 auto;text-align:center; padding-bottom:0px;">
+											<p style="margin: 0;  padding: 10px; text-align: inherit; font-size:1.3em;font-family: sans-serif;font-style:normal;font-weight:600;color:#262626;letter-spacing:-2px;line-height:46px;">
+												&{simplePage.getHeadline().raw()}
+											</p>
+										</div> 
+									</div>
+								#{/if}
+								#{if simplePage.isShowLeadsForm()}
+									<header>
+										<footer id="newsletterTheSystemTop" style="width: 100%">
+											<input id="action" type="hidden" value="${simplePage.buttonAction}" />
+											<input id="response" type="hidden" value="${resp}" />
+											<input id="status" type="hidden" value="${status}" />
+											<h3 style="margin: 0; text-align: center;">
+												<strong>&{simplePage.getMessagePreFormLead()?.raw()}</strong>
+											</h3>
+											<ul class="buttons" style="display: inherit; justify-content: center; display: block; text-align: center;">
+												<li><input type="text" name="mailList.name1" placeholder="Digite seu nome" value="${flash['mailList.name1']}"
+													style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
+												<li><input type="text" name="mailList.mail1" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail1']}"
+													style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
+												<li><a id="btnNews1" class="button" onclick="newsletterTheSystemTop()" style="background-color: #F0A939; color: #fff; margin-top: 5px">&{simplePage.buttonTitle}</a></li>
+											</ul>
+											<p id="message" style="display: none; text-align: center; font-weight: bold;"></p>
+										</footer>
+									</header>
+								#{/if}
+								&{simplePage.getDescription()?.raw()}
+							</section>
+						</div>
+					</section>
+					
+				</article>
+			<!-- Footer -->
+			#{include 'includes/footerTemplateFollow.html' /}
+	</body>
+</html>

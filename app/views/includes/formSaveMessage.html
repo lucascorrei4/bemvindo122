@@ -1,0 +1,71 @@
+<meta charset="utf-8" />
+<form action="/" method="post" id="formMessage" role="form">
+	<div class="form-group">
+		<label>Assunto</label> <input id="title" class="form-control" placeholder="Digite o título" name="message.title" />
+	</div>
+
+	<div class="form-group">
+		<label>Descrição</label>
+		<textarea id="description" class="form-control" rows="3" name="message.description"></textarea>
+	</div>
+
+	<input type="hidden" name="message.name" value="${connectedUser.name}" /> 
+	<input type="hidden" name="message.lastName" value="${connectedUser.lastName}" /> 
+	<input type="hidden" name="message.mail" value="${connectedUser.email}" /> 
+	<input type="hidden" name="message.phone" value="${connectedUser.phone1}" /> 
+	<input type="hidden" name="message.institutionId" value="${connectedUser.institutionId}" /> 
+	<input type="hidden" id="response" name="response" value="${response}" /> 
+	<input type="hidden" id="status" name="status" value="${status}" /> 
+	<input type="button" class="btn btn-default" value="Enviar" onclick="saveMessage()" />
+	<div id="message">
+		#{list errors, as:'error'}
+			<p>&{error.message()}</p>
+		#{/list}		
+	</div>
+</form>
+
+<script type="text/javascript">
+function saveMessage() {
+	if ($('#title').val() == '') {
+		$("#message").show();
+		$("#message").html('Favor, preencha todos os campos!');
+		setTimeout('$("#message").hide()', 5000);
+		return;
+	} else {
+		var formDataJSON = {};
+		var formData = $('#formMessage').serializeArray();
+		decodeURIComponent(formData);
+		$.each(formData, function() {
+			if (formDataJSON[this.name] !== undefined) {
+				if (!formDataJSON[this.name].push) {
+					formDataJSON[this.name] = [ formDataJSON[this.name] ];
+				}
+				formDataJSON[this.name].push(this.value || '');
+			} else {
+				formDataJSON[this.name] = this.value || '';
+			}
+		});
+		$('#formMessage').load('/savemessage', formDataJSON,
+			function(response, status) {
+				var status = $("#status").val();
+				if ('SUCCESS' === status) {
+					$("#message").css("color", "gray");
+					$("#message").show();
+					$("#message").html($("#response").val());
+					$("#saveUser").fadeOut();
+					$("#btnLogin").fadeIn();
+					setTimeout(function() {
+						location.reload(true)
+						$('#title').val('');
+						$('#description').val('');
+					}, 3000);
+				} else {
+					$("#message").css("color", "red");
+					$("#message").show();
+					$("#message").html($("#response").val());
+					setTimeout('$("#message").hide()', 10000);
+				}
+			});
+	}
+}
+</script>

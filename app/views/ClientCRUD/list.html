@@ -1,0 +1,49 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.list.title', type.name) /}
+<meta charset="utf-8" />
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				#{crud.search /}
+			</div>
+			<div class="col-lg-6">
+				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12 ${type.name}">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+            	<div class="dataTable_wrapper">
+			        #{crud.table fields:['postedAt', 'name', 'isActive', 'action']}
+			        	#{crud.custom 'postedAt'}
+			         		<a href="@{ClientCRUD.show(object.id)}">${object.postedAtParsed}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'name'}
+			         		<a href="@{ClientCRUD.show(object.id)}">${object.name} ${object.lastName}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'isActive'}
+						    	<a href="@{ClientCRUD.show(object.id)}">${object.isActive ? 'Sim' : 'Não'}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'action'}
+                            <div class="dropdown">
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu${object.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								  <i class="fa fa-wrench"></i> <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu${object.id}">
+                                    <li><a href="@{ClientCRUD.show(object.id)}">Editar</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="@{ClientCRUD.remove(object.id)}">Excluir</a></li>
+								</ul>
+							</div>
+				        #{/crud.custom}
+				    #{/crud.table}
+    				<div class="alert alert-info alert-dismissable">
+						#{crud.pagination /}
+	   				</div>
+   				</div>
+   			</div>
+   		</div>
+   	</div>

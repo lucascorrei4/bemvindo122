@@ -1,0 +1,135 @@
+<meta charset="utf-8" />
+#{form @Application.saveNewInstitution(), method:'POST', enctype:'multipart/form-data'}
+	#{if flash.success}
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="alert alert-info alert-dismissable">${flash.success}</div>
+			</div>
+		</div>
+	#{/if} 
+	#{if flash.error || error}
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="alert alert-danger alert-dismissable">${error ?: flash.error}</div>
+			</div>
+		</div>
+	#{/if} 
+	<div class="form-group">
+		<div class="alert alert-warning ">Os campos marcados com * são obrigatórios</div>
+	</div>
+	<div class="form-group">
+		<label for="object_institution"> Nome Fantasia* </label> 
+		<input type="text" size="50" value="${flash['institution.institution']}" name="institution.institution" class="form-control" id="object_institution">
+		<p id="object_institution_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.institution' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_logo"> Logomarca* </label> 
+		<input type="file" name="institution.logo" id="object_logo" value="${flash['institution.logo']}">
+		<p id="object_logo_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.logo' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_website"> Endereço do Site </label> 
+		<input type="text" size="50" value="${flash['institution.website']}" name="institution.website" class="form-control" id="object_website" placeholder="Ex.: http://minhaempresa.com.br">
+		<p id="object_website_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.website' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_slogan"> Slogan </label> 
+		<input type="text" size="50" value="${flash['institution.slogan']}" name="institution.slogan" class="form-control" id="object_slogan">
+		<p id="object_slogan_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.slogan' /}</p>
+	</div>
+	<input type="hidden"  id="countryId" placeholder="País" name="institution.countryId"  value="1">
+	<div class="form-group">
+		<label for="stateId"> Estado* </label>
+		#{select id:'stateId', name:'institution.stateId', items:listStates, valueProperty:'id', labelProperty:'name', class:'form-control'}
+			<option value="0" selected="selected">Estado</option>						
+		#{/select}
+		<p class="help-block">#{error 'institution.stateId' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="cityId"> Cidade* </label>
+		#{select id:'cityId', name:'institution.cityId', items:listCities, valueProperty:'id', labelProperty:'name', class:'form-control'}
+			<option selected="${city != null ? 'selected' : ''}" value="${city != null ? city.id : ''}">${city != null ? city.name : 'Cidade'}</option>
+		#{/select}
+		<p class="help-block">#{error 'institution.cityId' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_address"> Endereço* </label> 
+		<input type="text" size="50" value="${flash['institution.address']}" name="institution.address" class="form-control" id="object_address">
+		<p id="object_address_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.address' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_complement"> Complemento: </label> 
+		<input type="text" size="50" value="${flash['institution.complement']}" name="institution.complement" class="form-control" id="object_complement">
+		<p class="help-block">#{error 'institution.complement' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_neighborhood"> Bairro* </label> 
+		<input type="text" size="50" value="${flash['institution.neighborhood']}" name="institution.neighborhood" class="form-control" id="object_neighborhood">
+		<p id="object_neighborhood_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.neighborhood' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_cep"> CEP* </label> 
+		<input type="text" value="${flash['institution.cep']}" name="institution.cep" size="50" class="form-control cep" id="object_cep" autocomplete="off">
+		<p id="object_cep_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.cep' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_email"> E-mail* </label> 
+		<input type="text" size="50" value="${flash['institution.email']}" name="institution.email" class="form-control" id="object_email">
+		<p id="object_email_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.email' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_phone1"> Telefone 1* </label> 
+		<input type="text" value="${flash['institution.phone1']}" name="institution.phone1" size="50" class="form-control sp_celphones" id="object_phone1" autocomplete="off">
+		<p id="object_phone1_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.phone1' /}</p>
+	</div>
+	<div class="form-group">
+		<label for="object_phone2"> Telefone 2 </label> 
+		<input type="text" value="${flash['institution.phone2']}" name="institution.phone2" size="50" class="form-control sp_celphones" id="object_phone2" autocomplete="off">
+		<p id="object_institution_msg" class="help-block"></p>
+		<p class="help-block">#{error 'institution.phone2' /}</p>
+	</div>
+	<div class="form-group">
+		<button name="_save" class="btn btn-default" type="submit" style="z-index: 99999">Salvar</button>
+	</div>
+	<input type="hidden"  id="aux" value="0">
+	<script type="text/javascript">
+		 $(document).ready(function() {
+			var selectActionStates = #{jsAction @CEPController.getStatesByCountryId(':countryId') /};
+	    	$('#stateId').load(
+	    		selectActionStates({countryId: '1'})
+	    	);
+			$('#stateId').change(function() {
+				var elementState = document.getElementById("stateId");
+				var stateIdValue = elementState.value;
+				var selectActionCities = #{jsAction @CEPController.getCitiesByCountryIdAndStateId(':stateId') /};
+		    	$('#cityId').load(
+		    		selectActionCities({stateId: stateIdValue})
+		    	);
+			});
+			$('<option value="0">Estado</option>').appendTo("#stateId");
+		});
+		 
+		 $("#cpfcnpj").keydown(function(){
+			    try {
+			    	$("#cpfcnpj").unmask();
+			    } catch (e) {}
+			    
+			    var tamanho = $("#cpfcnpj").val().length;
+				
+			    if(tamanho < 11){
+			        $("#cpfcnpj").mask("999.999.999-99");
+			    } else if(tamanho >= 11){
+			        $("#cpfcnpj").mask("99.999.999/9999-99");
+			    }                   
+			});
+	</script>
+#{/form}

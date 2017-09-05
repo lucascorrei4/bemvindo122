@@ -1,0 +1,74 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.show.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            &{'crud.show.title', type.modelName}
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-8">
+					#{form id:'form', action:@save(object._key()), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'basePrice'}
+								<div class="form-group">
+									<label for="object_basePrice"> Preço Base </label>
+									<input id="object_basePrice" class="form-control number" type="text" size="50" name="object.basePrice" value="${object.basePrice}" onclick="this.select()" style="width: 100px;">
+								</div>
+								<div class="form-group">
+									<button id="addNewStep" type="button" class="btn btn-default" name="btn_adicionar" onclick="newstep()">Adicionar Etapa</button>
+								</div>
+								<div class="form-group">
+									<div id="message"></div>
+								</div>
+								<div class="form-group">
+				                    <div class="panel panel-default">
+				                    	<div class="panel-heading">Etapas Adicionadas</div>
+										<div class="panel-body">
+											#{include 'includes/steps.html' /}
+										</div>
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isDone'}
+								<div class="form-group">
+									<label> Feito </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isDone" id="optionsRadiosInline1" value="true" ${object.isDone?'checked=checked':''}><span title="&{'info.isDone.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isDone" id="optionsRadiosInline2" value="false" ${!object.isDone?'checked=checked':''}><span title="&{'info.isDone.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Habilitar </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: right">
+							<input type="submit" name="_save" value="&{'crud.save', type.modelName}" class="btn btn-primary  btn-lg" />
+						</div>
+					#{/form}
+				</div>
+				<script type="text/javascript" src="@{'public/javascripts/scriptSteps.js'}" charset="ISO-8859-1"></script>
+			</div>
+		</div>
+	</div>
+</div>

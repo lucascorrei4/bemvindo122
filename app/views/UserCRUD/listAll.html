@@ -1,0 +1,50 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:'Usuários Cadastrados' /}
+<meta charset="utf-8" />
+	<div class="col-lg-6">
+		#{crud.searchAll /}
+	</div>
+	<div class="col-lg-6">
+	</div>
+	<div class="col-lg-6">
+	</div>
+	<div class="col-lg-12 ${type.name}">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+            	<div class="dataTable_wrapper">
+			       #{crud.tableAll fields:['postedAt', 'name', 'email', 'phone1', 'stateId', 'cityId', 'institutionId', 'password']}
+			        	#{crud.custom 'postedAt'}
+			         		${object.getPostedAtParsed()}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'name'}
+			         		${object.getName()} ${object.getLastName()} </a>
+				        #{/crud.custom}
+			        	#{crud.custom 'stateId'}
+			         		${object.getStateByStateId()}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'cityId'}
+			         		${object.getCityByCityId()}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'institutionId'}
+			         		${object.getInstitutionByInstitutionId()}</a>
+				        #{/crud.custom}
+				    #{/crud.tableAll}
+    				<div class="alert alert-info alert-dismissable">
+						#{crud.pagination /}
+	   				</div>
+   				</div>
+   			</div>
+   				<div class="col-lg-6">
+   			</div>
+   		</div>
+   	</div>
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
+
+

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Ordem de Serviço</title>
+<link rel="stylesheet" href="@{'public/templateinvoice/vendor.css'}">
+<link rel="stylesheet" href="@{'public/templateinvoice/invoice.css'}">
+<script type="text/javascript" src="@{'public/templateinvoice/qrcode.js'}"></script>
+<script type="text/javascript">
+	var qrcode = new QRCode(document.getElementById("qrcode"), {
+		width : 150,
+		height : 150
+	});
+	qrcode.makeCode("https://seupedido.online/acompanhe");
+</script>
+</head>
+<body class="ember-application">
+	<div id="ember363" class="ember-view" style="font-size: 9px;">
+		<div id="app" style="padding: 0;">
+			<div id="invoice" style="width: 595.28px; height: 841.89px; pointer-events: none;">
+				<div class="alert alert-warning hidden-in-pdf" role="alert" style="display: none"></div>
+				<div class="row">
+					<div class="col-md-6">
+						<input id="ember436" class="invoice-from no-markers ember-view ember-text-field" type="text" value="De">
+						<blockquote style="border: none; font-size: 10px; margin: 0 0 0 4px; padding-bottom: 5px; padding-right: 5px; padding-top: 5px;">
+							<p>
+							${order?.client.name} ${order?.client.lastName} 
+							</p> 
+							<p>
+							${order?.client.mail} 
+							</p> 
+							<p>
+							${order?.client.phone}
+							</p> 
+						</blockquote>
+					</div>
+					<div class="col-md-6">
+						<input id="ember448" class="invoice-title no-markers ember-view ember-text-field" type="text" value="PEDIDO ${order?.orderCode}" style="font-weight: bold; font-size: 25px;">
+					</div>
+				</div>
+				<div class="row row-m1em">
+					<div class="col-md-6">
+						<input id="ember449" class="invoice-to no-markers ember-view ember-text-field" type="text" value="Para">
+						<blockquote style="border: none; font-size: 10px; margin: 0 0 0 4px; padding-bottom: 5px; padding-right: 5px; padding-top: 5px;">
+							<p>
+							${institution?.institution}
+							</p> 
+							<p>
+							${institution?.email}
+							</p>
+							<p>
+							${institution?.phone1}
+							</p> 
+						</blockquote>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-4 no-padding">
+								<input id="ember451" class="invoice-number no-markers ember-view ember-text-field" type="text" value="Data do pedido">
+							</div>
+							<div class="col-md-8 no-padding">
+								<input id="ember452" placeholder="INV-0001" class="invoice-number-body no-markers ember-view ember-text-field" type="text" value="${order?.postedAtParsed}">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 no-padding">
+								<input id="ember453" class="invoice-date no-markers ember-view ember-text-field" type="text" value="Código">
+							</div>
+							<div class="col-md-8 no-padding">
+								<input id="ember454" placeholder="${order?.orderCode}" class="invoice-date-body no-markers ember-view ember-text-field" type="text" value="${order?.orderCode}">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4 no-padding">
+								<input id="ember455" class="invoice-due-date no-markers ember-view ember-text-field" type="text" value="Consulta">
+							</div>
+							<div class="col-md-8 no-padding">
+								<input id="ember456" placeholder="https://seupedido.online/acompanhe" class="invoice-due-date-body no-markers ember-view ember-text-field" type="text" value="https://seupedido.online/acompanhe">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-m1em">
+					<div class="col-md-12">
+						<table>
+							<thead>
+								<tr>
+									<th width="55%"><input id="ember457" class="no-markers ember-view ember-text-field" type="text" value="Descrição" style="font-size: 11px;"></th>
+									<th><input id="ember458" class="invoice-table-quantity no-markers ember-view ember-text-field" type="text" value="Vl. Unit." style="font-size: 11px;"></th>
+									<th><input id="ember459" class="invoice-table-rate no-markers ember-view ember-text-field" type="text" value="Qtd" style="font-size: 11px;"></th>
+									<th><input id="ember460" class="invoice-table-vat no-markers ember-view ember-text-field" type="text" value="Desc." style="font-size: 11px;"></th>
+									<th><input id="ember461" class="invoice-table-amount no-markers ember-view ember-text-field" type="text" value="Total" style="font-size: 11px;"></th>
+								</tr>
+							</thead>
+							<tbody>
+								#{list orderOfServiceValues, as:'value'}
+									<tr>
+										<td>
+											<p id="ember463" placeholder="Item name/description" rows="1"
+												class="invoice-line-item-description no-markers ember-view ember-text-area flexible-textarea" style="font-size: 10px; padding-left: 5px;">${value.service?.title}</p>
+										</td>
+										<td>
+											<div id="ember472" class="invoice-line-item-rate no-markers ember-view">
+												<div class="input-group">
+													<input id="ember473" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${value?.unitPriceCurrency}" style="font-size: 10px; text-align: right;">
+												</div>
+											</div>
+										</td>
+										<td>
+											<div id="ember474" class="invoice-line-item-rate no-markers ember-view">
+												<div class="input-group">
+													<input id="ember475" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${value?.qtd}" style="font-size: 10px;">
+												</div>
+											</div>
+										</td>
+										<td>
+											<div id="ember476" class="invoice-line-item-rate no-markers ember-view">
+												<div class="input-group">
+													<input id="ember477" class="invoice-line-item-rate no-markers ember-view ember-text-field" type="text" value="${value?.discountCurrency}" style="font-size: 10px; text-align: right;">
+												</div>
+											</div>
+										</td>
+										<td>
+											<div id="ember478" class="invoice-line-item-amount no-markers ember-view">
+												<div class="input-group">
+													<input id="ember479" disabled="" class="invoice-line-item-amount no-markers ember-view ember-text-field" type="text" value="${value?.subTotalCurrency}" style="font-size: 10px;">
+												</div>
+											</div>
+										</td>
+									</tr>
+								#{/list}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row row-m1em">
+					<div class="col-md-12">
+					</div>
+				</div>
+				<div class="row row-m1em">
+					<div class="col-md-8"></div>
+					<div class="col-md-4">
+						<div class="row">
+							<div class="col-md-6 no-padding">
+								<input id="ember481" class="invoice-sub-total no-markers ember-view ember-text-field" type="text" value="Subtotal">
+							</div>
+							<div class="col-md-6 no-padding">
+								<div id="ember482" class="invoice-sub-total-body no-markers ember-view">
+									<div class="input-group">
+										<input id="ember483" disabled="" class="invoice-sub-total-body no-markers ember-view ember-text-field" type="text" value="R$ ${subTotalGeralCurrency}">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 no-padding">
+								<input id="ember484" class="invoice-discount no-markers ember-view ember-text-field" type="text" value="Desconto">
+							</div>
+							<div class="col-md-6 no-padding">
+								<div id="ember493" class="invoice-discount-body no-markers ember-view">
+									<div class="input-group">
+										<input id="ember494" class="invoice-discount-body no-markers ember-view ember-text-field" type="text" value="R$ ${discountGeralCurrency}">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 no-padding">
+								<input id="ember498" class="invoice-tax no-markers ember-view ember-text-field" type="text" value="Total Geral">
+							</div>
+							<div class="col-md-6 no-padding">
+								<div id="ember499" class="invoice-tax-body no-markers ember-view">
+									<div class="input-group">
+										<input id="ember500" class="invoice-tax-body no-markers ember-view ember-text-field" type="text" value="R$ ${totalGeralCurrency}">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row row-m1em">
+					<div class="col-md-12">
+						<p
+							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. do pedido:</b> ${order?.obs == '' ? 'Nenhuma' : order.obs}</b></p>
+					</div>
+				</div>
+				<div class="row row-m1em" style="margin-top: 200px">
+					<div class="col-md-8">
+						<p
+							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. geral:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>https://seupedido.online/acompanhe</b></p>
+					</div>
+					<div class="col-md-4">
+						<div id="qrcode"></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

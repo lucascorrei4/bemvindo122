@@ -1,0 +1,17 @@
+{
+	"events": [{
+		"id": 1,
+		"institutionId": 1,
+		"periodDays": "Noite",
+		"publishedBy": 1,
+		"title": "Culto",
+		"weekDays": "Quarta"
+	}, {
+		"id": 2,
+		"institutionId": 1,
+		"periodDays": "Noite",
+		"publishedBy": 1,
+		"title": "Culto",
+		"weekDays": "Domingo"
+	}]
+}

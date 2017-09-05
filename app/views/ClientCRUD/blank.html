@@ -1,0 +1,52 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.blank.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            &{'crud.blank.title', type.modelName}
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-6">
+					#{form action:@create(), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'phone'}
+								<div class="form-group">
+									<label for="object_phone"> Celular* </label>
+									<input id="object_phone" class="form-control sp_celphones" type="text" size="50" name="object.phone" value="${object.phone}">
+									<p class="help-block">Obrigatório</p>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'birthdate'}
+								<div class="form-group">
+									<label for="object_birthdate"> Data de nascimento </label>
+									<input id="object_birthdate" class="form-control datemask" type="text" size="50" name="object.birthdate" value="${object.birthdate}">
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Habilitar </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: left">
+							<a href="@{list()}" class="btn btn-default btn-lg">&{'crud.cancel', type.modelName}</a>
+							<button type="submit" class="btn btn-primary  btn-lg" name="_save">&{'crud.save', type.modelName}</button>
+						</div>
+					#{/form}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
