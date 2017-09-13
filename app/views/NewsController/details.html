@@ -36,6 +36,9 @@
 					</header>
 					
 					<section class="wrapper style4 container" style="padding: 15px">
+						<footer id="newsletterTips" style="width: 100%">
+							#{include 'includes/formNewsletterTips.html' /}
+						</footer>
 						<div class="row 150%">
 							<div class="8u 12u(narrower)">
 								<!-- Content -->
@@ -63,9 +66,6 @@
 												<p style="color: #444444">&{article.getComplement().raw()}</p>
 											#{/if}
 										</section>
-										<footer id="newsletterTips" style="width: 100%">
-											#{include 'includes/formNewsletterTips.html' /}
-										</footer>
 										<div id="share"></div>
 										<div class="fb-comments" data-href="" data-numposts="5"></div>
 									</div>

@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.net.URLDecoder;
@@ -307,7 +308,7 @@ public class Admin extends Controller {
 
 	public static Invoice getInstitutionInvoice() {
 		Invoice invoice = null;
-		if ( getLoggedUserInstitution().getInstitution() == null) {
+		if (getLoggedUserInstitution().getInstitution() == null) {
 			invoice = new Invoice();
 			invoice.setPlan(PlansEnum.SPO01);
 			return invoice;

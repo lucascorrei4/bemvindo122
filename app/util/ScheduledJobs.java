@@ -16,9 +16,8 @@ import models.StatusMail;
 import play.jobs.Job;
 import play.jobs.On;
 
-//** Fire at 8am (noon) every day **/ 
-//@On("0 0 8 * * ?")
-@On("0 20 2 ? * *")
+// Fire every hour 
+@On("0 0 * ? * *")
 public class ScheduledJobs extends Job {
 
 	public void doJob() {

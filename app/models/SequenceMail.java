@@ -1,6 +1,5 @@
 package models;
 
-import java.io.Serializable;
 import java.text.ParseException;
 
 import javax.persistence.Entity;
@@ -14,7 +13,7 @@ import play.db.jpa.Model;
 import util.Utils;
 
 @Entity
-public class SequenceMail extends Model implements Serializable {
+public class SequenceMail extends Model {
 	public String url;
 
 	public String title;

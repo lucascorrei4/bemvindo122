@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,11 @@ public class SequenceMailController {
 	public static void addLeadToSalesFunnel(MailList mailList, List<SequenceMail> sequenceMailList) {
 		for (SequenceMail sequenceMail : sequenceMailList) {
 			SequenceMailQueue queue = new SequenceMailQueue();
-			queue.setJobDate(Utils.addDays(new Date(), sequenceMail.getSequence()));
+			if (sequenceMail.getSequence() == 1) {
+				queue.setJobDate(new Date());
+			} else {
+				queue.setJobDate(Utils.addDays(new Date(), sequenceMail.getSequence()));
+			}
 			queue.setName(mailList.getName());
 			queue.setMail(mailList.getMail());
 			queue.setSequenceMail(sequenceMail);

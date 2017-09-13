@@ -21,6 +21,16 @@
 								    </p>
    								</div>	
 							#{/crud.custom}
+							#{crud.custom 'sequence'}
+								<div class="form-group">
+								    <label for="object_services">
+								        Ordem de Envio
+								    </label>
+							        #{select id:'object.sequence', name:'object.sequence', items:sequence1to5, class:'form-control' /}
+								    <p class="help-block">
+								    </p>
+   								</div>	
+							#{/crud.custom}
 							#{crud.custom 'isActive'}
 								<div class="form-group">
 									<label> Habilitar </label> 

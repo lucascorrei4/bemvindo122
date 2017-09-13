@@ -1,3 +1,4 @@
+
 package models;
 
 import java.text.ParseException;
@@ -20,12 +21,12 @@ public class SequenceMailQueue extends Model {
 
 	@Required(message = "Campo obrigatório.")
 	public String mail;
-	
+
 	@ManyToOne
 	public SequenceMail sequenceMail;
 
 	public Date jobDate = new Date();
-	
+
 	public boolean sent = false;
 
 	public Date getJobDate() {
@@ -85,7 +86,7 @@ public class SequenceMailQueue extends Model {
 	public static SequenceMailQueue verifyByEmail(String mail) {
 		return find("byMail", mail).first();
 	}
-	
+
 	public boolean isSent() {
 		return sent;
 	}
