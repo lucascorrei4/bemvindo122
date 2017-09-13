@@ -517,10 +517,8 @@ public class Application extends Controller {
 		} else {
 			status = "SUCCESS";
 			resp = "E-mail incluído com sucesso. Gratidão.";
-			if (MailList.verifyByEmail(mail) == null) {
-				mailList.setPostedAt(Utils.getCurrentDateTime());
-				mailList.merge();
-			}
+			mailList.setPostedAt(Utils.getCurrentDateTime());
+			mailList.merge();
 		}
 
 		/* Render page based on origin */

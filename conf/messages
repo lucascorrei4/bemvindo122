@@ -85,6 +85,7 @@ true=Sim
 false=Não
 
 #Controllers
+SequenceMailQueueCRUD=Fila de E-mails
 ClientCRUD=Clientes
 SimplePagesCRUD=Páginas Simples
 SocialMediaCRUD=Mídias Sociais
@@ -120,6 +121,7 @@ MonetizzeTransactionCRUD=Transações Monetizze
 SequenceMailCRUD=Sequência de E-mails
 
 #Models
+SequenceMailQueue=Fila de E-mail
 SequenceMail=Sequência de E-mail
 MonetizzeTransaction=Transação Monetizze
 SimplePage=Página Simples

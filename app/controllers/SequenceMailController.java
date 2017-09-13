@@ -1,6 +1,5 @@
 package controllers;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,39 +11,38 @@ import util.Utils;
 public class SequenceMailController {
 
 	public static void addLeadToSalesFunnel(MailList mailList) {
-		List<SequenceMail> sequenceMailList = SequenceMail.find("url = '" + mailList.getUrl() + "' order by sequence asc").fetch();
-		if (Utils.isNullOrEmpty(sequenceMailList)) {
-			return;
-		}
-		if (!leadIsInSalesFunnel(mailList)) {
+		if (!Utils.isNullOrEmpty(mailList.getUrl())) {
+			List<SequenceMail> sequenceMailList = SequenceMail.find("url = '" + mailList.getUrl() + "' or url = '" + mailList.getUrl().concat("#main") + "' order by sequence asc").fetch();
+			if (Utils.isNullOrEmpty(sequenceMailList)) {
+				return;
+			}
 			addLeadToSalesFunnel(mailList, sequenceMailList);
 		}
 	}
 
 	public static void addLeadToSalesFunnel(MailList mailList, List<SequenceMail> sequenceMailList) {
-		for (SequenceMail sequenceMail : sequenceMailList) {
-			SequenceMailQueue queue = new SequenceMailQueue();
-			if (sequenceMail.getSequence() == 1) {
-				queue.setJobDate(new Date());
-			} else {
-				queue.setJobDate(Utils.addDays(new Date(), sequenceMail.getSequence()));
+		SequenceMailQueue queue = null;
+		for (int i = 0; i < sequenceMailList.size(); i++) {
+			Long sequenceMailId = sequenceMailList.get(i).id;
+			queue = new SequenceMailQueue(); 
+			queue = SequenceMailQueue
+					.find("name = '" + mailList.getName() + "' and mail = '" + mailList.getMail() + "' and url = '" + mailList.getUrl() + "' or url = '" + mailList.getUrl().concat("#main") + "' and sequenceMail_id = " + sequenceMailId).first();
+			if (queue == null) {
+				queue = new SequenceMailQueue();
+				if (sequenceMailList.get(i).sequence == 1) {
+					queue.setJobDate(new Date());
+				} else {
+					queue.setJobDate(Utils.addDays(new Date(), sequenceMailList.get(i).sequence - 1));
+				}
+				queue.setName(mailList.getName());
+				queue.setMail(mailList.getMail());
+				queue.setSequenceMail(sequenceMailList.get(i));
+				queue.setPostedAt(Utils.getCurrentDateTime());
+				queue.setSent(false);
+				queue.willBeSaved = true;
+				queue.save();
 			}
-			queue.setName(mailList.getName());
-			queue.setMail(mailList.getMail());
-			queue.setSequenceMail(sequenceMail);
-			queue.setPostedAt(Utils.getCurrentDateTime());
-			queue.setSent(false);
-			queue.willBeSaved = true;
-			queue.save();
 		}
-	}
-
-	public static boolean leadIsInSalesFunnel(MailList mailList) {
-		List<SequenceMailQueue> sequenceMailQueue = SequenceMailQueue.find("mail", mailList.getMail()).fetch();
-		if (Utils.isNullOrEmpty(sequenceMailQueue)) {
-			return false;
-		}
-		return true;
 	}
 
 }

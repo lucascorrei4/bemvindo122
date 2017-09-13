@@ -1195,7 +1195,7 @@ public class MailController {
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
 		bodyMail.setTitle1(message);
-		bodyMail.setTitle2(message);
+		bodyMail.setTitle2(info);
 		bodyMail.setParagraph1("Info: " + info);
 		bodyMail.setParagraph2("");
 		bodyMail.setParagraph3("");

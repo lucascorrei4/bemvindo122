@@ -16,13 +16,16 @@ import models.StatusMail;
 import play.jobs.Job;
 import play.jobs.On;
 
-// Fire every hour 
-@On("0 0 * ? * *")
+// Fire every hour between 7AM and 22AM 0 0 7-22 ? * * * 
+// Fire every 3 minutes 0 */3 * ? * * 
+@On("0 */3 * ? * *")
 public class ScheduledJobs extends Job {
 
 	public void doJob() {
+		System.out.println("Running cron at " + Utils.dateNow());
 		verifyIfLeadIsNotInSalesFunnel();
 		sendMailToLead();
+		System.out.println("Finished cron at " + Utils.dateNow());
 	}
 
 	private void verifyIfLeadIsNotInSalesFunnel() {

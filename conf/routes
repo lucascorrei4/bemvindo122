@@ -53,6 +53,17 @@ POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
 GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
 GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
 
+# SequenceMailQueue
+
+GET		${ctx}/admin/fila-de-emails										SequenceMailQueueCRUD.listAll
+GET		${ctx}/admin/fila-de-emails/novo								SequenceMailQueueCRUD.blank
+GET		${ctx}/admin/fila-de-emails/{id}								SequenceMailQueueCRUD.show
+GET		${ctx}/admin/fila-de-emails/{id}/{field}						SequenceMailQueueCRUD.attachment
+GET		${ctx}/admin/fila-de-emails/{id}/editar							SequenceMailQueueCRUD.edit
+POST	${ctx}/admin/fila-de-emails										SequenceMailQueueCRUD.create
+POST	${ctx}/admin/fila-de-emails/{id}								SequenceMailQueueCRUD.save
+DELETE	${ctx}/admin/fila-de-emails/{id}								SequenceMailQueueCRUD.delete
+
 # CampaingMail
 
 GET		${ctx}/admin/sequencia-emails									SequenceMailCRUD.listAll
