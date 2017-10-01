@@ -7,6 +7,7 @@
 				serviceName.length);
 		var serviceId = selectServices.options[selectServices.selectedIndex].value;
 		var newRowContent = "<tr style=\"width: 240px;\">"
+				+ "<td><input type=\"text\" style=\"width: 80px\" value=\"\" onclick=\"this.select()\" class=\"reference\" /></td>"
 				+ "<td><span id=\"" + serviceId + "\" class=\"serviceId\">"
 				+ service
 				+ "</span></td>"
@@ -77,6 +78,7 @@
 				percentValue = (sum * parseFloat(row.find('.discount').val())) / 100;
 				obj.discount = percentValue;
 				obj.subTotal = row.find('.subTotal').val();
+				obj.reference = row.find('.reference').val();
 				inputContent.push(obj);
 			}
 			i++;

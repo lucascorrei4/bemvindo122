@@ -22,7 +22,8 @@ function newsletterTips() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'newspage';
-	data.url = window.location.href;
+	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
+	data.url = url;
 	$('#newsletterTips').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
@@ -69,7 +70,8 @@ function newsletterTheSystemTop() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'capturepagetop';
-	data.url = window.location.href;
+	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
+	data.url = url;
 	$('#newsletterTheSystemTop').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
@@ -111,7 +113,8 @@ function newsletterTheSystemBottom() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'capturepagebottom';
-	data.url = window.location.href;
+	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
+	data.url = url;
 	$('#newsletterTheSystemBottom').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();

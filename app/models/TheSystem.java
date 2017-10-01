@@ -317,10 +317,6 @@ public class TheSystem extends Model {
 	}
 
 	public String getPhrase() {
-		String standardMessage = "SeuPedido.Online é um Sistema <br/> 			para Acompanhamento<br/>de Pedidos e Serviços.";
-		if (Utils.isNullOrEmpty(this.phrase) || standardMessage.equals(this.phrase)) {
-			setPhrase(standardMessage);
-		}
 		return phrase;
 	}
 

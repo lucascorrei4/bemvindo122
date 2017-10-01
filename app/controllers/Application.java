@@ -3,13 +3,18 @@ package controllers;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.sql.ordering.antlr.OrderByFragment;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,14 +35,15 @@ import models.SendTo;
 import models.Sender;
 import models.Service;
 import models.StatusMail;
-import models.StatusSMS;
+import models.Step;
 import models.TheSystem;
 import models.User;
 import play.data.validation.Error;
 import play.data.validation.Valid;
-import play.mvc.Before;
 import play.mvc.Controller;
 import util.FromEnum;
+import util.MailTemplates;
+import util.ServiceOrderOfServiceSteps;
 import util.UserInstitutionParameter;
 import util.Utils;
 
@@ -322,10 +328,18 @@ public class Application extends Controller {
 	public static void follow(String orderCode) throws UnsupportedEncodingException, InterruptedException {
 		String response = null;
 		String status = null;
+		boolean restrictedAccess = false;
+		OrderOfServiceValue orderOfServiceValue = null;
 		if (orderCode != null) {
 			OrderOfService orderOfService = OrderOfService.find("orderCode", orderCode).first();
-			/* Validate object before saving */
 			if (orderOfService == null) {
+				orderOfServiceValue = OrderOfServiceValue.find("orderCode", orderCode).first();
+				if (orderOfServiceValue != null) {
+					restrictedAccess = true;
+				}
+			}
+			/* Validate object before saving */
+			if (orderOfService == null && orderOfServiceValue == null) {
 				List<Error> errors = validation.errors();
 				response = "Código não encontrado! :(";
 				status = "ERROR";
@@ -333,26 +347,65 @@ public class Application extends Controller {
 			} else {
 				response = "Redirecionando... :)";
 				status = "SUCCESS";
+				if (orderOfService == null) {
+					orderOfService = OrderOfService.findById(orderOfServiceValue.getOrderOfServiceId());
+					orderOfService.setOrderCode(orderOfServiceValue.getOrderCode());
+				}
 				String clientName = orderOfService.getClient().getName();
 				Institution institution = Institution.find("id", orderOfService.institutionId).first();
 				String company = institution.getInstitution();
-				List<Service> services = new ArrayList<Service>();
-				List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
-				for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-					Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
-					services.add(service);
-				}
-				Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
-				for (Service service : services) {
-					List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId() + " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
-					if (mapOrderServiceSteps.containsKey(service)) {
-						service.setAux("new");
+				List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps = new ArrayList<ServiceOrderOfServiceSteps>();
+				ServiceOrderOfServiceSteps serviceOrderOfServiceStep = null;
+				if (!restrictedAccess) {
+					List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+					for (OrderOfServiceValue orderServValue : orderOfServiceValues) {
+						configureOrderOfServiceSteps(orderOfService, orderServValue, serviceOrderOfServiceSteps, serviceOrderOfServiceStep);
 					}
-					mapOrderServiceSteps.put(service, orderOfServiceStep);
+				} else {
+					configureOrderOfServiceSteps(orderOfService, orderOfServiceValue, serviceOrderOfServiceSteps, serviceOrderOfServiceStep);
 				}
-				render(clientName, company, orderOfService, mapOrderServiceSteps);
+				render(clientName, company, orderOfService, serviceOrderOfServiceSteps);
 			}
 		}
+
+	}
+
+	private static void configureOrderOfServiceSteps(OrderOfService orderOfService, OrderOfServiceValue orderServValue, List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps, ServiceOrderOfServiceSteps serviceOrderOfServiceStep) {
+		List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + orderServValue.getService().getId() + " and orderOfService_id = " + orderOfService.getId() + " and isActive = true order by id asc").fetch();
+		List<OrderOfServiceStep> orderOfServiceStepNew = new ArrayList<OrderOfServiceStep>();
+		List<Step> stepsOfService = Step.find("service_id = " + orderServValue.getService().getId() + " and isActive = true").fetch();
+		int qtdStepOfCurrentService = stepsOfService.size();
+		if (orderOfServiceStep.size() > stepsOfService.size()) {
+			for (OrderOfServiceStep orderSteps : orderOfServiceStep) {
+				if (serviceOrderOfServiceSteps.isEmpty() || stepsHadBeenNotInsertedInList(orderSteps, serviceOrderOfServiceSteps)) {
+					orderOfServiceStepNew.add(orderSteps);
+				}
+				if (orderOfServiceStepNew.size() == qtdStepOfCurrentService) {
+					serviceOrderOfServiceStep = new ServiceOrderOfServiceSteps();
+					serviceOrderOfServiceStep.setService(orderServValue.getService());
+					serviceOrderOfServiceStep.setOrderOfServiceSteps(orderOfServiceStepNew);
+					serviceOrderOfServiceSteps.add(serviceOrderOfServiceStep);
+					orderOfServiceStepNew = new ArrayList<OrderOfServiceStep>();
+				}
+			}
+		} else {
+			serviceOrderOfServiceStep = new ServiceOrderOfServiceSteps();
+			serviceOrderOfServiceStep.setService(orderServValue.getService());
+			serviceOrderOfServiceStep.setOrderOfServiceSteps(orderOfServiceStep);
+			serviceOrderOfServiceSteps.add(serviceOrderOfServiceStep);
+		}
+	}
+
+	private static boolean stepsHadBeenNotInsertedInList(OrderOfServiceStep orderSteps, List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps) {
+		boolean ret = true;
+		for (ServiceOrderOfServiceSteps serviceSteps : serviceOrderOfServiceSteps) {
+			if (serviceSteps.getService().id == orderSteps.service.id) {
+				if (serviceSteps.getOrderOfServiceSteps().contains(orderSteps)) {
+					ret = false;
+				}
+			}
+		}
+		return ret;
 	}
 
 	public static void modalPass() throws UnsupportedEncodingException {
@@ -380,7 +433,7 @@ public class Application extends Controller {
 			bodyMail.setTitle2("Seu Pedido Online - Nova senha");
 			bodyMail.setFooter1("http://seupedido.online/nova-senha/" + Utils.encode(user.getEmail()));
 			bodyMail.setImage1("http://seupedido.online/public/images/logo-admin.png");
-			bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail));
+			bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateResetPass(bodyMail));
 			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
 				status = "SUCCESS";
 				response = "E-mail enviado com sucesso! Favor, verifique sua caixa de entrada, spam ou lixeira.";
@@ -483,7 +536,9 @@ public class Application extends Controller {
 	public static void followAdmin() {
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
-		render(theSystem);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(2, listArticles.size());
+		render(theSystem, bottomNews);
 	}
 
 	public static void saveMailList() throws UnsupportedEncodingException {

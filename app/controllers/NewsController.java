@@ -48,21 +48,16 @@ public class NewsController extends Controller {
 				renderBinary(article.getImage1().get());
 				return;
 			} else {
-				renderBinary(getVirtualFile());
+				renderBinary(Utils.getVirtualFile());
 			}
 		} else if ("2".equals(index)) {
 			if (article.getImage2() != null) {
 				renderBinary(article.getImage2().get());
 				return;
 			} else {
-				renderBinary(getVirtualFile());
+				renderBinary(Utils.getVirtualFile());
 			}
 		}
 	}
 
-	public static File getVirtualFile() {
-		VirtualFile vf = VirtualFile.fromRelativePath("/public/images/logo-271x149.png");
-		File f = vf.getRealFile();
-		return f;
-	}
 }

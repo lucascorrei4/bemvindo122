@@ -32,8 +32,10 @@ import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 import util.ApplicationConfiguration;
+import util.MailTemplates;
 import util.PlansEnum;
 import util.PushNotification;
+import util.ServiceOrderOfServiceSteps;
 import util.StatusEnum;
 import util.Utils;
 import util.VideoHelpEnum;
@@ -191,8 +193,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		constructor.setAccessible(true);
 		OrderOfService object = (OrderOfService) constructor.newInstance();
 		Binder.bindBean(params.getRootParamNode(), "object", object);
-		String initials = Admin.getLoggedUserInstitution().getInstitution().getInstitution().replaceAll(" ", "").toUpperCase().substring(0, 2).concat(Admin.getLoggedUserInstitution().getInstitution().getId().toString());
-		object.setOrderCode(initials.concat(String.valueOf(Utils.generateRandomId())));
+		object.setOrderCode(getOrderOfServiceRandomCode());
 		validation.valid(object);
 		if (validation.hasErrors()) {
 			List<Service> services = Service.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc").fetch();
@@ -218,6 +219,17 @@ public class OrderOfServiceCRUD extends CRUD {
 		redirect(request.controller + ".show", object._key());
 	}
 
+	private static String getOrderOfServiceRandomCode() {
+		String initials = Admin.getLoggedUserInstitution().getInstitution().getInstitution().replaceAll(" ", "").toUpperCase().substring(0, 2).concat(Admin.getLoggedUserInstitution().getInstitution().getId().toString());
+		String orderCode = null;
+		OrderOfService orderOfService = null;
+		do {
+			orderCode = initials.concat(String.valueOf(Utils.generateRandomId()));
+			orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true").first();
+		} while (orderOfService != null);
+		return orderCode;
+	}
+
 	private static void generateOrderOfServiceValues(OrderOfService orderOfService, String jsonContent) {
 		if (jsonContent != null) {
 			JsonParser parser = new JsonParser();
@@ -228,6 +240,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				orderOfServiceValue.setOrderOfServiceId(orderOfService.getId());
 				Service service = Service.findById(Long.valueOf(jObject.get("serviceId").getAsString()));
 				orderOfServiceValue.setService(service);
+				orderOfServiceValue.setReference(jObject.get("reference").getAsString().replace(",", "."));
 				orderOfServiceValue.setQtd(Float.valueOf(jObject.get("qtd").getAsString().replace(",", ".")));
 				orderOfServiceValue.setUnitPrice(Float.valueOf(jObject.get("basePrice").getAsString().replace(",", ".")));
 				orderOfServiceValue.setDiscount(Float.valueOf(jObject.get("discount").getAsString().replace(",", ".")));
@@ -239,6 +252,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				Float subTotalWithoutDiscount = (orderOfServiceValue.getUnitPrice() * orderOfServiceValue.getQtd());
 				orderOfServiceValue.setSubTotal(subTotalWithoutDiscount);
 				orderOfServiceValue.setInstitutionId(orderOfService.getInstitutionId());
+				orderOfServiceValue.setOrderCode(getOrderOfServiceRandomCode());
 				orderOfServiceValue.willBeSaved = true;
 				orderOfServiceValue.save();
 			}
@@ -246,21 +260,20 @@ public class OrderOfServiceCRUD extends CRUD {
 	}
 
 	private static void generateStepsByService(OrderOfService orderOfService) {
-		List<Service> services = new ArrayList<Service>();
-		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId() + " group by reference").fetch();
 		for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-			Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
-			services.add(service);
-		}
-		for (Service service : services) {
-			List<Step> steps = Step.find("service_id = " + service.getId() + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by position, id asc").fetch();
+			List<Step> steps = Step.find("service_id = " + orderOfServiceValue.getService().getId() + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by position, id asc").fetch();
 			for (Step step : steps) {
+				String reference = orderOfServiceValue.getReference();
+				String orderCode = orderOfServiceValue.getOrderCode();
 				OrderOfServiceStep orderServiceStep = new OrderOfServiceStep();
 				orderServiceStep.setOrderOfService(orderOfService);
 				orderServiceStep.setStep(step);
 				orderServiceStep.setService(step.getService());
 				orderServiceStep.setStatus(StatusEnum.NotStarted);
 				orderServiceStep.setObs("Nenhuma");
+				orderServiceStep.setReference(reference);
+				orderServiceStep.setOrderCode(orderCode);
 				orderServiceStep.setPostedAt(Utils.getCurrentDateTime());
 				orderServiceStep.setInstitutionId(orderOfService.getInstitutionId());
 				orderServiceStep.willBeSaved = true;
@@ -271,36 +284,91 @@ public class OrderOfServiceCRUD extends CRUD {
 
 	public static void updateOrder() {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		render(listOrderOfService, institution, smsExceedLimit);
 	}
 
-	private static List<OrderOfService> loadListOrderOfService() {
-		List<OrderOfService> listOrderOfService = OrderOfService.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by id desc").fetch();
+	private static void verifyIfOrderAreOpenAndUpdateServicesReferences(List<OrderOfService> listOrderOfService) {
+		verifyIfOrdersAreOpen(listOrderOfService);
+		updateServicesReferences(listOrderOfService);
+	}
+
+	private static void updateServicesReferences(List<OrderOfService> listOrderOfService) {
 		for (OrderOfService orderOfService : listOrderOfService) {
-			List<Service> services = new ArrayList<Service>();
-			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
-			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-				Service service = Service.find("id = " + orderOfServiceValue.getService().getId()).first();
-				services.add(service);
+			for (ServiceOrderOfServiceSteps serviceOrderOfServiceSteps : orderOfService.getServiceOrderOfServiceSteps()) {
+				String reference = serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next().getReference();
+				serviceOrderOfServiceSteps.setReference(Utils.isNullOrEmpty(reference) ? "Não referenciado." : reference);
 			}
-			Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
-			for (Service service : services) {
-				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + service.getId() + " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
-				mapOrderServiceSteps.put(service, orderOfServiceStep);
-				boolean isOpened = false;
+		}
+	}
+
+	private static void verifyIfOrdersAreOpen(List<OrderOfService> listOrderOfService) {
+		boolean isOpened = false;
+		for (OrderOfService orderOfService : listOrderOfService) {
+			List<OrderOfServiceValue> orderOfServiceValues = (List<OrderOfServiceValue>) (Utils.isNullOrEmpty(orderOfService.getOrderOfServiceValue()) ? OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch() : orderOfService.getOrderOfServiceValue());
+			outerloop: for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + orderOfServiceValue.getService().getId() + " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
 				for (OrderOfServiceStep orderStep : orderOfServiceStep) {
 					if (orderStep.status != StatusEnum.Finished) {
 						isOpened = true;
-						break;
+						break outerloop;
 					}
 				}
-				orderOfService.setCurrentStatus(isOpened ? StatusEnum.InProgress.getLabel() : StatusEnum.Finished.getLabel());
-				orderOfService.setMapOrderServiceSteps(mapOrderServiceSteps);
+			}
+			orderOfService.setCurrentStatus(isOpened ? StatusEnum.InProgress.getLabel() : StatusEnum.Finished.getLabel());
+			isOpened = false;
+		}
+	}
+
+	private static List<OrderOfService> loadListOrderOfService() {
+		List<OrderOfService> listOrderOfService = OrderOfService.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by id desc").fetch();
+		for (OrderOfService orderOfService : listOrderOfService) {
+			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+			List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps = new ArrayList<ServiceOrderOfServiceSteps>();
+			ServiceOrderOfServiceSteps serviceOrderOfServiceStep = null;
+			orderOfService.setOrderOfServiceValue(orderOfServiceValues);
+			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+				List<OrderOfServiceStep> orderOfServiceStep = OrderOfServiceStep.find("service_id = " + orderOfServiceValue.getService().getId() + " and orderOfService_id = " + orderOfService.getId() + " and isActive = true").fetch();
+				List<OrderOfServiceStep> orderOfServiceStepNew = new ArrayList<OrderOfServiceStep>();
+				List<Step> stepsOfService = Step.find("service_id = " + orderOfServiceValue.getService().getId() + " and isActive = true").fetch();
+				int qtdStepOfCurrentService = stepsOfService.size();
+				if (orderOfServiceStep.size() > qtdStepOfCurrentService) {
+					for (OrderOfServiceStep orderStep : orderOfServiceStep) {
+						if (serviceOrderOfServiceSteps.isEmpty() || stepsHadBeenNotInsertedInList(orderStep, serviceOrderOfServiceSteps)) {
+							orderOfServiceStepNew.add(orderStep);
+						}
+						if (orderOfServiceStepNew.size() == qtdStepOfCurrentService) {
+							serviceOrderOfServiceStep = new ServiceOrderOfServiceSteps();
+							serviceOrderOfServiceStep.setService(orderOfServiceValue.getService());
+							serviceOrderOfServiceStep.setOrderOfServiceSteps(orderOfServiceStepNew);
+							serviceOrderOfServiceSteps.add(serviceOrderOfServiceStep);
+							orderOfServiceStepNew = new ArrayList<OrderOfServiceStep>();
+						}
+					}
+				} else {
+					serviceOrderOfServiceStep = new ServiceOrderOfServiceSteps();
+					serviceOrderOfServiceStep.setService(orderOfServiceValue.getService());
+					serviceOrderOfServiceStep.setOrderOfServiceSteps(orderOfServiceStep);
+					serviceOrderOfServiceSteps.add(serviceOrderOfServiceStep);
+				}
+				orderOfService.setServiceOrderOfServiceSteps(serviceOrderOfServiceSteps);
 			}
 		}
 		return listOrderOfService;
+	}
+
+	private static boolean stepsHadBeenNotInsertedInList(OrderOfServiceStep orderSteps, List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps) {
+		boolean ret = true;
+		for (ServiceOrderOfServiceSteps serviceSteps : serviceOrderOfServiceSteps) {
+			if (serviceSteps.getService().id == orderSteps.service.id) {
+				if (serviceSteps.getOrderOfServiceSteps().contains(orderSteps)) {
+					ret = false;
+				}
+			}
+		}
+		return ret;
 	}
 
 	public static void updateRadioValue() {
@@ -333,6 +401,7 @@ public class OrderOfServiceCRUD extends CRUD {
 			response = "Houve um erro ao atualizar a etapa do pedido ".concat(orderCode).concat("!");
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
@@ -368,6 +437,7 @@ public class OrderOfServiceCRUD extends CRUD {
 			response = "Erro ao inserir a observação do pedido ".concat(orderCode).concat(".");
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
@@ -413,6 +483,7 @@ public class OrderOfServiceCRUD extends CRUD {
 			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		if ("accordion".equals(idUpdate)) {
 			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
@@ -464,6 +535,49 @@ public class OrderOfServiceCRUD extends CRUD {
 		render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
 	}
 
+	public static void sendWhatsAppThankful() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String idUpdate = params.get("idUpdate", String.class);
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String message = value;
+		String sendResponse = null;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		if (!Utils.isNullOrEmpty(destination)) {
+			if (destination.length() == 11) {
+				sendResponse = "https://api.whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
+				/* Save sms object */
+				status = "SUCCESS";
+				response = sendResponse;
+				/* Set thanked Order of Service */
+				orderOfService.setThanked(true);
+				orderOfService.willBeSaved = true;
+				orderOfService.merge();
+			} else {
+				status = "ERROR";
+				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp!";
+			}
+		} else {
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+		}
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
+		if ("thankfulNotificationArea".equals(idUpdate)) {
+			render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
+		} else if ("notificationArea".equals(idUpdate)) {
+			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit);
+		} else if ("accordion".equals(idUpdate)) {
+			List<OrderOfService> listOrderOfService = loadListOrderOfService();
+			verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
+			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		}
+	}
+
 	public static void sendPUSH() throws UnsupportedEncodingException {
 		String response = null;
 		String status = null;
@@ -507,6 +621,7 @@ public class OrderOfServiceCRUD extends CRUD {
 			response = "Erro ao enviar a notificação Push! Tente novamente!";
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		if ("accordion".equals(idUpdate)) {
 			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
@@ -582,7 +697,6 @@ public class OrderOfServiceCRUD extends CRUD {
 		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
 		String[] paramsSpplited = id.split("-");
 		String orderServiceStepId = paramsSpplited[2];
-		String message = decodedValue;
 		/* Institution object */
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		/* OrderOfServiceStep object */
@@ -607,14 +721,16 @@ public class OrderOfServiceCRUD extends CRUD {
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
-		bodyMail.setTitle1("Ol&aacute;, " + orderOfService.getClient().getName() + "!");
+		String clientName = Utils.escapeSpecialCharacters(orderOfService.getClient().getName());
+		String institutionName = Utils.escapeSpecialCharacters(institution.getInstitution());
+		bodyMail.setTitle1("Ol&aacute;, " + clientName + "!");
 		bodyMail.setTitle2("Seu pedido foi atualizado!");
 		bodyMail.setParagraph1(orderOfService.orderCode);
 		bodyMail.setParagraph2(phase + ", " + statusPhase);
 		bodyMail.setParagraph3(obs);
-		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
-		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
+		bodyMail.setFooter1("Atenciosamente, " + institutionName + ".");
+		bodyMail.setImage1("https://seupedido.online/logo-empresa/" + institution.getId());
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplate(bodyMail));
 		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
@@ -637,6 +753,7 @@ public class OrderOfServiceCRUD extends CRUD {
 			response = "Erro ao enviar o e-mail! Tente novamente em instantes.";
 		}
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
@@ -645,7 +762,6 @@ public class OrderOfServiceCRUD extends CRUD {
 		String response = null;
 		String status = null;
 		String id = params.get("id", String.class);
-		String idUpdate = params.get("idUpdate", String.class);
 		String[] paramsSpplited = id.split("-");
 		String orderCode = paramsSpplited[1];
 		/* Institution object */
@@ -667,14 +783,16 @@ public class OrderOfServiceCRUD extends CRUD {
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
-		bodyMail.setTitle1("Ol&aacute;, " + orderOfService.getClient().getName() + "!");
-		bodyMail.setTitle2("Acompanhe seu pedido <br />" + orderOfService.getOrderCode() + " <br /> em: <br /> https://seupedido.online/acompanhe.");
+		String clientName = Utils.escapeSpecialCharacters(orderOfService.getClient().getName());
+		String institutionName = Utils.escapeSpecialCharacters(institution.getInstitution());
+		bodyMail.setTitle1("Ol&aacute;, " + clientName + "!");
+		bodyMail.setTitle2("Acompanhe seu pedido pelo c&oacute;digo <br />" + orderOfService.getOrderCode() + " <br /> Clique abaixo: <br /> <a href=\"https://seupedido.online/acompanhe\" target=\"_blank\">seupedido.online/acompanhe</a>");
 		bodyMail.setParagraph1("");
 		bodyMail.setParagraph2("");
 		bodyMail.setParagraph3("");
-		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
-		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplateSimple(bodyMail));
+		bodyMail.setFooter1("Atenciosamente, " + institutionName + ".");
+		bodyMail.setImage1("https://seupedido.online/logo-empresa/" + institution.getId());
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail));
 		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", seu código de acompanhamento. :)")) {
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
@@ -732,8 +850,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setParagraph2("");
 		bodyMail.setParagraph3("");
 		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
-		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplateSimple(bodyMail));
+		bodyMail.setImage1("https://seupedido.online/logo-empresa/" + institution.getId());
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail));
 		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", viemos te agradecer. :)")) {
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();

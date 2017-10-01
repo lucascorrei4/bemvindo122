@@ -28,7 +28,27 @@ public class OrderOfServiceValue extends Model {
 	public Float subTotal = 0f;
 
 	public Float totalPrice = 0f;
+
+	public String reference;
+
+	public String orderCode;
 	
+	public String getOrderCode() {
+		return orderCode;
+	}
+
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
 	public String toString() {
 		return null;
 	}

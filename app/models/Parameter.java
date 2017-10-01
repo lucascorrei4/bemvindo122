@@ -42,6 +42,17 @@ public class Parameter extends Model {
 	public String msgActiveUsers;
 
 	@Lob
+	public String msgUpgrade;
+
+	public String getMsgUpgrade() {
+		return msgUpgrade;
+	}
+
+	public void setMsgUpgrade(String msgUpgrade) {
+		this.msgUpgrade = msgUpgrade;
+	}
+
+	@Lob
 	public String logoUrl;
 
 	@Lob

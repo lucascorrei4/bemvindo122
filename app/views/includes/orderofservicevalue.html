@@ -3,6 +3,7 @@
 	<table class="table table-hover" id="orderOfServiceTable">
 		<thead>
 			<tr>
+				<th>Ref./Obs.</th>
 				<th>Serviço</th>
 				<th>Qtd</th>
 				<th>Preço Unit.</th>
@@ -14,6 +15,7 @@
 		<tbody>
 			#{list orderOfServiceValues, as:'value'}
 				<tr>
+					<td><input name="value.reference" class="reference" value="${value.reference}" onclick="this.select();" style="width: 80px"></td>
 					<td><span id="${value.service?.id}" class="serviceId" accesskey="${value?.id}">${value.service?.title}</span></td>
 					<td><input name="value.qtd" value="${value.qtd}" onclick="this.select();" style="width: 60px" class="qtd"></td>
 					<td><input name="value.unitPrice" value="${value.unitPrice}" onclick="this.select();" style="width: 60px" class="number basePrice"></td>

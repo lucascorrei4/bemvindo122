@@ -28,6 +28,7 @@ import models.User;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
+import util.MailTemplates;
 import util.PlansEnum;
 import util.StatusEnum;
 import util.StatusInvoiceEnum;
@@ -269,7 +270,7 @@ public class Admin extends Controller {
 		bodyMail.setParagraph3(userInstitutionParameter.getInstitution().getEmail());
 		bodyMail.setFooter1(Institution.findAll().size() + " empresas cadastradas.");
 		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplate(bodyMail));
 		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
 		sendTo = new SendTo();
 		sendTo.setDestination("th4mmy@gmail.com");
@@ -302,7 +303,7 @@ public class Admin extends Controller {
 		bodyMail.setParagraph3("");
 		bodyMail.setFooter1("");
 		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplateSimple(bodyMail));
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail));
 		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
 	}
 

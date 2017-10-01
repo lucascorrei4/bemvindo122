@@ -69,15 +69,15 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="alert alert-info alert-dismissable" style="display: ${userFreeTrial ? 'block' : 'none'};">
+                    <div class="alert alert-info alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <i class="fa fa-info-circle"></i>${userFreeTrial ? parameter.msgNewUsers.raw() : parameter.msgActiveUsers.raw()} 
+                        <i class="fa fa-info-circle"></i>${parameter.msgNewUsers.raw()} 
                     </div>
                 </div>
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
@@ -111,7 +111,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
@@ -145,7 +145,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-4 col-md-6">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
@@ -179,51 +179,51 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-yellow ${planSPO02 ? '' : 'disableComponent'}">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-paper-plane-o fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right ">
-                                    #{if contSentSMSs == 0}
-										<div class="huge ">0<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div>
-	                                    <div>Nenhuma SMS enviada</div>
-									#{/if}
-									#{if contSentSMSs > 0}
-										#{if contSentSMSs == 1}
-											<div class="huge">1<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div>
-		                                    <div>SMS enviada</div>
-										#{/if}
-										#{else}
-											#{if !smsExceedLimit}
-												<div class="huge ">&{contSentSMSs}<span style="display: 'inline';">/50</span></div>
-		                                    	<div>SMSs enviadas</div>
-											#{/if}
-											#{else}
-												<div class="huge">&{allSents}</div>
-		                                    	<div>Notificações enviadas</div>
-											#{/else}
-										#{/else}
-									#{/if}
-                                </div>
-                            </div>
-                        </div>
-                        <a href="/admin/smss-enviadas">
-                            <div class="panel-footer">
-                                <span class="pull-left">Acessar</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+<!--                 <div class="col-lg-3 col-md-6"> -->
+<!--                     <div class="panel panel-yellow"> -->
+<!--                         <div class="panel-heading"> -->
+<!--                             <div class="row"> -->
+<!--                                 <div class="col-xs-3"> -->
+<!--                                     <i class="fa fa-paper-plane-o fa-5x"></i> -->
+<!--                                 </div> -->
+<!--                                 <div class="col-xs-9 text-right "> -->
+<!--                                     #{if contSentSMSs == 0} -->
+<!-- 										<div class="huge ">0<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div> -->
+<!-- 	                                    <div>Nenhuma SMS enviada</div> -->
+<!-- 									#{/if} -->
+<!-- 									#{if contSentSMSs > 0} -->
+<!-- 										#{if contSentSMSs == 1} -->
+<!-- 											<div class="huge">1<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div> -->
+<!-- 		                                    <div>SMS enviada</div> -->
+<!-- 										#{/if} -->
+<!-- 										#{else} -->
+<!-- 											#{if !smsExceedLimit} -->
+<!-- 												<div class="huge ">&{contSentSMSs}<span style="display: 'inline';">/50</span></div> -->
+<!-- 		                                    	<div>SMSs enviadas</div> -->
+<!-- 											#{/if} -->
+<!-- 											#{else} -->
+<!-- 												<div class="huge">&{allSents}</div> -->
+<!-- 		                                    	<div>Notificações enviadas</div> -->
+<!-- 											#{/else} -->
+<!-- 										#{/else} -->
+<!-- 									#{/if} -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div> -->
+<!--                         <a href="/admin/smss-enviadas"> -->
+<!--                             <div class="panel-footer"> -->
+<!--                                 <span class="pull-left">Acessar</span> -->
+<!--                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
+<!--                                 <div class="clearfix"></div> -->
+<!--                             </div> -->
+<!--                         </a> -->
+<!--                     </div> -->
+<!--                 </div> -->
                 
             </div>
             <!-- /.row -->
             
-            <div class="row" style="display: ${planSPO02 ? 'block' : 'none'}">
+            <div class="row">
            			<div class="col-lg-12">
                         <div class="panel panel-green">
                             <div class="panel-heading">
@@ -397,6 +397,20 @@
 	<script src="@{'/public/templatebootstrap/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js'}"></script>
 	<script src="@{'/public/templatebootstrap/js/flot-data.js'}"></script>
 	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+	<!--Start of Tawk.to Script-->
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/59bc9688c28eca75e462051e/default';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
 
 	<div class="modal fade" id="modalVideoHelpIndex" tabindex="-1" role="dialog" aria-labelledby="modalVideoHelpIndexLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -426,7 +440,7 @@
 					<h3 class="modal-title" id="myModalLabel">Agradecimento</h3>
 				</div>
 				<div class="modal-body">
-					<div id="notificationArea"></div>
+					<div id="thankfulNotificationArea"></div>
 				</div>
 				<div class="modal-footer" style="text-align: left">
 					<div id="editor"></div>

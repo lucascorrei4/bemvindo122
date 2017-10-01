@@ -26,7 +26,7 @@ public class SequenceMailController {
 			Long sequenceMailId = sequenceMailList.get(i).id;
 			queue = new SequenceMailQueue(); 
 			queue = SequenceMailQueue
-					.find("name = '" + mailList.getName() + "' and mail = '" + mailList.getMail() + "' and url = '" + mailList.getUrl() + "' or url = '" + mailList.getUrl().concat("#main") + "' and sequenceMail_id = " + sequenceMailId).first();
+					.find("name = '" + mailList.getName() + "' and mail = '" + mailList.getMail() + "' and sequenceMail_id = " + sequenceMailId).first();
 			if (queue == null) {
 				queue = new SequenceMailQueue();
 				if (sequenceMailList.get(i).sequence == 1) {

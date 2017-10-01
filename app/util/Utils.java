@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,8 +42,8 @@ import controllers.Admin;
 import models.Institution;
 import models.Service;
 import models.User;
-import play.libs.URLs;
 import play.mvc.Controller;
+import play.vfs.VirtualFile;
 
 public class Utils extends Controller {
 	public static final String STR_DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
@@ -505,7 +506,16 @@ public class Utils extends Controller {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(getNameByWholeName("Lucas Correia Evangelista"));
-		System.out.println(getLastNameByWholeName("Lucas Correia Evangelista"));
+		System.out.println(escapeSpecialCharacters("Lucas  áÁàáéíóú Correia Evangelista"));
+	}
+	
+	public static String escapeSpecialCharacters(String text) {
+		return StringEscapeUtils.escapeHtml(text);
+	}
+	
+	public static File getVirtualFile() {
+		VirtualFile vf = VirtualFile.fromRelativePath("/public/images/apple76x76.png");
+		File f = vf.getRealFile();
+		return f;
 	}
 }

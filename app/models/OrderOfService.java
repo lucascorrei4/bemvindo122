@@ -17,6 +17,7 @@ import controllers.Admin;
 import controllers.CRUD.Hidden;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import util.ServiceOrderOfServiceSteps;
 import util.Utils;
 
 @Entity
@@ -60,6 +61,9 @@ public class OrderOfService extends Model {
 	@Transient
 	Map<Service, List<OrderOfServiceStep>> mapOrderServiceSteps = new HashMap<Service, List<OrderOfServiceStep>>();
 
+	@Transient
+	public List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps = new ArrayList<ServiceOrderOfServiceSteps>();
+	
 	public Client getClient() {
 		return client;
 	}
@@ -171,6 +175,14 @@ public class OrderOfService extends Model {
 
 	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
+	}
+	
+	public List<ServiceOrderOfServiceSteps> getServiceOrderOfServiceSteps() {
+		return serviceOrderOfServiceSteps;
+	}
+
+	public void setServiceOrderOfServiceSteps(List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps) {
+		this.serviceOrderOfServiceSteps = serviceOrderOfServiceSteps;
 	}
 
 }

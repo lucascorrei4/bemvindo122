@@ -8,6 +8,9 @@
 a {
 	outline: 0 none;
 }
+a:hover {
+	outline: 0 none;
+}
 
 html {
 	font-family: sans-serif;
@@ -140,6 +143,14 @@ a {
 
 a:active, a:hover {
 	outline: 0;
+}
+
+a, a:active, a:hover, a:focus {
+outline: none;
+}
+
+a {
+  outline:none !important;
 }
 
 abbr[title] {

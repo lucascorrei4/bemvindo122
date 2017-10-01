@@ -85,7 +85,9 @@
 						<table>
 							<thead>
 								<tr>
-									<th width="55%"><input id="ember457" class="no-markers ember-view ember-text-field" type="text" value="Descrição" style="font-size: 11px;"></th>
+									<th width="12%"><input class="no-markers ember-view ember-text-field" type="text" value="Ref./Obs" style="font-size: 11px;"></th>
+									<th width="18%"><input class="no-markers ember-view ember-text-field" type="text" value="Cód. Restrito" style="font-size: 11px;"></th>
+									<th width="30%"><input id="ember457" class="no-markers ember-view ember-text-field" type="text" value="Descrição" style="font-size: 11px;"></th>
 									<th><input id="ember458" class="invoice-table-quantity no-markers ember-view ember-text-field" type="text" value="Vl. Unit." style="font-size: 11px;"></th>
 									<th><input id="ember459" class="invoice-table-rate no-markers ember-view ember-text-field" type="text" value="Qtd" style="font-size: 11px;"></th>
 									<th><input id="ember460" class="invoice-table-vat no-markers ember-view ember-text-field" type="text" value="Desc." style="font-size: 11px;"></th>
@@ -95,6 +97,14 @@
 							<tbody>
 								#{list orderOfServiceValues, as:'value'}
 									<tr>
+										<td>
+											<p id="ember462" placeholder="Ref./Obs." rows="1"
+												class="invoice-line-item-description no-markers ember-view ember-text-area flexible-textarea" style="font-size: 10px; padding-left: 5px;">${value.reference == null ? 'Nenhuma' : value.reference}</p>
+										</td>
+										<td>
+											<p id="ember462" placeholder="Ref./Obs." rows="1"
+												class="invoice-line-item-description no-markers ember-view ember-text-area flexible-textarea" style="font-size: 10px; padding-left: 5px;">${value.orderCode == null ? 'Nenhum' : value.orderCode}</p>
+										</td>
 										<td>
 											<p id="ember463" placeholder="Item name/description" rows="1"
 												class="invoice-line-item-description no-markers ember-view ember-text-area flexible-textarea" style="font-size: 10px; padding-left: 5px;">${value.service?.title}</p>
@@ -187,7 +197,7 @@
 				<div class="row row-m1em" style="margin-top: 200px">
 					<div class="col-md-8">
 						<p
-							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. geral:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>https://seupedido.online/acompanhe</b></p>
+							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. geral:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>https://seupedido.online/acompanhe. Para acesso exclusivo a determinado item do pedido, utilize o código restrito listado na tabela acima.</b></p>
 					</div>
 					<div class="col-md-4">
 						<div id="qrcode"></div>

@@ -54,31 +54,31 @@
                 </div>
             </div>
             <div class="container" style="width: auto; padding: 0;">
-				#{list items:mapOrderServiceSteps.keySet(), as:'key'}
+				#{list items:serviceOrderOfServiceSteps, as:'key'}
 					<div class="panel panel-default">
 						<div class="panel-heading"> 
 							<div class="row">
 								<div class="col-lg-12">
 									<h4 style="color: #33AFE5; text-align: left">
-										<b>${key.getTitle()}</b>
+										<b>${key.getService().getTitle()}</b>
 									</h4>
 									<h5 style="color: gray; text-align: left">
-										<b>${key.getDescription()}</b>
+										<b>${key.getService().getDescription()}</b>
 									</h5>
 								</div>
 							</div>
 						</div>
 						<div class="panel-body">
 							<div  class="col-xs-12" style="padding-left: 0px; padding-right: 0px;">
-								<h3 style="text-align: center; color: #006936">Para detalhar, clique na fase ao lado.</h3>
+								<h3 style="text-align: center; color: #006936; font-size: 1.2em">Para detalhar, clique em alguma fase.</h3>
 						        <div class="col-xs-6">
 						            <!-- required for floating -->
 						            <!-- Nav tabs -->
 						            <ul class="nav nav-tabs tabs-left">
-									#{list mapOrderServiceSteps.get(key), as:'orderServiceStep'}
+									#{list items:key.orderOfServiceSteps, as:'orderServiceStep'}
 						                <li class="&{orderServiceStep.status.value == 'inprogress' ? 'active' : orderServiceStep.status.value == 'finished' ? 'complete' : orderServiceStep.status.value == 'notstarted' ? 'disabled' : 'complete'}">
-						                	<a href="#step_${orderServiceStep_index}_${orderServiceStep.step.id}" data-toggle="tab">
-							                	<p style="font-weight: bold">Fase ${orderServiceStep_index}</p>
+						                	<a href="#step_${key_index}_${orderServiceStep_index}_${orderServiceStep.step.id}" data-toggle="tab">
+							                	<p style="font-weight: bold">Fase ${orderServiceStep_index} - &{orderServiceStep.step.title.raw()}</p>
 							                	<p>&{orderServiceStep.status.label}</p>
 							                </a>
 						                </li>
@@ -88,8 +88,8 @@
 						        <div class="col-xs-6">
 						            <!-- Tab panes -->
 						            <div class="tab-content">
-										#{list mapOrderServiceSteps.get(key), as:'orderServiceStep'}
-							                <div id="step_${orderServiceStep_index}_${orderServiceStep.step.id}" class="tab-pane &{orderServiceStep.status.value == 'inprogress' ? 'active' : orderServiceStep.status.value == 'finished' ? 'complete' : orderServiceStep.status.value == 'notstarted' ? 'disabled' : 'complete'}" >
+										#{list items:key.orderOfServiceSteps, as:'orderServiceStep'}
+							                <div id="step_${key_index}_${orderServiceStep_index}_${orderServiceStep.step.id}" class="tab-pane &{orderServiceStep.status.value == 'inprogress' ? 'active' : orderServiceStep.status.value == 'finished' ? 'complete' : orderServiceStep.status.value == 'notstarted' ? 'disabled' : 'complete'}" >
 												<div class="list-group">
 						                            <a class="list-group-item">
 						                                <h4 class="list-group-item-heading">&{orderServiceStep.step.title.raw()}</h4>

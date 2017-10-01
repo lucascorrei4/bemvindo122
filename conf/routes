@@ -26,6 +26,7 @@ GET     ${ctx}/acompanhe	 		   				 				Application.followAdmin
 POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
+GET    	${ctx}/logo-empresa/{id}		   				 			InstitutionController.getImage
 
 # Public MonetizzeController
 

@@ -16,6 +16,7 @@ import models.Service;
 import models.StatusMail;
 import models.User;
 import play.mvc.Controller;
+import util.MailTemplates;
 import util.Utils;
 
 public class MonetizzeController extends Controller {
@@ -189,7 +190,7 @@ public class MonetizzeController extends Controller {
 			bodyMail.setTitle2(user.getName() + ", recebemos seu cadastro com sucesso.");
 			bodyMail.setFooter1("https://seupedido.online/nova-senha/" + Utils.encode(user.getEmail()));
 			bodyMail.setImage1(parameter.getLogoUrl());
-			bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail));
+			bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateResetPass(bodyMail));
 			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
 				Admin.sendMailToMeWithCustomInfo("Venda realizada e cliente cadastrado automaticamente!", "Nome: " + user.getName().concat(" - E-mail: ").concat(user.getEmail().concat(" - Fone: ").concat(user.getPhone1())));
 			}

@@ -29,13 +29,25 @@ public class OrderOfServiceStep extends Model {
 
 	public String obs;
 
+	private String reference;
+
 	@Hidden
 	public String postedAt;
 
 	public boolean isActive = true;
-	
+
 	@Hidden
 	public long institutionId;
+	
+	public String orderCode;
+	
+	public String getOrderCode() {
+		return orderCode;
+	}
+
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
+	}
 
 	public long getInstitutionId() {
 		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
@@ -95,7 +107,7 @@ public class OrderOfServiceStep extends Model {
 	public void setObs(String obs) {
 		this.obs = obs;
 	}
-	
+
 	public Service getService() {
 		return service;
 	}
@@ -103,9 +115,17 @@ public class OrderOfServiceStep extends Model {
 	public void setService(Service service) {
 		this.service = service;
 	}
-	
+
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
+	}
+
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 }

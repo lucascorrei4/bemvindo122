@@ -18,7 +18,7 @@ import play.jobs.On;
 
 // Fire every hour between 7AM and 22AM 0 0 7-22 ? * * * 
 // Fire every 3 minutes 0 */3 * ? * * 
-@On("0 */3 * ? * *")
+@On("0 0 7-22 ? * * *")
 public class ScheduledJobs extends Job {
 
 	public void doJob() {
