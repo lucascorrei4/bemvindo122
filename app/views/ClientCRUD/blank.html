@@ -8,6 +8,12 @@
         </div>
         <div class="panel-body">
            	<div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-info alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <i class="fa fa-info-circle"></i> Obs.: Os campos abaixo são cruciais para o seu negócio. Eles são estratégicos para ações de marketing e/ou para análise de dados para BI (Inteligência de Negócio). O cadastro de 'e-mail' permite que você armazene ao longo do tempo uma grande lista de clientes afim de enviar lembretes, promoções ou simplesmente para manter seus clientes engajados. O cadastro de 'telefone' permite que você envie mensagens via Whatsapp e SMS (somente na versão Premium) quando quiser. A 'data de nascimento' permite que o sistema te avise quem está fazendo aniversário. O campo 'sexo' permite o sistema diferenciar homem/mulher para um tratamento mais personalizado e humano.
+                    </div>
+                </div>
                	<div class="col-lg-6">
 					#{form action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
@@ -15,7 +21,7 @@
 								<div class="form-group">
 									<label for="object_phone"> Celular* </label>
 									<input id="object_phone" class="form-control sp_celphones" type="text" size="50" name="object.phone" value="${object.phone}">
-									<p class="help-block">Obrigatório</p>
+									<p class="help-block">Formato de telefone válido: (99) 99999-9999. Obrigatório</p>
 								</div>
 							#{/crud.custom}
 							#{crud.custom 'birthdate'}

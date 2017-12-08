@@ -1,0 +1,18 @@
+<meta charset="utf-8" />
+<div class="row">
+	#{list listHightlightProduct, as:'highlight'}
+		<div class="&{12/listHightlightProduct.size()}u 12u(narrower)">
+			<section>
+				<header>
+					<a href="&{highlight.getLink()}" class="image featured">
+						<img src="@{Application.getImageHighlightProduct(highlight.id)}" alt="&{highlight.getTitleNoHtml()}" title="&{highlight.getTitleNoHtml()}" style="max-width: 10em; margin: 0 auto;" />
+					</a>
+					<a href="&{highlight.getLink()}" class="image featured">
+						<h4 style="font-size: 0.8em; text-align: center; color: #545454;">&{highlight.getTitle().raw()}</h4>
+					</a>
+				</header>
+				<a href="&{highlight.getLink()}" class="button" style="font-size: 0.66em; min-width: 100%; line-height: 2.75em; padding: 0 1px 0 1px; color: black; letter-spacing: unset; margin-top: 0.5em">&{highlight.getMsgOffer().raw()}</a>
+			</section>
+		</div>
+	#{/list}
+</div>

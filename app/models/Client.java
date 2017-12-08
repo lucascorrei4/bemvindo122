@@ -25,6 +25,7 @@ public class Client extends Model {
 
 	@Email
 	@Unique
+	@Required(message = "Campo obrigatório.")
 	public String mail;
 
 	@Required(message = "Campo obrigatório.")

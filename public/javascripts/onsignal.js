@@ -19,7 +19,7 @@
 				/* Change bold title, limited to 30 characters */
 				siteName: 'Confirmação de recebimento',
 				/* Subtitle, limited to 90 characters */
-				actionMessage: "Confirme para receber dicas úteis sobre tecnologia.",
+				actionMessage: "Confirme para receber artigos úteis sobre tecnologia.",
 				/* Example notification title */
 				exampleNotificationTitle: 'Este é um exemplo de notificação',
 				/* Example notification message */

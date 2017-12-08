@@ -1,13 +1,25 @@
 <meta charset="utf-8" />
 <!-- Footer -->
 <footer id="footer">
+<div class="fb-page" data-href="&{parameter.getSiteFacebook()}" data-hide-cover="false" data-show-facepile="false" data-show-posts="false" data-width="380">
+	<blockquote cite="&{parameter.getSiteFacebook()}s" class="fb-xfbml-parse-ignore">
+		<a href="&{parameter.getSiteFacebook()}">#{verbatim}&{parameter.getSiteName()}#{/verbatim}</a>
+	</blockquote>
+</div>
+<br />
+<br />
 	<ul class="copyright">
-		<li>&copy; <a href="/">Seu Pedido Online</a></li><li>contato@seupedido.online</li>
+		<li>&copy; <a href="/">#{verbatim}&{parameter.getSiteName()}#{/verbatim}</a></li>
+		<li><a href="/politica-de-privacidade" target="_blank">Política de Privacidade</a></li>
+		<li><a href="/termos-e-condicoes" target="_blank">Termos e Condições</a></li>
+		<li><a href="/sobre" target="_blank">Sobre</a></li>
+		<li><a href="/sitemap.xml" target="_blank">Mapa do Site</a></li>
+		<li><a href="/contato" target="_blank">Contato</a></li>
 	</ul>
 	
 	<ul class="icons" style="vertical-align: bottom;">
-		<li style="vertical-align: bottom; line-height: 0;"><div class="fb-like" data-href="https://seupedido.online" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div></li>
-		<li style="vertical-align: bottom; line-height: 0;"><a href="https://twitter.com/seupedidoonline" class="twitter-follow-button" data-show-count="false">Seguir @seupedidoonline</a></li>
+		<li style="vertical-align: bottom; line-height: 0;"><div class="fb-like" data-href="&{parameter.getSiteDomain()}}" data-layout="button" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div></li>
+		<li style="vertical-align: bottom; line-height: 0;"><a href="&{parameter.getSiteTwitter()}" class="twitter-follow-button" data-show-count="false">Seguir &{parameter.getSiteTwitterShort()}</a></li>
 	</ul>
 	<span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=4eoOKsJ09M4eh5Vaf8qIywX4wcyhgv6aCDMJfNk6JBW8r6D0cyJgnEuPx91h"></script></span>
 	<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
@@ -53,7 +65,7 @@ jQuery(document).on('ready', function($){
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-91777562-1', 'auto');
+  ga('create', '&{parameter.getGoogleAnalyticsId()}', 'auto');
   ga('send', 'pageview');
 </script>
 <!-- Código do Google para tag de remarketing -->
@@ -62,7 +74,7 @@ As tags de remarketing não podem ser associadas a informações pessoais de ide
 --------------------------------------------------->
 <script type="text/javascript">
 	/* <![CDATA[ */
-	var google_conversion_id = 968744756;
+	var google_conversion_id = &{parameter.getGoogleRemarketingId()};
 	var google_custom_params = window.google_tag_params;
 	var google_remarketing_only = true;
 	/* ]]> */
@@ -70,19 +82,6 @@ As tags de remarketing não podem ser associadas a informações pessoais de ide
 <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>
 <noscript>
 	<div style="display:inline;">
-		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/968744756/?guid=ON&amp;script=0"/>
+		<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/&{parameter.getGoogleRemarketingId()}/?guid=ON&amp;script=0"/>
 	</div>
 </noscript>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-	s1.async=true;
-	s1.src='https://embed.tawk.to/59bc9688c28eca75e462051e/default';
-	s1.charset='UTF-8';
-	s1.setAttribute('crossorigin','*');
-	s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->

@@ -8,62 +8,67 @@
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
 		<!-- End Google Tag Manager -->
-		<title>Também Quero Saber | Dicas Úteis | #TMFTQS | Seu Pedido Online</title>
-		<meta name="description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
-		<meta name="keywords" content="dicas de tecnologia, inovação, tecnologia, seu pedido online, computador, dicas de internet">
-		<meta property="twitter:title" content="Dicas Úteis | Seu Pedido Online">
-		<meta property="twitter:description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
-		<meta property="og:title" content="Dicas Úteis | Seu Pedido Online">
-		<meta property="og:description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
+		<title>Tudo sobre Pós Venda, Modelos de Contrato e Acompanhamento de Serviço</title>
+		<meta name="description" content="Quer saber como fazer pos venda, modelo de contrato de prestação de serviço ou atendimento ao cliente com CRM? Fique por dentro!">
+		<meta name="keywords" content="como fazer pos venda, modelo de contrato de prestacao de serviço, sistema crm">
+		<meta property="twitter:title" content="artigos Úteis">
+		<meta property="twitter:description" content="Quer saber como fazer pos venda, modelo de contrato de prestação de serviço ou atendimento ao cliente com CRM? Fique por dentro!">
+		<meta property="og:title" content="Artigos Úteis">
+		<meta property="og:description" content="Quer saber como fazer pos venda, modelo de contrato de prestação de serviço ou atendimento ao cliente com CRM? Fique por dentro!">
 		<meta property="og:image" content="http://seupedido.online/public/images/logo-admin.png">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
 	</head>
 	<body class="right-sidebar">
 		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">
 			<!-- Header -->
 				#{include 'includes/menuTemplateFollow.html' /}
 			<!-- Main -->
-				<article id="main">
-					<header class="special container" style="margin-bottom: 0">
-						<span class="icon fa-hand-o-down"></span>
-						<h2>Dicas <strong>Úteis</strong></h2>
-						<h3 style="font-weight: bold; text-align: center; margin-bottom: 0px;">#TMFTQS</h3>
-						<p style="text-align: center; margin-bottom: 0px;"><strong>T</strong>odo <strong>M</strong>undo <strong>F</strong>alando, <strong>T</strong>ambém <strong>Q</strong>uero <strong>S</strong>aber</p>
-					</header>
-					
-					<!-- One -->
-						<section class="wrapper style4 container" style="padding-top: 15px">
-							<div id="newsletterTips" style="width: 100%">
-								#{include 'includes/formNewsletterTips.html' /}
+				<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
+				#{include 'includes/imgAdsTop.html' /}
+				<header class="special container" style="margin-bottom: 0">
+					<span class="icon &{parameter.getSiteIconFontAwesome() == null ? 'fa-heartbeat' : parameter.getSiteIconFontAwesome()}"></span>
+					<p style="font-size: 15px; margin: 0;">Você está em: <a href="/">&{parameter.getSiteTitle()}</a> > <a href="/artigos">Artigos</a></p>
+				</header>
+				<h3 style="text-align: center; font-weight: 600; margin: 0 auto;">#{verbatim}&{parameter.getMessageHighlightProducts() == null ? 'Ofertas da semana em estoque' : parameter.getMessageHighlightProducts()}#{/verbatim}</h3>				
+				<section class="wrapper style4 container" style="display: ${listHightlightProduct.size() > 0 ? 'block' : 'none'}">
+					#{include 'includes/highlightProduct.html' /}
+				</section>
+				<section class="wrapper style4 container">
+					<div id="newsletterTips" style="width: 100%">
+						#{include 'includes/formNewsletterTips.html' /}
+					</div>
+					<div class="row 150%">
+						<div class="8u 12u(narrower)">
+							<div class="content">
+								#{include 'includes/highlightArticles.html' /}
 							</div>
-							<div class="row 150%">
-								<div class="8u 12u(narrower)">
-									<!-- Content -->
-										<div class="content">
-											#{include 'includes/highlightArticles.html' /}
-										</div>
-								</div>
-								<div class="4u 12u(narrower)">
-									<!-- Sidebar -->
-										<div class="sidebar">
-											#{include 'includes/lastNewsSidebarRight.html' /}
-										</div>
-								</div>
+						</div>
+						<div class="4u 12u(narrower)">
+							<div class="sidebar">
+								#{include 'includes/imgAdsSidebar.html' /}
 							</div>
-						</section>
-
-					<!-- Two -->
-						<section class="wrapper style1 container special">
-							<div class="row">
-								#{include 'includes/lastNewsBottom.html' /}
+							<div class="sidebar">
+								#{include 'includes/lastNewsSidebarRight.html' /}
 							</div>
-						</section>
-				</article>
+						</div>
+					</div>
+				</section>
+				<section class="wrapper style1 container special">
+					<div class="row">
+						#{include 'includes/imgAdsBottom.html' /}
+					</div>
+				</section>
+				<section class="wrapper style1 container special">
+					<div class="row">
+						#{include 'includes/lastNewsBottom.html' /}
+					</div>
+				</section>
+			</article>
 			<!-- Footer -->
 			#{include 'includes/footerTemplateFollow.html' /}
 	</body>

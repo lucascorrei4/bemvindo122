@@ -81,7 +81,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 			/* Change bold title, limited to 30 characters */
 			siteName: 'Confirmação de recebimento',
 			/* Subtitle, limited to 90 characters */
-			actionMessage: "Confirme para receber dicas úteis sobre tecnologia.",
+			actionMessage: "Confirme para receber artigos úteis sobre tecnologia.",
 			/* Example notification title */
 			exampleNotificationTitle: 'Este é um exemplo de notificação',
 			/* Example notification message */
@@ -180,7 +180,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 									<h1>
 										O QUE SÃO <br/>NOTIFICAÇÕES PUSH?
 									</h1>
-									<p>Para saber, clique <a href="/dicas" target="_blank"><strong>aqui</strong></a>. :)</p>
+									<p>Para saber, clique <a href="/artigos" target="_blank"><strong>aqui</strong></a>. :)</p>
 								</div>
 							</li>
 						</ul>
@@ -393,24 +393,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	
 	<section id="cta2">
 		<div class="col-md-12" style="background-color: #fff; padding-bottom: 30px; margin-bottom: 30px;">
-			<h3 style="text-transform: uppercase; color: #333333; font-size: 1.7em; font-weight: 900; margin: 0;">DICAS DE TECNOLOGIA <span style="color: #00CCFF;">#TMFTQS</span></h3>
+			<h3 style="text-transform: uppercase; color: #333333; font-size: 1.7em; font-weight: 900; margin: 0;">artigos DE TECNOLOGIA <span style="color: #00CCFF;">#TMFTQS</span></h3>
 			<h4 style="text-transform: uppercase; color: #ccc; font-size: 1.2em; font-weight: 900; margin: 0;"><span style="color: #00CCFF;">T</span>odo <span style="color: #00CCFF;">M</span>undo <span style="color: #00CCFF;">F</span>alando, <span style="color: #00CCFF;">T</span>ambém <span style="color: #00CCFF;">Q</span>uero <span style="color: #00CCFF;">S</span>aber</h4>
 			#{list listArticles, as:'article'}
 				<div class="col-md-4 spl-left">
 					<div class="spl-one" style="padding-top: 5px">
 						<h4 style="text-transform: uppercase; margin-top: 10px;">&{article.getTitle().raw()}</h4>
-						<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
+						<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
 						<p style="font-size: 25px;">&{article.getHeadline().length() > 130 ? article.getHeadline().substring(0, 128).concat("...") : article.getHeadline().raw()}</p>
 					</div>
 					<footer>
 						<ul class="buttons">
-							<li><a href="/dicas/${article.id}/${article.getFriendlyUrl()}" target="_blank" class="button small" style="color: #ccc">Leia mais</a></li>
+							<li><a href="/artigos/${article.id}/${article.getFriendlyUrl()}" target="_blank" class="button small" style="color: #ccc">Leia mais</a></li>
 						</ul>
 					</footer>
 				</div>
 			#{/list}
 		</div>
-		<a href="/dicas" target="_blank" class="button small" style="color: #ccc">Todas As Dicas</a></li>
+		<a href="/artigos" target="_blank" class="button small" style="color: #ccc">Todas As artigos</a></li>
 	</section>
 	
 	<!--end-about-->

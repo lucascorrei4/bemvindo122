@@ -5,6 +5,8 @@ import java.net.URL;
 import java.text.ParseException;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
@@ -17,6 +19,7 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
+import util.FacebookEventEnum;
 import util.Utils;
 
 @Entity
@@ -81,6 +84,9 @@ public class TheSystem extends Model {
 	public String phrase;
 
 	public String buttonAction;
+	
+	@Enumerated(EnumType.STRING)
+	public FacebookEventEnum facebookEvent = FacebookEventEnum.ViewContent;
 
 	@Hidden
 	public String postedAt;
@@ -217,9 +223,10 @@ public class TheSystem extends Model {
 	}
 
 	public String getShortenUrl() {
-		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id)
-				&& !Utils.isNullOrEmpty(this.friendlyUrl)) {
-			setShortenUrl(Utils.getShortenUrl("https://seupedido.online/o-sistema/".concat(this.getFriendlyUrl())));
+		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
+			Parameter parameter = Parameter.getCurrentParameter();
+			parameter.setGoogleShortnerUrlApiId(parameter.getGoogleShortnerUrlApiId() == null ? "AIzaSyCscCd-De7uL6UGXABT1g4I_rU1wMJRv8w" : parameter.getGoogleShortnerUrlApiId());
+			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/o-sistema/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
@@ -330,6 +337,14 @@ public class TheSystem extends Model {
 
 	public void setButtonAction(String buttonAction) {
 		this.buttonAction = buttonAction;
+	}
+
+	public FacebookEventEnum getFacebookEvent() {
+		return facebookEvent;
+	}
+
+	public void setFacebookEvent(FacebookEventEnum facebookEvent) {
+		this.facebookEvent = facebookEvent;
 	}
 
 }

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!-- saved from url=(0092)http://www.expertnoamor.com.br/wp-content/plugins/scarcitybuilder/shortcode/index.php?edit=1 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>GRP01</title>
+	<link rel="stylesheet" href="./css(2)">
+<script type="text/javascript" src="./jquery-latest.js.download"></script>
+<script type="text/javascript" src="./jquery.plugin.js.download"></script>
+<script type="text/javascript" src="./jquery.countdown.js.download"></script>
+<script type="text/javascript" src="./jquery.cookie.js.download"></script>
+<script type="text/javascript" src="./moment.js.download"></script>
+<script type="text/javascript">
+	$(window).load(function () {
+
+		// Check if date has been passed:
+		var checkIfExpiedOnLoad = setInterval(function () {
+			console.log($(".countdown-amount").text());
+
+			if ($(".countdown-amount").text() == "000") {
+				// run onexpirey fn
+				liftOff();
+				clearInterval(checkIfExpiedOnLoad);
+			} else {
+				clearInterval(checkIfExpiedOnLoad);
+			}
+
+		}, 500);
+
+		var ontick_cb = function () {
+			window.parent.document.getElementById(window.name).style.height = document.getElementById('until2d').scrollHeight + 'px';
+		};
+
+
+		
+		$('#until2d').countdown({
+			until: '+d +1h +m',
+			onExpiry: liftOff,
+			alwaysExpire: true,
+			labels: ['Years', 'Months', 'Weeks', 'Dias', ' Horas', ' Minutos', ' Segundos'],
+			labels1: ['Year', 'Month', 'Week', '', '', '', ''],
+			onTick: ontick_cb,
+			format: 'dhmS'
+		});
+
+		function liftOff() {
+			
+														}
+
+		
+
+	});
+</script>
+<style type="text/css">
+
+body {
+	background: none;
+	color: #444;
+	font: normal 16px "Lato", sans-serif;
+	margin: 0;
+}
+
+ul.countdown {
+	list-style: none;
+	margin: 0 0;
+	padding: 0;
+	display: block;
+	text-align: center;
+}
+
+ul.countdown li {
+	display: inline-block;
+	margin: 0 5px;
+	padding: 10px 10px;
+	background: #eee;
+	border: 3px solid #ccc;
+	border-radius: 10px;
+	width: 90px;
+}
+
+ul.countdown li span {
+	font-size: 67px;
+	font-weight: 300;
+	font-weight: bold;
+	line-height: 67px;
+}
+
+ul.countdown li p {
+	opacity: .9;
+	font-size: 17px;
+	padding: 0;
+	margin: 0;
+}
+
+#expired {
+	padding: 15px;
+	text-align: center;
+	border-radius: 10px;
+}
+
+
+
+
+
+ul.countdown li, #expired {
+	background: #dc3521;
+	border: 2px solid #ba1b09;
+	color: #FFF;
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#dc3521), to(#ba1b09));
+	background-image: -webkit-linear-gradient(top, #dc3521, #ba1b09);
+	background-image: -moz-linear-gradient(top, #dc3521, #ba1b09);
+	background-image: -o-linear-gradient(top, #dc3521, #ba1b09);
+	background-image: -ms-linear-gradient(top, #dc3521, #ba1b09);
+	background-image: linear-gradient(to bottom, #dc3521, #ba1b09);
+
+	-webkit-box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.33);
+	-moz-box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.33);
+	box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.33);
+
+}
+
+
+
+
+
+
+/* extra small*/
+ul.countdown li {
+	width: 40px;
+}
+
+ul.countdown li span {
+	font-size: 21px;
+	line-height: 21px;
+}
+
+ul.countdown li p {
+	font-size: 10px;
+}
+
+
+a {
+	color: #76949F;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.source {
+	width: 405px;
+	margin: 0 auto;
+	background: #4f5861;
+	color: #a7abb1;
+	font-weight: bold;
+	display: block;
+	white-space: pre;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.btn {
+	background: #f56c4c;
+	margin: 40px auto;
+	padding: 12px;
+	display: block;
+	width: 100px;
+	color: white;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: bold;
+	text-decoration: none;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.btn:hover {
+	text-decoration: none;
+	opacity: .7;
+}
+
+</style>
+
+</head>
+<body>
+	<ul id="until2d" class="countdown is-countdown"><span class="countdown-row countdown-show2"><li><div class="countdown-section"><span class="countdown-amount">57</span><p class="countdown-period"> Minutos</p></div></li><li><div class="countdown-section"><span class="countdown-amount">14</span><p class="countdown-period"> Segundos</p></div></li></span></ul>
+
+	<div id="expired" style="display: none">
+			</div>
+
+</body></html>

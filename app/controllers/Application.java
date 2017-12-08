@@ -61,7 +61,8 @@ public class Application extends Controller {
 		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
-		render(listTheSystems, listArticles12, listArticles34);
+		Parameter parameter = Parameter.all().first();
+		render(listTheSystems, listArticles12, listArticles34, parameter);
 	}
 
 	public static void generateServiceCode() {
@@ -87,14 +88,6 @@ public class Application extends Controller {
 
 	public static void howItWorks() {
 
-	}
-
-	public static void contact() {
-		TheSystem theSystem = new TheSystem();
-		theSystem.setShowTopMenu(true);
-		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
-		List<Article> bottomNews = listArticles.subList(0, 3);
-		render(theSystem, bottomNews);
 	}
 
 	public static int moipResponse() throws UnsupportedEncodingException {
@@ -325,15 +318,19 @@ public class Application extends Controller {
 		return ret;
 	}
 
-	public static void follow(String orderCode) throws UnsupportedEncodingException, InterruptedException {
+	public static void follow(String cod) throws UnsupportedEncodingException, InterruptedException {
 		String response = null;
 		String status = null;
+		String clientName = null;
 		boolean restrictedAccess = false;
+		boolean codeNotFound = false;
 		OrderOfServiceValue orderOfServiceValue = null;
-		if (orderCode != null) {
-			OrderOfService orderOfService = OrderOfService.find("orderCode", orderCode).first();
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(2, listArticles.size());
+		if (!Utils.isNullOrEmpty(cod)) {
+			OrderOfService orderOfService = OrderOfService.find("orderCode", cod).first();
 			if (orderOfService == null) {
-				orderOfServiceValue = OrderOfServiceValue.find("orderCode", orderCode).first();
+				orderOfServiceValue = OrderOfServiceValue.find("orderCode", cod).first();
 				if (orderOfServiceValue != null) {
 					restrictedAccess = true;
 				}
@@ -343,7 +340,8 @@ public class Application extends Controller {
 				List<Error> errors = validation.errors();
 				response = "Código não encontrado! :(";
 				status = "ERROR";
-				render("includes/formFollow.html", response, status, errors);
+				codeNotFound = true;
+				render(codeNotFound, response, status, errors, bottomNews);
 			} else {
 				response = "Redirecionando... :)";
 				status = "SUCCESS";
@@ -351,7 +349,7 @@ public class Application extends Controller {
 					orderOfService = OrderOfService.findById(orderOfServiceValue.getOrderOfServiceId());
 					orderOfService.setOrderCode(orderOfServiceValue.getOrderCode());
 				}
-				String clientName = orderOfService.getClient().getName();
+				clientName = orderOfService.getClient().getName();
 				Institution institution = Institution.find("id", orderOfService.institutionId).first();
 				String company = institution.getInstitution();
 				List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps = new ArrayList<ServiceOrderOfServiceSteps>();
@@ -361,11 +359,21 @@ public class Application extends Controller {
 					for (OrderOfServiceValue orderServValue : orderOfServiceValues) {
 						configureOrderOfServiceSteps(orderOfService, orderServValue, serviceOrderOfServiceSteps, serviceOrderOfServiceStep);
 					}
+					updateServicesReferences(orderOfService);
 				} else {
 					configureOrderOfServiceSteps(orderOfService, orderOfServiceValue, serviceOrderOfServiceSteps, serviceOrderOfServiceStep);
+					updateServicesReferences(orderOfService);
 				}
-				render(clientName, company, orderOfService, serviceOrderOfServiceSteps);
+				render(clientName, company, orderOfService, serviceOrderOfServiceSteps, bottomNews);
 			}
+		} else if (cod == "") { 
+			List<Error> errors = validation.errors();
+			response = "Favor, insira um código válido.";
+			status = "ERROR";
+			codeNotFound = true;
+			render(codeNotFound, response, status, errors, bottomNews);
+		} else {
+			render(clientName, bottomNews);
 		}
 
 	}
@@ -393,6 +401,13 @@ public class Application extends Controller {
 			serviceOrderOfServiceStep.setService(orderServValue.getService());
 			serviceOrderOfServiceStep.setOrderOfServiceSteps(orderOfServiceStep);
 			serviceOrderOfServiceSteps.add(serviceOrderOfServiceStep);
+		}
+	}
+	
+	private static void updateServicesReferences(OrderOfService orderOfService) {
+		for (ServiceOrderOfServiceSteps serviceOrderOfServiceSteps : orderOfService.getServiceOrderOfServiceSteps()) {
+			String reference = serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next().getReference();
+			serviceOrderOfServiceSteps.setReference(Utils.isNullOrEmpty(reference) ? "Não referenciado." : reference);
 		}
 	}
 
@@ -603,6 +618,42 @@ public class Application extends Controller {
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
 		render(bottomNews, parameter, theSystem);
+	}
+	
+	public static void contact() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = Parameter.all().first();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void about() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = Parameter.all().first();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void privacyPolicy() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = Parameter.all().first();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void termsConditions() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = Parameter.all().first();
+		render(theSystem, bottomNews, parameter);
 	}
 
 }

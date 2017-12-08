@@ -40,12 +40,15 @@
 			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-gears fa-fw"></i> Admin<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
+					<li><a href="@{ArticleCRUD.list}">Artigos</a></li>
+					<li><a href="@{SellPageCRUD.list}">Páginas de Venda</a></li>
+					<li><a href="@{FreePageCRUD.list}">Páginas Livre</a></li>
+					<li><a href="@{HighlightProductCRUD.list}">Produtos em Oferta</a></li>
+					<li><a href="/admin/empresa/${id}">Dados da Empresa</a></li>
 					<li><a href="@{MailListCRUD.listAll}">Leads</a></li>
 					<li><a href="@{UserCRUD.listAll}">Usuários Cadastrados</a></li>
 					<li><a href="@{InstitutionCRUD.listAll}">Empresas Cadastradas</a></li>
 					<li><a href="@{MonetizzeTransactionCRUD.list}">Monetizze</a></li>
-					<li><a href="@{ArticleCRUD.list}">Artigos</a></li>
-					<li><a href="@{SimplePagesCRUD.list}">Páginas Simples</a></li>
 					<li><a href="@{MessageCRUD.list}">Mensagens</a></li>
 					<li><a href="@{ParameterCRUD.list}">Par&acirc;metros</a></li>
 					<li><a href="@{TheSystemCRUD.list}">O Sistema</a></li>

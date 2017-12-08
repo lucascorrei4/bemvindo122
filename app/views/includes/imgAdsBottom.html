@@ -1,0 +1,14 @@
+#{list articleBottomAds, as:'article'}
+	<div class="3u 12u(narrower)">
+		<section>
+			<header>
+					<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" style="color: inherit;">
+						<h4 class="mainLead">&{article.getTitle()}</h4>
+					</a>
+				</header>
+			<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" class="image featured">
+				<img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getTitle().raw()}" title="&{article.getTitle().raw()}"  />
+			</a>
+		</section>
+	</div>
+#{/list}

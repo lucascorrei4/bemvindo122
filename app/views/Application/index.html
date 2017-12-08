@@ -2,20 +2,42 @@
 <html>
 	<head>
 		<title>Sistema Para Acompanhamento de Pedidos, Serviços e Pós-Venda | Seu Pedido Online </title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="Crie Ordens de Serviço Online e Seus Clientes Acompanham de Casa. Faça Pós Venda com 1 Clique e Comunique-se Com Seu Cliente Por WhatsApp, Notificações Push e E-mails de Forma Integrada e Automatizada">
-		<meta name="author" content="Seu Pedido Online">
-		<meta name="keywords" content="pos-venda, acompanhamento de serviços, acompanhamento de pedido, contrato prestação de serviços, serviço, pedidos, orcamento online, ordem de servico, sistema para assistencia tecnica, sistema para confeitarias, sistema para oficinas, sistema para assistencia tecnica, como fazer pos venda">
+		<meta name="robots" content="index,follow">
+				<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=&{parameter.getGoogleAnalyticsId()}"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', '&{parameter.getGoogleAnalyticsId()}');
+		</script>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
+		<!-- End Google Tag Manager -->
+		<title>&{parameter.getSiteTitle()}</title>
+		<meta name="description" content="&{parameter.getSiteDescription()}">
+		<meta name="keywords" content="&{parameter.getSiteKeywords()}">
+		<meta property="twitter:title" content="&{parameter.getSiteTitle()}">
+		<meta property="twitter:description" content="&{parameter.getSiteDescription()}">
+		<meta property="og:title" content="&{parameter.getSiteTitle()}">
+		<meta property="og:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
+		<meta property="og:image" content="&{parameter.getSiteDomain()}}&{parameter.getSiteLogo()}">
 		<meta charset="utf-8" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 		#{include 'includes/headerTemplateFollow.html' /}
 		<script type="text/javascript">
 		</script>
 	</head>
 	<body class="index">
-	<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">
 
 			<!-- Header -->
@@ -35,7 +57,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			<!-- Banner -->
 				<section id="banner">
 
-					<h1 style="font-size: 2em; font-weight: 500; margin: 1em 1em 0 1em; padding: 0">Seu cliente vira um fã. Cadastre-se.</h1>
+					<h1 style="font-size: 2.1em; margin: 1em 1em 0 1em; padding: 0; font-family: Impact; letter-spacing: 0.1em">Seu cliente vira um fã. Cadastre-se.</h1>
 					<div style="font-size: 21px; color: #fff; margin-bottom: 52px;text-align: center;padding: 0 10%;">Relacionamento, Comunicação e Pós-venda Automatizados.</div>
 				<div class="inner" style="background: rgba(224, 240, 226, 0.5); padding: 2em;">
 					<div>
@@ -45,7 +67,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					
 					<footer>
 						<ul class="buttons vertical">
-							<li><a href="#main" class="button fit scrolly scroll">QUERO CONHECER</a></li>
+							<li><a href="#main" class="button fit scrolly scroll" style="color: #ccc;letter-spacing: 0px">QUERO CONHECER</a></li>
 						</ul>
 					</footer>
 				</div>
@@ -53,11 +75,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				</section>
 
 			<!-- Main -->
-				<article id="main">
+				<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
 
 					<header class="special container">
 						<span class="icon fa-quote-left"></span>
-						<h2>SEU CLIENTE NÃO PRECISA <strong>FICAR TE LIGANDO</strong> 
+						<h2 style="font-family: Impact">SEU CLIENTE NÃO PRECISA <strong>FICAR TE LIGANDO</strong> 
 						<br />
 						PRA SABER SE O SERVIÇO ESTÁ PRONTO
 						</h2>
@@ -67,13 +89,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					</header>
 							
 					<!-- One -->
-						<section class="wrapper style2 container special-alt">
+						<section class="wrapper style2 container special-alt" style="color: #a6a6a6; background-color: #d8fcf8b3">
 							<div class="row 50%">
 								<div class="8u 12u(narrower)">
 
 									<header>
 										<h2>
-											<strong>
+											<strong style="font-family: Tahoma;">
 												ASSISTÊNCIAS TÉCNICAS, 
 												CONFEITARIAS, 
 												CENTROS AUTOMOTIVOS, 
@@ -91,7 +113,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 									<p>Não se encaixou nessa lista? Deixe seu contato para gente te ajudar a transformar seus clientes em fãs. :)</p>
 									<footer>
 										<ul class="buttons">
-											<li><a href="#features" class="button fit scrolly scroll">Quero saber mais</a></li>
+											<li><a href="#features" class="button fit scrolly scroll" style="color: #ccc;letter-spacing: 0px">Quero saber mais</a></li>
 										</ul>
 									</footer>
 									
@@ -117,7 +139,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						<section id="howitworks"  class="wrapper style1 container special">
 							<header class="special container">
 								<span class="icon fa-question-circle-o"></span>
-								<h2>COMO FUNCIONA?</H2> 
+								<h2 style="font-family: Impact">COMO FUNCIONA?</H2> 
 							</header>
 							<div class="row">
 								<div class="4u 12u(narrower)">
@@ -168,10 +190,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 							}
 						</script>
 
-						<article id="main" style="padding: 1em 0">
+						<article style="padding: 1em 0">
 							<header class="special container">
 								<span class="icon fa-hand-o-down fa-fw"></span>
-								<h2><b>NA PRÁTICA!</b></h2>
+								<h2 style="font-family: Impact"><b>NA PRÁTICA!</b></h2>
 								<p>Selecionamos abaixo <b>3 exemplos de funcionamento</b> do SeuPedido.Online,</p>
 								<p>mas - não se desespere - é indicado também para:</p>
 								<p>Encomendas, Serviços Artesanais, Entregas, Clínicas, Consultórios, Oficinas, Emissão de Processos, Transportes...</p>
@@ -180,73 +202,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 							<section class="wrapper style1 container special">
 								<div class="row">
 									<div class="4u 12u(narrower)">
-									
 										<section>
 											<header>
 												<h3><b>ASSISTÊNCIAS TÉCNICAS</b></h3>
 											</header>
-											<p style="padding: 10px">Veja abaixo um exemplo de acompanhamento de um serviço de <b>Troca de Tela Trincada de um Smartphone</b>. Foram criadas 5 fases para o cliente acompanhar. Faça o teste de funcionamento você mesmo. Copie o código de acompanhamento abaixo e cole no campo de texto a seguir:</p>
-											<footer>
-												<ul class="buttons">
-													<li><b>SE217506</b></li>
-												</ul>
-											</footer>
+											<p style="padding: 10px">Veja abaixo um exemplo de acompanhamento de um serviço de <b>Troca de Tela Trincada de um Smartphone</b>. Foram criadas 5 fases para o cliente acompanhar. Faça o teste de funcionamento você mesmo. <a href="/acompanhe?cod=SE217506#acompanhamento" target="_blank">Clique aqui</a> e veja o acompanhamento deste pedido.</p>
 										</section>
-										
 									</div>
 									<div class="4u 12u(narrower)">
-						
 										<section>
 											<header>
 												<h3><b>CENTROS AUTOMOTIVOS</b></h3>
 											</header>
-											<p style="padding: 10px">Veja um exemplo de um serviço de <b>Troca das Pastilhas de Freio</b> de um veículo. Neste caso, foram criadas 4 fases para o cliente acompanhar. Copie o código de acompanhamento abaixo e cole no campo de texto a seguir:</p>
-											<footer>
-												<ul class="buttons">
-													<li><b>SE225237</b></li>
-												</ul>
-											</footer>
+											<p style="padding: 10px">Veja um exemplo de um serviço de <b>Troca das Pastilhas de Freio</b> de um veículo. Neste caso, foram criadas 4 fases para o cliente acompanhar. <a href="/acompanhe?cod=SE225237#acompanhamento" target="_blank">Clique aqui</a> e veja o acompanhamento deste pedido.</p>
 										</section>
-						
 									</div>
 									<div class="4u 12u(narrower)">
-						
 										<section>
 											<header>
 												<h3><b>CONFEITARIAS</b></h3>
 											</header>
-											<p style="padding: 10px">Que delícia! Veja como fica o acompanhamento de um serviço de encomenda de uma <b>Torta Alemã</b>. O cliente acompanha as 5 fases principais para conclusão da torta. Copie o código de acompanhamento abaixo e cole no campo de texto a seguir:</p>
-											<footer>
-												<ul class="buttons">
-													<li><b>SE222774</b></li>
-												</ul>
-											</footer>
+											<p style="padding: 10px">Que delícia! Veja como fica o acompanhamento de um serviço de encomenda de uma <b>Torta Alemã</b>. O cliente acompanha as 5 fases principais para conclusão da torta. <a href="/acompanhe?cod=SE222774#acompanhamento" target="_blank">Clique aqui</a> e veja o acompanhamento deste pedido.</p>
 										</section>
-						
 									</div>
 								</div>
-							</section>
-						
-							<header class="special container">
-								<span class="icon fa-hand-o-down fa-fw"></span>
-								<h2><strong>Acompanhe</strong></h2>
-								<p>Insira o código abaixo:</p>
-								<div class="row">
-									<div class="12u">
-										<input type="text" id="orderCode" name="orderCode" placeholder="Ex.: X012345" value="" style="text-transform: uppercase;  font-size: 30px; border-radius: 0; margin: 0 auto; width: 8em;" />
-									</div>
-								</div>
-								<div class="row">
-									<div class="12u">
-										<ul class="buttons">
-											<li><input id="followOrderCode" type="button" class="special" value="Enviar" onclick="loadIframe('ifollow', '/follow?orderCode=' + document.getElementById('orderCode').value);" style="background-color: #F0A939" /></li>
-										</ul>
-									</div>
-								</div>
-							</header>
-							<!-- One -->
-							<section class="wrapper style4 special container" style="padding: 0; width: auto">
-								<iframe id="ifollow" src="#" style="display: none; border: none; height: 100vh; width: 100vw;" frameborder="0" width="100%" height="100%"></iframe> 
 							</section>
 						
 						</article>
@@ -271,7 +250,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 						<section class="wrapper style3 container special">
 
 							<header class="major">
-								<h2 style="text-transform: uppercase; color: #333333; font-size: 1.7em; font-weight: 900; margin: 0;">DICAS ÚTEIS <span style="color: #00CCFF;">#TMFTQS</span></h2>
+								<h2 style="text-transform: uppercase; color: #333333; font-size: 1.7em; font-weight: 900; margin: 0;">artigos ÚTEIS <span style="color: #00CCFF;">#TMFTQS</span></h2>
 								<h4 style="text-transform: uppercase; color: #ccc; font-size: 1.2em; font-weight: 900; margin: 0;"><span style="color: #00CCFF;">T</span>odo <span style="color: #00CCFF;">M</span>undo <span style="color: #00CCFF;">F</span>alando, <span style="color: #00CCFF;">T</span>ambém <span style="color: #00CCFF;">Q</span>uero <span style="color: #00CCFF;">S</span>aber</h4>
 							</header>
 
@@ -279,7 +258,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 								#{list listArticles12, as:'article'}
 									<div class="6u 12u(narrower)">
 										<section>
-											<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
+											<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
 											<header>
 												<h3>&{article.getTitle().raw()}</h3>
 											</header>
@@ -287,7 +266,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 										</section>
 										<footer>
 											<ul class="buttons">
-												<li><a href="/dicas/${article.id}/${article.getFriendlyUrl()}" target="_blank" class="button small" style="color: #ccc">Leia mais</a></li>
+												<li><a href="/artigos/${article.id}/${article.getFriendlyUrl()}" target="_blank" class="button small" style="color: #ccc">Leia mais</a></li>
 											</ul>
 										</footer>
 									</div>
@@ -298,7 +277,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 								#{list listArticles34, as:'article'}
 									<div class="6u 12u(narrower)">
 										<section>
-											<a href="/dicas/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
+											<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" class="image featured"><img src="@{NewsController.getImage(article.id, '1')}" alt="" /></a>
 											<header>
 												<h3>&{article.getTitle().raw()}</h3>
 											</header>
@@ -306,7 +285,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 										</section>
 										<footer>
 											<ul class="buttons">
-												<li><a href="/dicas/${article.id}/${article.getFriendlyUrl()}" target="_blank" class="button small" style="color: #ccc">Leia mais</a></li>
+												<li><a href="/artigos/${article.id}/${article.getFriendlyUrl()}" target="_blank" class="button small" style="color: #ccc">Leia mais</a></li>
 											</ul>
 										</footer>
 									</div>
@@ -315,8 +294,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 							<footer class="major">
 								<ul class="buttons">
-									<li><a href="/dicas" target="_blank" class="button">Todas as dicas</a></li>
-									<li><a href="/novo" target="_blank" class="button">Nova conta</a></li>
+									<li><a href="/artigos" target="_blank" class="button" style="color: #ccc;letter-spacing: 0px">Todas as artigos</a></li>
+									<li><a href="/novo" target="_blank" class="button" style="color: #ccc;letter-spacing: 0px">Nova conta</a></li>
 								</ul>
 							</footer>
 
@@ -329,7 +308,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 					<header>
 						<h2>Pronto para <strong>inovar</strong>?</h2>
-						<p>Deixe a tecnologia agilizar a comunicação com o seu cliente.</p>
+						<p style="color: #fff">Deixe a tecnologia agilizar a comunicação com o seu cliente.</p>
 					</header>
 					<footer>
 						<div id="mailListBottom">

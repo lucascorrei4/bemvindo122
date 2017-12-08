@@ -13,15 +13,10 @@ import org.apache.ivy.Main;
 import org.apache.log4j.Logger;
 
 public class UrlShortener {
-	public static String apiKey = ApplicationConfiguration.getInstance().getGoogleShortenerUrlApiKey();
-	public static String googUrl = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=http://goo.gl/fbsS&key="
-			+ apiKey;
 
-	public static void main(String[] args) {
-		System.err.println(shorten("http://localhost:9000/10/url-shortening-using-tinyurl-api-for"));
-	}
-
-	public static String shorten(String longUrl) {
+	public static String shorten(String shortenApiId, String longUrl) {
+		String googUrl = "https://www.googleapis.com/urlshortener/v1/url?shortUrl=http://goo.gl/fbsS&key="
+				+ shortenApiId;
 		String shortUrl = "";
 
 		try {

@@ -1,15 +1,11 @@
 package models;
 
-import java.net.URI;
-import java.net.URL;
 import java.text.ParseException;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Lob;
-import javax.persistence.PostLoad;
-import javax.persistence.PrePersist;
-
-import org.apache.commons.codec.binary.StringUtils;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
@@ -17,10 +13,21 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
+import util.ApplicationConfiguration;
+import util.FacebookEventEnum;
+import util.StatusInvoiceEnum;
+import util.TypeAdsNewsEnum;
 import util.Utils;
 
 @Entity
 public class Article extends Model {
+
+	@Required(message = "Campo obrigatório.")
+	public String titleSEO;
+	@Required(message = "Campo obrigatório.")
+	public String descriptionSEO;
+	@Required(message = "Campo obrigatório.")
+	public String canonicalURL;
 
 	@Required(message = "Campo obrigatório.")
 	public String title;
@@ -43,13 +50,24 @@ public class Article extends Model {
 
 	public Blob image2;
 
+	public Blob image3;
+	
+	public boolean showCaptureForm = true;
+
 	public String titleCaptureForm;
 
 	public String tags;
 
 	public String embed;
 
-	@Hidden
+	@Enumerated(EnumType.STRING)
+	public TypeAdsNewsEnum typeAds = TypeAdsNewsEnum.Default;
+
+	public String directLink;
+	
+	@Enumerated(EnumType.STRING)
+	public FacebookEventEnum facebookEvent = FacebookEventEnum.ViewContent;
+
 	public String friendlyUrl;
 
 	public boolean highlight;
@@ -60,7 +78,7 @@ public class Article extends Model {
 	public String shortenUrl;
 
 	public boolean isActive = true;
-	
+
 	public String toString() {
 		return title;
 	}
@@ -77,8 +95,7 @@ public class Article extends Model {
 	public long institutionId;
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
@@ -148,6 +165,14 @@ public class Article extends Model {
 		this.image2 = image2;
 	}
 
+	public Blob getImage3() {
+		return image3;
+	}
+
+	public void setImage3(Blob image3) {
+		this.image3 = image3;
+	}
+
 	public String getTags() {
 		return tags;
 	}
@@ -189,8 +214,9 @@ public class Article extends Model {
 
 	public String getShortenUrl() {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
-			setShortenUrl(Utils.getShortenUrl("http://seupedido.online/dicas/".concat(String.valueOf(this.id)).concat("/")
-					.concat(this.getFriendlyUrl())));
+			Parameter parameter = Parameter.getCurrentParameter();
+			parameter.setGoogleShortnerUrlApiId(parameter.getGoogleShortnerUrlApiId() == null ? "AIzaSyCscCd-De7uL6UGXABT1g4I_rU1wMJRv8w" : parameter.getGoogleShortnerUrlApiId());
+			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/artigos/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
@@ -200,19 +226,75 @@ public class Article extends Model {
 	}
 
 	public String getComplement() {
-		return complement;
+		return Utils.isNullOrEmpty(this.complement) ? complement : Utils.normalizeString(complement);
 	}
 
 	public void setComplement(String complement) {
 		this.complement = complement;
 	}
-	
+
 	public String getTitleCaptureForm() {
 		return titleCaptureForm;
 	}
-	
+
 	public void setTitleCaptureForm(String titleCaptureForm) {
 		this.titleCaptureForm = titleCaptureForm;
+	}
+
+	public TypeAdsNewsEnum getTypeAds() {
+		return typeAds;
+	}
+
+	public void setTypeAds(TypeAdsNewsEnum typeAds) {
+		this.typeAds = typeAds;
+	}
+
+	public String getDirectLink() {
+		return directLink;
+	}
+
+	public void setDirectLink(String directLink) {
+		this.directLink = directLink;
+	}
+
+	public String getTitleSEO() {
+		return titleSEO;
+	}
+
+	public void setTitleSEO(String titleSEO) {
+		this.titleSEO = titleSEO;
+	}
+
+	public String getDescriptionSEO() {
+		return descriptionSEO;
+	}
+
+	public void setDescriptionSEO(String descriptionSEO) {
+		this.descriptionSEO = descriptionSEO;
+	}
+
+	public String getCanonicalURL() {
+		return canonicalURL;
+	}
+
+	public void setCanonicalURL(String canonicalURL) {
+		this.canonicalURL = canonicalURL;
+	}
+
+	public boolean isShowCaptureForm() {
+		return showCaptureForm;
+	}
+
+	public void setShowCaptureForm(boolean showCaptureForm) {
+		this.showCaptureForm = showCaptureForm;
+	}
+
+	public FacebookEventEnum getFacebookEvent() {
+		return facebookEvent;
+	}
+
+	public void setFacebookEvent(FacebookEventEnum facebookEvent) {
+		this.facebookEvent = facebookEvent;
 	}
 
 }

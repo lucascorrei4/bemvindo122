@@ -1,27 +1,11 @@
 <meta charset="utf-8" />
-<header id="header" style="min-height: 74px; background-attachment: fixed; background-repeat: no-repeat, no-repeat, repeat, no-repeat; background-position: left top; background-size: 140px; background-image: url(/public/images/logo-admin.png);">
-	<a href="/">
-		<h1 id="logo">&nbsp;</h1>
-	</a>
-	<nav id="nav" style="display: &{theSystem.showTopMenu ? 'block' : 'none'}">
-		<ul style="z-index: 99999999">
-			<li class="current"><a href="/">Voltar para Página Inicial</a></li>
-			<li class="submenu">
-				<a href="#">Navegação</a>
-				<ul>
-					<li><a href="/">Seu Pedido Online</a></li>
-					#{list listTheSystems, as:'theSystem'}
-						<li><a href="/o-sistema/&{theSystem.friendlyUrl}">&{theSystem.title}</a></li>
-					#{/list}
-					<li><a href="/dicas">Dicas</a></li>
-					<li><a href="/">Contato</a></li>
-				</ul>
-			</li>
+<header id="header">
+	<h1 id="logo"><a href="/">#{verbatim}&{parameter.getSiteHeader()}#{/verbatim}</a></h1>
+	<nav id="nav">
+		<ul>
+			<li class="current"><a href="/">Página inicial</a></li>
+			<li><a href="/sobre">Quem somos</a></li>
+			<li><a href="/contato">Contato</a></li>
 		</ul>
 	</nav>
-	<div style="letter-spacing: 0.075em; position: absolute; left: 10.5em; text-transform: uppercase; top: 1.75em;">
-		<blockquote style="border: none; background: transparent url(/public/templatefollow/images/quotes.gif) no-repeat scroll left top;padding-left: 45px;padding-top: 5px;padding-bottom:10px;font-style:italic;">
-			Pós Venda, Pedidos e Serviços
-		</blockquote>
-	</div>
 </header>

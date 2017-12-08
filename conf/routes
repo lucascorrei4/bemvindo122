@@ -9,6 +9,7 @@
 
 # Home page
 GET     ${ctx}/                                       				Application.index
+GET     ${ctx}/sitemap.xml                              			staticFile:/public/sitemap.xml
 
 # Home page
 POST    ${ctx}/savemessage											MessageCRUD.saveMessage
@@ -20,17 +21,29 @@ POST	${ctx}/chalk-moip-response									Application.moipResponse
 GET     ${ctx}/novo			                     					Application.newAccount
 POST    ${ctx}/novo			       				 					Application.saveNewAccount
 POST    ${ctx}/primeiros-passos    				 					Application.saveNewInstitution
-POST    ${ctx}/follow	 		   				 					Application.follow
-GET    	${ctx}/follow	 		   				 					Application.follow
-GET     ${ctx}/acompanhe	 		   				 				Application.followAdmin
+GET    	${ctx}/acompanhe/?				 							Application.follow
+GET    	${ctx}/acompanhe/{cod}					 					Application.follow
 POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
 GET    	${ctx}/logo-empresa/{id}		   				 			InstitutionController.getImage
 
+# Essentials Pages
+GET    	${ctx}/contato												Application.contact
+GET    	${ctx}/sobre												Application.about
+GET    	${ctx}/politica-de-privacidade								Application.privacyPolicy
+GET    	${ctx}/termos-e-condicoes									Application.termsConditions
+
+# Unusual
+# GET   ${ctx}/acompanhe	 		   				 				Application.followAdmin
+
 # Public MonetizzeController
 
 POST    ${ctx}/monetizze-postback		   				 			MonetizzeController.postback
+
+# Public Contract Models
+GET    	${ctx}/modelo-de-contrato/{friendlyUrl}						ContractModelController.details
+
 
 # Public TheSystem
 
@@ -40,10 +53,16 @@ GET    	${ctx}/o-sistema/{friendlyUrl}								TheSystemPagesController.details
 # Public SimplePages
 GET    	${ctx}/spl/{friendlyUrl}									SimplePagesController.details
 
+# Public SellPages
+GET    	${ctx}/pv/{friendlyUrl}										SellPageController.details
+
+# Public FreePages
+GET    	${ctx}/fp/{friendlyUrl}										FreePageController.details
+
 # Public News
 
-GET    	${ctx}/dicas					   				 			NewsController.list
-GET    	${ctx}/dicas/{id}/{friendlyUrl}								NewsController.details
+GET    	${ctx}/artigos					   				 			NewsController.list
+GET    	${ctx}/artigos/{id}/{friendlyUrl}							NewsController.details
 
 # Admin Update Order
 GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceCRUD.updateOrder
@@ -53,6 +72,39 @@ POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
 
 GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
 GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
+
+# FreePage
+
+GET		${ctx}/admin/paginas-livre										FreePageCRUD.list
+GET		${ctx}/admin/paginas-livre/novo									FreePageCRUD.blank
+GET		${ctx}/admin/paginas-livre/{id}									FreePageCRUD.show
+GET		${ctx}/admin/paginas-livre/{id}/{field}							FreePageCRUD.attachment
+GET		${ctx}/admin/paginas-livre/{id}/editar							FreePageCRUD.edit
+POST	${ctx}/admin/paginas-livre										FreePageCRUD.create
+POST	${ctx}/admin/paginas-livre/{id}									FreePageCRUD.save
+DELETE	${ctx}/admin/paginas-livre/{id}									FreePageCRUD.delete
+
+# SellPage
+
+GET		${ctx}/admin/paginas-de-venda										SellPageCRUD.list
+GET		${ctx}/admin/paginas-de-venda/novo									SellPageCRUD.blank
+GET		${ctx}/admin/paginas-de-venda/{id}									SellPageCRUD.show
+GET		${ctx}/admin/paginas-de-venda/{id}/{field}							SellPageCRUD.attachment
+GET		${ctx}/admin/paginas-de-venda/{id}/editar							SellPageCRUD.edit
+POST	${ctx}/admin/paginas-de-venda										SellPageCRUD.create
+POST	${ctx}/admin/paginas-de-venda/{id}									SellPageCRUD.save
+DELETE	${ctx}/admin/paginas-de-venda/{id}									SellPageCRUD.delete
+
+# HighlightProduct
+
+GET		${ctx}/admin/produtos-em-destaque										HighlightProductCRUD.list
+GET		${ctx}/admin/produtos-em-destaque/novo									HighlightProductCRUD.blank
+GET		${ctx}/admin/produtos-em-destaque/{id}									HighlightProductCRUD.show
+GET		${ctx}/admin/produtos-em-destaque/{id}/{field}							HighlightProductCRUD.attachment
+GET		${ctx}/admin/produtos-em-destaque/{id}/editar							HighlightProductCRUD.edit
+POST	${ctx}/admin/produtos-em-destaque										HighlightProductCRUD.create
+POST	${ctx}/admin/produtos-em-destaque/{id}									HighlightProductCRUD.save
+DELETE	${ctx}/admin/produtos-em-destaque/{id}									HighlightProductCRUD.delete
 
 # SequenceMailQueue
 

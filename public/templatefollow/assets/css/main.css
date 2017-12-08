@@ -1,12 +1,6 @@
 @import url("font-awesome.min.css");
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,900");
 
-/*
-	Twenty by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
-
 /* Reset */
 
 	html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
@@ -83,6 +77,10 @@
 
 	.container {
 		width: 1400px;
+	}
+	
+	a {
+		outline: none;
 	}
 
 	@media screen and (max-width: 1680px) {
@@ -534,7 +532,7 @@
 		}
 
 		.row.\31 50\25 > * {
-			padding: 60px 0 0 60px;
+			padding: 30px 0 0 60px
 		}
 
 		.row.\31 50\25 {
@@ -1608,8 +1606,8 @@
 
 	body, input, select, textarea {
 		color: #000;
-		font-family: 'Lato', sans-serif;
-		font-size: 15pt;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: 15px;
 		font-weight: 300;
 		letter-spacing: 0.025em;
 		line-height: 1.75em;
@@ -1622,7 +1620,6 @@
 		transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 		color: blue;
 		text-decoration: none;
-		border-bottom: dotted 1px;
 	}
 	
 	a, a:active, a:focus {
@@ -1646,7 +1643,7 @@
 		color: inherit;
 		font-weight: 300;
 		line-height: 1.75em;
-		margin-bottom: 1em;
+		margin-bottom: 0.1em;
 		text-transform: uppercase;
 	}
 
@@ -1657,7 +1654,7 @@
 		}
 
 	h2 {
-		font-size: 1.5em;
+		font-size: 1.8em;
 		letter-spacing: 0.1em;
 	}
 
@@ -1825,7 +1822,6 @@
 
 	.image {
 		border: 0;
-		position: relative;
 	}
 
 		.image:before {
@@ -1833,7 +1829,6 @@
 			content: '';
 			height: 100%;
 			left: 0;
-			position: absolute;
 			top: 0;
 			width: 100%;
 		}
@@ -1849,7 +1844,7 @@
 
 		.image.featured {
 			display: block;
-			margin: 0 0 2em 0;
+			margin: 0;
 		}
 
 			.image.featured img {
@@ -2085,7 +2080,7 @@
 		transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 		background: none;
 		border: solid 1px;
-		color: inherit;
+		color: #B7D1EA;
 		cursor: pointer;
 		display: inline-block;
 		font-size: 0.8em;
@@ -2143,7 +2138,7 @@
 /* Wrapper */
 
 	.wrapper {
-		margin-bottom: 5em;
+		margin-bottom: 1em;
 		padding: 5em;
 	}
 
@@ -2183,7 +2178,7 @@
 		.wrapper.style4 {
 			background: #fff;
 			color: inherit;
-			padding: 4em;
+			padding: 1em;
 		}
 
 /* Header */
@@ -2240,6 +2235,11 @@
 		top: 0;
 		width: 100%;
 		z-index: 1000;
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+		filter: alpha(opacity=80);
+		-moz-opacity: 0.80;
+		-khtml-opacity: 0.8;
+		opacity: 0.7;
 	}
 
 		#header h1 {
@@ -2512,6 +2512,7 @@
 		background-repeat: no-repeat;
 		background-size: 25em;
 		padding: 7em 0;
+		background-color: lightpink;
 	}
 
 		#main > :last-child {
@@ -3261,4 +3262,119 @@
 	
 
 
+a, a:active, a:focus, 
+button, button:focus, button:active, 
+.btn, .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn.active.focus {
+    outline: none;
+    outline: 0;
+}
 
+input::-moz-focus-inner {
+    border: 0;
+}	
+
+.imageAdsTop {
+	padding: 0 10% 0 10%;
+	width: auto;
+}
+
+.contentAds {
+	margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.imageAdsBottomLeft {
+	float: right;
+}
+
+.imageAdsBottomRight {
+	float: left;
+}
+
+.imageAdsSidebar img {
+	max-width: 336px !important;
+}
+
+.divImageAdsBottom a img {
+	max-width: 274px;
+}
+
+@media screen and (max-width: 900px) {
+	.imageAdsTop {
+		padding: 0 5% 0 5%;
+		width: 100%;
+	}
+	.imageAdsBottomLeft {
+		float: unset;
+		padding: 0 15px 0 15px;
+	}
+
+	.imageAdsBottomLeft img {
+		width: 100%;
+	}
+	
+	.imageAdsBottomRight {
+		float: unset;
+		padding: 0 15px 0 15px;
+	}
+
+	.imageAdsBottomRight img {
+		width: 100%;
+	}
+	
+	.imageAdsSidebar {
+		float: unset;
+		padding: 0;
+	}
+
+	.imageAdsSidebar img {
+		width: 100%;
+		max-width: 336px !important;
+	}
+	
+	.divImageAdsBottom {
+		padding: 0
+	}
+
+	.divImageAdsSidebar {
+		padding: 0
+	}
+
+}
+
+h3.mainLead {
+	color: #262626; 
+	font-size: 24px; 
+	font-weight: 600; 
+	font-style: normal; 
+	letter-spacing: normal;
+	line-height: 32px; 
+	text-transform: capitalize;	
+	text-align: left; 
+}
+
+h1.mainLead {
+	color: #000;    
+	font-size: 1.8em;    
+	text-transform: uppercase;    
+	line-height: 50px;    
+	font-weight: 600;    
+	letter-spacing: 3px; margin: 0;"
+}
+
+h4.mainLead {
+	color: #262626; 
+	font-size: 20px; 
+	font-weight: 600; 
+	font-style: normal; 
+	letter-spacing: normal;
+	line-height: 32px; 
+	text-transform: capitalize;	
+	text-align: left; 
+}
+
+@font-face {
+    font-family: demo_coneria;
+    src: url('/public/font/demo_coneria.ttf') format('truetype');
+}

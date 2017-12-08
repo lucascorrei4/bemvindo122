@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
+		<!-- End Google Tag Manager -->
+		<title>Termos e Condições | &{parameter.getSiteTitle()}</title>
+		<meta name="description" content="Termos e Condições | &{parameter.getSiteTitle()}">
+		<meta name="keywords" content="termos e condicoes, termos e condições &{parameter.getSiteTitle()}">
+		<meta property="twitter:title" content="Termos e Condições | &{parameter.getSiteTitle()}">
+		<meta property="twitter:description" content="Termos e Condiçoes do site | &{parameter.getSiteTitle()}">
+		<meta property="og:title" content="Termos e Condições | &{parameter.getSiteTitle()}">
+		<meta property="og:description" content="Termos e Condiçoes do site | | &{parameter.getSiteTitle()}">
+		<meta property="og:image" content="ApplicationConfiguration.getInstance().getSiteDomain()/public/images/logo-admin.png">
+		<meta charset="utf-8" />
+		#{include 'includes/headerTemplateFollow.html' /}
+	</head>
+	<body class="right-sidebar">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div id="page-wrapper">
+			<!-- Header -->
+				#{include 'includes/menuTemplateFollow.html' /}
+			<!-- Main -->
+				<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
+					<header class="special container">
+						<span class="icon fa-exclamation-circle"></span>
+						<h2>Termos e Condições</h2>
+					</header>
+					
+					<!-- One -->
+						<section class="wrapper style4 special container 75%" style="text-align: unset;">
+							&{parameter.getDescriptionTermsConditionsPage().raw()}
+						</section>
+
+						<section class="wrapper style1 container special">
+							<div class="row">
+								#{include 'includes/lastNewsBottom.html' /}
+							</div>
+						</section>
+				</article>
+			<!-- Footer -->
+			#{include 'includes/footerTemplateFollow.html' /}
+	</body>
+</html>

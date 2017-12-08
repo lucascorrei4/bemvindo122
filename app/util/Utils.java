@@ -461,12 +461,14 @@ public class Utils extends Controller {
 		return URLDecoder.decode(url, "UTF-8");
 	}
 
-	public static String getShortenUrl(String url) {
-		return UrlShortener.shorten(url);
+	public static String getShortenUrl(String shortenApiId, String url) {
+		return UrlShortener.shorten(shortenApiId, url);
 	}
 
 	public static String normalizeString(String str) {
-		return str.replace("%", "%%");
+		str = str.replaceAll("%%", "%");
+		str = str.replaceAll("&#37;&#37;", "&#37;");
+		return str.replace("%", "&#37;");
 	}
 
 	public static String getFirstDayMonthDate() {

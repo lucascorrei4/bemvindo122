@@ -16,7 +16,10 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['title', 'headline', 'highlight', 'shortenUrl', 'postedAt']}
+			        #{crud.table fields:['titleSEO', 'descriptionSEO', 'friendlyUrl', 'postedAt', 'action']}
+				        #{crud.custom 'action'}
+                             <a href="@{ArticleCRUD.remove(object.id)}" title="Atenção: Esta ação remove o artigo.">Remover</a>
+				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}
