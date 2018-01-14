@@ -1,20 +1,13 @@
 package controllers;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.sql.ordering.antlr.OrderByFragment;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -23,6 +16,8 @@ import com.google.gson.JsonParser;
 
 import models.Article;
 import models.BodyMail;
+import models.FreePage;
+import models.HighlightProduct;
 import models.Institution;
 import models.MailList;
 import models.Message;
@@ -33,6 +28,7 @@ import models.OrderOfServiceValue;
 import models.Parameter;
 import models.SendTo;
 import models.Sender;
+import models.SequenceMailQueue;
 import models.Service;
 import models.StatusMail;
 import models.Step;
@@ -41,6 +37,7 @@ import models.User;
 import play.data.validation.Error;
 import play.data.validation.Valid;
 import play.mvc.Controller;
+import play.vfs.VirtualFile;
 import util.FromEnum;
 import util.MailTemplates;
 import util.ServiceOrderOfServiceSteps;
@@ -48,11 +45,6 @@ import util.UserInstitutionParameter;
 import util.Utils;
 
 public class Application extends Controller {
-
-	public static void indexOld() {
-		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
-		render(listArticles);
-	}
 
 	public static void index() {
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(4);
@@ -327,6 +319,7 @@ public class Application extends Controller {
 		OrderOfServiceValue orderOfServiceValue = null;
 		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		List<Article> bottomNews = listArticles.subList(2, listArticles.size());
+		Parameter parameter = getCurrentParameter();
 		if (!Utils.isNullOrEmpty(cod)) {
 			OrderOfService orderOfService = OrderOfService.find("orderCode", cod).first();
 			if (orderOfService == null) {
@@ -341,7 +334,7 @@ public class Application extends Controller {
 				response = "Código não encontrado! :(";
 				status = "ERROR";
 				codeNotFound = true;
-				render(codeNotFound, response, status, errors, bottomNews);
+				render(codeNotFound, response, status, errors, bottomNews, parameter);
 			} else {
 				response = "Redirecionando... :)";
 				status = "SUCCESS";
@@ -364,16 +357,16 @@ public class Application extends Controller {
 					configureOrderOfServiceSteps(orderOfService, orderOfServiceValue, serviceOrderOfServiceSteps, serviceOrderOfServiceStep);
 					updateServicesReferences(orderOfService);
 				}
-				render(clientName, company, orderOfService, serviceOrderOfServiceSteps, bottomNews);
+				render(clientName, company, orderOfService, serviceOrderOfServiceSteps, bottomNews, parameter);
 			}
 		} else if (cod == "") { 
 			List<Error> errors = validation.errors();
 			response = "Favor, insira um código válido.";
 			status = "ERROR";
 			codeNotFound = true;
-			render(codeNotFound, response, status, errors, bottomNews);
+			render(codeNotFound, response, status, errors, bottomNews, parameter);
 		} else {
-			render(clientName, bottomNews);
+			render(clientName, bottomNews, parameter);
 		}
 
 	}
@@ -421,82 +414,6 @@ public class Application extends Controller {
 			}
 		}
 		return ret;
-	}
-
-	public static void modalPass() throws UnsupportedEncodingException {
-		String response = null;
-		String status = null;
-		String value = params.get("value", String.class);
-		String email = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
-		if (!Utils.isNullOrEmpty(email) && Utils.validateEmail(email) && User.verifyByEmail(email) != null) {
-			User user = User.verifyByEmail(email);
-			MailController mailController = new MailController();
-			/* SendTo object */
-			SendTo sendTo = new SendTo();
-			sendTo.setDestination(email);
-			sendTo.setName(user.getName());
-			sendTo.setSex("");
-			sendTo.setStatus(new StatusMail());
-			/* Sender object */
-			Sender sender = new Sender();
-			sender.setCompany("Seu Pedido Online");
-			sender.setFrom("contato@seupedido.online");
-			sender.setKey("resetpass");
-			/* SendTo object */
-			BodyMail bodyMail = new BodyMail();
-			bodyMail.setTitle1("Oi, " + user.getName() + "! Veja abaixo:");
-			bodyMail.setTitle2("Seu Pedido Online - Nova senha");
-			bodyMail.setFooter1("http://seupedido.online/nova-senha/" + Utils.encode(user.getEmail()));
-			bodyMail.setImage1("http://seupedido.online/public/images/logo-admin.png");
-			bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateResetPass(bodyMail));
-			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
-				status = "SUCCESS";
-				response = "E-mail enviado com sucesso! Favor, verifique sua caixa de entrada, spam ou lixeira.";
-			} else {
-				status = "ERROR";
-				response = "Houve um problema ao enviar. :(";
-			}
-		} else {
-			status = "ERROR";
-			response = "E-mail não encontrado ou digitado incorretamente! :(";
-		}
-		render(response, status);
-	}
-
-	public static void newPass(String id) throws Throwable {
-		String mail = Utils.decode(id);
-		User user = User.verifyByEmail(mail);
-		if (user == null) {
-			Application.index();
-		} else {
-			render(user);
-		}
-	}
-
-	public static void confirmPass() throws UnsupportedEncodingException {
-		String response = null;
-		String status = null;
-		String body = params.get("body", String.class);
-		String[] params = body.split("&");
-		String pass1 = Utils.getValueFromUrlParam(params[0]);
-		String pass2 = Utils.getValueFromUrlParam(params[1]);
-		String ref = Utils.getValueFromUrlParam(params[2]);
-		User user = User.verifyByEmail(Utils.decode(Utils.decodeUrl(ref)));
-		if (user == null) {
-			status = "ERROR";
-			response = "Houve um problema. :(";
-			render("Application/newPass.html", response, status, user);
-		}
-		if (validatePassword(pass1, pass2)) {
-			user.setPassword(Utils.encode(pass1));
-			user.save();
-			status = "SUCCESS";
-			response = "Nova senha criada com sucesso. Estamos voltando para a página de login. Ok?";
-		} else {
-			status = "ERROR";
-			response = "As senhas não são iguais. :(";
-		}
-		render("Application/newPass.html", response, status, user);
 	}
 
 	public static void saveMessage(String json) throws UnsupportedEncodingException {
@@ -556,6 +473,95 @@ public class Application extends Controller {
 		render(theSystem, bottomNews);
 	}
 
+
+	public static void thankLead() {
+		Parameter parameter = Parameter.all().first();
+		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		render(bottomNews, parameter, theSystem);
+	}
+	
+	public static void getImageHighlightProduct(long id) {
+		final HighlightProduct hightlightProduct = HighlightProduct.findById(id);
+		notFoundIfNull(hightlightProduct);
+		if (hightlightProduct.getImage() != null) {
+			renderBinary(hightlightProduct.getImage().get());
+			return;
+		}
+	}
+
+	public static void getLogo() {
+		Parameter parameter = getCurrentParameter();
+		if (parameter.getLogo().exists()) {
+			renderBinary(parameter.getLogo().get(), "img-logo-" + parameter.id, "image/png", true);
+			return;
+		}
+	}
+
+	public static void getIcon() {
+		Parameter parameter = getCurrentParameter();
+		if (parameter.getIcon().exists()) {
+			renderBinary(parameter.getIcon().get());
+			return;
+		}
+	}
+
+	public static void getHomeBackgroundImage() {
+		Parameter parameter = getCurrentParameter();
+		if (parameter.getHomeBackgroundImage().exists()) {
+			renderBinary(parameter.getHomeBackgroundImage().get());
+			return;
+		}
+	}
+
+	/* Pixel tracking e-mail */
+	public static void hrpx(long id) {
+		VirtualFile vf = VirtualFile.fromRelativePath("/public/images/hr-line-gray.png");
+		File f = vf.getRealFile();
+		SequenceMailQueue seqMail = SequenceMailQueue.findById(id);
+		seqMail.setMailRead(true);
+		seqMail.save();
+		renderBinary(f);
+	}
+
+	public static void contact() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = getCurrentParameter();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void about() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = getCurrentParameter();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void privacyPolicy() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = getCurrentParameter();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void termsConditions() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = getCurrentParameter();
+		render(theSystem, bottomNews, parameter);
+	}
+	
 	public static void saveMailList() throws UnsupportedEncodingException {
 		String resp = null;
 		String status = null;
@@ -608,52 +614,108 @@ public class Application extends Controller {
 		case CapturePageBottom:
 			render("includes/formCapturePageBottom.html", status, resp);
 			break;
+		case NewsletterFreePage:
+			String partOf = url.substring(url.indexOf("fp/"));
+			String pageParameter = partOf.split("/")[1];
+			FreePage freePage = FreePage.findByFriendlyUrl(pageParameter);
+			render("includes/formNewsLetterFreePage.html", status, resp, freePage);
+			break;
+		}
+	}
+	
+	private static Parameter getCurrentParameter() {
+		return Parameter.all().first();
+	}
+	
+	public static void unsubscribe(String mailLead) {
+		Parameter parameter = getCurrentParameter();
+		String mail = Utils.decode(mailLead);
+		List<MailList> listMail = MailList.find("mail = '" + mail + "'").fetch();
+		String lead = listMail.iterator().next().getName();
+		for (MailList mL : listMail) {
+			mL.setActive(false);
+			mL.save();
+		}
+		render(lead, parameter);
+	}
+	
+	public static void modalPass() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String value = params.get("value", String.class);
+		String email = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
+		if (!Utils.isNullOrEmpty(email) && Utils.validateEmail(email) && User.verifyByEmail(email) != null) {
+			Parameter parameter = getCurrentParameter();
+			User user = User.verifyByEmail(email);
+			MailController mailController = new MailController();
+			/* SendTo object */
+			SendTo sendTo = new SendTo();
+			sendTo.setDestination(email);
+			sendTo.setName(user.getName());
+			sendTo.setSex("");
+			sendTo.setStatus(new StatusMail());
+			/* Sender object */
+			Sender sender = new Sender();
+			sender.setCompany("Seu Pedido Online");
+			sender.setFrom(parameter.getSiteMail());
+			sender.setKey("resetpass");
+			/* SendTo object */
+			BodyMail bodyMail = new BodyMail();
+			bodyMail.setTitle1("Oi, " + user.getName() + "! Veja abaixo:");
+			bodyMail.setTitle2(parameter.getSiteTitle() + " - Nova senha");
+			bodyMail.setFooter1(parameter.getSiteDomain() + "/nova-senha/" + Utils.encode(user.getEmail()));
+			bodyMail.setImage1(parameter.getSiteDomain() + "/logo");
+			bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateResetPass(bodyMail, parameter));
+			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter)) {
+				status = "SUCCESS";
+				response = "E-mail enviado com sucesso! Favor, verifique sua caixa de entrada, spam ou lixeira.";
+			} else {
+				status = "ERROR";
+				response = "Houve um problema ao enviar. :(";
+			}
+		} else {
+			status = "ERROR";
+			response = "E-mail não encontrado ou digitado incorretamente! :(";
+		}
+		render(response, status);
+	}
+
+	public static void newPass(String id) throws Throwable {
+		Parameter parameter = getCurrentParameter();
+		String mail = Utils.decode(id);
+		User user = User.verifyByEmail(mail);
+		if (user == null) {
+			Application.index();
+		} else {
+			render(user, parameter);
 		}
 	}
 
-	public static void thankLead() {
-		Parameter parameter = Parameter.all().first();
-		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
-		List<Article> bottomNews = listArticles.subList(0, 3);
-		TheSystem theSystem = new TheSystem();
-		theSystem.setShowTopMenu(true);
-		render(bottomNews, parameter, theSystem);
+	public static void confirmPass() throws UnsupportedEncodingException {
+		Parameter parameter = getCurrentParameter();
+		String response = null;
+		String status = null;
+		String body = params.get("body", String.class);
+		String[] params = body.split("&");
+		String pass1 = Utils.getValueFromUrlParam(params[0]);
+		String pass2 = Utils.getValueFromUrlParam(params[1]);
+		String ref = Utils.getValueFromUrlParam(params[2]);
+		User user = User.verifyByEmail(Utils.decode(Utils.decodeUrl(ref)));
+		if (user == null) {
+			status = "ERROR";
+			response = "Houve um problema. :(";
+			render("Application/newPass.html", response, status, user, parameter);
+		}
+		if (validatePassword(pass1, pass2)) {
+			user.setPassword(Utils.encode(pass1));
+			user.save();
+			status = "SUCCESS";
+			response = "Nova senha criada com sucesso. Estamos voltando para a página de login. Ok?";
+		} else {
+			status = "ERROR";
+			response = "As senhas não são iguais. :(";
+		}
+		render("Application/newPass.html", response, status, user, parameter);
 	}
 	
-	public static void contact() {
-		TheSystem theSystem = new TheSystem();
-		theSystem.setShowTopMenu(true);
-		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
-		List<Article> bottomNews = listArticles.subList(0, 3);
-		Parameter parameter = Parameter.all().first();
-		render(theSystem, bottomNews, parameter);
-	}
-
-	public static void about() {
-		TheSystem theSystem = new TheSystem();
-		theSystem.setShowTopMenu(true);
-		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
-		List<Article> bottomNews = listArticles.subList(0, 3);
-		Parameter parameter = Parameter.all().first();
-		render(theSystem, bottomNews, parameter);
-	}
-
-	public static void privacyPolicy() {
-		TheSystem theSystem = new TheSystem();
-		theSystem.setShowTopMenu(true);
-		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
-		List<Article> bottomNews = listArticles.subList(0, 3);
-		Parameter parameter = Parameter.all().first();
-		render(theSystem, bottomNews, parameter);
-	}
-
-	public static void termsConditions() {
-		TheSystem theSystem = new TheSystem();
-		theSystem.setShowTopMenu(true);
-		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
-		List<Article> bottomNews = listArticles.subList(0, 3);
-		Parameter parameter = Parameter.all().first();
-		render(theSystem, bottomNews, parameter);
-	}
-
 }

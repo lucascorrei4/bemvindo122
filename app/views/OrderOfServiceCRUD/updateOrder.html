@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="${lang}">
-<meta charset="utf-8
-<!-- Head -->
+<meta charset="utf-8" />
 #{include 'includes/headCrud.html' /}
-<!-- Head -->
 <body>
 	<div id="wrapper">
-		<!-- Navigation -->
-		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; min-height: 75px">
 			<!-- Logo navbar -->
 			#{include 'includes/logoNavBar.html' /}
 			<!-- Logo navbar -->
@@ -24,25 +21,24 @@
 					<h1 class="page-header">Atualizar Pedidos</h1>
 					<label style="float: right"><a data-toggle="modal" data-target="#modalVideoHelpUpdateOrders" >Quer ajuda?</a></label>
 				</div>
-				<!-- /.col-lg-12 -->
 			</div>
 			<ol class="breadcrumb">
 			    <li><a href="/admin/">Início</a></li>
 			    <li><a href="/admin/atualizar-pedidos">Atualizar Pedidos</a></li>
 			</ol>
-			
 			#{if flash.success}
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="alert alert-info alert-dismissable">${flash.success}</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-info alert-dismissable">${flash.success}</div>
+					</div>
 				</div>
-			</div>
-			#{/if} #{if flash.error || error}
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="alert alert-danger alert-dismissable">${error ?: flash.error}</div>
+			#{/if} 
+			#{if flash.error || error}
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-danger alert-dismissable">${error ?: flash.error}</div>
+					</div>
 				</div>
-			</div>
 			#{/if}
 			<div class="row">
 				<div class="col-lg-12">
@@ -62,11 +58,8 @@
 						</div>
 					</div>
 				</div>
-				<!-- /.row -->
 			</div>
-			<!-- /#page-wrapper -->
 		</div>
-		<!-- /#wrapper -->
 	</div>
 	<div class="modal fade" id="modalVideoHelpUpdateOrders" tabindex="-1" role="dialog" aria-labelledby="modalVideoHelpUpdateOrdersLabel" aria-hidden="true">
 		<div class="modal-dialog">

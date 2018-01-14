@@ -6,22 +6,21 @@
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
 		<!-- End Google Tag Manager -->
-		<title>Também Quero Saber | artigos de Inovação e Tecnologia | #TMFTQS | Seu Pedido Online</title>
-		<meta name="description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
-		<meta name="keywords" content="artigos de tecnologia, inovação, tecnologia, seu pedido online, computador, artigos de internet">
-		<meta property="twitter:title" content="artigos de Inovação e Tecnologia | Seu Pedido Online">
-		<meta property="twitter:description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
-		<meta property="og:title" content="artigos de Inovação e Tecnologia | Seu Pedido Online">
-		<meta property="og:description" content="Fique por dentro das novidades de Tecnologia e Inovação | Seu Pedido Online">
-		<meta property="og:image" content="http://seupedido.online/public/images/logo-admin.png">
+		<title>Também Quero Saber | artigos de Inovação e Tecnologia | #TMFTQS | &{parameter.getSiteTitle()}</title>
+		<meta name="description" content="Fique por dentro das novidades de Tecnologia e Inovação | &{parameter.getSiteTitle()}">
+		<meta property="twitter:title" content="artigos de Inovação e Tecnologia | &{parameter.getSiteTitle()}">
+		<meta property="twitter:description" content="Fique por dentro das novidades de Tecnologia e Inovação | &{parameter.getSiteTitle()}">
+		<meta property="og:title" content="artigos de Inovação e Tecnologia | &{parameter.getSiteTitle()}">
+		<meta property="og:description" content="Fique por dentro das novidades de Tecnologia e Inovação | &{parameter.getSiteTitle()}">
+		<meta property="og:image" content="${play.configuration.getProperty('site.domain')}/public/images/logo-admin.png">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
 	</head>
 	<body class="right-sidebar">
 		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">

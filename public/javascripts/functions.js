@@ -133,7 +133,6 @@ function sendSMS(id, value, idUpdate) {
 					$("#message-" + id).show();
 					$("#message-" + id).html($("#response").val());
 					$("#collapse" + spplittedName[1]).collapse('show');
-					setTimeout('$("#message").hide()', 10000);
 				}
 				$("#" + idUpdate + "*").prop("disabled", false);
 			});
@@ -148,19 +147,18 @@ function sendSMSThankful(id, value, idUpdate) {
 	messageActionOnClick(id, idUpdate);
 	$('#' + idUpdate).load('/OrderOfServiceCRUD/sendSMSThankful', data,
 			function(response, status) {
-				var status = $("#status").val();
+				var status = $("#statusThankful").val();
 				var spplittedName = id.split('-');
 				if ('SUCCESS' === status) {
 					$("#message-" + id).css("color", "cornflowerblue");
 					$("#message-" + id).show();
-					$("#message-" + id).html($("#response").val());
+					$("#message-" + id).html($("#responseThankful").val());
 					$("#message-" + id).fadeIn();
 				} else {
 					$("#message-" + id).css("color", "red");
 					$("#message-" + id).show();
-					$("#message-" + id).html($("#response").val());
-					var message = '#message-' + id;
-					setTimeout($(message).hide(), 10000);
+					$("#message-" + id).html($("#responseThankful").val());
+					setTimeout(function() { $('#message-' + id).hide(); }, 10000);
 				}
 				$("#" + idUpdate + "*").prop("disabled", false);
 			});
@@ -175,19 +173,18 @@ function sendWhatsAppThankful(id, value, idUpdate) {
 	messageActionOnClick(id, idUpdate);
 	$('#' + idUpdate).load('/OrderOfServiceCRUD/sendWhatsAppThankful', data,
 			function(response, status) {
-		var status = $("#status").val();
+		var status = $("#statusThankful").val();
 		var spplittedName = id.split('-');
 		if ('SUCCESS' === status) {
 			$("#message-" + id).css("color", "cornflowerblue");
 			$("#message-" + id).show();
-			window.open($("#response").val(), '_blank');
+			window.open($("#responseThankful").val(), '_blank');
 			$("#message-" + id).fadeIn();
 		} else {
 			$("#message-" + id).css("color", "red");
 			$("#message-" + id).show();
-			$("#message-" + id).html($("#response").val());
-			var message = '#message-' + id;
-			setTimeout($(message).hide(), 10000);
+			$("#message-" + id).html($("#responseThankful").val());
+			setTimeout(function() { $('#message-' + id).hide(); }, 10000);
 		}
 		$("#" + idUpdate + "*").prop("disabled", false);
 	});
@@ -215,7 +212,7 @@ function sendPUSH(id, value, idUpdate) {
 					$("#message-" + id).show();
 					$("#message-" + id).html($("#response").val());
 					$("#collapse" + spplittedName[1]).collapse('show');
-					setTimeout('$("#message").hide()', 10000);
+					setTimeout(function() { $('#message-' + id).hide(); }, 10000);
 				}
 				$("#" + idUpdate + "*").prop("disabled", false);
 			});
@@ -230,18 +227,18 @@ function sendPUSHThankful(id, value, idUpdate) {
 	messageActionOnClick(id, idUpdate);
 	$('#' + idUpdate).load('/OrderOfServiceCRUD/sendPUSHThankful', data,
 			function(response, status) {
-				var status = $("#status").val();
+				var status = $("#statusThankful").val();
 				var spplittedName = id.split('-');
 				if ('SUCCESS' === status) {
 					$("#message-" + id).css("color", "cornflowerblue");
 					$("#message-" + id).show();
-					$("#message-" + id).html($("#response").val());
+					$("#message-" + id).html($("#responseThankful").val());
 					$("#message-" + id).fadeIn();
 				} else {
 					$("#message-" + id).css("color", "red");
 					$("#message-" + id).show();
-					$("#message-" + id).html($("#response").val());
-					setTimeout('$("#message").hide()', 10000);
+					$("#message-" + id).html($("#responseThankful").val());
+					setTimeout(function() { $('#message-' + id).hide(); }, 10000);
 				}
 				$("#" + idUpdate + "*").prop("disabled", false);
 			});
@@ -269,7 +266,7 @@ function sendEmail(id, value, idUpdate) {
 					$("#message-" + id).show();
 					$("#message-" + id).html($("#response").val());
 					$("#collapse" + spplittedName[1]).collapse('show');
-					setTimeout('$("#message").hide()', 10000);
+					setTimeout(function() { $('#message-' + id).hide(); }, 10000);
 				}
 				$("#" + idUpdate + "*").prop("disabled", false);
 			});
@@ -298,7 +295,7 @@ function sendEmailNotificationToCustomer(id, value, idUpdate) {
 					$("#message-" + id).show();
 					$("#message-" + id).html($("#response").val());
 					$("#collapse" + spplittedName[1]).collapse('show');
-					setTimeout('$("#message").hide()', 10000);
+					setTimeout(function() { $('#message-' + id).hide(); }, 10000);
 				}
 				$("#" + idUpdate + "*").prop("disabled", false);
 			});
@@ -313,18 +310,18 @@ function sendEmailNotificationThankful(id, value, idUpdate) {
 	messageActionOnClick(id, idUpdate);
 	$('#' + idUpdate).load('/OrderOfServiceCRUD/sendEmailNotificationThankful',
 			data, function(response, status) {
-				var status = $("#status").val();
+				var status = $("#statusThankful").val();
 				var spplittedName = id.split('-');
 				if ('SUCCESS' === status) {
 					$("#message-" + id).css("color", "cornflowerblue");
 					$("#message-" + id).show();
-					$("#message-" + id).html($("#response").val());
+					$("#message-" + id).html($("#responseThankful").val());
 					$("#message-" + id).fadeIn();
 				} else {
 					$("#message-" + id).css("color", "red");
 					$("#message-" + id).show();
-					$("#message-" + id).html($("#response").val());
-					setTimeout('$("#message").hide()', 10000);
+					$("#message-" + id).html($("#responseThankful").val());
+					setTimeout(function() { $('#message-' + id).hide(); }, 10000);
 				}
 				$("#" + idUpdate + "*").prop("disabled", false);
 			});

@@ -35,14 +35,16 @@ public class FreePage extends Model {
 	public Blob backgroundImage;
 	public String backgroundColor;
 	
+	public boolean showCaptureForm;
+	public String buttonMainTitle;
 
 	@Lob
 	@MaxSize(10000000)
 	public String subtitle1;
-
+	
 	@Enumerated(EnumType.STRING)
 	public FacebookEventEnum facebookEvent = FacebookEventEnum.ViewContent;
-	
+
 	public String friendlyUrl;
 
 	@Hidden
@@ -96,7 +98,7 @@ public class FreePage extends Model {
 	}
 
 	public String getFriendlyUrl() {
-		if (Utils.isNullOrEmpty(this.friendlyUrl) && !Utils.isNullOrEmpty(this.mainTitle)) {
+		if (!Utils.isNullOrEmpty(this.mainTitle)) {
 			setFriendlyUrl(Utils.stringToUrl(Utils.removeHTML(this.mainTitle.trim())));
 		}
 		return friendlyUrl;
@@ -114,11 +116,11 @@ public class FreePage extends Model {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
 			Parameter parameter = Parameter.getCurrentParameter();
 			parameter.setGoogleShortnerUrlApiId(parameter.getGoogleShortnerUrlApiId() == null ? "AIzaSyCscCd-De7uL6UGXABT1g4I_rU1wMJRv8w" : parameter.getGoogleShortnerUrlApiId());
-			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/fp/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
+			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/fp/".concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
-
+	
 	public void setShortenUrl(String shortenUrl) {
 		this.shortenUrl = shortenUrl;
 	}
@@ -177,6 +179,30 @@ public class FreePage extends Model {
 
 	public void setNoFollow(boolean noFollow) {
 		this.noFollow = noFollow;
+	}
+
+	public FacebookEventEnum getFacebookEvent() {
+		return facebookEvent;
+	}
+
+	public void setFacebookEvent(FacebookEventEnum facebookEvent) {
+		this.facebookEvent = facebookEvent;
+	}
+
+	public String getButtonMainTitle() {
+		return buttonMainTitle;
+	}
+
+	public void setButtonMainTitle(String buttonMainTitle) {
+		this.buttonMainTitle = buttonMainTitle;
+	}
+
+	public boolean isShowCaptureForm() {
+		return showCaptureForm;
+	}
+
+	public void setShowCaptureForm(boolean showCaptureForm) {
+		this.showCaptureForm = showCaptureForm;
 	}
 
 }

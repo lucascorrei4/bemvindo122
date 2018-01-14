@@ -7,7 +7,7 @@
 				#{crud.search /}
 			</div>
 			<div class="col-lg-6">
-				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
+				<a href="@{blank()}" class="btn btn-default" style="display: none;">&{'crud.add', type.modelName}</a> 
 			</div>
 		</div>
 	</div>
@@ -16,7 +16,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['mininumSalary', 'percentValuePlan', 'currentPricePlan', 'smsPricePlan']}
+			        #{crud.table fields:['siteName', 'siteDomain', 'siteMail']}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}

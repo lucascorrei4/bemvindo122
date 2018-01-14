@@ -12,6 +12,7 @@
 		  window.dataLayer = window.dataLayer || [];
 		  function gtag(){dataLayer.push(arguments);}
 		  gtag('js', new Date());
+		
 		  gtag('config', '&{parameter.getGoogleAnalyticsId()}');
 		</script>
 		<!-- Google Tag Manager -->
@@ -3185,6 +3186,19 @@
       <link rel="apple-touch-icon-precomposed" href="#">
       <meta name="msapplication-TileImage" content="#">
       <style type="text/css">.fancybox-margin{margin-right:17px;}</style>
+      <!-- Facebook Pixel Code -->
+		<script>
+		!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+		n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+		t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+		document,'script','https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '457036137826789'); // Insert your pixel ID here.
+		fbq('track', 'PageView');
+		</script>
+		<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=457036137826789&ev=PageView&noscript=1" /></noscript>
+		<!-- DO NOT MODIFY -->
+		<!-- End Facebook Pixel Code -->
    </head>
    <body class="page-template-default page page-id-308 wp-custom-logo op-live-editor-page op-plugin group-blog has-header-image page-one-column title-tagline-hidden colors-light" style="">
    <!-- Google Tag Manager (noscript) -->
@@ -3192,7 +3206,7 @@
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
 		<script>
-		  fbq('track', '&{article.getFacebookEvent().getValue()}');
+		  fbq('track', '&{freePage.getFacebookEvent().getValue()}');
 		</script>
       <div class="container main-content">
          <div id="content_area" class="">
@@ -3219,19 +3233,24 @@
                </div>
             </div>
             <div style="background-image:url(@{FreePageController.getBackgroundImage(freePage.id)});background-repeat:no-repeat;background-position:center;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;padding-top:0;" class="row five-columns cf ui-sortable section parallax   " id="le_body_row_12" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9sb3ZlcnVsZXMtYmcuanBnKSIsImJhY2tncm91bmRQb3NpdGlvbiI6ImNlbnRlciIsImJvcmRlclRvcFdpZHRoIjoiIiwiYm9yZGVyVG9wQ29sb3IiOiIiLCJib3JkZXJCb3R0b21XaWR0aCI6IiIsImJvcmRlckJvdHRvbUNvbG9yIjoiIiwiYWRkb24iOnt9fQ==">
-               <div class="fixed-width">
-                  <div class="three-fifths" id="">
-                     <div class="element-container cf" data-style="" id="">
-                        <div class="element">
-                           <div class="op-text-block" style="width:100%;text-align: left;">
-                              <p style="font-size:2.5em;font-family:&quot;Cabin&quot;, sans-serif;color:#fff;text-align: justify;">
-							  	  &{freePage.getDescription().raw()}
-							  </p>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+	               <div class="fixed-width">
+	                  <div class="three-fifths" id="">
+	                     <div class="element-container cf" data-style="" id="">
+	                        <div class="element">
+	                           <div class="op-text-block" style="width:100%;text-align: left;">
+	                              <p style="font-size:2.5em;font-family:&quot;Cabin&quot;, sans-serif;color:#fff;text-align: justify;">
+								  	  &{freePage.getDescription().raw()}
+								  </p>
+                    	       </div>
+                        	</div>
+                    	</div>
+                    </div>
+                    #{if freePage.showCaptureForm}
+	                  	<div id="newsletterFreePage" style="width: 100%;">
+	                  		#{include 'includes/formNewsLetterFreePage.html' /}
+						</div>
+					#{/if}
+				</div>
             </div>
             <div style="background:&{freePage.getBackgroundColor()};border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section   " id="le_body_row_22" data-style="eyJiYWNrZ3JvdW5kQ29sb3JTdGFydCI6IiNmYzc3NjkiLCJib3JkZXJUb3BXaWR0aCI6IiIsImJvcmRlclRvcENvbG9yIjoiIiwiYm9yZGVyQm90dG9tV2lkdGgiOiIiLCJib3JkZXJCb3R0b21Db2xvciI6IiIsImFkZG9uIjp7fX0=">
                <div class="fixed-width">
@@ -3262,6 +3281,8 @@
       <script type="text/javascript" src="@{'public/templatepv/scripts.js'}"></script>
       <script type="text/javascript" src="@{'public/templatepv/wp-embed.min.js'}"></script>
       <script type="text/javascript" src="@{'public/templatepv/js.cookie.js'}"></script>
+      <script src="@{'public/templatefollow/assets/js/jquery.min.js'}"></script>
+      <script type="text/javascript" src="@{'public/javascripts/functionsNews.js'}"></script>
       <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

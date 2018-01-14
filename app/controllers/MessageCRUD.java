@@ -9,9 +9,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import controllers.CRUD.ObjectType;
 import models.Message;
 import models.User;
 import play.data.validation.Error;
+import play.db.Model;
+import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 import util.Utils;
 
@@ -79,5 +82,28 @@ public class MessageCRUD extends CRUD {
 			return false;
 		}
 		return true;
+	}
+	
+	public static void list(int page, String search, String searchFields, String orderBy, String order) {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		if (page < 1) {
+			page = 1;
+		}
+		String where = null;
+		if (orderBy == null) {
+			orderBy = "id";
+		}
+		if (order == null) {
+			order = "DESC";
+		}
+		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
+		Long count = type.count(search, searchFields, where);
+		Long totalCount = type.count(null, null, where);
+		try {
+			render(type, objects, count, totalCount, page, orderBy, order);
+		} catch (TemplateNotFoundException e) {
+			render("MessageCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+		}
 	}
 }

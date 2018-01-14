@@ -45,7 +45,7 @@ public class ClientCRUD extends CRUD {
 		try {
 			render(type, objects, count, totalCount, page, orderBy, order);
 		} catch (TemplateNotFoundException e) {
-			render("ArticleCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+			render("ClientCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
 	}
 	

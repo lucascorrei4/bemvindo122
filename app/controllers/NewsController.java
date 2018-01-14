@@ -25,7 +25,7 @@ public class NewsController extends Controller {
 		Article articleTopAds = getArticleAdsTop(listArticles);
 		List<Article> articleSidebarRightAds = getArticleAdsSidebarRight(listArticles);
 		List<Article> articleBottomAds = getArticlesAdsBottom(listArticles);
-		Parameter parameter = Parameter.all().first();
+		Parameter parameter = getCurrentParameter();
 		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
@@ -42,7 +42,7 @@ public class NewsController extends Controller {
 		Article articleTopAds = getArticleAdsTop(listArticles);
 		List<Article> articleSidebarRightAds = getArticleAdsSidebarRight(listArticles);
 		List<Article> articleBottomAds = getArticlesAdsBottom(listArticles);
-		Parameter parameter = Parameter.all().first();
+		Parameter parameter = getCurrentParameter();
 		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
@@ -111,6 +111,10 @@ public class NewsController extends Controller {
 		}
 		return listArticle;
 	}
+	
+	private static Parameter getCurrentParameter() {
+		return Parameter.all().first();
+	}
 
 	public static void getImage(long id, String index) {
 		final Article article = Article.findById(id);
@@ -128,6 +132,16 @@ public class NewsController extends Controller {
 		} else if ("3".equals(index)) {
 			if (article.getImage3() != null) {
 				renderBinary(article.getImage3().get());
+				return;
+			}
+		} else if ("4".equals(index)) {
+			if (article.getImage4() != null) {
+				renderBinary(article.getImage4().get());
+				return;
+			}
+		} else if ("5".equals(index)) {
+			if (article.getImage5() != null) {
+				renderBinary(article.getImage5().get());
 				return;
 			}
 		}

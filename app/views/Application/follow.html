@@ -9,36 +9,43 @@
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 	})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
 	<!-- End Google Tag Manager -->
-	<title>Acompanhe | Seu Pedido Online</title>
+	<title>&{parameter.getSiteTitle()}</title>
+	<meta name="robots" content="noindex,nofollow">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8; IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Página Para Acompanhar O Seu Pedido | Acompanhamento de Pedidos e Serviços | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
-	<meta name="author" content="Seu Pedido Online">
-	<link rel="apple-touch-icon" sizes="57x57" href="@{'public/images/apple57x57.png'}">
-	<link rel="apple-touch-icon" sizes="60x60" href="@{'public/images/apple60x60.png'}">
-	<link rel="apple-touch-icon" sizes="72x72" href="@{'public/images/apple72x72.png'}">
-	<link rel="apple-touch-icon" sizes="76x76" href="@{'public/images/apple76x76.png'}">
-	<link rel="apple-touch-icon" sizes="114x114" href="@{'public/images/apple114x114.png'}">
-	<link rel="apple-touch-icon" sizes="120x120" href="@{'public/images/apple120x120.png'}">
-	<link rel="apple-touch-icon" sizes="144x144" href="@{'public/images/apple144x144.png'}">
-	<link rel="apple-touch-icon" sizes="152x152" href="@{'public/images/apple152x152.png'}">
-	<link rel="icon" type="image/png" href="@{'public/images/favicon16x16.png'}" sizes="16x16">
-	<link rel="icon" type="image/png" href="@{'public/images/favicon32x32.png'}" sizes="32x32">
-	<link rel="icon" type="image/png" href="@{'public/images/favicon96x96.png'}" sizes="96x96">
-	<link rel="icon" type="image/png" href="@{'public/images/favicon160x160.png'}" sizes="160x160">
-	<link rel="icon" type="image/png" href="@{'public/images/favicon196x196.png'}" sizes="196x196">
+	<meta name="description" content="Página Para Acompanhar O Seu Pedido">
+	<meta name="author" content="&{parameter.getSiteTitle()}">
+	<meta name="description" content="&{parameter.getSiteDescription()}">
+	<meta property="twitter:title" content="&{parameter.getSiteTitle()}">
+	<meta property="twitter:description" content="&{parameter.getSiteDescription()}">
+	<meta property="og:title" content="&{parameter.getSiteTitle()}">
+	<meta property="og:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
+	<meta property="og:image" content="&{parameter.getSiteDomain()}/logo">
+	
+	<link rel="apple-touch-icon" sizes="57x57" href="&{parameter.getSiteDomain()}/logo">
+	<link rel="apple-touch-icon" sizes="60x60" href="&{parameter.getSiteDomain()}/logo">
+	<link rel="apple-touch-icon" sizes="72x72" href="&{parameter.getSiteDomain()}/logo">
+	<link rel="apple-touch-icon" sizes="76x76" href="&{parameter.getSiteDomain()}/logo">
+	<link rel="apple-touch-icon" sizes="114x114" href="&{parameter.getSiteDomain()}/logo">
+	<link rel="apple-touch-icon" sizes="120x120" href="&{parameter.getSiteDomain()}/logo">
+	<link rel="apple-touch-icon" sizes="144x144" href="&{parameter.getSiteDomain()}/logo">
+	<link rel="apple-touch-icon" sizes="152x152" href="&{parameter.getSiteDomain()}/logo">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="16x16">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="32x32">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="96x96">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="160x160">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="196x196">
 	<meta name="msapplication-TileColor" content="#000000">
-	<meta name="msapplication-TileImage" content="@{'public/images/logo-admin.png'}">
-	<meta name="keywords" content="acompanhe seu pedido, acompanhamento de pedido, marketing digital, serviço, pedidos, orcamentos, ordem de servico">
-	<meta property="twitter:card" content="acompanhe seu pedido e Marketing Digital">
-	<meta property="twitter:site" content="www.seupedido.online">
-	<meta property="twitter:title" content="Acompanhe | Seu Pedido Online">
-	<meta property="twitter:description" content="acompanhe seu pedido e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
-	<meta property="og:title" content="Acompanhe | Seu Pedido Online">
-	<meta property="og:description" content="acompanhe seu pedido e Marketing Digital | Comunique-se Com Seu Cliente Por Notificações Push, E-mails e SMS">
-	<meta property="og:site_name" content="Seu Pedido Online">
-	<meta property="og:image" content="@{'public/images/logo-admin.png'}">
-	<link rel="shortcut icon" type="image/png" href="@{'public/images/favicon16x16.png'}" />
+	<meta name="msapplication-TileImage" content="&{parameter.getSiteDomain()}/logo">
+	<meta property="twitter:card" content="&{parameter.getSiteTitle()}" />
+	<meta property="twitter:site" content="&{parameter.getSiteDomain()}" />
+		
+	<meta property="og:type" content="article" />
+	<meta property="og:locale" content="pt_BR" />
+	<meta property="og:site_name" content="&{parameter.getSiteName()}" />
+	<meta property="og:url" content="&{parameter.getSiteDomain()}" />
+	
+	<link rel="shortcut icon" type="image/png" href="&{parameter.getSiteDomain()}/icon" />
     
     <!-- Bootstrap Core CSS -->
     <link href="@{'public/templatebootstrap/bower_components/bootstrap/dist/css/bootstrap.css'}" rel="stylesheet">
@@ -66,9 +73,9 @@
 </head>
 <body>
     <div id="wrapper">
-    	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+    	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="background-color: #fff;">
          	<a href="@{Application.index}"> 
-				<img  src="@{'public/images/logo-admin.png'}" style="width: 13em; padding-top: 0.5em;">
+				<img  src="@{Application.getLogo}" style="width: 13em; padding-top: 0.5em;">
 			</a>
 			<ul class="nav navbar-top-links navbar-right">
 			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-plane fa-fw"></i> <i class="fa fa-caret-down"></i>

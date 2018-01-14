@@ -1,40 +1,23 @@
 package models;
 
-import java.text.ParseException;
-import java.util.Date;
-
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.apache.ivy.Main;
-
-import com.mysql.jdbc.Util;
-
-import controllers.Admin;
 import controllers.CRUD.Hidden;
-import play.data.binding.As;
-import play.data.validation.Required;
+import play.db.jpa.Blob;
 import play.db.jpa.Model;
-import util.StatusEnum;
-import util.StatusInvoiceEnum;
-import util.StatusPaymentEnum;
 import util.Utils;
 
 @Entity
 public class Parameter extends Model {
-
+	
 	public String siteName;
 	public String siteDomain;
 	public String siteMail;
-
+	
 	public String siteTitle;
 	public String siteDescription;
+	@Hidden
 	public String siteKeywords;
 
 	public String siteFacebook;
@@ -43,14 +26,25 @@ public class Parameter extends Model {
 	public String siteInstagram;
 	public String siteInstagramShort;
 
+	@Hidden
 	public String siteLogo;
+	public Blob logo;
+	public Blob icon;
 	public String siteHeader;
+	@Lob
 	public String siteSlogan;
+	public boolean leftAligmentLogo;
+	public boolean logoRoundedBorder;
 
 	public String siteBackGroundColor;
 	public String siteMainTitleColor;
-
+	public Blob homeBackgroundImage;
+	public String footerInfo;
+	
 	public String siteIconFontAwesome;
+	public String titleCaptureForm;
+	
+	public String messageHighlightProducts;
 
 	@Lob
 	public String descriptionContactPage;
@@ -60,7 +54,29 @@ public class Parameter extends Model {
 	public String descriptionPrivacyPolicyPage;
 	@Lob
 	public String descriptionTermsConditionsPage;
+	
+	@Hidden
+	@Lob
+	public String logoUrl;
 
+	@Lob
+	public String tweet;
+	
+	public String googleAnalyticsId;
+	
+	public String googleRemarketingId;
+
+	
+	public String googleTagManagerId;
+
+	public String googleShortnerUrlApiId;
+	
+	public String facebookPixelId;
+	
+	public String mailHostName;
+	public String mailHostUser;
+	public String mailHostPassword;
+	
 	public Float smsPricePlan = 0f;
 
 	public Float mininumSalary = 0f;
@@ -69,103 +85,21 @@ public class Parameter extends Model {
 
 	@Lob
 	public String msgNewUsers;
-
 	@Lob
 	public String msgActiveUsers;
-
 	@Lob
 	public String msgUpgrade;
-	
-	public String googleAnalyticsId;
-	
-	public String googleRemarketingId;
-
-	public String messageHighlightProducts;
-	
-	public String googleTagManagerId;
-	
-	public String googleShortnerUrlApiId;
-
-	public String facebookPixelId;
-
-	public String getMsgUpgrade() {
-		return msgUpgrade;
-	}
-
-	public void setMsgUpgrade(String msgUpgrade) {
-		this.msgUpgrade = msgUpgrade;
-	}
-
-	@Lob
-	public String logoUrl;
-
-	@Lob
-	public String tweet;
-
 	@Hidden
 	public Float currentPricePlan = 0f;
-
 	@Lob
 	public String embedThankLead;
-
 	@Lob
 	public String embedFirstStep;
+	@Hidden
+	public long institutionId;
 
 	public String toString() {
-		return "Mensalidade atual: " + currentPricePlan;
-	}
-
-	public Float getCurrentPricePlan() {
-		setCurrentPricePlan(mininumSalary * percentValuePlan / 100);
-		return currentPricePlan;
-	}
-
-	public void setCurrentPricePlan(Float currentPricePlan) {
-		this.currentPricePlan = currentPricePlan;
-	}
-
-	public Float getSmsPricePlan() {
-		return smsPricePlan;
-	}
-
-	public void setSmsPricePlan(Float smsPricePlan) {
-		this.smsPricePlan = smsPricePlan;
-	}
-
-	public Float getPercentValuePlan() {
-		return percentValuePlan;
-	}
-
-	public void setPercentValuePlan(Float percentValuePlan) {
-		this.percentValuePlan = percentValuePlan;
-	}
-
-	public Float getMininumSalary() {
-		return mininumSalary;
-	}
-
-	public void setMininumSalary(Float mininumSalary) {
-		this.mininumSalary = mininumSalary;
-	}
-
-	public static void main(String[] args) {
-		System.out.println(816 * 10 / 100);
-	}
-
-	public String getMsgNewUsers() {
-		return msgNewUsers;
-	}
-
-	public void setMsgNewUsers(String msgNewUsers) {
-		this.msgNewUsers = msgNewUsers;
-	}
-
-	public String getMsgActiveUsers() {
-		return msgActiveUsers;
-	}
-
-	public void setMsgActiveUsers(String msgActiveUsers) {
-		this.msgActiveUsers = msgActiveUsers;
+		return "Portal: " + siteName;
 	}
 
 	public String getLogoUrl() {
@@ -175,11 +109,7 @@ public class Parameter extends Model {
 	public void setLogoUrl(String logoUrl) {
 		this.logoUrl = logoUrl;
 	}
-
-	public String getSMSCurrency() {
-		return Utils.getCurrencyValue(getSmsPricePlan());
-	}
-
+	
 	public String getTweet() {
 		return tweet;
 	}
@@ -188,24 +118,20 @@ public class Parameter extends Model {
 		this.tweet = tweet;
 	}
 
-	public String getEmbedThankLead() {
-		return embedThankLead;
+	public String getGoogleAnalyticsId() {
+		return googleAnalyticsId;
 	}
 
-	public void setEmbedThankLead(String embedThankLead) {
-		this.embedThankLead = embedThankLead;
+	public void setGoogleAnalyticsId(String googleAnalyticsId) {
+		this.googleAnalyticsId = googleAnalyticsId;
 	}
 
-	public String getEmbedFirstStep() {
-		return embedFirstStep;
+	public String getGoogleRemarketingId() {
+		return googleRemarketingId;
 	}
 
-	public void setEmbedFirstStep(String embedFirstStep) {
-		this.embedFirstStep = embedFirstStep;
-	}
-
-	public static Parameter getCurrentParameter() {
-		return (Parameter) Parameter.findAll().iterator().next();
+	public void setGoogleRemarketingId(String googleRemarketingId) {
+		this.googleRemarketingId = googleRemarketingId;
 	}
 
 	public String getSiteName() {
@@ -280,22 +206,6 @@ public class Parameter extends Model {
 		this.siteTwitterShort = siteTwitterShort;
 	}
 
-	public String getSiteInstagram() {
-		return siteInstagram;
-	}
-
-	public void setSiteInstagram(String siteInstagram) {
-		this.siteInstagram = siteInstagram;
-	}
-
-	public String getSiteInstagramShort() {
-		return siteInstagramShort;
-	}
-
-	public void setSiteInstagramShort(String siteInstagramShort) {
-		this.siteInstagramShort = siteInstagramShort;
-	}
-
 	public String getSiteLogo() {
 		return siteLogo;
 	}
@@ -320,6 +230,22 @@ public class Parameter extends Model {
 		this.siteSlogan = siteSlogan;
 	}
 
+	public String getSiteInstagram() {
+		return siteInstagram;
+	}
+
+	public void setSiteInstagram(String siteInstagram) {
+		this.siteInstagram = siteInstagram;
+	}
+
+	public String getSiteInstagramShort() {
+		return siteInstagramShort;
+	}
+
+	public void setSiteInstagramShort(String siteInstagramShort) {
+		this.siteInstagramShort = siteInstagramShort;
+	}
+
 	public String getSiteBackGroundColor() {
 		return siteBackGroundColor;
 	}
@@ -342,6 +268,26 @@ public class Parameter extends Model {
 
 	public void setSiteIconFontAwesome(String siteIconFontAwesome) {
 		this.siteIconFontAwesome = siteIconFontAwesome;
+	}
+
+	public String getMessageHighlightProducts() {
+		return messageHighlightProducts;
+	}
+
+	public void setMessageHighlightProducts(String messageHighlightProducts) {
+		this.messageHighlightProducts = messageHighlightProducts;
+	}
+	
+	public String getGoogleTagManagerId() {
+		return googleTagManagerId;
+	}
+
+	public void setGoogleTagManagerId(String googleTagManagerId) {
+		this.googleTagManagerId = googleTagManagerId;
+	}
+	
+	public static Parameter getCurrentParameter() {
+		return (Parameter) Parameter.findAll().iterator().next();
 	}
 
 	public String getDescriptionContactPage() {
@@ -376,38 +322,6 @@ public class Parameter extends Model {
 		this.descriptionTermsConditionsPage = descriptionTermsConditionsPage;
 	}
 
-	public String getGoogleAnalyticsId() {
-		return googleAnalyticsId;
-	}
-
-	public void setGoogleAnalyticsId(String googleAnalyticsId) {
-		this.googleAnalyticsId = googleAnalyticsId;
-	}
-
-	public String getGoogleRemarketingId() {
-		return googleRemarketingId;
-	}
-
-	public void setGoogleRemarketingId(String googleRemarketingId) {
-		this.googleRemarketingId = googleRemarketingId;
-	}
-
-	public String getMessageHighlightProducts() {
-		return messageHighlightProducts;
-	}
-
-	public void setMessageHighlightProducts(String messageHighlightProducts) {
-		this.messageHighlightProducts = messageHighlightProducts;
-	}
-
-	public String getGoogleTagManagerId() {
-		return googleTagManagerId;
-	}
-
-	public void setGoogleTagManagerId(String googleTagManagerId) {
-		this.googleTagManagerId = googleTagManagerId;
-	}
-
 	public String getGoogleShortnerUrlApiId() {
 		return googleShortnerUrlApiId;
 	}
@@ -423,5 +337,166 @@ public class Parameter extends Model {
 	public void setFacebookPixelId(String facebookPixelId) {
 		this.facebookPixelId = facebookPixelId;
 	}
+
+	public Blob getLogo() {
+		return logo;
+	}
+
+	public void setLogo(Blob logo) {
+		this.logo = logo;
+	}
+
+	public boolean isLeftAligmentLogo() {
+		return leftAligmentLogo;
+	}
+
+	public void setLeftAligmentLogo(boolean leftAligmentLogo) {
+		this.leftAligmentLogo = leftAligmentLogo;
+	}
+
+	public long getInstitutionId() {
+		return institutionId;
+	}
+
+	public void setInstitutionId(long institutionId) {
+		this.institutionId = institutionId;
+	}
+
+	public String getMailHostName() {
+		return mailHostName;
+	}
+
+	public void setMailHostName(String mailHostName) {
+		this.mailHostName = mailHostName;
+	}
+
+	public String getMailHostUser() {
+		return mailHostUser;
+	}
+
+	public void setMailHostUser(String mailHostUser) {
+		this.mailHostUser = mailHostUser;
+	}
+
+	public String getMailHostPassword() {
+		return mailHostPassword;
+	}
+
+	public void setMailHostPassword(String mailHostPassword) {
+		this.mailHostPassword = mailHostPassword;
+	}
+
+	public boolean isLogoRoundedBorder() {
+		return logoRoundedBorder;
+	}
+
+	public void setLogoRoundedBorder(boolean logoRoundedBorder) {
+		this.logoRoundedBorder = logoRoundedBorder;
+	}
+
+	public Blob getHomeBackgroundImage() {
+		return homeBackgroundImage;
+	}
+
+	public void setHomeBackgroundImage(Blob homeBackgroundImage) {
+		this.homeBackgroundImage = homeBackgroundImage;
+	}
+
+	public String getTitleCaptureForm() {
+		return titleCaptureForm;
+	}
+
+	public void setTitleCaptureForm(String titleCaptureForm) {
+		this.titleCaptureForm = titleCaptureForm;
+	}
+
+	public Blob getIcon() {
+		return icon;
+	}
+
+	public void setIcon(Blob icon) {
+		this.icon = icon;
+	}
+
+	public String getFooterInfo() {
+		return footerInfo;
+	}
+
+	public void setFooterInfo(String footerInfo) {
+		this.footerInfo = footerInfo;
+	}
+
+	public Float getSmsPricePlan() {
+		return smsPricePlan;
+	}
+
+	public void setSmsPricePlan(Float smsPricePlan) {
+		this.smsPricePlan = smsPricePlan;
+	}
+
+	public Float getMininumSalary() {
+		return mininumSalary;
+	}
+
+	public void setMininumSalary(Float mininumSalary) {
+		this.mininumSalary = mininumSalary;
+	}
+
+	public Float getPercentValuePlan() {
+		return percentValuePlan;
+	}
+
+	public void setPercentValuePlan(Float percentValuePlan) {
+		this.percentValuePlan = percentValuePlan;
+	}
+
+	public String getMsgNewUsers() {
+		return msgNewUsers;
+	}
+
+	public void setMsgNewUsers(String msgNewUsers) {
+		this.msgNewUsers = msgNewUsers;
+	}
+
+	public String getMsgActiveUsers() {
+		return msgActiveUsers;
+	}
+
+	public void setMsgActiveUsers(String msgActiveUsers) {
+		this.msgActiveUsers = msgActiveUsers;
+	}
+
+	public String getMsgUpgrade() {
+		return msgUpgrade;
+	}
+
+	public void setMsgUpgrade(String msgUpgrade) {
+		this.msgUpgrade = msgUpgrade;
+	}
+
+	public Float getCurrentPricePlan() {
+		return currentPricePlan;
+	}
+
+	public void setCurrentPricePlan(Float currentPricePlan) {
+		this.currentPricePlan = currentPricePlan;
+	}
+
+	public String getEmbedThankLead() {
+		return embedThankLead;
+	}
+
+	public void setEmbedThankLead(String embedThankLead) {
+		this.embedThankLead = embedThankLead;
+	}
+
+	public String getEmbedFirstStep() {
+		return embedFirstStep;
+	}
+
+	public void setEmbedFirstStep(String embedFirstStep) {
+		this.embedFirstStep = embedFirstStep;
+	}
+
 
 }

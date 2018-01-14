@@ -16,7 +16,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['titleSEO', 'descriptionSEO', 'friendlyUrl', 'postedAt', 'action']}
+			        #{crud.table fields:['postedAt', 'titleSEO', 'descriptionSEO', 'friendlyUrl', 'action']}
 			        	#{crud.custom 'friendlyUrl'}
 			         		Acessar: <a href="/fp/${object.friendlyUrl}" target="_blank">/fp/${object.friendlyUrl}</a>
 				        #{/crud.custom}

@@ -6,33 +6,32 @@
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
 		<!-- End Google Tag Manager -->
-		<title>Contato | Seu Pedido Online</title>
-		<meta name="description" content="Tem alguma dúvida, crítica ou sugestão? Deixe seu contato! | Seu Pedido Online">
-		<meta name="keywords" content="contato, seu pedido online">
-		<meta property="twitter:title" content="Contato | Seu Pedido Online">
-		<meta property="twitter:description" content="Tem alguma dúvida, crítica ou sugestão? Deixe seu contato! | Seu Pedido Online">
-		<meta property="og:title" content="Contato | Seu Pedido Online">
-		<meta property="og:description" content="Tem alguma dúvida, crítica ou sugestão? Deixe seu contato! | Seu Pedido Online">
-		<meta property="og:image" content="http://seupedido.online/public/images/logo-admin.png">
+		<title>Contato | &{parameter.getSiteTitle()}</title>
+		<meta name="description" content="Tem alguma dúvida, crítica ou sugestão? Deixe seu contato! | &{parameter.getSiteTitle()}">
+		<meta property="twitter:title" content="Contato | &{parameter.getSiteTitle()}">
+		<meta property="twitter:description" content="Tem alguma dúvida, crítica ou sugestão? Deixe seu contato! | &{parameter.getSiteTitle()}">
+		<meta property="og:title" content="Contato | &{parameter.getSiteTitle()}">
+		<meta property="og:description" content="Tem alguma dúvida, crítica ou sugestão? Deixe seu contato! | &{parameter.getSiteTitle()}">
+		<meta property="og:image" content="ApplicationConfiguration.getInstance().getSiteDomain()/public/images/logo-admin.png">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
 	</head>
 	<body class="right-sidebar">
 		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">
 			<!-- Header -->
 				#{include 'includes/menuTemplateFollow.html' /}
 			<!-- Main -->
-				<article id="main">
+				<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
 					<header class="special container">
 						<span class="icon fa-envelope"></span>
 						<h2>Deixe seu contato</h2>
-						<p>A gente costuma responder rápido. É um prazer te servir. :)</p>
+						&{parameter.getDescriptionContactPage().raw()}
 					</header>
 					
 					<!-- One -->

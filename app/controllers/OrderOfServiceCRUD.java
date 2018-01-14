@@ -27,6 +27,7 @@ import models.StatusMail;
 import models.StatusPUSH;
 import models.StatusSMS;
 import models.Step;
+import models.User;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
@@ -142,6 +143,7 @@ public class OrderOfServiceCRUD extends CRUD {
 	public static String orderId = null;
 
 	public static void orderOfService(final String id) {
+		Parameter parameter = Parameter.all().first();
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService order = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		List<Service> services = order.getServices();
@@ -158,15 +160,16 @@ public class OrderOfServiceCRUD extends CRUD {
 		String subTotalGeralCurrency = Utils.getCurrencyValue(subTotalGeral);
 		String totalGeralCurrency = Utils.getCurrencyValue(totalGeral);
 		String discountGeralCurrency = Utils.getCurrencyValue(discountGeral);
-		render(order, institution, services, orderOfServiceValues, subTotalGeralCurrency, totalGeralCurrency, discountGeralCurrency);
+		render(order, institution, services, orderOfServiceValues, subTotalGeralCurrency, totalGeralCurrency, discountGeralCurrency, parameter);
 	}
 
 	public static void customerNotificationModal(final String id) {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
+		Parameter parameter = Parameter.all().first();
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
-		render(orderOfService, institution, smsExceedLimit, planSPO02);
+		render(orderOfService, institution, smsExceedLimit, planSPO02, parameter);
 	}
 
 	public static void thankfulNotificationModal(final String id) {
@@ -288,6 +291,35 @@ public class OrderOfServiceCRUD extends CRUD {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		render(listOrderOfService, institution, smsExceedLimit);
+	}
+
+	public static void afterSell() {
+		List<OrderOfService> listOrderOfServices = calculateTotalOrderOfService();
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		render(listOrderOfServices, institution);
+	}
+	
+	private static List<OrderOfService> calculateTotalOrderOfService() {
+		List<OrderOfService> listOrderOfServices = OrderOfService.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch(20);
+		for (OrderOfService order : listOrderOfServices) {
+			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
+			/* Get somatories values */
+			Float totalGeral = 0f;
+			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+				totalGeral += orderOfServiceValue.getTotalPrice();
+			}
+			order.setTotalOrderOfService(totalGeral);
+			List<OrderOfServiceStep> listOrderOfServiceStep = OrderOfServiceStep.find("orderOfService_id = " + Long.valueOf(order.id) + " and institutionId = " + order.getInstitutionId() + " and isActive = true").fetch();
+			boolean isOpened = false;
+			for (OrderOfServiceStep orderOfServiceStep : listOrderOfServiceStep) {
+				if (orderOfServiceStep.status != StatusEnum.Finished) {
+					isOpened = true;
+					break;
+				}
+			}
+			order.setCurrentStatus(isOpened ? StatusEnum.InProgress.getLabel() : StatusEnum.Finished.getLabel());
+		}
+		return listOrderOfServices;
 	}
 
 	private static void verifyIfOrderAreOpenAndUpdateServicesReferences(List<OrderOfService> listOrderOfService) {
@@ -550,7 +582,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
 		if (!Utils.isNullOrEmpty(destination)) {
 			if (destination.length() == 11) {
-				sendResponse = "https://api.whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
+				sendResponse = "https://web.whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
 				/* Save sms object */
 				status = "SUCCESS";
 				response = sendResponse;
@@ -729,9 +761,9 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setParagraph2(phase + ", " + statusPhase);
 		bodyMail.setParagraph3(obs);
 		bodyMail.setFooter1("Atenciosamente, " + institutionName + ".");
-		bodyMail.setImage1("https://seupedido.online/logo-empresa/" + institution.getId());
-		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplate(bodyMail));
-		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
+		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplate(bodyMail, parameter));
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter)) {
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
@@ -786,14 +818,14 @@ public class OrderOfServiceCRUD extends CRUD {
 		String clientName = Utils.escapeSpecialCharacters(orderOfService.getClient().getName());
 		String institutionName = Utils.escapeSpecialCharacters(institution.getInstitution());
 		bodyMail.setTitle1("Ol&aacute;, " + clientName + "!");
-		bodyMail.setTitle2("Acompanhe seu pedido pelo c&oacute;digo <br />" + orderOfService.getOrderCode() + " <br /> Clique abaixo: <br /> <a href=\"https://seupedido.online/acompanhe\" target=\"_blank\">seupedido.online/acompanhe</a>");
+		bodyMail.setTitle2("Acompanhe seu pedido pelo c&oacute;digo <br />" + orderOfService.getOrderCode() + " <br /> Clique abaixo: <br /> <a href=\"" + parameter.getSiteDomain() + "/acompanhe\" target=\"_blank\">" + parameter.getSiteDomain() + "/acompanhe</a>");
 		bodyMail.setParagraph1("");
 		bodyMail.setParagraph2("");
 		bodyMail.setParagraph3("");
 		bodyMail.setFooter1("Atenciosamente, " + institutionName + ".");
-		bodyMail.setImage1("https://seupedido.online/logo-empresa/" + institution.getId());
-		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail));
-		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", seu código de acompanhamento. :)")) {
+		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", seu código de acompanhamento. :)", parameter)) {
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
@@ -850,9 +882,9 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setParagraph2("");
 		bodyMail.setParagraph3("");
 		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
-		bodyMail.setImage1("https://seupedido.online/logo-empresa/" + institution.getId());
-		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail));
-		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", viemos te agradecer. :)")) {
+		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", viemos te agradecer. :)", parameter)) {
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);

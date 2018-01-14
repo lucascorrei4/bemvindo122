@@ -2,7 +2,7 @@
 <div class="form-group">
 	<label>Avisar  &{orderOfService.client.toString()}</label>
 	<label>| &{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
-	<textarea class="form-control " id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Acompanhe seu pedido &{orderOfService.orderCode} em: www.seupedido.online/acompanhe. Att., &{institution.institution}.</textarea>
+	<textarea class="form-control " id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Acompanhe seu pedido &{orderOfService.orderCode} em: &{parameter.getSiteDomain()}/acompanhe. Att., &{institution.institution}.</textarea>
 </div>
 <div class="container" id="formNotifButtons" style="width: 100%">
 	<div class="row">

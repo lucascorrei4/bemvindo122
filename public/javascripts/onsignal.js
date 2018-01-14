@@ -32,9 +32,9 @@
 				cancelButtonText: "EU NÃO QUERO!"
 			},
 			welcomeNotification: {
-				"title": "Seu Pedido Online",
+				"title": "Acompanhe Seu Pedido",
 				"message": "Obrigado pela inscrição",
-				 "url": "http://seupedido.online"
+				 "url": "https://acompanheseupedido.com"
 			}
 	    }]);
     </script>

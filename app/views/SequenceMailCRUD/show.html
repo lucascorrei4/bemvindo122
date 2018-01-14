@@ -8,7 +8,7 @@
         </div>
         <div class="panel-body">
            	<div class="row">
-               	<div class="col-lg-8">
+               	<div class="col-lg-12">
 					#{form id:'form', action:@save(object._key()), enctype:'multipart/form-data'}
 						#{crud.form}
 							#{crud.custom 'url'}
@@ -16,19 +16,36 @@
 								    <label for="object_services">
 								        Página
 								    </label>
-							        #{select id:'object.url', name:'object.url', items:mailList, valueProperty:'url', labelProperty:'url', class:'form-control' /}
+							        #{select id:'object.url', name:'object.url', items:urls, valueProperty:'value', labelProperty:'label', class:'form-control', value: object.url /}
 								    <p class="help-block">
 								    </p>
    								</div>	
 							#{/crud.custom}
+							#{crud.custom 'title'}
+   								<div class="form-group">
+								    <label for="object_title"> Título do e-mail - Coloque @lead@ para mencionar o nome. Ex.: @lead@, obrigado por se cadastrar!</label>
+									<input id="object_title" type="text" class="form-control" name="object.title" value="${object.title}" />
+								    <p class="help-block">Obrigatório</p>
+   								</div>
+							#{/crud.custom}
+							#{crud.custom 'description'}
+								<div class="form-group">
+									<label for="object_description"> Conteúdo do E-mail</label>
+									<textarea id="object_description" name="object.description"  rows="10" cols="80">
+						            	${object.description}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_description');
+						           	</script>
+								</div>
+							#{/crud.custom}
 							#{crud.custom 'sequence'}
 								<div class="form-group">
-								    <label for="object_services">
-								        Ordem de Envio
+								    <label for="object_sequence">
+								        Ordem de Envio (1 a 99)
 								    </label>
-							        #{select id:'object.sequence', name:'object.sequence', items:sequence1to5, class:'form-control' /}
-								    <p class="help-block">
-								    </p>
+									<input type="text" class="form-control number" name="object.sequence" id="object_sequence" value="${object.sequence}" style="width: 5em;" />
+								    <p class="help-block"></p>
    								</div>	
 							#{/crud.custom}
 							#{crud.custom 'isActive'}
@@ -52,7 +69,6 @@
 						</div>
 					#{/form}
 				</div>
-				<script type="text/javascript" src="@{'public/javascripts/scriptSteps.js'}" charset="ISO-8859-1"></script>
 			</div>
 		</div>
 	</div>

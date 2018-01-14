@@ -11,6 +11,12 @@
 GET     ${ctx}/                                       				Application.index
 GET     ${ctx}/sitemap.xml                              			staticFile:/public/sitemap.xml
 
+# 301 redirects
+# GET     ${ctx}/novo			                     					Application.newAccount
+# POST    ${ctx}/novo			       				 					Application.saveNewAccount
+GET     ${ctx}/novo			                     					Application.index
+POST    ${ctx}/novo			       				 					Application.index
+
 # Home page
 POST    ${ctx}/savemessage											MessageCRUD.saveMessage
 
@@ -18,8 +24,6 @@ POST    ${ctx}/savequickaccount										Application.saveQuickAccount
 GET    	${ctx}/como-funciona										Application.howItWorks
 GET    	${ctx}/contato												Application.contact
 POST	${ctx}/chalk-moip-response									Application.moipResponse
-GET     ${ctx}/novo			                     					Application.newAccount
-POST    ${ctx}/novo			       				 					Application.saveNewAccount
 POST    ${ctx}/primeiros-passos    				 					Application.saveNewInstitution
 GET    	${ctx}/acompanhe/?				 							Application.follow
 GET    	${ctx}/acompanhe/{cod}					 					Application.follow
@@ -27,6 +31,12 @@ POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
 GET    	${ctx}/logo-empresa/{id}		   				 			InstitutionController.getImage
+
+GET    	${ctx}/logo					   				 				Application.getLogo
+GET    	${ctx}/icon					   				 				Application.getIcon
+GET    	${ctx}/desinscrever-se/{mailLead}				   			Application.unsubscribe
+GET    	${ctx}/hrpx/{id}								   			Application.hrpx
+
 
 # Essentials Pages
 GET    	${ctx}/contato												Application.contact
@@ -67,6 +77,7 @@ GET    	${ctx}/artigos/{id}/{friendlyUrl}							NewsController.details
 # Admin Update Order
 GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceCRUD.updateOrder
 POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
+GET		${ctx}/admin/pos-venda										OrderOfServiceCRUD.afterSell
 
 # MonetizzeTransaction
 
@@ -119,14 +130,15 @@ DELETE	${ctx}/admin/fila-de-emails/{id}								SequenceMailQueueCRUD.delete
 
 # CampaingMail
 
-GET		${ctx}/admin/sequencia-emails									SequenceMailCRUD.listAll
-GET		${ctx}/admin/sequencia-emails/novo								SequenceMailCRUD.blank
-GET		${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.show
-GET		${ctx}/admin/sequencia-emails/{id}/{field}						SequenceMailCRUD.attachment
-GET		${ctx}/admin/sequencia-emails/{id}/editar						SequenceMailCRUD.edit
-POST	${ctx}/admin/sequencia-emails									SequenceMailCRUD.create
-POST	${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.save
-DELETE	${ctx}/admin/sequencia-emails/{id}								SequenceMailCRUD.delete
+GET		${ctx}/admin/sequencia-de-emails									SequenceMailCRUD.listAll
+GET		${ctx}/admin/sequencia-de-emails									SequenceMailCRUD.list
+GET		${ctx}/admin/sequencia-de-emails/novo								SequenceMailCRUD.blank
+GET		${ctx}/admin/sequencia-de-emails/{id}								SequenceMailCRUD.show
+GET		${ctx}/admin/sequencia-de-emails/{id}/{field}						SequenceMailCRUD.attachment
+GET		${ctx}/admin/sequencia-de-emails/{id}/editar						SequenceMailCRUD.edit
+POST	${ctx}/admin/sequencia-de-emails									SequenceMailCRUD.create
+POST	${ctx}/admin/sequencia-de-emails/{id}								SequenceMailCRUD.save
+DELETE	${ctx}/admin/sequencia-de-emails/{id}								SequenceMailCRUD.delete
 
 # MaiBase
 
@@ -185,14 +197,14 @@ DELETE	${ctx}/admin/msgadmin/{id}								MessageCRUD.delete
 
 # Admin Parameter
 
-GET		${ctx}/admin/paramadmin									ParameterCRUD.list
-GET		${ctx}/admin/paramadmin/novo							ParameterCRUD.blank
-GET		${ctx}/admin/paramadmin/{id}							ParameterCRUD.show
-GET		${ctx}/admin/paramadmin/{id}/{field}					ParameterCRUD.attachment
-GET		${ctx}/admin/paramadmin/{id}/editar						ParameterCRUD.edit
-POST	${ctx}/admin/paramadmin									ParameterCRUD.create
-POST	${ctx}/admin/paramadmin/{id}							ParameterCRUD.save
-DELETE	${ctx}/admin/paramadmin/{id}							ParameterCRUD.delete
+GET		${ctx}/admin/parametros									ParameterCRUD.list
+GET		${ctx}/admin/parametros/novo							ParameterCRUD.blank
+GET		${ctx}/admin/parametros/{id}							ParameterCRUD.show
+GET		${ctx}/admin/parametros/{id}/{field}					ParameterCRUD.attachment
+GET		${ctx}/admin/parametros/{id}/editar						ParameterCRUD.edit
+POST	${ctx}/admin/parametros									ParameterCRUD.create
+POST	${ctx}/admin/parametros/{id}							ParameterCRUD.save
+DELETE	${ctx}/admin/parametros/{id}							ParameterCRUD.delete
 
 # Admin Clients
 
@@ -248,7 +260,9 @@ GET		${ctx}/admin/empresa/{id}							InstitutionCRUD.show
 GET		${ctx}/admin/empresa								InstitutionCRUD.list
 GET		${ctx}/admin/empresas-cadastradas					InstitutionCRUD.listAll
 GET		${ctx}/admin/usuarios-cadastrados					UserCRUD.listAll
+
 GET		${ctx}/admin/leads									MailListCRUD.listAll
+GET		${ctx}/admin/leads									MailListCRUD.list
 
 GET		${ctx}/admin/usuario/{id}							UserCRUD.show
 GET		${ctx}/admin/usuario								UserCRUD.list

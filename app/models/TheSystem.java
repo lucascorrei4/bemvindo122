@@ -1,17 +1,11 @@
 package models;
 
-import java.net.URI;
-import java.net.URL;
 import java.text.ParseException;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
-import javax.persistence.PostLoad;
-import javax.persistence.PrePersist;
-
-import org.apache.commons.codec.binary.StringUtils;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
@@ -19,6 +13,7 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
+import util.ApplicationConfiguration;
 import util.FacebookEventEnum;
 import util.Utils;
 
@@ -324,6 +319,9 @@ public class TheSystem extends Model {
 	}
 
 	public String getPhrase() {
+		if (Utils.isNullOrEmpty(this.phrase)) {
+			setPhrase("");
+		}
 		return phrase;
 	}
 

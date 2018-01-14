@@ -258,8 +258,8 @@ public class Admin extends Controller {
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
 		Sender sender = new Sender();
-		sender.setCompany("Seu Pedido Online");
-		sender.setFrom("contato@seupedido.online");
+		sender.setCompany("Acompanhe Seu Pedido");
+		sender.setFrom(parameter.getSiteMail());
 		sender.setKey("");
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
@@ -270,14 +270,14 @@ public class Admin extends Controller {
 		bodyMail.setParagraph3(userInstitutionParameter.getInstitution().getEmail());
 		bodyMail.setFooter1(Institution.findAll().size() + " empresas cadastradas.");
 		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplate(bodyMail));
-		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplate(bodyMail, parameter));
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter);
 		sendTo = new SendTo();
 		sendTo.setDestination("th4mmy@gmail.com");
 		sendTo.setName("Thammy");
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
-		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter);
 	}
 
 	public static void sendMailToMeWithCustomInfo(String message, String info) {
@@ -291,8 +291,8 @@ public class Admin extends Controller {
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
 		Sender sender = new Sender();
-		sender.setCompany("Seu Pedido Online");
-		sender.setFrom("contato@seupedido.online");
+		sender.setCompany("Acompanhe Seu Pedido");
+		sender.setFrom(parameter.getSiteMail());
 		sender.setKey("");
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
@@ -303,8 +303,8 @@ public class Admin extends Controller {
 		bodyMail.setParagraph3("");
 		bodyMail.setFooter1("");
 		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail));
-		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter);
 	}
 
 	public static Invoice getInstitutionInvoice() {

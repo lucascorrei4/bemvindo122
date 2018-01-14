@@ -16,7 +16,16 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['title', 'msgOffer', 'postedAt', 'isHighlight', 'isActive', 'action']}
+			        #{crud.table fields:['postedAt', 'title', 'msgOffer', 'isHighlight', 'isActive', 'action']}
+			        	#{crud.custom 'postedAt'}
+			         		<a href="@{HighlightProductCRUD.show(object.id)}">${object.postedAtParsed}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'isHighlight'}
+			         		${object.isHighlight ? 'Sim' : 'Não'}
+				        #{/crud.custom}
+			        	#{crud.custom 'isActive'}
+			         		${object.isActive ? 'Sim' : 'Não'}
+				        #{/crud.custom}
 			        	#{crud.custom 'action'}
                              <a href="@{HighlightProductCRUD.remove(object.id)}" title="Atenção: Esta ação remove o item.">Remover</a>
 				        #{/crud.custom}

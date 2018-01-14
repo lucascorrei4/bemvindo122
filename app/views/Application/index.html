@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Sistema Para Acompanhamento de Pedidos, Serviços e Pós-Venda | Seu Pedido Online </title>
+		<title>Sistema Para Acompanhamento de Pedidos, Serviços e Pós-Venda | ${parameter.getSiteTitle()} </title>
 		<meta name="robots" content="index,follow">
 				<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=&{parameter.getGoogleAnalyticsId()}"></script>
@@ -21,7 +21,6 @@
 		<!-- End Google Tag Manager -->
 		<title>&{parameter.getSiteTitle()}</title>
 		<meta name="description" content="&{parameter.getSiteDescription()}">
-		<meta name="keywords" content="&{parameter.getSiteKeywords()}">
 		<meta property="twitter:title" content="&{parameter.getSiteTitle()}">
 		<meta property="twitter:description" content="&{parameter.getSiteDescription()}">
 		<meta property="og:title" content="&{parameter.getSiteTitle()}">
@@ -42,11 +41,11 @@
 
 			<!-- Header -->
 				<header id="header" class="alt">
-					<h1 id="logo"><a href="/">Acompanhamento <span>de Pedidos, Serviços e Pós-Venda</span></a></h1>
+					<h1 id="logo"><a href="/">Pós Venda <span>e Acompanhamento de Pedidos e Serviços</span></a></h1>
 					<nav id="nav">
 						<ul>
 							<li><a href="#main">Serve pra mim?</a></li>
-							<li class="current"><a href="/novo">Nova conta</a></li>
+<!-- 							<li class="current"><a href="/novo">Nova conta</a></li> -->
 							<li><a href="/acompanhe">Acompanhar</a></li>
 							<li><a href="/contato">Contato</a></li>
  							<li><a href="/login" class="button special">Entrar</a></li>
@@ -58,16 +57,16 @@
 				<section id="banner">
 
 					<h1 style="font-size: 2.1em; margin: 1em 1em 0 1em; padding: 0; font-family: Impact; letter-spacing: 0.1em">Seu cliente vira um fã. Cadastre-se.</h1>
-					<div style="font-size: 21px; color: #fff; margin-bottom: 52px;text-align: center;padding: 0 10%;">Relacionamento, Comunicação e Pós-venda Automatizados.</div>
+					<div style="font-size: 21px; color: #fff; margin-bottom: 52px;text-align: center;padding: 0 10%;">Pós Venda, Relacionamento e Comunicação Automatizados.</div>
 				<div class="inner" style="background: rgba(224, 240, 226, 0.5); padding: 2em;">
 					<div>
-						<a href="@{Application.index}" style="outline: 0; border: none;"><img src="@{'public/templatepublic/images/logo-small.png'}" alt="Seu Pedido Online - Acompanhamento de Pedidos, Serviços e Pós Venda"
-							title="Seu Pedido Online - Acompanhamento de Pedidos, Serviços e Pós Venda"></a>
+						<a href="@{Application.index}" style="outline: 0; border: none;"><img src="@{Application.getLogo}" alt="${parameter.getSiteTitle()} - Acompanhamento de Pedidos, Serviços e Pós Venda"
+							title="${parameter.getSiteTitle()} - Acompanhamento de Pedidos, Serviços e Pós Venda"></a>
 					</div>
 					
 					<footer>
 						<ul class="buttons vertical">
-							<li><a href="#main" class="button fit scrolly scroll" style="color: #ccc;letter-spacing: 0px">QUERO CONHECER</a></li>
+							<li><a href="#main" class="button fit scrolly scroll" style="color: #006936;letter-spacing: 0px">QUERO CONHECER</a></li>
 						</ul>
 					</footer>
 				</div>
@@ -83,9 +82,9 @@
 						<br />
 						PRA SABER SE O SERVIÇO ESTÁ PRONTO
 						</h2>
-						<p>O <strong>SeuPedido.Online</strong> permite que você trabalhe enquanto seu cliente <strong>aguarda</strong> pacientemente.</p>
+						<p>O <strong>sistema</strong> permite que você trabalhe enquanto seu cliente <strong>aguarda</strong> pacientemente.</p>
 						<p>Você gera um <strong>código de acompanhamento</strong> e ele(a) fica por dentro do que está acontecendo em tempo real.</p>
-						<p><strong>E mais:</strong> pós-venda com 1 (um) clique, controle de pedidos, serviços e faturamento.</p>
+						<p><span style="font-weight: bold">E mais:</span> Pós Venda com 1 (um) clique, Ordens de Serviço Online, Controle de Clientes, Pedidos e Serviços.</p>
 					</header>
 							
 					<!-- One -->
@@ -96,17 +95,17 @@
 									<header>
 										<h2>
 											<strong style="font-family: Tahoma;">
+												EMISSÃO DE PROCESSOS,
+												TRANSPORTES,
+												ENCOMENDAS, 
 												ASSISTÊNCIAS TÉCNICAS, 
 												CONFEITARIAS, 
 												CENTROS AUTOMOTIVOS, 
-												ENCOMENDAS, 
 												SERVIÇOS ARTESANAIS, 
 												ENTREGAS, 
 												CLÍNICAS, 
 												CONSULTÓRIOS, 
-												OFICINAS, 
-												EMISSÃO DE PROCESSOS, 
-												TRANSPORTES
+												OFICINAS 
 											</strong>
 										</h2>
 									</header>
@@ -194,7 +193,7 @@
 							<header class="special container">
 								<span class="icon fa-hand-o-down fa-fw"></span>
 								<h2 style="font-family: Impact"><b>NA PRÁTICA!</b></h2>
-								<p>Selecionamos abaixo <b>3 exemplos de funcionamento</b> do SeuPedido.Online,</p>
+								<p>Selecionamos abaixo <b>3 exemplos de funcionamento</b> do sistema,</p>
 								<p>mas - não se desespere - é indicado também para:</p>
 								<p>Encomendas, Serviços Artesanais, Entregas, Clínicas, Consultórios, Oficinas, Emissão de Processos, Transportes...</p>
 							</header>
@@ -295,7 +294,7 @@
 							<footer class="major">
 								<ul class="buttons">
 									<li><a href="/artigos" target="_blank" class="button" style="color: #ccc;letter-spacing: 0px">Todas as artigos</a></li>
-									<li><a href="/novo" target="_blank" class="button" style="color: #ccc;letter-spacing: 0px">Nova conta</a></li>
+<!-- 									<li><a href="/novo" target="_blank" class="button" style="color: #ccc;letter-spacing: 0px">Nova conta</a></li> -->
 								</ul>
 							</footer>
 

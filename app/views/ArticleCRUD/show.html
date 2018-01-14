@@ -21,6 +21,55 @@
 						               CKEDITOR.replace('object_description');
 						           	</script>
 								</div>
+								<hr>
+							#{/crud.custom}
+							#{crud.custom 'description2'}
+								<div class="form-group">
+									<label for="object_description2"> Conteúdo 2</label>
+									<textarea id="object_description2" name="object.description2"  rows="10" cols="80">
+						            	${object.description2}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_description2');
+						           	</script>
+								</div>
+								<hr>
+							#{/crud.custom}
+							#{crud.custom 'description3'}
+								<div class="form-group">
+									<label for="object_description3"> Conteúdo 3</label>
+									<textarea id="object_description3" name="object.description3"  rows="10" cols="80">
+						            	${object.description3}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_description3');
+						           	</script>
+								</div>
+								<hr>
+							#{/crud.custom}
+							#{crud.custom 'description4'}
+								<div class="form-group">
+									<label for="object_description4"> Conteúdo 4</label>
+									<textarea id="object_description4" name="object.description4"  rows="10" cols="80">
+						            	${object.description4}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_description4');
+						           	</script>
+								</div>
+								<hr>
+							#{/crud.custom}
+							#{crud.custom 'description5'}
+								<div class="form-group">
+									<label for="object_description5"> Conteúdo 5</label>
+									<textarea id="object_description5" name="object.description5"  rows="10" cols="80">
+						            	${object.description5}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_description5');
+						           	</script>
+								</div>
+								<hr>
 							#{/crud.custom}
 							#{crud.custom 'complement'}
 								<div class="form-group">
@@ -31,6 +80,36 @@
 						           	<script>
 						               CKEDITOR.replace( 'object.complement' );
 						           	</script>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'highlight'}
+								<div class="form-group">
+									<label> &{'highlight'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.highlight" id="optionsRadiosInline1" value="true" ${object.highlight?'checked=checked':''}><span title="&{'info.highlight.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.highlight" id="optionsRadiosInline2" value="false" ${!object.highlight?'checked=checked':''}><span title="&{'info.highlight.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'showCaptureForm'}
+								<div class="form-group">
+									<label> &{'showCaptureForm'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.showCaptureForm" id="optionsRadiosInline3" value="true" ${object.showCaptureForm?'checked=checked':''}><span title="&{'info.showCaptureForm.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.showCaptureForm" id="optionsRadiosInline4" value="false" ${!object.showCaptureForm?'checked=checked':''}><span title="&{'info.showCaptureForm.false'}">Não</span>
+										</label> 
+									</div>
 								</div>
 							#{/crud.custom}
 							#{crud.custom 'isActive'}

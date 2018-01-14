@@ -26,21 +26,21 @@ public class SellPage extends Model {
 	@Required(message = "Campo obrigatório.")
 	public String canonicalURL;
 
+	@Lob
+	@MaxSize(10000000)
 	@Required(message = "Campo obrigatório.")
 	public String mainTitle;
 	@Lob
 	@MaxSize(10000000)
 	public String videoDescription;
 	public String embedVideo;
-	
-	
+
 	public String buttonMainTitle;
 	public String buttonActionMainTitle;
-	
 
 	public Blob backgroundImage;
 	public String backgroundColor;
-	
+
 	@Lob
 	@MaxSize(10000000)
 	public String subtitle1;
@@ -69,9 +69,9 @@ public class SellPage extends Model {
 	@Lob
 	@MaxSize(10000000)
 	public String warnings;
-	
+
 	public String urlCheckout;
-	
+
 	@Enumerated(EnumType.STRING)
 	public FacebookEventEnum facebookEvent = FacebookEventEnum.ViewContent;
 
@@ -83,7 +83,7 @@ public class SellPage extends Model {
 	public String shortenUrl;
 
 	public boolean isActive = true;
-	
+
 	public String toString() {
 		return titleSEO;
 	}
@@ -128,7 +128,7 @@ public class SellPage extends Model {
 	}
 
 	public String getFriendlyUrl() {
-		if (Utils.isNullOrEmpty(this.friendlyUrl) && !Utils.isNullOrEmpty(this.mainTitle)) {
+		if (!Utils.isNullOrEmpty(this.mainTitle)) {
 			setFriendlyUrl(Utils.stringToUrl(Utils.removeHTML(this.mainTitle.trim())));
 		}
 		return friendlyUrl;
@@ -146,10 +146,11 @@ public class SellPage extends Model {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
 			Parameter parameter = Parameter.getCurrentParameter();
 			parameter.setGoogleShortnerUrlApiId(parameter.getGoogleShortnerUrlApiId() == null ? "AIzaSyCscCd-De7uL6UGXABT1g4I_rU1wMJRv8w" : parameter.getGoogleShortnerUrlApiId());
-			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/pv/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
+			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/pv/".concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
+
 
 	public void setShortenUrl(String shortenUrl) {
 		this.shortenUrl = shortenUrl;

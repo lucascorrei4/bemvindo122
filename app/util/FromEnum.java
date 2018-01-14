@@ -5,7 +5,8 @@ public enum FromEnum {
 			"homepagebottom"), DoubtsForm("Formulário de Dúvidas", "doubtsform"), UserForm("Formulário de Usuário",
 					"userform"), FollowPage("Página de Acompanhamento", "followpage"), NewsPage("Página de Notícias",
 							"newspage"), CapturePageTop("Página de Captura Topo", "capturepagetop"), CapturePageBottom(
-									"Página de Captura Rodapé", "capturepagebottom");
+									"Página de Captura Rodapé", "capturepagebottom"), NewsletterFreePage(
+											"Página de Captura Página Livre", "newsletterfreepage");
 
 	String label;
 	String value;

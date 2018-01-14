@@ -184,5 +184,10 @@ public class OrderOfService extends Model {
 	public void setServiceOrderOfServiceSteps(List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps) {
 		this.serviceOrderOfServiceSteps = serviceOrderOfServiceSteps;
 	}
+	
+	public Institution getInstitutionById(long institutionId) {
+		return (Institution) Institution.findById(Long.valueOf(institutionId));
+	}
+	
 
 }

@@ -1,10 +1,10 @@
 <head>
-<title>&{'crud.title'} | #{get 'title' /}</title>
+<title>${institutionName} | #{get 'title' /}</title>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Painel Admin | Seu Pedido Online">
-<meta name="author" content="Seu Pedido Online">
+<meta name="description" content="Painel Admin | ${institutionName}}">
+<meta name="author" content="${institutionName}">
 <meta name="robots" content="noindex,nofollow">
 <link rel="shortcut icon" type="image/png" href="@{'public/images/favicon16x16.png'}" />
 <!-- Bootstrap Core CSS -->
@@ -36,5 +36,6 @@
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <link href="@{'public/stylesheets/print.css'}" rel="stylesheet">
+<!-- ckeditor -->
 <script src="@{'public/ckeditor/ckeditor.js'}"></script>
 </head>

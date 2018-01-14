@@ -1,0 +1,73 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.show.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            Redes Sociais
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-12">
+					#{form id:'form', action:@save(object._key(), 'showSocialMediaPage'), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'siteName'} #{/crud.custom}
+							#{crud.custom 'siteDomain'} #{/crud.custom}
+							#{crud.custom 'siteMail'} #{/crud.custom}
+							#{crud.custom 'siteTitle'} #{/crud.custom}
+							#{crud.custom 'siteDescription'} #{/crud.custom} 
+							#{crud.custom 'siteKeywords'} #{/crud.custom}
+							#{crud.custom 'siteLogo'} #{/crud.custom}
+							#{crud.custom 'siteHeader'} #{/crud.custom}
+							#{crud.custom 'siteSlogan'} #{/crud.custom}
+							#{crud.custom 'siteBackGroundColor'} #{/crud.custom}
+							#{crud.custom 'siteMainTitleColor'} #{/crud.custom}
+							#{crud.custom 'siteIconFontAwesome'} #{/crud.custom}
+							#{crud.custom 'messageHighlightProducts'} #{/crud.custom}
+							#{crud.custom 'descriptionContactPage'} #{/crud.custom}
+							#{crud.custom 'descriptionAboutPage'} #{/crud.custom}
+							#{crud.custom 'descriptionPrivacyPolicyPage'} #{/crud.custom}
+							#{crud.custom 'descriptionTermsConditionsPage'} #{/crud.custom}
+							#{crud.custom 'logoUrl'} #{/crud.custom}
+							#{crud.custom 'icon'} #{/crud.custom}
+							#{crud.custom 'footerInfo'} #{/crud.custom}
+
+							#{crud.custom 'googleAnalyticsId'} #{/crud.custom}
+							#{crud.custom 'googleRemarketingId'} #{/crud.custom}
+							#{crud.custom 'googleTagManagerId'} #{/crud.custom}
+							#{crud.custom 'googleShortnerUrlApiId'} #{/crud.custom}
+							#{crud.custom 'facebookPixelId'} #{/crud.custom}
+							#{crud.custom 'mailHostName'} #{/crud.custom}
+							#{crud.custom 'mailHostUser'} #{/crud.custom}
+							#{crud.custom 'mailHostPassword'} #{/crud.custom}
+							#{crud.custom 'logo'} #{/crud.custom}
+							#{crud.custom 'leftAligmentLogo'} #{/crud.custom}
+							#{crud.custom 'logoRoundedBorder'} #{/crud.custom}
+							#{crud.custom 'homeBackgroundImage'} #{/crud.custom}
+							#{crud.custom 'titleCaptureForm'} #{/crud.custom}
+							
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Habilitar </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: right">
+							<input type="submit" name="_saveAndContinue" value="&{'crud.save', type.modelName}" class="btn btn-primary  btn-lg" />
+						</div>
+					#{/form}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

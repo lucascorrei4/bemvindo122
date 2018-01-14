@@ -6,23 +6,25 @@
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
 		<!-- End Google Tag Manager -->
-		<title>&{title} | Seu Pedido Online</title>
+		<title>&{title} | &{parameter.getSiteTitle()}</title>
 		<meta name="description" content="&{headline}}">
-		<meta name="keywords" content="&{simplePage.getMetatags()}">
-		<meta property="twitter:title" content="&{title} | Seu Pedido Online">
+		<meta property="twitter:title" content="&{title} | &{parameter.getSiteTitle()}">
 		<meta property="twitter:description" content="&{headline}">
-		<meta property="og:title" content="&{title} | Seu Pedido Online">
+		<meta property="og:title" content="&{title} | &{parameter.getSiteTitle()}">
 		<meta property="og:description" content="&{headline}}">
-		<meta property="og:image" content="https://seupedido.online/simplepagescontroller/getimage?id=&{simplePage.id}&index=1">
+		<meta property="og:image" content="${play.configuration.getProperty('site.domain')}/simplepagescontroller/getimage?id=&{simplePage.id}&index=1">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
 	</head>
 	<body class="left-sidebar">
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
+		<script>
+		  fbq('track', '&{simplePage.getFacebookEvent().getValue()}');
+		</script>
 		<div id="page-wrapper">
 			<!-- Main -->
 				<article id="main" style="padding: 1em 0;">

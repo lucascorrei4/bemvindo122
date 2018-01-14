@@ -1,12 +1,28 @@
 <meta charset="utf-8" />
 #{if articleTopAds}
 	<div class="row 150%" style="display: &{articleTopAds == null ? 'none' : 'block'}">
-		<div class="12u 12u(narrower)">
-			<div class="contentAds">
-				<a href="/artigos/&{articleTopAds?.id}/&{articleTopAds?.getFriendlyUrl()}">
-					<img class="imageAdsTop" src="@{NewsController.getImage(articleTopAds?.id, '1')}" alt="&{articleTopAds?.getTitle().raw()}" title="&{articleTopAds?.getTitle().raw()}" />
+		#{if parameter.getLeftAligmentLogo()}
+			<div class="3u 12u(narrower)">
+				<a href="/" title="&{parameter.getSiteTitle()}">
+					<div class="logo" style="position: relative; background-image: url('@{Application.getLogo()}'); width:150px; height:150px; border-radius: &{parameter.getLogoRoundedBorder() ? '50&#37;' : '0&#37;'}; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
 				</a>
 			</div>
-		</div>
+			<div class="9u 12u(narrower)">
+				<div class="contentAds">
+					<a href="/artigos/&{articleTopAds?.id}/&{articleTopAds?.getFriendlyUrl()}">
+						<img class="imageAdsTop" src="@{NewsController.getImage(articleTopAds?.id, '1')}" alt="&{articleTopAds?.getTitle().raw()}" title="&{articleTopAds?.getTitle().raw()}" />
+					</a>
+				</div>
+			</div>
+		#{/if}
+		#{else}
+			<div class="12u 12u(narrower)">
+				<div class="contentAds">
+					<a href="/artigos/&{articleTopAds?.id}/&{articleTopAds?.getFriendlyUrl()}">
+						<img class="imageAdsTop" src="@{NewsController.getImage(articleTopAds?.id, '1')}" alt="&{articleTopAds?.getTitle().raw()}" title="&{articleTopAds?.getTitle().raw()}" />
+					</a>
+				</div>
+			</div>
+		#{/else}
 	</div>
 #{/if}

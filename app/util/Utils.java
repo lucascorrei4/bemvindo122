@@ -520,4 +520,13 @@ public class Utils extends Controller {
 		File f = vf.getRealFile();
 		return f;
 	}
+	
+	public static String unsubscribeHTML(String siteDomain, String mail, long sequenceMailQueueId) {
+		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"" + siteDomain + "/desinscrever-se/" + Utils.encode(mail) + "\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
+	}
+
+	public static String sentCredits(String siteTitle, String siteDomain) {
+		return "<br><br>E-mail enviado por <strong><a href=\"" + siteDomain + "\" target=\"_blank\">" + siteTitle + "</a></strong>.";
+	}
+
 }

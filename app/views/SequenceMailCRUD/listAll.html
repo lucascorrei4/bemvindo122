@@ -4,7 +4,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="col-lg-6">
-				#{crud.search /}
+				#{crud.searchAll /}
 			</div>
 			<div class="col-lg-6">
 				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
@@ -13,10 +13,17 @@
 	</div>
 	<div class="col-lg-12 ${type.name}">
         <div class="panel panel-default">
-            <div class="panel-heading"></div>
+            <div class="panel-heading">
+				<div class="form-group">
+				    <label for="object_services">
+				        Filtrar por URL
+				    </label>
+			        #{select id:'object.url', name:'object.url', items:urls, valueProperty:'value', labelProperty:'value', class:'form-control' /}
+				</div>
+            </div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'title', 'url', 'sequence', 'action']}
+			        #{crud.table fields:['postedAt', 'title', 'url', 'sequence', 'attachment', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{SequenceMailCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
@@ -25,6 +32,14 @@
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
 					    	<a href="@{SequenceMailCRUD.show(object.id)}">${object.isActive? 'Sim' : 'Não'}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'attachment'}
+				        #{if !object.attachment.exists()}
+				        	Nenhum
+				        #{/if}
+				        #{else}
+						    <a class="currentAttachment" href="@{attachment(object.id, 'attachment')}" target="_blank">Baixar (${object.attachment.length().formatSize()})</a>
+				        #{/else}
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
 				       		<div class="dropdown">
@@ -49,3 +64,8 @@
    			</div>
    		</div>
    	</div>
+   	<script type="text/javascript">
+   	$('#object.url').change(function() {
+   	  alert('The option with value ' + $(this).val() + ' and text ' + $(this).text() + ' was selected.');
+   	});
+   	</script>

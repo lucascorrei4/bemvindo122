@@ -1,10 +1,11 @@
 package util;
 
 import models.BodyMail;
+import models.Parameter;
 
 public class MailTemplates {
 
-	public static String getHTMLTemplate(BodyMail bodyMail) {
+	public static String getHTMLTemplate(BodyMail bodyMail, Parameter parameter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				"<div id=\":1fb\" class=\"a3s aXjCH m14d93659b00650ae\">                                                                                                                                                                                                                                                                                       ");
@@ -80,7 +81,7 @@ public class MailTemplates {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr align=\"center\">                                                                                                                                                                                                                                ");
-		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"SeuPedido.Online - Acompanhamento de Pedidos e Servi&ccedil;os\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
+		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"" + parameter.getSiteTitle() + " - " + parameter.getSiteDescription() + "\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
 				+ "\"                                                                                                                                                    ");
 		sb.append(
 				"                                                                                             style=\"border-radius: 5%; border: 1px solid rgb(227, 227, 227); width: 80px; min-height: 80px\"></td>                                                                                                                                         ");
@@ -89,7 +90,7 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">SeuPedido.Online</td>                                                                                                                                 ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteTitle() + "</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -211,11 +212,11 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
 		sb.append(
-				"                                                                                                <a href=\"https://www.seupedido.online\"                                                                                                                                                                                                     ");
+				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
 		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"https://www.seupedido.online\">www.seupedido.online</a>                                                                                                                                            ");
+				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(
@@ -225,7 +226,7 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\"><strong>Acompanhamento de Pedidos e Servi&ccedil;os</strong>                                                                                                                  ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\"><strong>" + parameter.getSiteDescription() + "</strong>                                                                                                                  ");
 		sb.append(
 				"                                                                                          </td>                                                                                                                                                                                                                                           ");
 		sb.append(
@@ -409,7 +410,7 @@ public class MailTemplates {
 		return sb.toString();
 	}
 
-	public static String getHTMLTemplateSimple(BodyMail bodyMail) {
+	public static String getHTMLTemplateSimple(BodyMail bodyMail, Parameter parameter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				"<div id=\":1fb\" class=\"a3s aXjCH m14d93659b00650ae\">                                                                                                                                                                                                                                                                                       ");
@@ -485,7 +486,7 @@ public class MailTemplates {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr align=\"center\">                                                                                                                                                                                                                                ");
-		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"SeuPedido.Online - Acompanhamento de Pedidos e Servi&ccedil;os\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
+		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"" + parameter.getSiteTitle() + " - " + parameter.getSiteDescription() + "\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
 				+ "\"                                                                                                                                                    ");
 		sb.append(
 				"                                                                                             style=\"border-radius: 5%; border: 1px solid rgb(227, 227, 227); width: 80px; min-height: 80px\"></td>                                                                                                                                         ");
@@ -494,7 +495,7 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">SeuPedido.Online</td>                                                                                                                                 ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteTitle() + "</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -552,11 +553,11 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
 		sb.append(
-				"                                                                                                <a href=\"https://www.seupedido.online\"                                                                                                                                                                                                     ");
+				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
 		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"https://www.seupedido.online\">www.seupedido.online</a>                                                                                                                                            ");
+				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(
@@ -566,7 +567,7 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\"><strong>Acompanhamento de Pedidos e Servi&ccedil;os</strong>                                                                                                                  ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\"><strong>" + parameter.getSiteDescription() + "</strong>                                                                                                                  ");
 		sb.append(
 				"                                                                                          </td>                                                                                                                                                                                                                                           ");
 		sb.append(
@@ -750,7 +751,7 @@ public class MailTemplates {
 		return sb.toString();
 	}
 
-	public static String getHTMLTemplateResetPass(BodyMail bodyMail) {
+	public static String getHTMLTemplateResetPass(BodyMail bodyMail, Parameter parameter) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				"<div id=\":1fb\" class=\"a3s aXjCH m14d93659b00650ae\">                                                                                                                                                                                                                                                                                       ");
@@ -826,7 +827,7 @@ public class MailTemplates {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr align=\"center\">                                                                                                                                                                                                                                ");
-		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"SeuPedido.Online - Acompanhamento de Pedidos e Servi&ccedil;os\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
+		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"" + parameter.getSiteTitle() + " - " + parameter.getSiteDescription() + "\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
 				+ "\"                                                                                                                                                    ");
 		sb.append(
 				"                                                                                             style=\"border-radius: 5%; border: 1px solid rgb(227, 227, 227); width: 80px; min-height: 80px\"></td>                                                                                                                                         ");
@@ -835,7 +836,7 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">SeuPedido.Online</td>                                                                                                                                 ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteTitle() + "</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -897,11 +898,11 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
 		sb.append(
-				"                                                                                                <a href=\"https://www.seupedido.online\"                                                                                                                                                                                                     ");
+				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
 		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"https://www.seupedido.online\">www.seupedido.online</a>                                                                                                                                            ");
+				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(
@@ -911,7 +912,7 @@ public class MailTemplates {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\"><strong>Acompanhamento de Pedidos e Servi&ccedil;os</strong>                                                                                                                  ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\"><strong>" + parameter.getSiteDescription() + "</strong>                                                                                                                  ");
 		sb.append(
 				"                                                                                          </td>                                                                                                                                                                                                                                           ");
 		sb.append(

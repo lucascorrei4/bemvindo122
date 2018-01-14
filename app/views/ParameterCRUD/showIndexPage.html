@@ -1,0 +1,98 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.show.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            Página Inicial
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-12">
+					#{form id:'form', action:@save(object._key(), 'showIndexPage'), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'descriptionContactPage'}
+								<div class="form-group">
+									<label for="object_descriptionContactPage"> Descrição Página de Contato</label>
+									<textarea id="object_descriptionContactPage" name="object.descriptionContactPage">
+						            	${object.descriptionContactPage}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_descriptionContactPage');
+						           	</script>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'descriptionPrivacyPolicyPage'}
+								<div class="form-group">
+									<label for="object_descriptionPrivacyPolicyPage"> Descrição Página Política de Privacidade</label>
+									<textarea id="object_descriptionPrivacyPolicyPage" name="object.descriptionPrivacyPolicyPage">
+						            	${object.descriptionPrivacyPolicyPage}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_descriptionPrivacyPolicyPage');
+						           	</script>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'descriptionAboutPage'}
+								<div class="form-group">
+									<label for="object_descriptionAboutPage"> Descrição Página Sobre</label>
+									<textarea id="object_descriptionAboutPage" name="object.descriptionAboutPage">
+						            	${object.descriptionAboutPage}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_descriptionAboutPage');
+						           	</script>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'descriptionTermsConditionsPage'}
+								<div class="form-group">
+									<label for="object_descriptionTermsConditionsPage"> Descrição Página Termos e Condições</label>
+									<textarea id="object_descriptionTermsConditionsPage" name="object.descriptionTermsConditionsPage">
+						            	${object.descriptionTermsConditionsPage}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_descriptionTermsConditionsPage');
+						           	</script>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'siteFacebook'} #{/crud.custom}
+							#{crud.custom 'siteTwitter'} #{/crud.custom}
+							#{crud.custom 'siteTwitterShort'} #{/crud.custom}
+							#{crud.custom 'siteInstagram'} #{/crud.custom}
+							#{crud.custom 'siteInstagramShort'} #{/crud.custom}
+							#{crud.custom 'tweet'} #{/crud.custom}
+	
+							#{crud.custom 'googleAnalyticsId'} #{/crud.custom}
+							#{crud.custom 'googleRemarketingId'} #{/crud.custom}
+							#{crud.custom 'googleTagManagerId'} #{/crud.custom}
+							#{crud.custom 'googleShortnerUrlApiId'} #{/crud.custom}
+							#{crud.custom 'facebookPixelId'} #{/crud.custom}
+							#{crud.custom 'mailHostName'} #{/crud.custom}
+							#{crud.custom 'mailHostUser'} #{/crud.custom}
+							#{crud.custom 'mailHostPassword'} #{/crud.custom}
+							
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Habilitar </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: right">
+							<input type="submit" name="_saveAndContinue" value="&{'crud.save', type.modelName}" class="btn btn-primary  btn-lg" />
+						</div>
+					#{/form}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

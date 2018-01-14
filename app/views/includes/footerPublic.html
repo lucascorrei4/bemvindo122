@@ -7,11 +7,11 @@
 	<div class="container">
 		<div class="footer-main">
 			<p>
-				&copy 2017 Seu Pedido Online | contato@seupedido.online</a>
+				&copy 2017 &{parameter.getSiteName()} | ${play.configuration.getProperty('site.mail')}</a>
 			</p>
 			<ul>
-				<li><a href="http://fb.com/seupedidoonline" target="_blank"><span class="fb"> </span></a></li>
-				<li><a href="http://twitter.com/seupedidoonline" target="_blank"><span class="twt"> </span></a></li>
+				<li><a href="${play.configuration.getProperty('site.facebook')}" target="_blank"><span class="fb"> </span></a></li>
+				<li><a href="${play.configuration.getProperty('site.twitter')}" target="_blank"><span class="twt"> </span></a></li>
 			</ul>
 			<span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=4eoOKsJ09M4eh5Vaf8qIywX4wcyhgv6aCDMJfNk6JBW8r6D0cyJgnEuPx91h"></script></span>
 			<script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>

@@ -36,23 +36,44 @@ public class Article extends Model {
 	@MaxSize(100000)
 	public String headline;
 
+	public Blob image1;
+	public String titleImage1;
+
+	@Required(message = "Campo obrigatório.")
+	public Blob image2;
+	public String titleImage2;
 	@Lob
 	@MaxSize(100000)
 	public String description;
+	@Lob
+	@MaxSize(100000)
+	public String description2;
+
+	public Blob image3;
+	public String titleImage3;
+	@Lob
+	@MaxSize(100000)
+	public String description3;
+
+	public Blob image4;
+	public String titleImage4;
+	@Lob
+	@MaxSize(100000)
+	public String description4;
+
+	public Blob image5;
+	public String titleImage5;
+	@Lob
+	@MaxSize(100000)
+	public String description5;
 
 	@Lob
 	@MaxSize(100000)
 	public String complement;
-
+	
+	@Hidden
 	public String metatags;
 
-	public Blob image1;
-
-	public Blob image2;
-
-	public Blob image3;
-	
-	public boolean showCaptureForm = true;
 
 	public String titleCaptureForm;
 
@@ -70,13 +91,13 @@ public class Article extends Model {
 
 	public String friendlyUrl;
 
-	public boolean highlight;
-
 	@Hidden
 	public String postedAt;
 
 	public String shortenUrl;
 
+	public boolean showCaptureForm = true;
+	public boolean highlight;
 	public boolean isActive = true;
 
 	public String toString() {
@@ -111,7 +132,7 @@ public class Article extends Model {
 	}
 
 	public String getDescription() {
-		return Utils.isNullOrEmpty(this.description) ? description : Utils.normalizeString(description);
+		return Utils.isNullOrEmpty(this.description) ? "" : Utils.normalizeString(description);
 	}
 
 	public void setDescription(String description) {
@@ -190,7 +211,7 @@ public class Article extends Model {
 	}
 
 	public String getFriendlyUrl() {
-		if (Utils.isNullOrEmpty(this.friendlyUrl) && !Utils.isNullOrEmpty(this.title)) {
+		if (!Utils.isNullOrEmpty(this.title)) {
 			setFriendlyUrl(Utils.stringToUrl(this.title.trim()));
 		}
 		return friendlyUrl;
@@ -226,7 +247,7 @@ public class Article extends Model {
 	}
 
 	public String getComplement() {
-		return Utils.isNullOrEmpty(this.complement) ? complement : Utils.normalizeString(complement);
+		return Utils.isNullOrEmpty(this.complement) ? "" : Utils.normalizeString(complement);
 	}
 
 	public void setComplement(String complement) {
@@ -295,6 +316,106 @@ public class Article extends Model {
 
 	public void setFacebookEvent(FacebookEventEnum facebookEvent) {
 		this.facebookEvent = facebookEvent;
+	}
+
+	public String getTitleImage1() {
+		return titleImage1;
+	}
+
+	public void setTitleImage1(String titleImage1) {
+		this.titleImage1 = titleImage1;
+	}
+
+	public String getTitleImage2() {
+		if (this.titleImage2 == null) {
+			setTitleImage2("");
+		}
+		return titleImage2;
+	}
+
+	public void setTitleImage2(String titleImage2) {
+		this.titleImage2 = titleImage2;
+	}
+
+	public String getTitleImage3() {
+		if (this.titleImage3 == null) {
+			setTitleImage3("");
+		}
+		return titleImage3;
+	}
+
+	public void setTitleImage3(String titleImage3) {
+		this.titleImage3 = titleImage3;
+	}
+
+	public Blob getImage4() {
+		return image4;
+	}
+
+	public void setImage4(Blob image4) {
+		this.image4 = image4;
+	}
+
+	public String getTitleImage4() {
+		if (this.titleImage4 == null) {
+			setTitleImage4("");
+		}
+		return titleImage4;
+	}
+
+	public void setTitleImage4(String titleImage4) {
+		this.titleImage4 = titleImage4;
+	}
+
+	public Blob getImage5() {
+		return image5;
+	}
+
+	public void setImage5(Blob image5) {
+		this.image5 = image5;
+	}
+
+	public String getTitleImage5() {
+		if (this.titleImage5 == null) {
+			setTitleImage5("");
+		}
+		return titleImage5;
+	}
+
+	public void setTitleImage5(String titleImage5) {
+		this.titleImage5 = titleImage5;
+	}
+
+	public String getDescription2() {
+		return Utils.isNullOrEmpty(this.description2) ? "" : Utils.normalizeString(description2);
+	}
+
+	public void setDescription2(String description2) {
+		this.description2 = description2;
+	}
+
+	public String getDescription3() {
+		return Utils.isNullOrEmpty(this.description3) ? "" : Utils.normalizeString(description3);
+	}
+
+	public void setDescription3(String description3) {
+		this.description3 = description3;
+	}
+
+	public String getDescription4() {
+		return Utils.isNullOrEmpty(this.description4) ? "" : Utils.normalizeString(description4);
+	}
+
+	public void setDescription4(String description4) {
+		this.description4 = description4;
+	}
+
+	public String getDescription5() {
+		return Utils.isNullOrEmpty(this.description5) ? "" : Utils.normalizeString(description5);
+	}
+
+	public void setDescription5(String description5) {
+		this.description5 = description5;
 	}
 
 }

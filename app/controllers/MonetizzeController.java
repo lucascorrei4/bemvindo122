@@ -16,7 +16,7 @@ import models.Service;
 import models.StatusMail;
 import models.User;
 import play.mvc.Controller;
-import util.MailTemplates;
+import util.ApplicationConfiguration;
 import util.Utils;
 
 public class MonetizzeController extends Controller {
@@ -180,18 +180,18 @@ public class MonetizzeController extends Controller {
 			sendTo.setStatus(new StatusMail());
 			/* Sender object */
 			Sender sender = new Sender();
-			sender.setCompany("Seu Pedido Online");
-			sender.setFrom("contato@seupedido.online");
+			sender.setCompany(parameter.getSiteTitle());
+			sender.setFrom(parameter.getSiteMail());
 			sender.setKey("resetpass");
 			/* SendTo object */
 			BodyMail bodyMail = new BodyMail();
 			bodyMail.setTitle1("É um prazer te servir, " + user.getName()
 					+ "! Faltam duas (2) etapas simples: <br />A primeira (1ª) é criar uma senha segura de acesso ao sistema. <br />[Basta clicar no link azul abaixo]. <br />A segunda (2ª) e última etapa é acessar o sistema e informar os dados da sua empresa/seu negócio. <br /><br />A gente se vê logo mais! :)");
 			bodyMail.setTitle2(user.getName() + ", recebemos seu cadastro com sucesso.");
-			bodyMail.setFooter1("https://seupedido.online/nova-senha/" + Utils.encode(user.getEmail()));
-			bodyMail.setImage1(parameter.getLogoUrl());
-			bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateResetPass(bodyMail));
-			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null)) {
+			bodyMail.setFooter1(parameter.getSiteDomain() + "/nova-senha/" + Utils.encode(user.getEmail()));
+			bodyMail.setImage1(parameter.getSiteDomain() + "/logo");
+			bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail, parameter));
+			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter)) {
 				Admin.sendMailToMeWithCustomInfo("Venda realizada e cliente cadastrado automaticamente!", "Nome: " + user.getName().concat(" - E-mail: ").concat(user.getEmail().concat(" - Fone: ").concat(user.getPhone1())));
 			}
 		}

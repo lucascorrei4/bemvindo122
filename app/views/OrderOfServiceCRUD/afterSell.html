@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="${lang}">
+<meta charset="utf-8" />
+#{include 'includes/headCrud.html' /}
+<body>
+	<div id="wrapper">
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; min-height: 75px">
+			<!-- Logo navbar -->
+			#{include 'includes/logoNavBar.html' /}
+			<!-- Logo navbar -->
+			<!-- Menu Top Side -->
+			#{include 'includes/menuPainelTop.html' /}
+			<!-- Menu Top Side -->
+			<!-- Menu Left Side -->
+			#{include 'includes/menuPainelLeft.html' /}
+			<!-- Menu Left Side -->
+		</nav>
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Pós Venda</h1>
+				</div>
+			</div>
+			<ol class="breadcrumb">
+			    <li><a href="/admin/">Início</a></li>
+			    <li><a href="/admin/atualizar-pedidos">Atualizar Pedidos</a></li>
+			</ol>
+			#{if flash.success}
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-info alert-dismissable">${flash.success}</div>
+					</div>
+				</div>
+			#{/if} 
+			#{if flash.error || error}
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-danger alert-dismissable">${error ?: flash.error}</div>
+					</div>
+				</div>
+			#{/if}
+				<div class="row">
+					<div class="col-lg-12">
+	                    <div class="panel panel-yellow">
+	                        <div class="panel-heading">
+	                           Ao clicar no código você vê como o cliente acompanha a OS.
+	                        </div>
+	                        <!-- /.panel-heading -->
+	                        <div class="panel-body">
+	                            <div class="table-responsive">
+	                                <table class="table table-hover">
+	                                    <thead>
+	                                        <tr>
+	                                            <th>Código</th>
+	                                            <th>Cliente</th>
+	                                            <th>Status</th>
+	                                            <th>Observação</th>
+	                                            <th>Agradeceu?</th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+	                                       #{list listOrderOfServices, as:'order'}
+												<tr>
+													<td><a href="/acompanhe?cod=${order.orderCode}#acompanhamento" target="_blank">${order.orderCode}</a></td>
+													<td>${order.client?.name} ${order.client?.lastName}</td>
+													<td>${order.getCurrentStatus()}</td>
+													<td>${order.obs}</td>
+													<td>#{if !order.isThanked}<label><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
+												</tr>
+											#{/list}
+	                                    </tbody>
+	                                </table>
+	                            </div>
+	                        </div>
+	                    </div>
+           			</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="text-align: center">&{'project.name'} © Copyright 2017</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- footerCrud -->
+	#{include 'includes/footerCrud.html' /}
+	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
+	<!-- footerCrud -->
+	<div class="modal fade" id="modalThankful" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<input id="osid" name="osid" type="hidden" />
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload(true)">&times;</button>
+					<h3 class="modal-title" id="myModalLabel">Agradecimento</h3>
+				</div>
+				<div class="modal-body">
+					<div id="thankfulNotificationArea"></div>
+				</div>
+				<div class="modal-footer" style="text-align: left">
+					<div id="editor"></div>
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload(true)">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

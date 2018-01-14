@@ -3354,13 +3354,14 @@ h3.mainLead {
 	text-align: left; 
 }
 
-h1.mainLead {
+h1.mainLead, h2.mainLead {
 	color: #000;    
-	font-size: 1.8em;    
+	font-size: 1.7em;    
 	text-transform: uppercase;    
 	line-height: 50px;    
 	font-weight: 600;    
-	letter-spacing: 3px; margin: 0;"
+	letter-spacing: 3px; 
+	margin: 0;
 }
 
 h4.mainLead {

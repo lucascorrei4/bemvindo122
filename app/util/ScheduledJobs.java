@@ -16,9 +16,10 @@ import models.StatusMail;
 import play.jobs.Job;
 import play.jobs.On;
 
-// Fire every hour between 7AM and 22AM 0 0 7-22 ? * * * 
+// Fire every hour between 7AM and 22AM = 0 0 7-22 ? * * * 
 // Fire every 3 minutes 0 */3 * ? * * 
-@On("0 0 7-22 ? * * *")
+// @On("0 0 7-22 ? * * *")
+@On("0 */3 * ? * *")
 public class ScheduledJobs extends Job {
 
 	public void doJob() {
@@ -29,29 +30,25 @@ public class ScheduledJobs extends Job {
 	}
 
 	private void verifyIfLeadIsNotInSalesFunnel() {
+		Parameter parameter = Parameter.all().first();
 		List<MailList> mailList = new MailList().find("isActive = true order by postedAt desc").fetch();
 		for (MailList mL : mailList) {
-			SequenceMailController.addLeadToSalesFunnel(mL);
+			SequenceMailController.addLeadToSalesFunnel(mL, parameter.getSiteDomain());
 		}
 	}
 
 	public void sendMailToLead() {
-		Calendar calendar = Utils.getBrazilCalendar();
-		calendar.set(Calendar.HOUR, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
 		List<SequenceMailQueue> sequenceMailQueueList = SequenceMailQueue.find("date(jobDate) = CURRENT_DATE and sent = false").fetch();
 		for (SequenceMailQueue sequenceMailQueue : sequenceMailQueueList) {
-			sendEmailToLead(sequenceMailQueue);
-			sequenceMailQueue.setSent(true);
-			sequenceMailQueue.willBeSaved = true;
-			sequenceMailQueue.merge();
+			if (sendEmailToLead(sequenceMailQueue)) {
+				sequenceMailQueue.setSent(true);
+				sequenceMailQueue.willBeSaved = true;
+				sequenceMailQueue.merge();
+			}
 		}
 	}
 
-	private static void sendEmailToLead(SequenceMailQueue sequenceMailQueue) {
+	private static boolean sendEmailToLead(SequenceMailQueue sequenceMailQueue) {
 		if (!Utils.isNullOrEmpty(sequenceMailQueue.getMail()) && Utils.validateEmail(sequenceMailQueue.getMail())) {
 			Parameter parameter = Parameter.all().first();
 			MailController mailController = new MailController();
@@ -63,22 +60,25 @@ public class ScheduledJobs extends Job {
 			sendTo.setStatus(new StatusMail());
 			/* Sender object */
 			Sender sender = new Sender();
-			sender.setCompany("Seu Pedido Online");
-			sender.setFrom("contato@seupedido.online");
+			sender.setCompany(parameter.getSiteTitle());
+			sender.setFrom(parameter.getSiteMail());
 			sender.setKey("Sales Funnel");
 			/* SendTo object */
 			BodyMail bodyMail = new BodyMail();
 			bodyMail.setTitle1("");
 			bodyMail.setTitle2("");
 			bodyMail.setFooter1("");
-			bodyMail.setImage1(parameter.getLogoUrl());
+			bodyMail.setImage1(parameter.getSiteDomain() + "/logo");
 			String firstName = sequenceMailQueue.getName().indexOf(" ") > -1 ? sequenceMailQueue.getName().substring(0, sequenceMailQueue.getName().indexOf(" ")) : sequenceMailQueue.getName();
-			bodyMail.setBodyHTML(sequenceMailQueue.getSequenceMail().getDescription().replace("@lead@", firstName));
+			String bodyHTML = sequenceMailQueue.getSequenceMail().getDescription().replace("@lead@", firstName).concat(Utils.unsubscribeHTML(parameter.getSiteDomain(), sequenceMailQueue.getMail(), sequenceMailQueue.id)).concat(Utils.sentCredits(parameter.getSiteTitle(), parameter.getSiteDomain()));
+			bodyMail.setBodyHTML(bodyHTML);
 			String subject = sequenceMailQueue.getSequenceMail().getTitle().replace("@lead@", firstName);
-			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, subject)) {
+			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, subject, sequenceMailQueue.getSequenceMail().getAttachment(), parameter)) {
 				mailController.sendMailToMeWithCustomInfo("E-mail disparado ao lead!", "Nome: " + sequenceMailQueue.getName() + " - E-mail: " + sequenceMailQueue.getMail());
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public static void main(String[] args) {

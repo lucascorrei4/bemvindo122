@@ -28,14 +28,8 @@ public class SequenceMailQueue extends Model {
 	public Date jobDate = new Date();
 
 	public boolean sent = false;
-
-	public Date getJobDate() {
-		return jobDate;
-	}
-
-	public void setJobDate(Date jobDate) {
-		this.jobDate = jobDate;
-	}
+	
+	public boolean mailRead = false;
 
 	@Hidden
 	public String postedAt;
@@ -94,5 +88,24 @@ public class SequenceMailQueue extends Model {
 	public void setSent(boolean sent) {
 		this.sent = sent;
 	}
+	
+	public Date getJobDate() {
+		return jobDate;
+	}
 
+	public void setJobDate(Date jobDate) {
+		this.jobDate = jobDate;
+	}
+
+	public String getJobDateParsed() throws ParseException {
+		return Utils.parseStringDateTime(Utils.getStringDateTime(jobDate));
+	}
+
+	public boolean isMailRead() {
+		return mailRead;
+	}
+
+	public void setMailRead(boolean mailRead) {
+		this.mailRead = mailRead;
+	}
 }

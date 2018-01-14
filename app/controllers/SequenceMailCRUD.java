@@ -1,19 +1,23 @@
 package controllers;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
 
-import models.MailList;
+import models.Article;
+import models.FreePage;
+import models.Parameter;
+import models.SellPage;
 import models.SequenceMail;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
+import util.TO;
 
 @CRUD.For(models.SequenceMail.class)
 public class SequenceMailCRUD extends CRUD {
+
 	@Before
 	static void globals() {
 		if (Admin.getLoggedUserInstitution() == null || Admin.getLoggedUserInstitution().getUser() == null) {
@@ -25,6 +29,10 @@ public class SequenceMailCRUD extends CRUD {
 		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
 		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
 		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+	}
+
+	public static void list(int page, String search, String searchFields, String orderBy, String order) {
+		listAll(0, search, searchFields, orderBy, order);
 	}
 
 	public static void listAll(int page, String search, String searchFields, String orderBy, String order) {
@@ -42,10 +50,11 @@ public class SequenceMailCRUD extends CRUD {
 		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, (String) request.args.get("where"));
 		Long count = type.count(search, searchFields, (String) request.args.get("where"));
 		Long totalCount = type.count(null, null, (String) request.args.get("where"));
+		List<TO> urls = getAllPublishedUrls();
 		try {
-			render(type, objects, count, totalCount, page, orderBy, order);
+			render("SequenceMailCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order, urls);
 		} catch (TemplateNotFoundException e) {
-			render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+			render("SequenceMailCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order, urls);
 		}
 	}
 
@@ -55,18 +64,11 @@ public class SequenceMailCRUD extends CRUD {
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
 		SequenceMail object = (SequenceMail) constructor.newInstance();
-		List<MailList> mailList = MailList.find("SELECT DISTINCT (m.url) FROM MailList m").fetch();
-		Iterator<MailList> iter = mailList.iterator();
-		while (iter.hasNext()) {
-			if (iter.next() == null) {
-				iter.remove();
-			}
-		}
-		List<Integer> sequence1to5 = Arrays.asList(1, 2, 3, 4, 5);
+		List<TO> urls = getAllPublishedUrls();
 		try {
-			render(type, object, mailList, sequence1to5);
+			render("SequenceMailCRUD/blank.html", type, object, urls);
 		} catch (TemplateNotFoundException e) {
-			render(type, object, mailList, sequence1to5);
+			render("SequenceMailCRUD/blank.html", type, object, urls);
 		}
 	}
 
@@ -74,20 +76,48 @@ public class SequenceMailCRUD extends CRUD {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
 		SequenceMail object = SequenceMail.findById(Long.valueOf(id));
-		List<MailList> mailList = MailList.find("SELECT DISTINCT (m.url) FROM MailList m").fetch();
-		Iterator<MailList> iter = mailList.iterator();
-		while (iter.hasNext()) {
-			if (iter.next() == null) {
-				iter.remove();
-			}
-		}
-		List<Integer> sequence1to5 = Arrays.asList(1, 2, 3, 4, 5);
+		List<TO> urls = getAllPublishedUrls();
 		notFoundIfNull(object);
 		try {
-			render(type, object, mailList, sequence1to5);
+			render(type, object, urls);
 		} catch (TemplateNotFoundException e) {
-			render("CRUD/show.html", type, object, mailList, sequence1to5);
+			render("CRUD/show.html", type, object, urls);
 		}
+	}
+
+	private static List<TO> getAllPublishedUrls() {
+		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch();
+		List<FreePage> listFreePages = FreePage.find("isActive = true order by postedAt desc").fetch();
+		List<SellPage> listSellPages = SellPage.find("isActive = true order by postedAt desc").fetch();
+
+		List<TO> listTO = new ArrayList<TO>();
+		TO to = new TO();
+		String siteDomain = Parameter.getCurrentParameter().getSiteDomain();
+		to.setLabel("Página inicial - " + siteDomain);
+		to.setValue(Parameter.getCurrentParameter().getSiteDomain());
+		listTO.add(to);
+		for (Article article : listArticles) {
+			String url = "/artigos/".concat(String.valueOf(article.id)).concat("/").concat(article.getFriendlyUrl());
+			to = new TO();
+			to.setLabel(article.getTitleSEO() + " - " + url);
+			to.setValue(url);
+			listTO.add(to);
+		}
+		for (FreePage freePage : listFreePages) {
+			String url = "/fp/".concat(freePage.getFriendlyUrl());
+			to = new TO();
+			to.setLabel(freePage.getTitleSEO() + " - " + url);
+			to.setValue(url);
+			listTO.add(to);
+		}
+		for (SellPage sellPage : listSellPages) {
+			String url = "/pv/".concat(sellPage.getFriendlyUrl());
+			to = new TO();
+			to.setLabel(sellPage.getTitleSEO() + " - " + url);
+			to.setValue(url);
+			listTO.add(to);
+		}
+		return listTO;
 	}
 
 	public static void create() throws Exception {
@@ -154,4 +184,5 @@ public class SequenceMailCRUD extends CRUD {
 		flash.success(play.i18n.Messages.get("crud.deleted", type.modelName));
 		redirect(request.controller + ".listAll");
 	}
+
 }
