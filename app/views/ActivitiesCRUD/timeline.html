@@ -1,0 +1,80 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.list.title', type.name) /}
+<meta charset="utf-8" />
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				<div class="form-group">
+					<label> Pesquisar Cliente </label>
+					<input id="client_autocomplete" class="form-control autocomplete" value="">
+					<input id="client_aux" class="form-control " type="hidden" name="client.aux" value="" />
+				</div>
+				<div class="form-group">
+					<button id="search_client" type="button" class="btn btn-default" name="btn_adicionar">Pesquisar</button>
+				</div>
+				<div class="form-group">
+					<div id="message"></div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+			</div>
+		<div id="timeline" class="col-lg-12">
+			#{include 'includes/timeline.html' /}
+		</div>
+	</div>
+	
+<script src="@{'/public/javascripts/typeahead.min.js'}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var jsonValue = #{jsAction @ActivitiesCRUD.getClientsJSON() /};
+	
+	$('input.typeahead').typeahead({
+		name: 'accounts',
+	    prefetch: jsonValue,
+    	limit: 10
+	});
+	
+	$('input.autocomplete').each( function() {
+	   var $input = $(this);
+	   $(this).autocomplete({
+	       minLength: 2,
+	       source : function(req, resp) {
+	    	   $.getJSON("@{ActivitiesCRUD.listClientsAutoComplete()}?term=" + req.term , req, function(data) {
+	           var suggestions = [];
+	           $.each(data, function(i, val) {
+	        	   var obj = {};
+	             	obj.label = val.name + ' ' + val.lastName;
+	             	obj.id = val.id;
+	             	suggestions.push(obj);
+	           });
+	           resp(suggestions);
+	         });
+	       	},
+			select: function(event, ui) {
+				$('#client_aux').val(ui.item.id)
+	        },
+	        change: function() {
+                $("input.autocomplete").val("").css("top", 2);
+            },
+            response: function(event, ui) {
+                if (ui.content.length === 0) {
+                    $("#message").text("Nenhum resultado encontrado.");
+                } else {
+                    $("#message").empty();
+                }
+            },
+            error: function () {
+                response([]);
+            }
+	     });
+	 });
+	 
+	$('#search_client').click(function(e) {
+	    var clientId = $("#client_aux").val();
+	    var searchClientAction = #{jsAction @ActivitiesCRUD.searchClient(':clientId') /};     
+	    $('#timeline').load(searchClientAction({clientId: clientId}));
+	});
+
+	
+});
+</script>

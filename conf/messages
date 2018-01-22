@@ -85,6 +85,7 @@ true=Sim
 false=Não
 
 #Controllers
+ActivitiesCRUD=Atividades
 FreePageCRUD=Páginas Livre
 SellPageCRUD=Páginas de Vendas
 SequenceMailQueueCRUD=Fila de E-mails
@@ -124,6 +125,7 @@ SequenceMailCRUD=Funil de E-mails
 HighlightProductCRUD=Produtos em Destaque
 
 #Models
+Activities=Atividade
 SellPage=Página Livre
 SellPage=Página de Vendas
 HighlightProduct=Produtos em Destaque
@@ -168,6 +170,9 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+activityDate=Data da Atividade
+type=Tipo
+phone2=Telefone 2
 footerInfo=Rodapé (HTML)
 icon=Ícone do Site
 image4=Imagem 4
@@ -186,6 +191,7 @@ logoRoundedBorder=Logo com Borda Arredondada
 mailHostName=Hostname (SMTP)
 mailHostUser=Hostname (Usuário)
 mailHostPassword=Hostname (Senha)
+mailHostPort=Hostname (Port)
 mailRead=Lido
 leftAligmentLogo=Logo Alinhado a Esquerda
 logo=Logo do Site (Ideal: 700px x 700px, .jpg)

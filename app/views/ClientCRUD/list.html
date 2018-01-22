@@ -16,7 +16,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'name', 'isActive', 'action']}
+			        #{crud.table fields:['postedAt', 'name', 'phone', 'mail', 'birthdate', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{ClientCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}

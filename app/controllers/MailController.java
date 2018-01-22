@@ -40,7 +40,7 @@ public class MailController {
 			properties.put("mail.transport.protocol", "smtp");
 			properties.put("mail.smtp.host", hostName);
 			properties.put("mail.smtp.socketFactory.port", "465");
-			properties.put("mail.smtp.port", "25");
+			properties.put("mail.smtp.port", parameter.getMailHostPort() == null ? "25" : parameter.getMailHostPort());
 			properties.put("mail.smtp.auth", "true");
 			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			/* Trying connect do smtp server */
@@ -60,7 +60,7 @@ public class MailController {
 				} else {
 					message.setSubject(Utils.removeHTML(subject));
 				}
-				String htmlMessage = bodyMail.getBodyHTML();
+				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML());
 				Multipart multipart = new MimeMultipart();
 				MimeBodyPart mimeBodyPart = new MimeBodyPart();
 				mimeBodyPart.setContent(htmlMessage, "text/html");
@@ -91,7 +91,7 @@ public class MailController {
 			properties.put("mail.transport.protocol", "smtp");
 			properties.put("mail.smtp.host", hostName);
 			properties.put("mail.smtp.socketFactory.port", "465");
-			properties.put("mail.smtp.port", "25");
+			properties.put("mail.smtp.port", parameter.getMailHostPort() == null ? "25" : parameter.getMailHostPort());
 			properties.put("mail.smtp.auth", "true");
 			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			/* Trying connect do smtp server */
@@ -111,7 +111,7 @@ public class MailController {
 				} else {
 					message.setSubject(Utils.removeHTML(subject));
 				}
-				String htmlMessage = bodyMail.getBodyHTML();
+				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML());
 				Multipart multipart = new MimeMultipart();
 				MimeBodyPart mimeBodyPart = new MimeBodyPart();
 				mimeBodyPart.setContent(htmlMessage, "text/html");

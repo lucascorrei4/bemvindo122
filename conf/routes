@@ -84,6 +84,17 @@ GET		${ctx}/admin/pos-venda										OrderOfServiceCRUD.afterSell
 GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
 GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
 
+# Activities
+
+GET		${ctx}/admin/atividades											ActivitiesCRUD.list
+GET		${ctx}/admin/atividades/novo									ActivitiesCRUD.blank
+GET		${ctx}/admin/atividades/{id}									ActivitiesCRUD.show
+GET		${ctx}/admin/atividades/{id}/{field}							ActivitiesCRUD.attachment
+GET		${ctx}/admin/atividades/{id}/editar								ActivitiesCRUD.edit
+POST	${ctx}/admin/atividades											ActivitiesCRUD.create
+POST	${ctx}/admin/atividades/{id}									ActivitiesCRUD.save
+DELETE	${ctx}/admin/atividades/{id}									ActivitiesCRUD.delete
+
 # FreePage
 
 GET		${ctx}/admin/paginas-livre										FreePageCRUD.list

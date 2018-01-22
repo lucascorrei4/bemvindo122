@@ -31,6 +31,8 @@ public class Client extends Model {
 	@Required(message = "Campo obrigatório.")
 	public String phone;
 
+	public String phone2;
+
 	public String birthdate;
 	
 	@Enumerated(EnumType.STRING)
@@ -146,6 +148,22 @@ public class Client extends Model {
 	
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
+	}
+
+	public String getPhone2() {
+		return phone2;
+	}
+
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
+	}
+
+	public GenderEnum getGender() {
+		return gender;
+	}
+
+	public void setGender(GenderEnum gender) {
+		this.gender = gender;
 	}
 
 }

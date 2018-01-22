@@ -3,12 +3,21 @@
 	<div class="sidebar-nav navbar-collapse">
 		<ul class="nav" id="side-menu">
 			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
+			
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{ClientCRUD.list}"><i class="fa fa-user-plus fa-fw"></i> 1º. Clientes</a>
+				<a href="#"><i class="fa fa-user-plus fa-fw"></i> Clientes<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ClientCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Novo</a></li>
+					<li><a href="@{ClientCRUD.list}"><i class="fa fa-user-plus fa-fw"></i> Lista de Clientes</a></li>
+				</ul>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{ServiceCRUD.list}"><i class="fa fa-wrench fa-fw"></i> 2º. Serviços</a>
+				<a href="#"><i class="fa fa-wrench fa-fw"></i> Serviços<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ServiceCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Novo</a></li>
+					<li><a href="@{ServiceCRUD.list}"><i class="fa fa-wrench fa-fw"></i> Lista de Serviços</a></li>
+				</ul>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
@@ -24,6 +33,22 @@
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{OrderOfServiceCRUD.afterSell}"><i class="fa fa-map-signs fa-fw"></i> Script de Pós Venda</a>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{ActivitiesCRUD.timeline}"><i class="fa fa-history fa-fw"></i> Timeline</a>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-puzzle-piece fa-fw"></i> Atividades<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ActivitiesCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Nova</a></li>
+					<li><a href="@{ActivitiesCRUD.list}"><i class="fa fa-puzzle-piece fa-fw"></i> Lista de Atividades</a></li>
+				</ul>
+			</li>
+
+			<li style="display: none">
 				<a href="#"><i class="fa fa-plane fa-fw"></i> Notificações Enviadas<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="@{StatusPushCRUD.list}"><i class="fa fa-paper-plane fa-fw"></i> Push Enviadas</a></li>
@@ -60,7 +85,7 @@
 						<a href="#"><i class="fa fa-paper-plane-o fa-fw"></i> Funis de E-mails<span class="fa arrow"></span></a>
 						<ul class="nav nav-third-level">
 							<li><a href="@{MailListCRUD.listAll}">Leads Capturados</a></li>
-							<li><a href="@{SequenceMailCRUD.listAll}">Criar Sequência de E-mails</a></li>
+							<li><a href="@{SequenceMailCRUD.listAll}">Sequência de E-mails</a></li>
 							<li><a href="@{SequenceMailQueueCRUD.listAll}">Fila de E-mails</a></li>
 							<li><a href="@{MailBaseCRUD.list}">Base de E-mails</a></li>
 						</ul>

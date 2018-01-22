@@ -508,7 +508,7 @@ public class Utils extends Controller {
 	}
 	
 	public static void main(String[] args) {
-		System.out.println(escapeSpecialCharacters("Lucas  áÁàáéíóú Correia Evangelista"));
+		System.out.println(escapeSpecialCharacters("& and © ar Lucas  áÁàáéíóú Correia Evangelista"));
 	}
 	
 	public static String escapeSpecialCharacters(String text) {
@@ -527,6 +527,17 @@ public class Utils extends Controller {
 
 	public static String sentCredits(String siteTitle, String siteDomain) {
 		return "<br><br>E-mail enviado por <strong><a href=\"" + siteDomain + "\" target=\"_blank\">" + siteTitle + "</a></strong>.";
+	}
+
+	public static String validateHtmlEmail(String bodyHTML) {
+		String headers = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+		String tagsBegin = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html charset=UTF-8\" /></head><body>";
+		String content = bodyHTML.replaceAll("<p>", "<p style=\"margin:0;\">");
+		content = bodyHTML.replaceAll("<strong>", "<b>");
+		content = bodyHTML.replaceAll("</strong>", "</b>");
+		String tagsEnd = "</body></html>";
+		String htmlMail = escapeSpecialCharacters(headers + tagsBegin + content + tagsEnd);
+		return htmlMail;
 	}
 
 }

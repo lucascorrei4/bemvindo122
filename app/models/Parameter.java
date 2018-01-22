@@ -76,6 +76,7 @@ public class Parameter extends Model {
 	public String mailHostName;
 	public String mailHostUser;
 	public String mailHostPassword;
+	public String mailHostPort;
 	
 	public Float smsPricePlan = 0f;
 
@@ -496,6 +497,14 @@ public class Parameter extends Model {
 
 	public void setEmbedFirstStep(String embedFirstStep) {
 		this.embedFirstStep = embedFirstStep;
+	}
+
+	public String getMailHostPort() {
+		return mailHostPort;
+	}
+
+	public void setMailHostPort(String mailHostPort) {
+		this.mailHostPort = mailHostPort;
 	}
 
 

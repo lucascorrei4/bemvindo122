@@ -368,6 +368,9 @@ public class Institution extends Model {
 	}
 
 	public String getUrlParameter() {
+		if (!Utils.isNullOrEmpty(this.institution)) {
+			setUrlParameter(Utils.stringToUrl(this.institution.trim()));
+		}
 		return urlParameter;
 	}
 

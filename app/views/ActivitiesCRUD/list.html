@@ -7,6 +7,7 @@
 				#{crud.search /}
 			</div>
 			<div class="col-lg-6">
+				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
 			</div>
 		</div>
 	</div>
@@ -15,21 +16,18 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['clientName', 'destination', 'sendDate', 'message', 'mailSent', 'mailRead']}
-			        	#{crud.custom 'clientName'}
-			         		<a href="#">${object.clientName}</a>
+			        #{crud.table fields:['postedAt', 'client', 'title', 'type', 'isActive', 'action']}
+			        	#{crud.custom 'postedAt'}
+			         		<a href="@{ActivitiesCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
-			        	#{crud.custom 'destination'}
-			         		<a href="#">${object.destination}</a>
+				        #{crud.custom 'client'}
+			         		<a>${object.client?.name} ${object.client?.lastName}</a>
 				        #{/crud.custom}
-			        	#{crud.custom 'sendDate'}
-			         		<a href="#">${object.sendDateConverted.format("dd/MM/yyyy HH'h'mm")}</a>
+				        #{crud.custom 'action'}
+                             <a href="@{ActivitiesCRUD.remove(object.id)}" title="Atenção: Esta ação remove o artigo.">Remover</a>
 				        #{/crud.custom}
-			        	#{crud.custom 'message'}
-			         		${object.message.raw()}
-				        #{/crud.custom}
-			        	#{crud.custom 'mailSent'}
-			         		<a href="#">${object.mailSent ? 'Sim' : 'Não'}</a>
+				        #{crud.custom 'isActive'}
+			         		${object.isActive ? 'Sim' : 'Não'}
 				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">
