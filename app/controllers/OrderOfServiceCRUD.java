@@ -573,6 +573,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String id = params.get("id", String.class);
 		String value = params.get("value", String.class);
 		String idUpdate = params.get("idUpdate", String.class);
+		String isMobile = params.get("isMobile", String.class);
 		String[] paramsSpplited = id.split("-");
 		String orderCode = paramsSpplited[1];
 		String message = value;
@@ -582,8 +583,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
 		if (!Utils.isNullOrEmpty(destination)) {
 			if (destination.length() == 11) {
-				sendResponse = "https://web.whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
-				/* Save sms object */
+				String origin = "true".equals(isMobile) ? "api" : "web";
+				sendResponse = "https://" + origin + ".whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
 				status = "SUCCESS";
 				response = sendResponse;
 				/* Set thanked Order of Service */

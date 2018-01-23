@@ -52,20 +52,20 @@
 	                                    <thead>
 	                                        <tr>
 	                                            <th>Código</th>
+	                                            <th>Agradeceu?</th>
 	                                            <th>Cliente</th>
 	                                            <th>Status</th>
 	                                            <th>Observação</th>
-	                                            <th>Agradeceu?</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
 	                                       #{list listOrderOfServices, as:'order'}
 												<tr>
 													<td><a href="/acompanhe?cod=${order.orderCode}#acompanhamento" target="_blank">${order.orderCode}</a></td>
+													<td>#{if !order.isThanked}<label><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
 													<td>${order.client?.name} ${order.client?.lastName}</td>
 													<td>${order.getCurrentStatus()}</td>
 													<td>${order.obs}</td>
-													<td>#{if !order.isThanked}<label><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
 												</tr>
 											#{/list}
 	                                    </tbody>

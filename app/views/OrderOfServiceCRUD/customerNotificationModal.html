@@ -1,20 +1,17 @@
 <meta charset="utf-8" />
 <div class="form-group">
-	<label>Avisar  &{orderOfService.client.toString()}</label>
-	<label>| &{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
+	<h4>Avisar <strong>&{orderOfService.client.toString()}</strong></h4>
 	<textarea class="form-control " id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Acompanhe seu pedido &{orderOfService.orderCode} em: &{parameter.getSiteDomain()}/acompanhe. Att., &{institution.institution}.</textarea>
+	<label>&{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
 </div>
 <div class="container" id="formNotifButtons" style="width: 100%">
-	<div class="row">
-		<div class="col-xs-4">
-           	<input class="btn btn-default " type="button" value="Via PUSH" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
-		</div>
-		<div class="col-xs-4">
-           	<input class="btn btn-default" type="button" value="Via E-mail" onclick="sendEmailNotificationToCustomer(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
-		</div>
-		<div class="col-xs-4">
-           	<input class="btn btn-default " type="button" value="Via Whatsapp" onclick="sendWhatsAppThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
-		</div>
+	<div class="panel-body">
+		<h4>Disparar mensagem:</h4>
+		<p>
+           	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por Whatsapp" onclick="sendWhatsAppThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+           	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por E-mail" onclick="sendEmailNotificationToCustomer(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+           	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por Notificação Push" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+		</p>
 	</div>
 	<input type="hidden" id="response" name="response" value="${response}" /> 
 	<input type="hidden" id="status" name="status" value="${status}" />

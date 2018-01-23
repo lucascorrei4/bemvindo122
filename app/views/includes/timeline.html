@@ -10,11 +10,10 @@
 				</div>
 				<div class="timeline-panel">
 					<div class="timeline-heading">
-						<p>
-							<small class="text-muted"><i
-								class="glyphicon glyphicon-time"></i> Evento ocorrido no dia ${act.activityDate}</small>
+						<p style="text-align: right">
+							<small class="text-muted"><i class="fa fa-calendar-check-o fa-fw"></i> Evento ocorrido no dia ${act.activityDate}</small>
 						</p>
-						<h3 class="timeline-title">${act.type.label}</h3>
+						<h3 class="timeline-title" style="font-weight: bold; color: gray"><i class="fa fa-arrow-circle-right fa-fw"></i>${act.type.label}</h3>
 					</div>
 					<div class="timeline-body" style="padding: 0 15px 0 15px">
 						<h4 class="timeline-title">${act.title}</h4>
@@ -25,7 +24,7 @@
 					</div>
 					<br/>
 					<p style="text-align: right">
-						<small class="text-muted"><i class="glyphicon glyphicon-time"></i> Postado em ${act.postedAtParsed}</small>
+						<small class="text-muted"><i class="glyphicon glyphicon-time"></i> Postado em ${act.postedAtParsed} por ${act.collaborator.name} ${act.collaborator.lastName}</small>
 					</p>
 				</div>
 			</li>

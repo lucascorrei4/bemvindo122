@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
+import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import util.StatusEnum;
 import util.Utils;
@@ -30,6 +31,8 @@ public class OrderOfServiceStep extends Model {
 	public String obs;
 
 	private String reference;
+	
+	public Blob image;
 
 	@Hidden
 	public String postedAt;
@@ -126,6 +129,14 @@ public class OrderOfServiceStep extends Model {
 
 	public void setReference(String reference) {
 		this.reference = reference;
+	}
+
+	public Blob getImage() {
+		return image;
+	}
+
+	public void setImage(Blob image) {
+		this.image = image;
 	}
 
 }

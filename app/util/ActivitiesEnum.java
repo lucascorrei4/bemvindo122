@@ -8,6 +8,8 @@ public enum ActivitiesEnum {
 	CallAfterSale("Pós venda realizado por telefone", "CallAfterSale", "heartbeat"), 
 	ClientSendMessage("O cliente nos mandou mensagem", "ClientSendMessage", "reply"), 
 	Problem("Algo ruim aconteceu", "Problem", "thumbs-o-down"), 
+	OS("Ordem de Serviço gerada (Registrado pelo sistema)", "OS", "list-alt"), 
+	OSSearch("Cliente consultou a OS (Registrado pelo sistema)", "OSSearch", "search"), 
 	Mail("E-mail enviado (Registrado pelo sistema)", "Mail", "envelope-o"), 
 	WppSent("Mensagem no Whatsapp enviada (Registrado pelo sistema)", "WppSent", "mobile-phone"), 
 	SystemAfterSale("Pós venda realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSale", "heartbeat"),
