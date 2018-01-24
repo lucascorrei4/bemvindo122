@@ -87,7 +87,7 @@ function updateRadioValue(name, value, href) {
 			});
 }
 
-function updateObsOrderStep(name, obs) {
+function updateObsOrderStep(name, obs, href) {
 	var data = jQuery.param({
 		name : name,
 		obs : obs
@@ -102,11 +102,13 @@ function updateObsOrderStep(name, obs) {
 					$("#message-" + name).fadeIn();
 					var spplittedName = name.split('-');
 					$("#collapse" + spplittedName[1]).collapse('show');
+					$(href).collapse('toggle');
 				} else {
 					$("#message-" + name).css("color", "red");
 					$("#message-" + name).show();
 					$("#message-" + name).html($("#response").val());
 					setTimeout('$("#message").hide()', 10000);
+					$("#collapse" + spplittedName[1]).collapse('show');
 				}
 			});
 }
@@ -200,14 +202,12 @@ function sendWhatsAppOS(id, value, idUpdate) {
 		isMobile : isMobile
 	});
 	messageActionOnClick(id, idUpdate);
-	$('#' + idUpdate).load('/OrderOfServiceCRUD/sendWhatsAppThankful', data,
+	$('#' + idUpdate).load('/OrderOfServiceCRUD/sendWhatsAppOS', data,
 			function(response, status) {
 		var status = $("#status-wpp-" + id).val();
-		alert(status)
 		if ('SUCCESS' === status) {
 			$("#message-" + id).css("color", "cornflowerblue");
 			$("#message-" + id).show();
-			alert($("#response-wpp-" + id).val());
 			window.open($("#response-wpp-" + id).val(), '_blank');
 			$("#message-" + id).fadeIn();
 		} else {

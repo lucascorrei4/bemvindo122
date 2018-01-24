@@ -3,9 +3,11 @@ package models;
 import java.text.ParseException;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
@@ -19,9 +21,10 @@ import util.ActivitiesEnum;
 import util.Utils;
 
 @Entity
-public class Activities extends Model {
+public class Activity extends Model {
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="client_id")
 	public Client client;
 
 	@Required
@@ -36,7 +39,8 @@ public class Activities extends Model {
 	@MaxSize(100000)
 	public String description;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="collaborator_id")
 	public User collaborator;
 
 	public boolean isGeneratedSale = false;

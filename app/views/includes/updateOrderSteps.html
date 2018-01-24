@@ -51,7 +51,7 @@
 											                                    <input class="form-control" id="obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" placeholder="Caso haja algum imprevisto nesta fase, deixe o seu cliente informado." value="&{orderServiceStep.obs}">
 											                                </div>
 											                                <div class="form-group">
-											                                    <input id="btnSaveObs" class="btn btn-default" type="button" value="Salvar observação" onclick="updateObsOrderStep(document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value);" />
+											                                    <input id="btnSaveObs" class="btn btn-default" type="button" value="Salvar observação" onclick="updateObsOrderStep(document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, '#collapseTwo${orderServiceStep_index}-${orderServiceStep.id}');" />
 											                                </div>
 											                                <div class="form-group">
 											                                	<h4>Notificar <strong>&{orderOfService.client.toString()}</strong></h4>

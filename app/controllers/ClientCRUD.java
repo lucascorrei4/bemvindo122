@@ -1,12 +1,16 @@
 package controllers;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 
 import controllers.CRUD.ObjectType;
 import models.Client;
+import models.User;
+import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
+import util.ActivitiesEnum;
 import util.VideoHelpEnum;
 
 @CRUD.For(models.Client.class)
@@ -76,5 +80,37 @@ public class ClientCRUD extends CRUD {
         flash.success(play.i18n.Messages.get("crud.deleted", type.modelName));
         redirect(request.controller + ".list");
     }
+	
+	public static void create() throws Exception {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
+		constructor.setAccessible(true);
+		Client object = (Client) constructor.newInstance();
+		Binder.bindBean(params.getRootParamNode(), "object", object);
+		validation.valid(object);
+		if (validation.hasErrors()) {
+			renderArgs.put("error", play.i18n.Messages.get("crud.hasErrors"));
+			try {
+				render(request.controller.replace(".", "/") + "/blank.html", type, object);
+			} catch (TemplateNotFoundException e) {
+				render("CRUD/blank.html", type, object);
+			}
+		}
+		object._save();
+		/* Generate Activity */
+		String activityTitle = "Cliente \"" + object.name + " " + object.lastName + "\" cadastrado";
+		String activityDescription = "Fone: " + object.phone + "; " + "E-mail: " + object.mail;
+		User loggedUser = Admin.getLoggedUserInstitution().getUser();
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, object, object.getInstitutionId(), loggedUser, ActivitiesEnum.NewUser);
+		flash.success(play.i18n.Messages.get("crud.created", type.modelName));
+		if (params.get("_save") != null) {
+			redirect(request.controller + ".list");
+		}
+		if (params.get("_saveAndAddAnother") != null) {
+			redirect(request.controller + ".blank");
+		}
+		redirect(request.controller + ".show", object._key());
+	}
 
 }

@@ -86,6 +86,7 @@ GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
 
 # Activities
 
+GET		${ctx}/admin/timeline											ActivitiesCRUD.timeline
 GET		${ctx}/admin/atividades											ActivitiesCRUD.list
 GET		${ctx}/admin/atividades/novo									ActivitiesCRUD.blank
 GET		${ctx}/admin/atividades/{id}									ActivitiesCRUD.show

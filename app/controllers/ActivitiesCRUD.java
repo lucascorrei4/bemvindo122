@@ -2,11 +2,12 @@ package controllers;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import models.Activities;
+import models.Activity;
 import models.Client;
 import models.HighlightProduct;
 import models.Parameter;
@@ -14,10 +15,11 @@ import models.User;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
+import util.ActivitiesEnum;
 import util.PlansEnum;
 import util.Utils;
 
-@CRUD.For(models.Activities.class)
+@CRUD.For(models.Activity.class)
 public class ActivitiesCRUD extends CRUD {
 	public static int AUTOCOMPLETE_MAX = 10;
 	
@@ -70,7 +72,7 @@ public class ActivitiesCRUD extends CRUD {
 		notFoundIfNull(type);
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
-		Activities object = (Activities) constructor.newInstance();
+		Activity object = (Activity) constructor.newInstance();
 		List<Client> clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
 		List<User> users = User.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
 		try {
@@ -85,7 +87,7 @@ public class ActivitiesCRUD extends CRUD {
 		notFoundIfNull(type);
 		List<Client> clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
 		List<User> users = User.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
-		Activities object = Activities.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()).first();
+		Activity object = Activity.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()).first();
 		notFoundIfNull(object);
 		try {
 			render(type, object, users, clients);
@@ -94,18 +96,18 @@ public class ActivitiesCRUD extends CRUD {
 		}
 	}
 	
-	public static void timeline(Client client) {
+	public static void timeline(Client clientTimeline) {
 		List<Client> clients = null;
-		if (client.id == null) {
+		if (clientTimeline.id == null) {
 			clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
-			client = clients.iterator().next();
+			clientTimeline = clients.iterator().next();
 		}
-		List<Activities> activities = Activities.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + client.id + " order by postedAt desc").fetch();
-		render(clients, client, activities);
+		List<Activity> activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch();
+		render(clients, clientTimeline, activities);
 	}
 	
 	public static void remove(String id) throws Exception {
-		Activities activities = Activities.find("id = " + Long.valueOf(id)).first();
+		Activity activities = Activity.find("id = " + Long.valueOf(id)).first();
 		activities.setActive(false);
 		activities.willBeSaved = true;
 		activities.save();
@@ -136,20 +138,38 @@ public class ActivitiesCRUD extends CRUD {
 	
 	public static void searchClient(final String clientId) {
 		if (!Utils.isNullOrEmpty(clientId)) {
-			Client client = Client.findById(Long.valueOf(clientId));
-			List<Activities> activities = Activities.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + client.id + "  order by postedAt desc").fetch();
-			render("includes/timeline.html", client, activities);
+			Client clientTimeline = Client.findById(Long.valueOf(clientId));
+			List<Activity> activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + "  order by postedAt desc").fetch();
+			render("includes/timeline.html", clientTimeline, activities);
 		}
 	}
 	
 	public static void getImage(long id) {
-		final Activities activity = Activities.findById(id);
+		final Activity activity = Activity.findById(id);
 		notFoundIfNull(activity);
 		if (activity.getImage() != null) {
 			renderBinary(activity.getImage().get());
 			return;
 		}
 	}
+	
+	public static boolean generateActivity(String title, String description, Client client, long institutionId, User collaborator, ActivitiesEnum type) {
+		Activity activity = new Activity();
+		activity.setTitle(title);
+		activity.setDescription(description);
+		activity.setClient(client);
+		activity.setType(type);
+		activity.setCollaborator(collaborator);
+		activity.setInstitutionId(institutionId);
+		activity.setActivityDate(Utils.formatDateSimple(new Date()));
+		activity.setPostedAt(Utils.getCurrentDateTime());
+		activity.setGeneratedSale(false);
+		activity.setActive(true);
+		activity.willBeSaved = true;
+		activity.save();
+		return true;
+	}
+
 	
 	
 }

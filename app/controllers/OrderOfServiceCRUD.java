@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import models.Activity;
 import models.BodyMail;
 import models.Client;
 import models.Institution;
@@ -32,6 +34,7 @@ import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
+import util.ActivitiesEnum;
 import util.ApplicationConfiguration;
 import util.MailTemplates;
 import util.PlansEnum;
@@ -213,6 +216,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		String[] jsonContent = params.get("orderOfServiceValue", String[].class);
 		generateOrderOfServiceValues(orderOfService, jsonContent[0]);
 		generateStepsByService(orderOfService);
+		/* Generate Activity */
+		String activityTitle = "Nova OS (" + orderOfService.getOrderCode() + ")";
+		String activityDescription = "Observação da OS: \"" + orderOfService.getObs() + "\"";
+		User loggedUser = Admin.getLoggedUserInstitution().getUser();
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OS);
 		if (params.get("_save") != null) {
 			redirect(request.controller + ".list");
 		}
@@ -298,7 +306,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		render(listOrderOfServices, institution);
 	}
-	
+
 	private static List<OrderOfService> calculateTotalOrderOfService() {
 		List<OrderOfService> listOrderOfServices = OrderOfService.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch(20);
 		for (OrderOfService order : listOrderOfServices) {
@@ -330,8 +338,10 @@ public class OrderOfServiceCRUD extends CRUD {
 	private static void updateServicesReferences(List<OrderOfService> listOrderOfService) {
 		for (OrderOfService orderOfService : listOrderOfService) {
 			for (ServiceOrderOfServiceSteps serviceOrderOfServiceSteps : orderOfService.getServiceOrderOfServiceSteps()) {
-				String reference = serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next().getReference();
-				serviceOrderOfServiceSteps.setReference(Utils.isNullOrEmpty(reference) ? "Não referenciado." : reference);
+				if (!Utils.isNullOrEmpty(serviceOrderOfServiceSteps.getOrderOfServiceSteps()) && serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next() != null) {
+					String reference = serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next().getReference();
+					serviceOrderOfServiceSteps.setReference(Utils.isNullOrEmpty(reference) ? "Não referenciado." : reference);
+				}
 			}
 		}
 	}
@@ -418,6 +428,12 @@ public class OrderOfServiceCRUD extends CRUD {
 		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		orderOfServiceStep.setStatus(StatusEnum.getNameByValue(newOrderStatus));
 		orderOfServiceStep.save();
+		/* Generate Activity */
+		String activityTitle = "Etapa da OS + (" + orderOfServiceStep.getOrderCode() + ") atualizada para \"" + orderOfServiceStep.getStatus().getLabel() + "\"";
+		String activityDescription = "Observação da etapa da OS: \"" + orderOfServiceStep.getObs() + "\"; Ref.: " + (Utils.isNullOrEmpty(orderOfServiceStep.getReference()) ? "\"Nenhuma\"" : "\"" + orderOfServiceStep.getReference() + "\"");
+		User loggedUser = Admin.getLoggedUserInstitution().getUser();
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSStepUpdated);
 		/*
 		 * Creating new object to do new search to see if object was saved
 		 * correctly
@@ -462,6 +478,12 @@ public class OrderOfServiceCRUD extends CRUD {
 		orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		boolean isSavedOrderOfServiceStep = String.valueOf(orderOfServiceStep.getObs()).equals(String.valueOf(obsParam));
 		if (isSavedOrderOfServiceStep) {
+			/* Generate Activity */
+			String activityTitle = "OBS da OS + (" + orderOfServiceStep.getOrderCode() + ") atualizada";
+			String activityDescription = "Descrição: \"" + obsParam + "\"";
+			User loggedUser = Admin.getLoggedUserInstitution().getUser();
+			OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSStepUpdated);
 			status = "SUCCESS";
 			response = "Observação do pedido ".concat(orderCode).concat(" inserida com sucesso!");
 		} else {
@@ -472,11 +494,6 @@ public class OrderOfServiceCRUD extends CRUD {
 		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
-	}
-
-	public static void main(String[] args) {
-		String[] spplited = "option-JV127680-7".split("-");
-		System.out.println("option-JV127680-7".split("-")[2]);
 	}
 
 	public static void sendSMS() throws UnsupportedEncodingException {
@@ -591,6 +608,11 @@ public class OrderOfServiceCRUD extends CRUD {
 				orderOfService.setThanked(true);
 				orderOfService.willBeSaved = true;
 				orderOfService.merge();
+				/* Generate Activity */
+				String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+				String activityDescription = "Mensagem enviada: \"" + message + "\"";
+				User loggedUser = Admin.getLoggedUserInstitution().getUser();
+				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByWhatsApp);
 			} else {
 				status = "ERROR";
 				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp!";
@@ -609,6 +631,47 @@ public class OrderOfServiceCRUD extends CRUD {
 			verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 		}
+	}
+	
+	public static void sendWhatsAppOS() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String isMobile = params.get("isMobile", String.class);
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String message = value;
+		String sendResponse = null;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		if (!Utils.isNullOrEmpty(destination)) {
+			if (destination.length() == 11) {
+				String origin = "true".equals(isMobile) ? "api" : "web";
+				sendResponse = "https://" + origin + ".whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
+				status = "SUCCESS";
+				response = sendResponse;
+				/* Set thanked Order of Service */
+				orderOfService.setThanked(true);
+				orderOfService.willBeSaved = true;
+				orderOfService.merge();
+				/* Generate Activity */
+				String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+				String activityDescription = "Mensagem enviada: \"" + message + "\"";
+				User loggedUser = Admin.getLoggedUserInstitution().getUser();
+				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.WppSent);
+			} else {
+				status = "ERROR";
+				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp!";
+			}
+		} else {
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+		}
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		List<OrderOfService> listOrderOfService = loadListOrderOfService();
+		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 	}
 
 	public static void sendPUSH() throws UnsupportedEncodingException {
@@ -633,6 +696,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		JsonObject obj = parser.parse(jsonResponse).getAsJsonObject();
 		JsonElement jsonElement = obj.get("response");
 		if ("200".equals(jsonElement.getAsString())) {
+			/* Generate Activity */
+			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+			String activityDescription = "Mensagem enviada: \"" + message + "\"";
+			User loggedUser = Admin.getLoggedUserInstitution().getUser();
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.PushSent);
 			/* Save sms object */
 			StatusPUSH statusPUSH = new StatusPUSH();
 			statusPUSH.setInstitutionId(institution.id);
@@ -684,6 +752,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		JsonObject obj = parser.parse(jsonResponse).getAsJsonObject();
 		JsonElement jsonElement = obj.get("response");
 		if ("200".equals(jsonElement.getAsString())) {
+			/* Generate Activity */
+			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+			String activityDescription = "Mensagem enviada: \"" + message + "\"";
+			User loggedUser = Admin.getLoggedUserInstitution().getUser();
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByPush);
 			/* Save sms object */
 			StatusPUSH statusPUSH = new StatusPUSH();
 			statusPUSH.setInstitutionId(institution.id);
@@ -719,6 +792,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		OrderOfServiceStep.delete("orderOfService_id = " + orderOfService.getId());
 		OrderOfServiceValue.delete("orderOfServiceId = " + orderOfService.getId());
 		orderOfService.delete();
+		/* Generate Activity */
+		String activityTitle = "OS de código (" + orderOfService.getOrderCode() + ") removida";
+		String activityDescription = "Nenhuma descrição adicional.";
+		User loggedUser = Admin.getLoggedUserInstitution().getUser();
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSRemoveAction);
 		OrderOfServiceCRUD.list(0, null, null, null, null);
 	}
 
@@ -726,8 +804,6 @@ public class OrderOfServiceCRUD extends CRUD {
 		String response = null;
 		String status = null;
 		String id = params.get("id", String.class);
-		String value = params.get("value", String.class);
-		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
 		String[] paramsSpplited = id.split("-");
 		String orderServiceStepId = paramsSpplited[2];
 		/* Institution object */
@@ -765,6 +841,10 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
 		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplate(bodyMail, parameter));
 		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter)) {
+			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+			String activityDescription = "Mensagem enviada: \"Seu pedido foi atualizado!\"";
+			User loggedUser = Admin.getLoggedUserInstitution().getUser();
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.Mail);
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
@@ -827,6 +907,10 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
 		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
 		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", seu código de acompanhamento. :)", parameter)) {
+			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+			String activityDescription = "Mensagem enviada: " + bodyMail.getTitle2();
+			User loggedUser = Admin.getLoggedUserInstitution().getUser();
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.Mail);
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
@@ -886,6 +970,10 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
 		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
 		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", viemos te agradecer. :)", parameter)) {
+			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+			String activityDescription = "Mensagem enviada: " + bodyMail.getTitle2();
+			User loggedUser = Admin.getLoggedUserInstitution().getUser();
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByMail);
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);

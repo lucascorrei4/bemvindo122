@@ -5,7 +5,7 @@
 			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
 			
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-user-plus fa-fw"></i> Clientes<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-user-plus fa-fw"></i> 1º Clientes<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="@{ClientCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Novo</a></li>
 					<li><a href="@{ClientCRUD.list}"><i class="fa fa-user-plus fa-fw"></i> Lista de Clientes</a></li>
@@ -13,7 +13,7 @@
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-wrench fa-fw"></i> Serviços<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-wrench fa-fw"></i> 2º Serviços<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="@{ServiceCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Novo</a></li>
 					<li><a href="@{ServiceCRUD.list}"><i class="fa fa-wrench fa-fw"></i> Lista de Serviços</a></li>
@@ -21,7 +21,11 @@
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.list}"><i class="fa fa-qrcode fa-fw"></i> 3º. Gerar Código (OS)</a>
+				<a href="#"><i class="fa fa-qrcode fa-fw"></i> 3º Gerar OS<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{OrderOfServiceCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Nova</a></li>
+					<li><a href="@{OrderOfServiceCRUD.list}"><i class="fa fa-qrcode fa-fw"></i> Lista de OSs</a></li>
+				</ul>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
@@ -29,15 +33,7 @@
 			</li>
 			
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.afterSell}"><i class="fa fa-heartbeat fa-fw"></i> Pós Venda</a>
-			</li>
-
-			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.afterSell}"><i class="fa fa-map-signs fa-fw"></i> Script de Pós Venda</a>
-			</li>
-
-			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{ActivitiesCRUD.timeline}"><i class="fa fa-history fa-fw"></i> Timeline</a>
+				<a href="@{ActivitiesCRUD.timeline}"><i class="fa fa-history fa-fw"></i> Timeline do Cliente</a>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
@@ -47,6 +43,16 @@
 					<li><a href="@{ActivitiesCRUD.list}"><i class="fa fa-puzzle-piece fa-fw"></i> Lista de Atividades</a></li>
 				</ul>
 			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{OrderOfServiceCRUD.afterSell}"><i class="fa fa-heartbeat fa-fw"></i> Pós Venda</a>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{OrderOfServiceCRUD.afterSell}"><i class="fa fa-map-signs fa-fw"></i> Script de Pós Venda</a>
+			</li>
+
+
 
 			<li style="display: none">
 				<a href="#"><i class="fa fa-plane fa-fw"></i> Notificações Enviadas<span class="fa arrow"></span></a>
