@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="${lang}">
+<meta charset="utf-8" />
+#{include 'includes/headCrud.html' /}
+<body>
+	<div id="wrapper">
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; min-height: 75px">
+			<!-- Logo navbar -->
+			#{include 'includes/logoNavBar.html' /}
+			<!-- Logo navbar -->
+			<!-- Menu Top Side -->
+			#{include 'includes/menuPainelTop.html' /}
+			<!-- Menu Top Side -->
+			<!-- Menu Left Side -->
+			#{include 'includes/menuPainelLeft.html' /}
+			<!-- Menu Left Side -->
+		</nav>
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Script de Pós-venda</h1>
+				</div>
+			</div>
+			<ol class="breadcrumb">
+			    <li><a href="/admin/">Início</a></li>
+			    <li><a href="/admin/script-de-pos-venda">Script de Pós-venda</a></li>
+			</ol>
+			#{if flash.success}
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-info alert-dismissable">${flash.success}</div>
+					</div>
+				</div>
+			#{/if} 
+			#{if flash.error || error}
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-danger alert-dismissable">${error ?: flash.error}</div>
+					</div>
+				</div>
+			#{/if}
+            <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header no-margin-top"">Considerações importantes</h3>
+				</div>
+			</div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>O que <strong>não</strong> é Pós-venda?</h4>
+                        <p>Revenda. Pós-venda não é revenda. </p>
+                        <p>Jamais entre em contato para realizar uma ação de pós-venda para agradecer e ao mesmo tempo avisar que a nova coleção chegou ou que a tabela de preço está com desconto especial.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>Pós-venda <strong>deve estar</strong> no planejamento semanal</h4>
+                        <p>Inclua no calendário da semana.</p>
+                        <p>Separe com responsabilidade e compromisso 1 ou 2 dias da semana para realizar pós-venda. Tenha absoluto compromisso em cumprir a execução.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>Pós-venda <strong>deve ser</strong> parte do processo de atendimento</h4>
+                        <p>Não deixe para fazer pós-venda apenas quando as vendas começarem a cair.</p>
+                        <p>Faça com que pós-venda seja parte do processo, ou seja, o processo da venda só termina após realizar o pós-venda.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>Pós-venda não deve ser feito <strong>apenas</strong> quando se vende algo</h4>
+                        <p>Mesmo que o cliente tenha escolhido o concorrente. </p>
+                        <p>Entre em contato, pergunte se ele(a) está satisfeito com o pedido realizado com o corrente e coloque-se a disposição para oferecer ajuda sobre quaisquer coisas.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>Ao realizar o pós-venda, <strong>anote</strong> algo incomum ou característica</h4>
+                        <p>Ex.: Se o cliente gosta de pesca, guarde essa informação.</p>
+                        <p>Nó próximo contato, pergunte como vão as pescarias, se ele(a) tem pescado bastante. É um bom início de papo e o cliente tende a se abrir.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>Evite qualquer tipo de <strong>falsidade ou formalidade</strong></h4>
+                        <p>Elogios demais, comentários que soam falsidade devem ser evitados.</p>
+                        <p>Importe-se com o cliente e deixe bem claro a intenção do pós-venda. Faça contato cordial, evite gírias e formalidades demais.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                        	<h4>O que queima o filme da empresa</h4>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#1" data-toggle="tab">1</a>
+                                </li>
+                                <li><a href="#2" data-toggle="tab">2</a>
+                                </li>
+                                <li><a href="#3" data-toggle="tab">3</a>
+                                </li>
+                                <li><a href="#4" data-toggle="tab">4</a>
+                                </li>
+                                <li><a href="#5" data-toggle="tab">5</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="1">
+                                    <h4>Não cumprir o que prometeu</h4>
+                                    <p>Anote se fizer qualquer promessa. Honre sua palavra. Faça de tudo para cumprí-la. Se ver que não irá cumprir no prazo acordado, entre em contato com o cliente e negocie um novo prazo.</p>
+                                </div>
+                                <div class="tab-pane fade" id="2">
+                                    <h4>Retirar a culpa de si e colocar em outras pessoas</h4>
+                                    <p>Para o cliente, qualquer funcionário deve resolver o problema dele. Logo, não jogue pra frente, não culpe outros departamentos acerca do que foi relatado.</p>
+                                </div>
+                                <div class="tab-pane fade" id="3">
+                                    <h4>Ficar na defensiva</h4>
+                                    <p>Se o problema chegou até você, resolva-o. Não jogue pra frente pelo fato de não ter sido você quem o iniciou. Não fique na defensiva ou irritado com o cliente. O problema existe, logo, faça de tudo para resolvê-lo.</p>
+                                </div>
+                                <div class="tab-pane fade" id="4">
+                                    <h4>Colocar pessoas ríspidas no atendimento</h4>
+                                    <p>Não coloque pessoas ríspidas para atender o cliente. O cliente percebe quando há má vontade. Esse tipo de gente deve ficar longe de qualquer contato com o cliente.</p>
+                                </div>
+                                <div class="tab-pane fade" id="5">
+                                    <h4>Falha de comunição</h4>
+                                    <p>Observe como seus funcionários servem uns aos outros. Se houver competição ou ciúmes entre departamentos, você possui um grave problema. Se a empresa possui um latente problema de comunicação, a consequência disso certamente será a percepção do cliente ou o mesmo será afetado.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-6 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+	                         <h4>O que melhora a reputação</h4>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#11" data-toggle="tab">1</a>
+                                </li>
+                                <li><a href="#22" data-toggle="tab">2</a>
+                                </li>
+                                <li><a href="#33" data-toggle="tab">3</a>
+                                </li>
+                                <li><a href="#44" data-toggle="tab">4</a>
+                                </li>
+                                <li><a href="#55" data-toggle="tab">5</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="11">
+                                    <h4>Ser amigável</h4>
+                                    <p>As pessoas gostam de comprar de quem elas confiam ou têm afinidade. Se um amigo estiver vendendo um produto que você quer comprar e também há um vendedor desconhecido que possui o mesmo modelo do produto que você procura, a quem você irá dar prioridade? De quem você se sente mais confortável em comprar?</p>
+                                </div>
+                                <div class="tab-pane fade" id="22">
+                                    <h4>Entender os clientes chatos</h4>
+                                    <p>Normalmente a percepção dessas pessoas ajudam a melhorar o produto, serviço ou o processo utilizado em determinada área. Contudo, se é um cliente que suga e cansa a saúde mental de sua equipe. Demita-o.</p>
+                                </div>
+                                <div class="tab-pane fade" id="33">
+                                    <h4>Respeite a percepção do cliente</h4>
+                                    <p>Ao reportar um problema, seu cliente está escancarando algo que deve ser corrigido ou mudado imediatamente. Isto é importantíssimo para evitar que algo semelhante aconteça com outros clientes.</p>
+                                </div>
+                                <div class="tab-pane fade" id="44">
+                                    <h4>Documentar</h4>
+                                    <p>Quando o cliente fizer algum contato, documente-o. No futuro, esta informação servirá de histórico para desvendar algo. Se for alguma promessa que foi feita e não foi cumprida, este log irá ajudar a elucidar e encontrar a verdade dos fatos.</p>
+                                </div>
+                                <div class="tab-pane fade" id="55">
+                                    <h4>Premie clientes antigos e os que mais compram</h4>
+                                    <p>Esta é uma estratégia matadora de retenção de clientes. Reconheça que o cliente é um parceiro importante para sua empresa.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header no-margin-top">Script de Pós-venda</h3>
+				</div>
+			</div>
+			
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><strong>#1 Defina um intervalo de tempo padrão para realizar o pós-venda</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                           	<p>Aqui começa o processo a ser implatado pela sua empresa. É fundamental seguí-lo com responsabilidade e compromisso. Portanto, é importante ter certeza de que a venda foi finalizada e entregue. Após a conclusão, defina um intervalo de tempo ideal para realizarem o contato.</p> 
+                                           	<p>Algumas empresas entram em contato 3 dias após a finalização da venda. Outras, 7 dias. Veja qual o tempo ideal baseado no seu negócio.</p>
+                                            <p>A <a href="/admin/atualizar-pedidos">página de atualizar pedidos</a> possui um cadeado em cada item. Este ícone permite que você saiba se o pedido está aberto ou fechado. Ao clicar em determinado item, é possível saber quais os status das etapas. Certifique-se que todas as fases estejam finalizadas.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><strong>#2 Defina quais canais serão realizados o pós-venda</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>O sistema permite realizar pós-venda por Whatsapp, e-mail e notificação push.</p>
+                                            <p>Na <a href="/admin/pos-venda">página de pós-venda</a> você tem a informação de contato do cliente (fone e e-mail). Mesmo que o pós-venda tenha sido feito por telefone, envie também por e-mail.</p>
+                                            <p>O sistema registrará automaticamente que o e-mail foi enviado e será uma grata surpresa para o cliente.</p>
+                                            <p>Lembre-se há clientes que não gostam de receber telefonemas e outros podem achar um contato por WhatsApp muito invasivo.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><strong>#3 Vá além de um simples contato</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>Ao realizar o contato por WhatsApp, você pode deixar um áudio também. Chame o cliente pelo nome, agradeça cordialmente e comente acerca de algum benefício do produto que ele adquiriu. Neste contato você tem a chance de coletar alguma informação pessoal do cliente que possa ser usada como isca futuramente.</p>
+                                            <p>Dica: faça uma pesquisa sobre algo curioso ou MUITO interessante baseado no que o cliente comprou e conte ao cliente</p>
+                                            <p>Registre tudo. Sempre que você se deparar com uma informação importante durante o contato com o cliente, crie uma <a href="/admin/atividades/novo">atividade comum</a> no sistema.</p>
+                                            <p>Cadastrar atividades é importante para gerar o histórico do cliente. Logo, quando alguém quiser pesquisar algo sobre o cliente, basta consultar a <a href="/admin/timeline">página de timeline do cliente</a> e coletar as informações necessárias.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><strong>#4 Deixe o cliente falar</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFour" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>Pergunte como ele(a) foi atendido e se há alguma observação a ser feita. Registre o que o cliente disser.</p>
+                                            <p>Se o feedback do cliente for uma crítica, registre e reflita acerca da melhoria. Caso seja um feedback positivo, esta informação servirá de prova social para você estampar em banners ou no site oficial da empresa.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><strong>#5 Reforce os canais de comunicação e suporte</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFive" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>Ao final do contato, coloque-se a disposição e deixe bem claro os canais de atendimento e suporte.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix"><strong>#6 Avalie o seu atendimento e o contato que teve com o cliente</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseSix" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>É importante que você avalie o seu atendimento e os rumos que a conversa/contato com o cliente levou.</p>
+                                            <p>Talvez haja na ação de pós venda realizado uma oportunidade de presentear o cliente (leia abaixo a história da caneta) ou de tomar alguma providência ou até a necessidade de convocar uma rápida reunião acerca de determinado assunto mais grave.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	         </div>
+	        <div class="row">
+				<div class="col-lg-12">
+					<h3 class="page-header no-margin-top">Exemplos de Pós-venda</h3>
+				</div>
+			</div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordion2">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseDespachante"><strong>Despachante Sudoeste</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseDespachante" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                           	<p>Aqui começa o processo a ser implatado pela sua empresa. É fundamental seguí-lo com responsabilidade e compromisso. Portanto, é importante ter certeza de que a venda foi finalizada e entregue. Após a conclusão, defina um intervalo de tempo ideal para realizarem o contato.</p> 
+                                           	<p>Algumas empresas entram em contato 3 dias após a finalização da venda. Outras, 7 dias. Veja qual o tempo ideal baseado no seu negócio.</p>
+                                            <p>A <a href="/admin/atualizar-pedidos">página de atualizar pedidos</a> possui um cadeado em cada item. Este ícone permite que você saiba se o pedido está aberto ou fechado. Ao clicar em determinado item, é possível saber quais os status das etapas. Certifique-se que todas as fases estejam finalizadas.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseCaneta"><strong>História da caneta</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseCaneta" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>O sistema permite realizar pós-venda por Whatsapp, e-mail e notificação push.</p>
+                                            <p>Na <a href="/admin/pos-venda">página de pós-venda</a> você tem a informação de contato do cliente (fone e e-mail). Mesmo que o pós-venda tenha sido feito por telefone, envie também por e-mail.</p>
+                                            <p>O sistema registrará automaticamente que o e-mail foi enviado e será uma grata surpresa para o cliente.</p>
+                                            <p>Lembre-se há clientes que não gostam de receber telefonemas e outros podem achar um contato por WhatsApp muito invasivo.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseRequinte"><strong>Requinte</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseRequinte" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>Ao realizar o contato por WhatsApp, você pode deixar um áudio também. Chame o cliente pelo nome, agradeça cordialmente e comente acerca de algum benefício do produto que ele adquiriu. Neste contato você tem a chance de coletar alguma informação pessoal do cliente que possa ser usada como isca futuramente.</p>
+                                            <p>Dica: faça uma pesquisa sobre algo curioso ou MUITO interessante baseado no que o cliente comprou e conte ao cliente</p>
+                                            <p>Registre tudo. Sempre que você se deparar com uma informação importante durante o contato com o cliente, crie uma <a href="/admin/atividades/novo">atividade comum</a> no sistema.</p>
+                                            <p>Cadastrar atividades é importante para gerar o histórico do cliente. Logo, quando alguém quiser pesquisar algo sobre o cliente, basta consultar a <a href="/admin/timeline">página de timeline do cliente</a> e coletar as informações necessárias.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion2" href="#collapseNoClient"><strong>Não é cliente ainda, mas...</strong></a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseNoClient" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <p>Pergunte como ele(a) foi atendido e se há alguma observação a ser feita. Registre o que o cliente disser.</p>
+                                            <p>Se o feedback do cliente for uma crítica, registre e reflita acerca da melhoria. Caso seja um feedback positivo, esta informação servirá de prova social para você estampar em banners ou no site oficial da empresa.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	         </div>
+	      </div>
+       </div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="text-align: center">&{'project.name'} © Copyright 2017</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- footerCrud -->
+	#{include 'includes/footerCrud.html' /}
+	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
+	<!-- footerCrud -->
+</body>
+</html>

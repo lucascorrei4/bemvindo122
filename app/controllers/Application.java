@@ -359,7 +359,7 @@ public class Application extends Controller {
 				}
 				render(clientName, company, orderOfService, serviceOrderOfServiceSteps, bottomNews, parameter);
 			}
-		} else if (cod == "") { 
+		} else if (cod == "") {
 			List<Error> errors = validation.errors();
 			response = "Favor, insira um código válido.";
 			status = "ERROR";
@@ -396,11 +396,15 @@ public class Application extends Controller {
 			serviceOrderOfServiceSteps.add(serviceOrderOfServiceStep);
 		}
 	}
-	
+
 	private static void updateServicesReferences(OrderOfService orderOfService) {
 		for (ServiceOrderOfServiceSteps serviceOrderOfServiceSteps : orderOfService.getServiceOrderOfServiceSteps()) {
-			String reference = serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next().getReference();
-			serviceOrderOfServiceSteps.setReference(Utils.isNullOrEmpty(reference) ? "Não referenciado." : reference);
+			if (!Utils.isNullOrEmpty(serviceOrderOfServiceSteps.getOrderOfServiceSteps()) && serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next() != null) {
+				String reference = serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next().getReference();
+				serviceOrderOfServiceSteps.setReference(Utils.isNullOrEmpty(reference) ? "Não referenciado." : reference);
+			} else {
+				serviceOrderOfServiceSteps.setReference("Não referenciado.");
+			}
 		}
 	}
 
@@ -473,7 +477,6 @@ public class Application extends Controller {
 		render(theSystem, bottomNews);
 	}
 
-
 	public static void thankLead() {
 		Parameter parameter = Parameter.all().first();
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(6);
@@ -482,7 +485,7 @@ public class Application extends Controller {
 		theSystem.setShowTopMenu(true);
 		render(bottomNews, parameter, theSystem);
 	}
-	
+
 	public static void getImageHighlightProduct(long id) {
 		final HighlightProduct hightlightProduct = HighlightProduct.findById(id);
 		notFoundIfNull(hightlightProduct);
@@ -561,7 +564,7 @@ public class Application extends Controller {
 		Parameter parameter = getCurrentParameter();
 		render(theSystem, bottomNews, parameter);
 	}
-	
+
 	public static void saveMailList() throws UnsupportedEncodingException {
 		String resp = null;
 		String status = null;
@@ -622,11 +625,11 @@ public class Application extends Controller {
 			break;
 		}
 	}
-	
+
 	private static Parameter getCurrentParameter() {
 		return Parameter.all().first();
 	}
-	
+
 	public static void unsubscribe(String mailLead) {
 		Parameter parameter = getCurrentParameter();
 		String mail = Utils.decode(mailLead);
@@ -638,7 +641,7 @@ public class Application extends Controller {
 		}
 		render(lead, parameter);
 	}
-	
+
 	public static void modalPass() throws UnsupportedEncodingException {
 		String response = null;
 		String status = null;
@@ -717,5 +720,5 @@ public class Application extends Controller {
 		}
 		render("Application/newPass.html", response, status, user, parameter);
 	}
-	
+
 }

@@ -74,12 +74,12 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-handshake-o fa-5x"></i>
+                                    <i class="fa fa-handshake-o fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
 	                                #{if contClients == 0}
@@ -108,26 +108,26 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-file-text-o fa-5x"></i>
+                                    <i class="fa fa-file-text-o fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     #{if contOrderOfServices == 0}
 										<div class="huge">0</div>
-	                                    <div>Ordem de Serviço</div>
+	                                    <div>OS</div>
 									#{/if}
 									#{if contOrderOfServices > 0}
 										#{if contOrderOfServices == 1}
 											<div class="huge">1</div>
-		                                    <div>Ordem de Serviço</div>
+		                                    <div>OS</div>
 										#{/if}
 										#{else}
 											<div class="huge">&{contOrderOfServices}</div>
-		                                    <div>Ordens de Serviço</div>
+		                                    <div>OSs</div>
 										#{/else}
 									#{/if}
                                 </div>
@@ -142,12 +142,12 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6">
+                <div class="col-lg-3 col-md-6">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-cogs fa-5x"></i>
+                                    <i class="fa fa-cogs fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                    #{if contServices == 0}
@@ -176,54 +176,59 @@
                         </a>
                     </div>
                 </div>
-<!--                 <div class="col-lg-3 col-md-6"> -->
-<!--                     <div class="panel panel-yellow"> -->
-<!--                         <div class="panel-heading"> -->
-<!--                             <div class="row"> -->
-<!--                                 <div class="col-xs-3"> -->
-<!--                                     <i class="fa fa-paper-plane-o fa-5x"></i> -->
-<!--                                 </div> -->
-<!--                                 <div class="col-xs-9 text-right "> -->
-<!--                                     #{if contSentSMSs == 0} -->
-<!-- 										<div class="huge ">0<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div> -->
-<!-- 	                                    <div>Nenhuma SMS enviada</div> -->
-<!-- 									#{/if} -->
-<!-- 									#{if contSentSMSs > 0} -->
-<!-- 										#{if contSentSMSs == 1} -->
-<!-- 											<div class="huge">1<span style="display: ${userFreeTrial ? 'inline' : 'none'};">/50</span></div> -->
-<!-- 		                                    <div>SMS enviada</div> -->
-<!-- 										#{/if} -->
-<!-- 										#{else} -->
-<!-- 											#{if !smsExceedLimit} -->
-<!-- 												<div class="huge ">&{contSentSMSs}<span style="display: 'inline';">/50</span></div> -->
-<!-- 		                                    	<div>SMSs enviadas</div> -->
-<!-- 											#{/if} -->
-<!-- 											#{else} -->
-<!-- 												<div class="huge">&{allSents}</div> -->
-<!-- 		                                    	<div>Notificações enviadas</div> -->
-<!-- 											#{/else} -->
-<!-- 										#{/else} -->
-<!-- 									#{/if} -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <a href="/admin/smss-enviadas"> -->
-<!--                             <div class="panel-footer"> -->
-<!--                                 <span class="pull-left">Acessar</span> -->
-<!--                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span> -->
-<!--                                 <div class="clearfix"></div> -->
-<!--                             </div> -->
-<!--                         </a> -->
-<!--                     </div> -->
-<!--                 </div> -->
-                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <i class="fa fa-money fa-3x"></i>
+                                </div>
+                                <div class="col-xs-8 text-right">
+									<h3><strong>&{totalOfOrderOfServiceByMonth}</strong></h3>
+                                    <div>Parcial do Mês</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="/admin/ordens-de-servico">
+                            <div class="panel-footer">
+                                <span class="pull-left">Acessar</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>O que <strong>não</strong> é pós-venda?</h4>
+                        <p>Revenda. Pós-venda não é revenda. Jamais entre em contato para... </p>
+                        <small><a href="/admin/script-de-pos-venda">Ver mais</a></small>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>Pós-venda <strong>deve estar</strong> no planejamento semanal</h4>
+                        <p>Inclua no calendário da ...</p>
+                        <small><a href="/admin/script-de-pos-venda">Ver mais</a></small>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="well well-lg">
+                        <h4>Pós-venda <strong>deve ser</strong> parte do processo de atendimento</h4>
+                        <p>Não deixe para fazer pós...</p>
+                        <small><a href="/admin/script-de-pos-venda">Ver mais</a></small>
+                    </div>
+                </div>
             </div>
             
             <div class="row">
                 <div class="col-lg-4">
                 	<div class="panel panel-yellow">
                         <div class="panel-heading">
-                           <i class="fa fa-heartbeat fa-2" aria-hidden="true"></i> Últimas ações de Pós Venda
+                           <i class="fa fa-heartbeat fa-2" aria-hidden="true"></i> Últimas ações de Pós-venda
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -233,7 +238,7 @@
                                         <tr>
                                             <th>Código</th>
                                             <th>Cliente</th>
-                                            <th>Agradeceu?</th>
+                                            <th>Feito?</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -241,7 +246,7 @@
 											<tr>
 												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
 												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
-												<td>#{if !order.isThanked}<label style="float: right;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
+												<td>#{if !order.isThanked}<label><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);"><i class="fa fa-meh-o fa-3x"></i></a></label>#{/if}#{else}<i class="fa fa-thumbs-o-up fa-3x"></i>#{/else} </td>
 											</tr>
 										#{/list}
                                     </tbody>

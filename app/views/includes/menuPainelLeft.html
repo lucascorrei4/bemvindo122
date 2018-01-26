@@ -45,14 +45,12 @@
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.afterSell}"><i class="fa fa-heartbeat fa-fw"></i> Pós Venda</a>
+				<a href="@{OrderOfServiceCRUD.afterSale}"><i class="fa fa-heartbeat fa-fw"></i> Pós-venda</a>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.afterSell}"><i class="fa fa-map-signs fa-fw"></i> Script de Pós Venda</a>
+				<a href="@{OrderOfServiceCRUD.afterSaleScript}"><i class="fa fa-map-signs fa-fw"></i> Script de Pós-venda</a>
 			</li>
-
-
 
 			<li style="display: none">
 				<a href="#"><i class="fa fa-plane fa-fw"></i> Notificações Enviadas<span class="fa arrow"></span></a>
@@ -70,54 +68,7 @@
 					<li><a href="/admin/usuario/${idu}">Meus dados</a></li>
 				</ul>
 			</li>
-			
-			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};">
-	            <a href="#"><i class="fa fa-sitemap fa-fw"></i> ( Área Pública )<span class="fa arrow"></span></a>
-	            <ul class="nav nav-second-level">
-					<li><a href="@{AdminPub.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
-					<li><a href="/admin/empresas-cadastradas"><i class="fa fa-home fa-fw"></i> Empresas Cadastradas</a></li>
-					<li><a href="/admin/usuarios-cadastrados"><i class="fa fa-home fa-fw"></i> Usuários Cadastradas</a></li>
-			        <li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-						<a href="#"><i class="fa fa-edit fa-fw"></i> Páginas e Artigos<span class="fa arrow"></span></a>
-						<ul class="nav nav-third-level">
-		                	<li><a href="@{ParameterCRUD.showIndexPage(1)}">Página Inicial e Estilos</a></li>
-							<li><a href="@{ArticleCRUD.list}">Artigos</a></li>
-							<li><a href="@{SellPageCRUD.list}">Páginas de Venda</a></li>
-							<li><a href="@{FreePageCRUD.list}">Páginas Livre</a></li>
-							<li><a href="@{HighlightProductCRUD.list}">Produtos em Oferta</a></li>
-						</ul>
-					</li>
-					<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-						<a href="#"><i class="fa fa-paper-plane-o fa-fw"></i> Funis de E-mails<span class="fa arrow"></span></a>
-						<ul class="nav nav-third-level">
-							<li><a href="@{MailListCRUD.listAll}">Leads Capturados</a></li>
-							<li><a href="@{SequenceMailCRUD.listAll}">Sequência de E-mails</a></li>
-							<li><a href="@{SequenceMailQueueCRUD.listAll}">Fila de E-mails</a></li>
-							<li><a href="@{MailBaseCRUD.list}">Base de E-mails</a></li>
-						</ul>
-					</li>
-					<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-						<a href="#"><i class="fa fa-gears fa-fw"></i> Configurações Gerais<span class="fa arrow"></span></a>
-						<ul class="nav nav-third-level">
-		                	<li>
-								<a href="@{ParameterCRUD.showSocialMediaPage(1)}">Redes Sociais</a>
-							</li>
-		                	<li>
-								<a href="@{ParameterCRUD.showHashKeysPage(1)}">Chaves de Integração</a>
-							</li>
-		                	<li>
-								<a href="#">Minhas Coisas <span class="fa arrow"></span></a>
-			                    <ul class="nav nav-third-level">
-									<li><a href="/admin/empresa/${id}">Dados da Empresa</a></li>
-									<li><a href="/admin/usuario/${idu}">Meus dados</a></li>
-									<li><a href="@{MonetizzeTransactionCRUD.list}">Monetizze</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li><a href="@{MessageCRUD.list}"><i class="fa fa-reply fa-fw"></i> Mensagens Recebidas</a></li>
-			    </ul>
-		    </li>
+			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};"><a href="@{AdminPub.index}" target="_blank"><i class="fa fa-sitemap fa-fw"></i> ( Área Pública )</a></li>
 			<li><a href="@{Secure.logout()}"><i class="fa fa-power-off fa-fw"></i> Sair</a></li>
 		</ul>
 	</div>

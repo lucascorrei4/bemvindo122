@@ -13,7 +13,7 @@ secure.error=Usuário ou senha incorretos.
 secure.logout=Você foi desconectado.
 
 
-crud.title=Seu Pedido Online
+crud.title=Acompanhe Seu Pedido
 crud.home=Início
 crud.blank=Novo
 crud.index.title=Administração
@@ -170,6 +170,7 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+view=Ver
 activityDate=Data da Atividade
 type=Tipo
 phone2=Telefone 2
@@ -483,7 +484,7 @@ validation.msgGenderSelectMembers=Para enviar a todos os membros por um determin
 info.isActive.true=Habilita o item atual para ser utilizado pelo sistema.
 info.isActive.false=Informa ao sistema que item atual será descartado.
 
-project.name=Seu Pedido Online
+project.name=Acompanhe Seu Pedido
 project.link=http://twitter.com/lucascorrei4
 project.version=1.0
-project.year=2017
+project.year=2018

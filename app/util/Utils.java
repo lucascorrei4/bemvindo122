@@ -3,9 +3,12 @@ package util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -443,7 +446,7 @@ public class Utils extends Controller {
 
 	public static String getValueFromUrlParam(String param) {
 		if (!isNullOrEmpty(param) && param.contains("=")) {
-			return param.split("=",-1)[1];
+			return param.split("=", -1)[1];
 		}
 		return "";
 	}
@@ -506,23 +509,24 @@ public class Utils extends Controller {
 		}
 		return "";
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(escapeSpecialCharacters("& and © ar Lucas  áÁàáéíóú Correia Evangelista"));
 	}
-	
+
 	public static String escapeSpecialCharacters(String text) {
 		return StringEscapeUtils.escapeHtml(text);
 	}
-	
+
 	public static File getVirtualFile() {
 		VirtualFile vf = VirtualFile.fromRelativePath("/public/images/apple76x76.png");
 		File f = vf.getRealFile();
 		return f;
 	}
-	
+
 	public static String unsubscribeHTML(String siteDomain, String mail, long sequenceMailQueueId) {
-		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"" + siteDomain + "/desinscrever-se/" + Utils.encode(mail) + "\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
+		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"" + siteDomain + "/desinscrever-se/" + Utils.encode(mail)
+				+ "\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
 	}
 
 	public static String sentCredits(String siteTitle, String siteDomain) {
@@ -538,6 +542,15 @@ public class Utils extends Controller {
 		String tagsEnd = "</body></html>";
 		String htmlMail = escapeSpecialCharacters(headers + tagsBegin + content + tagsEnd);
 		return htmlMail;
+	}
+
+	public static boolean testUrl(String url) throws IOException {
+		URL u = new URL(url);
+		HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+		huc.setRequestMethod("GET");
+		huc.connect();
+		int code = huc.getResponseCode();
+		return 200 == code;
 	}
 
 }

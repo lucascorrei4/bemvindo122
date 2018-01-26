@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
 <div class="form-group">
 	<h4>Avisar <strong>&{orderOfService.client.toString()}</strong></h4>
-	<textarea class="form-control " id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Acompanhe seu pedido &{orderOfService.orderCode} em: &{parameter.getSiteDomain()}/acompanhe. Att., &{institution.institution}.</textarea>
+	<textarea class="form-control " id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Acompanhe seu pedido &{orderOfService.orderCode} em: &{parameter.siteDomain}/acompanhe. Att., &{institution.institution}.</textarea>
 	<label>&{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
 </div>
 <div class="container" id="formNotifButtons" style="width: 100%">
@@ -10,11 +10,13 @@
 		<p>
            	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por Whatsapp" onclick="sendWhatsAppThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
            	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por E-mail" onclick="sendEmailNotificationToCustomer(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
-           	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por Notificação Push" onclick="sendPUSH(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
+           	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por Notificação Push" onclick="sendPUSHThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'notificationArea');" />
 		</p>
 	</div>
 	<input type="hidden" id="response" name="response" value="${response}" /> 
 	<input type="hidden" id="status" name="status" value="${status}" />
+	<input type="hidden" id="responseThankful" name="response" value="${response}" /> 
+	<input type="hidden" id="statusThankful" name="status" value="${status}" />
 	<br />
 	<div id="message-sms-&{orderOfService.orderCode}"></div>
 </div>

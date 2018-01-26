@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="${lang}">
+    <!-- Head -->
+    #{include 'includes/headCrud.html' /}
+    <!-- Head -->
+    <body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; min-height: 75px">
+            <!-- Logo navbar -->
+           	#{include 'includes/logoNavBar.html' /}
+            <!-- Logo navbar -->
+            <!-- Menu Top Side -->
+           	#{include 'includes/menuPainelTop.html' /}
+            <!-- Menu Top Side -->
+            <!-- Menu Left Side -->
+           	#{include 'includes/menuPainelLeftPub.html' /}
+            <!-- Menu Left Side -->
+        </nav>
+        <div id="page-wrapper">
+	        #{if request.actionMethod == 'index'}
+	            <div class="row">
+	                <div class="col-lg-12">
+	                    <h1 class="page-header">Painel Gestor</h1>
+	                </div>
+	                <!-- /.col-lg-12 -->
+	            </div>
+	            <!-- /.row -->
+	        #{/if}
+	        #{else}
+		        <div class="row">
+			         <div class="col-lg-12">
+			             <h1 class="page-header">&{'crud.list.title', type.name}</h1>
+			             <label style="float: right; display: &{videohelp == null ? 'none' : 'block'}"><a data-toggle="modal" data-target="#modalVideoHelp" >Quer ajuda?</a></label>
+			         </div>
+			         <!-- /.col-lg-12 -->
+			     </div>
+		    #{/else}
+		    #{if request.actionMethod != 'index'}
+		    	#{crud.navigation /}
+			#{/if}
+    		#{if flash.success}
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="alert alert-info alert-dismissable">${flash.success}</div>
+				</div>
+			</div>
+			#{/if}
+            #{if flash.error || error}
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="alert alert-danger alert-dismissable">${error ?: flash.error}</div>
+				</div>
+			</div>
+			#{/if}
+			<div class="row">
+               	#{doLayout /}
+            </div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="text-align: center">
+							&{'project.name'} &#169; &{'project.year'} - &{'project.version'}
+						</div>
+					</div>
+				</div>
+			</div>
+       	 </div>
+	</div>
+    <!-- /#wrapper -->
+    <!-- footerCrud -->
+ 	#{include 'includes/footerCrud.html' /}
+    <!-- footerCrud -->
+</body>
+
+</html>

@@ -1,12 +1,15 @@
-#{extends 'CRUD/layout.html' /}
+#{extends 'CRUD/layoutPub.html' /}
 #{set title:'Usuários Cadastrados' /}
 <meta charset="utf-8" />
-	<div class="col-lg-6">
-		#{crud.searchAll /}
-	</div>
-	<div class="col-lg-6">
-	</div>
-	<div class="col-lg-6">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				#{crud.searchAll /}
+			</div>
+			<div class="col-lg-6">
+				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
+			</div>
+		</div>
 	</div>
 	<div class="col-lg-12 ${type.name}">
         <div class="panel panel-default">
@@ -31,7 +34,7 @@
 				        #{/crud.custom}
 				    #{/crud.tableAll}
     				<div class="alert alert-info alert-dismissable">
-						#{crud.pagination /}
+						#{crud.paginationAll /}
 	   				</div>
    				</div>
    			</div>
@@ -39,12 +42,11 @@
    			</div>
    		</div>
    	</div>
-    <script>
+ 	<script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
                 responsive: true
         });
     });
     </script>
-
 

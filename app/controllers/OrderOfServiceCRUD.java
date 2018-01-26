@@ -1,5 +1,6 @@
 package controllers;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.net.URLDecoder;
@@ -97,10 +98,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		Long count = type.count(search, searchFields, where);
 		Long totalCount = type.count(null, null, where);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		Parameter parameter = Parameter.all().first();
 		try {
-			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order, smsExceedLimit);
+			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order, smsExceedLimit, parameter);
 		} catch (TemplateNotFoundException e) {
-			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order, smsExceedLimit);
+			render("OrderOfServiceCRUD/list.html", type, objects, count, totalCount, page, orderBy, order, smsExceedLimit, parameter);
 		}
 	}
 
@@ -169,7 +171,7 @@ public class OrderOfServiceCRUD extends CRUD {
 	public static void customerNotificationModal(final String id) {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
-		Parameter parameter = Parameter.all().first();
+		Parameter parameter = (Parameter) Parameter.getCurrentParameter();
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
 		render(orderOfService, institution, smsExceedLimit, planSPO02, parameter);
@@ -271,7 +273,7 @@ public class OrderOfServiceCRUD extends CRUD {
 	}
 
 	private static void generateStepsByService(OrderOfService orderOfService) {
-		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId() + " group by reference").fetch();
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
 		for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
 			List<Step> steps = Step.find("service_id = " + orderOfServiceValue.getService().getId() + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by position, id asc").fetch();
 			for (Step step : steps) {
@@ -283,7 +285,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				orderServiceStep.setService(step.getService());
 				orderServiceStep.setStatus(StatusEnum.NotStarted);
 				orderServiceStep.setObs("Nenhuma");
-				orderServiceStep.setReference(reference);
+				orderServiceStep.setReference(Utils.isNullOrEmpty(reference) ? "Nenhuma" : reference);
 				orderServiceStep.setOrderCode(orderCode);
 				orderServiceStep.setPostedAt(Utils.getCurrentDateTime());
 				orderServiceStep.setInstitutionId(orderOfService.getInstitutionId());
@@ -301,10 +303,15 @@ public class OrderOfServiceCRUD extends CRUD {
 		render(listOrderOfService, institution, smsExceedLimit);
 	}
 
-	public static void afterSell() {
+	public static void afterSale() {
 		List<OrderOfService> listOrderOfServices = calculateTotalOrderOfService();
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		render(listOrderOfServices, institution);
+	}
+	
+	public static void afterSaleScript() {
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		render(institution);
 	}
 
 	private static List<OrderOfService> calculateTotalOrderOfService() {
@@ -341,6 +348,8 @@ public class OrderOfServiceCRUD extends CRUD {
 				if (!Utils.isNullOrEmpty(serviceOrderOfServiceSteps.getOrderOfServiceSteps()) && serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next() != null) {
 					String reference = serviceOrderOfServiceSteps.getOrderOfServiceSteps().iterator().next().getReference();
 					serviceOrderOfServiceSteps.setReference(Utils.isNullOrEmpty(reference) ? "Não referenciado." : reference);
+				} else {
+					serviceOrderOfServiceSteps.setReference("Não referenciado.");
 				}
 			}
 		}
@@ -584,7 +593,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
 	}
 
-	public static void sendWhatsAppThankful() throws UnsupportedEncodingException {
+	public static void sendWhatsAppThankful() throws IOException {
 		String response = null;
 		String status = null;
 		String id = params.get("id", String.class);
@@ -598,10 +607,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
 		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		Parameter parameter = Parameter.all().first();
 		if (!Utils.isNullOrEmpty(destination)) {
-			if (destination.length() == 11) {
-				String origin = "true".equals(isMobile) ? "api" : "web";
-				sendResponse = "https://" + origin + ".whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
+			String origin = "true".equals(isMobile) ? "api" : "web";
+			sendResponse = "https://" + origin + ".whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
+			if (destination.length() == 11 && Utils.testUrl(sendResponse)) {
 				status = "SUCCESS";
 				response = sendResponse;
 				/* Set thanked Order of Service */
@@ -615,7 +625,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByWhatsApp);
 			} else {
 				status = "ERROR";
-				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp!";
+				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp ou você esteja sem internet no momento!";
 			}
 		} else {
 			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
@@ -623,17 +633,17 @@ public class OrderOfServiceCRUD extends CRUD {
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
 		if ("thankfulNotificationArea".equals(idUpdate)) {
-			render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
+			render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02, parameter);
 		} else if ("notificationArea".equals(idUpdate)) {
-			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit);
+			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, parameter);
 		} else if ("accordion".equals(idUpdate)) {
 			List<OrderOfService> listOrderOfService = loadListOrderOfService();
 			verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
-			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
 		}
 	}
 	
-	public static void sendWhatsAppOS() throws UnsupportedEncodingException {
+	public static void sendWhatsAppOS() throws IOException {
 		String response = null;
 		String status = null;
 		String id = params.get("id", String.class);
@@ -647,9 +657,9 @@ public class OrderOfServiceCRUD extends CRUD {
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
 		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
 		if (!Utils.isNullOrEmpty(destination)) {
-			if (destination.length() == 11) {
-				String origin = "true".equals(isMobile) ? "api" : "web";
-				sendResponse = "https://" + origin + ".whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
+			String origin = "true".equals(isMobile) ? "api" : "web";
+			sendResponse = "https://" + origin + ".whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
+			if (destination.length() == 11 && Utils.testUrl(sendResponse)) {
 				status = "SUCCESS";
 				response = sendResponse;
 				/* Set thanked Order of Service */
@@ -663,7 +673,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.WppSent);
 			} else {
 				status = "ERROR";
-				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp!";
+				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp ou você esteja sem internet no momento!";
 			}
 		} else {
 			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();

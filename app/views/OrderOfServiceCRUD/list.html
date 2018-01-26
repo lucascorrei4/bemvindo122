@@ -16,7 +16,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'action']}
+			        #{crud.table fields:['postedAt', 'client', 'orderCode', 'view', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a>${object.postedAtParsed}</a>
 				        #{/crud.custom}
@@ -25,6 +25,9 @@
 				        #{/crud.custom}
 				        #{crud.custom 'orderCode'}
 			         		<input type="text" value="${object.orderCode}" onclick="this.select()" readonly="readonly" style="font-weight: bold; width: 85px;" />
+				        #{/crud.custom}
+				        #{crud.custom 'view'}
+			         		<a href="/acompanhe?cod=${object.orderCode}#acompanhamento" target="_blank"><i class="fa fa-search fa-3x"></i></a>
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
 				        	<div class="dropdown">

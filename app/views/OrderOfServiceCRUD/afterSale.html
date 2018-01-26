@@ -18,12 +18,12 @@
 		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Pós Venda</h1>
+					<h1 class="page-header">Pós-venda</h1>
 				</div>
 			</div>
 			<ol class="breadcrumb">
 			    <li><a href="/admin/">Início</a></li>
-			    <li><a href="/admin/atualizar-pedidos">Atualizar Pedidos</a></li>
+			    <li><a href="/admin/pos-venda">Pós-venda</a></li>
 			</ol>
 			#{if flash.success}
 				<div class="row">
@@ -43,7 +43,11 @@
 					<div class="col-lg-12">
 	                    <div class="panel panel-yellow">
 	                        <div class="panel-heading">
-	                           Ao clicar no código você vê como o cliente acompanha a OS.
+	                           Clique no ícone para enviar a notificação de Pós-venda. 
+	                           <br/>
+	                           Obs. 1: É possível notificar por 3 canais (Whatsapp, E-mail e Notificações Push).
+	                           <br/>
+	                           Obs. 2: Após enviar por 1 ou mais canais, o ícone não ficará mais clicável.
 	                        </div>
 	                        <!-- /.panel-heading -->
 	                        <div class="panel-body">
@@ -51,21 +55,25 @@
 	                                <table class="table table-hover">
 	                                    <thead>
 	                                        <tr>
+	                                            <th>Data geração OS</th>
 	                                            <th>Código</th>
-	                                            <th>Agradeceu?</th>
+	                                            <th>Feito?</th>
 	                                            <th>Cliente</th>
 	                                            <th>Status</th>
 	                                            <th>Observação</th>
+	                                            <th>Ver OS</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
 	                                       #{list listOrderOfServices, as:'order'}
 												<tr>
+													<td>${order.postedAtParsed}</td>
 													<td><a href="/acompanhe?cod=${order.orderCode}#acompanhamento" target="_blank">${order.orderCode}</a></td>
-													<td>#{if !order.isThanked}<label><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);">Ainda não :(</a></label>#{/if}#{else}Sim :)#{/else} </td>
+													<td>#{if !order.isThanked}<label style="text-align: center;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);"><i class="fa fa-meh-o fa-3x" style="color: red"></i></a></label>#{/if}#{else}<i class="fa fa-thumbs-o-up fa-3x"></i>#{/else} </td>
 													<td>${order.client?.name} ${order.client?.lastName}</td>
 													<td>${order.getCurrentStatus()}</td>
 													<td>${order.obs}</td>
+													<td><a href="/admin/ordens-de-servico?search=${order.orderCode}"><i class="fa fa-search fa-3x"></i></a></td>
 												</tr>
 											#{/list}
 	                                    </tbody>

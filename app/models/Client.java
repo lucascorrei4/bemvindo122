@@ -5,11 +5,13 @@ import java.text.ParseException;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
 import enumeration.GenderEnum;
 import play.data.validation.Email;
+import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.data.validation.Unique;
 import play.db.jpa.Model;
@@ -37,6 +39,10 @@ public class Client extends Model {
 	
 	@Enumerated(EnumType.STRING)
 	public GenderEnum gender = GenderEnum.M;
+	
+	@Lob
+	@MaxSize(100000)
+	public String obs;
 
 	@Hidden
 	public String postedAt;
@@ -164,6 +170,14 @@ public class Client extends Model {
 
 	public void setGender(GenderEnum gender) {
 		this.gender = gender;
+	}
+
+	public String getObs() {
+		return obs;
+	}
+
+	public void setObs(String obs) {
+		this.obs = obs;
 	}
 
 }

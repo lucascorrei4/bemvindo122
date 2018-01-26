@@ -12,10 +12,10 @@ GET     ${ctx}/                                       				Application.index
 GET     ${ctx}/sitemap.xml                              			staticFile:/public/sitemap.xml
 
 # 301 redirects
-# GET     ${ctx}/novo			                     					Application.newAccount
-# POST    ${ctx}/novo			       				 					Application.saveNewAccount
-GET     ${ctx}/novo			                     					Application.index
-POST    ${ctx}/novo			       				 					Application.index
+# GET     	${ctx}/novo			                     					Application.newAccount
+# POST   	${ctx}/novo			       				 					Application.saveNewAccount
+GET     	${ctx}/novo			                     					Application.index
+POST    	${ctx}/novo			       				 					Application.index
 
 # Home page
 POST    ${ctx}/savemessage											MessageCRUD.saveMessage
@@ -77,7 +77,8 @@ GET    	${ctx}/artigos/{id}/{friendlyUrl}							NewsController.details
 # Admin Update Order
 GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceCRUD.updateOrder
 POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
-GET		${ctx}/admin/pos-venda										OrderOfServiceCRUD.afterSell
+GET		${ctx}/admin/pos-venda										OrderOfServiceCRUD.afterSale
+GET		${ctx}/admin/script-de-pos-venda							OrderOfServiceCRUD.afterSaleScript
 
 # MonetizzeTransaction
 

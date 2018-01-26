@@ -1,11 +1,12 @@
 package util;
 
 public enum ActivitiesEnum {
+	CommonActivity("Atividade Comum", "CommonActivity", "exclamation-circle"), 
 	PhoneCallToHim("Ligação para o cliente", "PhoneCallToHim", "phone"), 
 	PhoneCallToUs("Ligação recebida", "PhoneCallToUs", "phone-square"), 
 	VisitHim("Visita realizada no cliente", "VisitHim", "shake-hand-o"), 
 	VisitMe("O cliente veio até nós", "VisitMe", "shake-hand-o"),
-	CallAfterSale("Pós venda realizado por telefone", "CallAfterSale", "heartbeat"), 
+	CallAfterSale("Pós-venda realizado por telefone", "CallAfterSale", "heartbeat"), 
 	ClientSendMessage("O cliente nos mandou mensagem", "ClientSendMessage", "reply"), 
 	Problem("Algo ruim aconteceu", "Problem", "thumbs-o-down"), 
 	OSStepUpdated("Etapa da OS atualizada (Registrado pelo sistema)", "OSStepUpdated", "list-alt"), 
@@ -14,10 +15,10 @@ public enum ActivitiesEnum {
 	OSSearch("Cliente consultou a OS (Registrado pelo sistema)", "OSSearch", "search"), 
 	Mail("E-mail enviado (Registrado pelo sistema)", "Mail", "envelope-o"), 
 	WppSent("Mensagem via Whatsapp enviada (Registrado pelo sistema)", "WppSent", "mobile-phone"), 
-	SystemAfterSale("Pós venda realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSale", "heartbeat"),
-	SystemAfterSaleByMail("Pós venda via e-mail realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByMail", "heartbeat"),
-	SystemAfterSaleByWhatsApp("Pós venda via WhatsApp realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByWhatsApp", "heartbeat"),
-	SystemAfterSaleByPush("Pós venda via Push realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByPush", "heartbeat"),
+	SystemAfterSale("Pós-venda realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSale", "heartbeat"),
+	SystemAfterSaleByMail("Pós-venda via e-mail realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByMail", "heartbeat"),
+	SystemAfterSaleByWhatsApp("Pós-venda via WhatsApp realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByWhatsApp", "heartbeat"),
+	SystemAfterSaleByPush("Pós-venda via Push realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByPush", "heartbeat"),
 	PushSent("Notificação Push enviada (Registrado pelo sistema)", "PushSent",	"send-o"), 
 	OSRemoveAction("OS removida (Registrado pelo sistema)", "OSRemoveAction", "ban"),
 	Default("Outro", "Default", "asterisc"); 

@@ -1,4 +1,4 @@
-#{extends 'CRUD/layout.html' /}
+#{extends 'CRUD/layoutPub.html' /}
 #{set title:messages.get('crud.list.title', type.name) /}
 <meta charset="utf-8" />
 	<div class="row">
@@ -21,7 +21,7 @@
 				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">
-						#{crud.pagination /}
+						#{crud.paginationAll /}
 	   				</div>
    				</div>
    			</div>
@@ -29,3 +29,10 @@
    			</div>
    		</div>
    	</div>
+   	 <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
