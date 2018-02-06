@@ -28,7 +28,7 @@
 			#{if flash.success}
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="alert alert-info alert-dismissable">${flash.success}</div>
+						<div class="alert alert-info alert-dismissable" style="margin: 5px">${flash.success}</div>
 					</div>
 				</div>
 			#{/if} 
@@ -41,26 +41,45 @@
 			#{/if}
 				<div class="row">
 					<div class="col-lg-12">
-	                    <div class="panel panel-yellow">
+	                    <div class="panel panel-info">
 	                        <div class="panel-heading">
-	                           Clique no ícone para enviar a notificação de Pós-venda. 
-	                           <br/>
-	                           Obs. 1: É possível notificar por 3 canais (Whatsapp, E-mail e Notificações Push).
-	                           <br/>
-	                           Obs. 2: Após enviar por 1 ou mais canais, o ícone não ficará mais clicável.
+	                           <h4><strong>Clique no ícone <i class="fa fa-meh-o fa-fw" ></i> para enviar a notificação de Pós-venda.</strong></h4> 
+	                           <div class="row">
+					                <div class="col-lg-4">
+					                    <div class="well well-lg">
+					                        <h4>Quando enviar?</h4>
+					                        <p><strong>Pós-venda:</strong> É recomendado realizar o pós-venda 7 dias após a conclusão do serviço. </p>
+					                        <small></small>
+					                    </div>
+					                </div>
+					                <div class="col-lg-4">
+					                    <div class="well well-lg">
+					                        <h4>Por onde enviar?</h4>
+					                        <p>É possível notificar por 3 canais (Whatsapp, E-mail e Notificações Push).</p>
+					                        <small></small>
+					                    </div>
+					                </div>
+					                <div class="col-lg-4">
+					                    <div class="well well-lg">
+					                        <h4>O que acontece depois de enviar?</h4>
+					                        <p>Após enviar por 1 ou mais canais, o ícone não ficará mais clicável.</p>
+					                        <small></small>
+					                    </div>
+					                </div>
+					            </div>
 	                        </div>
 	                        <!-- /.panel-heading -->
 	                        <div class="panel-body">
 	                            <div class="table-responsive">
-	                                <table class="table table-hover">
+	                                <table id="table" class="table table-hover">
 	                                    <thead>
 	                                        <tr>
-	                                            <th>Data geração OS</th>
+	                                            <th>Data OS</th>
 	                                            <th>Código</th>
-	                                            <th>Feito?</th>
 	                                            <th>Cliente</th>
 	                                            <th>Status</th>
-	                                            <th>Observação</th>
+	                                            <th>Pós-venda realizado?</th>
+	                                            <th>Obs.</th>
 	                                            <th>Ver OS</th>
 	                                        </tr>
 	                                    </thead>
@@ -69,11 +88,11 @@
 												<tr>
 													<td>${order.postedAtParsed}</td>
 													<td><a href="/acompanhe?cod=${order.orderCode}#acompanhamento" target="_blank">${order.orderCode}</a></td>
-													<td>#{if !order.isThanked}<label style="text-align: center;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);"><i class="fa fa-meh-o fa-3x" style="color: red"></i></a></label>#{/if}#{else}<i class="fa fa-thumbs-o-up fa-3x"></i>#{/else} </td>
 													<td>${order.client?.name} ${order.client?.lastName}</td>
 													<td>${order.getCurrentStatus()}</td>
+													<td>#{if !order.isThanked}<label style="text-align: center;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);"><i class="btn btn-danger fa fa-meh-o fa-3x" ></i></a></label>#{/if}#{else}<i class="btn btn-info fa fa-thumbs-o-up fa-3x"></i>#{/else} </td>
 													<td>${order.obs}</td>
-													<td><a href="/admin/ordens-de-servico?search=${order.orderCode}"><i class="fa fa-search fa-3x"></i></a></td>
+													<td><a href="/admin/ordens-de-servico?search=${order.orderCode}"><i class="btn btn-primary fa fa-search fa-3x"></i></a></td>
 												</tr>
 											#{/list}
 	                                    </tbody>
@@ -114,6 +133,6 @@
 			</div>
 		</div>
 	</div>
-	
+
 </body>
 </html>

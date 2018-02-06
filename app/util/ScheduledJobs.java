@@ -16,10 +16,12 @@ import models.StatusMail;
 import play.jobs.Job;
 import play.jobs.On;
 
-// Fire every hour between 7AM and 22AM = 0 0 7-22 ? * * * 
+// Fire every hour between 6AM and 22AM = 0 0 6-22 ? * * * 
+// Fire every 5 minutes between 6AM and 22AM = 0 */5 6-22 ? * * * 
 // Fire every 3 minutes 0 */3 * ? * * 
 // @On("0 0 7-22 ? * * *")
-@On("0 */5 * ? * *")
+//@On("0 */5 6-22 ? * * *")
+@On("0 */3 * ? * *")
 public class ScheduledJobs extends Job {
 
 	public void doJob() {
@@ -73,7 +75,7 @@ public class ScheduledJobs extends Job {
 			String bodyHTML = sequenceMailQueue.getSequenceMail().getDescription().replace("@lead@", firstName).concat(Utils.unsubscribeHTML(parameter.getSiteDomain(), sequenceMailQueue.getMail(), sequenceMailQueue.id)).concat(Utils.sentCredits(parameter.getSiteTitle(), parameter.getSiteDomain()));
 			bodyMail.setBodyHTML(bodyHTML);
 			String subject = sequenceMailQueue.getSequenceMail().getTitle().replace("@lead@", firstName);
-			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, subject, sequenceMailQueue.getSequenceMail().getAttachment(), parameter)) {
+			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, subject, sequenceMailQueue, parameter)) {
 				mailController.sendMailToMeWithCustomInfo("E-mail disparado ao lead!", "Nome: " + sequenceMailQueue.getName() + " - E-mail: " + sequenceMailQueue.getMail());
 				return true;
 			}

@@ -4,7 +4,7 @@
 		<ul class="nav" id="side-menu">
 			<li><a href="@{AdminPub.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
 			<li><a href="@{InstitutionCRUD.listAll}"><i class="fa fa-home fa-fw"></i> Empresas Cadastradas</a></li>
-			<li><a href="@{UserCRUD.listAll}"><i class="fa fa-users fa-fw"></i> Usuários Cadastradas</a></li>
+			<li><a href="@{UserCRUD.listAll}"><i class="fa fa-users fa-fw"></i> Usuários Cadastrados</a></li>
 	        <li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-edit fa-fw"></i> Páginas e Artigos<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
@@ -22,6 +22,13 @@
 					<li><a href="@{SequenceMailCRUD.listAll}">Sequência de E-mails</a></li>
 					<li><a href="@{SequenceMailQueueCRUD.listAll}">Fila de E-mails</a></li>
 					<li><a href="@{MailBaseCRUD.list}">Base de E-mails</a></li>
+				</ul>
+			</li>
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-edit fa-fw"></i> Pesquisa de Opinião<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{LeadSearchQuestionCRUD.list}">Perguntas</a></li>
+					<li><a href="@{LeadSearchAnswerCRUD.list}">Respostas</a></li>
 				</ul>
 			</li>
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="${lang}">
+<meta charset="utf-8" />
+#{include 'includes/headCrud.html' /}
+<body>
+	<div id="wrapper">
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; min-height: 75px">
+			<!-- Logo navbar -->
+			#{include 'includes/logoNavBar.html' /}
+			<!-- Logo navbar -->
+			<!-- Menu Top Side -->
+			#{include 'includes/menuPainelTop.html' /}
+			<!-- Menu Top Side -->
+			<!-- Menu Left Side -->
+			#{include 'includes/menuPainelLeft.html' /}
+			<!-- Menu Left Side -->
+		</nav>
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Enviar Avaliação ao Cliente</h1>
+				</div>
+			</div>
+			<ol class="breadcrumb">
+			    <li><a href="/admin/">Início</a></li>
+			    <li><a href="/admin/pos-venda">Pós-venda</a></li>
+			</ol>
+			#{if flash.success}
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-info alert-dismissable" style="margin: 5px">${flash.success}</div>
+					</div>
+				</div>
+			#{/if} 
+			#{if flash.error || error}
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="alert alert-danger alert-dismissable">${error ?: flash.error}</div>
+					</div>
+				</div>
+			#{/if}
+				<div class="row">
+					<div class="col-lg-12">
+                        <h4><strong>Clique no ícone <i class="fa fa-meh-o fa-fw" ></i> para enviar a notificação de Avaliação.</strong></h4> 
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+	                    <div class="panel panel-info">
+	                        <div class="panel-heading">
+	                           <div class="row">
+					                <div class="col-lg-4">
+					                    <div class="well well-lg">
+					                        <h4>Quando enviar?</h4>
+					                        <p><strong>Avaliação:</strong> É recomendado enviar a avaliação para o cliente logo após a conclusão do serviço (Status: Finalizada).</p>
+					                        <small></small>
+					                    </div>
+					                </div>
+					                <div class="col-lg-4">
+					                    <div class="well well-lg">
+					                        <h4>Por onde enviar?</h4>
+					                        <p>É possível notificar por 3 canais (Whatsapp, E-mail e Notificações Push).</p>
+					                        <small></small>
+					                    </div>
+					                </div>
+					                <div class="col-lg-4">
+					                    <div class="well well-lg">
+					                        <h4>O que acontece depois de enviar?</h4>
+					                        <p>Após enviar por 1 ou mais canais, o ícone não ficará mais clicável.</p>
+					                        <small></small>
+					                    </div>
+					                </div>
+					                <div class="col-lg-12">
+					                    <div class="well well-lg">
+					                        <h4>NPS - Quanto mais avaliações, melhor!</h4>
+					                        <small>Quando o seu cliente avalia o serviço/atendimento com uma nota de 0 a 10, o sistema calcula o índice NPS.</small>
+					                        <small>Avaliação com nota de 0 a 6, é um cliente 'Detrator', 7 e 8 é um cliente 'Neutro', 9 e 10 é um cliente 'Promotor'.</small>
+					                        <small>A metodologia NPS (Net Promoter Score) criada em 2013 nos EUA por Fred Reishheld consiste em medir através de uma avaliação quantitativa em uma escala de 0 a 10 e uma avaliação qualitativa em um pequeno texto descritivo acerca do serviço prestado. Por fim, as avaliações dão as empresas a possibilidade de conhecer a quantidade de clientes promotores (satisfeitos), detratores (insatisfeitos) ou clientes com avaliação neutra e, por conseguinte, saber o índice NPS calculado através da subtração da porcentagem de clientes promotores e clientes detratores.</small>
+					                    </div>
+					                </div>
+					            </div>
+	                        </div>
+	                        <!-- /.panel-heading -->
+	                        <div class="panel-body">
+	                            <div class="table-responsive">
+	                                <table id="table" class="table table-hover">
+	                                    <thead>
+	                                        <tr>
+	                                            <th>Data OS</th>
+	                                            <th>Código</th>
+	                                            <th>Cliente</th>
+	                                            <th>Status</th>
+	                                            <th>Avaliação feita?</th>
+	                                            <th>Obs.</th>
+	                                            <th>Nota</th>
+	                                            <th>Opinião do Cliente</th>
+	                                            <th>Ver OS</th>
+	                                        </tr>
+	                                    </thead>
+	                                    <tbody>
+	                                       #{list listOrderOfServices, as:'order'}
+												<tr>
+													<td>${order.postedAtParsed}</td>
+													<td><a href="/acompanhe?cod=${order.orderCode}#acompanhamento" target="_blank">${order.orderCode}</a></td>
+													<td>${order.client?.name} ${order.client?.lastName}</td>
+													<td>${order.getCurrentStatus()}</td>
+													<td>#{if !order.evaluated}<label style="text-align: center;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalEvaluation" onclick="openModalCustomerEvaluation(this);"><i class="btn btn-danger fa fa-meh-o fa-3x" ></i></a></label>#{/if}#{else}<i class="btn btn-info fa fa-thumbs-o-up fa-3x"></i>#{/else} </td>
+													<td>${order.obs}</td>
+													<td>${!order.evaluated ? 'N/A' : order.grade}</td>
+													<td>${order.clientEvaluation}</td>
+													<td><a href="/admin/ordens-de-servico?search=${order.orderCode}"><i class="btn btn-primary fa fa-search fa-3x"></i></a></td>
+												</tr>
+											#{/list}
+	                                    </tbody>
+	                                </table>
+	                            </div>
+	                        </div>
+	                    </div>
+           			</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="text-align: center">&{'project.name'} © Copyright 2017</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- footerCrud -->
+	#{include 'includes/footerCrud.html' /}
+	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
+	<!-- footerCrud -->
+
+	<div class="modal fade" id="modalEvaluation" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<input id="osid" name="osid" type="hidden" />
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="window.location.reload(true)">&times;</button>
+					<h3 class="modal-title" id="myModalLabel">Enviar Avaliação ao Cliente</h3>
+				</div>
+				<div class="modal-body">
+					<div id="evaluationNotificationArea"></div>
+				</div>
+				<div class="modal-footer" style="text-align: left">
+					<div id="editor"></div>
+					<button type="button" class="btn btn-default" data-dismiss="modal" onclick="window.location.reload(true)">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

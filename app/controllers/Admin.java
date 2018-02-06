@@ -103,8 +103,12 @@ public class Admin extends Controller {
 				boolean smsExceedLimit = isSmsExceedLimit();
 				boolean userFreeTrial = isUserFreeTrial();
 				int allSents = contSentSMSs + contSentPushs + contSentMails;
-				Client clientTimeline = (Client) listClients.iterator().next();
-				List<Activity> activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch(5);
+				Client clientTimeline = null;
+				List<Activity> activities = null;
+				if (!Utils.isNullOrEmpty(listClients)) {
+					clientTimeline = (Client) listClients.iterator().next();
+					activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch(5);
+				}
 				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices, connectedUser, institutionName, contSentSMSs, institution, contSentPushs, parameter, smsExceedLimit, userFreeTrial, allSents, contSentMails, listOrderOfServicesByMonth,
 						totalOfOrderOfServiceByMonth, clientTimeline, activities);
 			} else {

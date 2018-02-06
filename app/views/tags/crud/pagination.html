@@ -12,8 +12,9 @@
 #{/if}
 </p>
 
+<nav aria-label="...">
+  <ul class="pagination pagination-lg">
 #{if nbPages > 1}
-
         %{
             limit = (_limit != null ? _limit : 10)
             start = _caller.page - (int)(limit/2) + (limit % 2 ? 0 : 1)
@@ -31,9 +32,9 @@
         }%
 
         #{if _caller.page > 1}
-            <span class="label label-info">
+        	<li class="page-item disabled">
                 #{a @list().add('page', _caller.page-1).add('search', _caller.params.search).add('orderBy', _caller.orderBy).add('order', _caller.order)}&{'crud.pagination.previous'}#{/a}
-            </span>
+            </li>
         #{/if}
 
         #{if start > 1}
@@ -66,3 +67,5 @@
         #{/if}
 
 #{/if}
+	</ul>
+</nav>

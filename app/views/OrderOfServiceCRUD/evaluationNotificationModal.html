@@ -1,0 +1,20 @@
+<meta charset="utf-8" />
+<div class="form-group">
+	<h4>Avaliação para  <strong>&{orderOfService.client.toString()}</strong></h4>
+	<textarea class="form-control" id="evaluation-&{orderOfService.orderCode}" style="height: 100px">Ol&aacute;, &{orderOfService.client.name.trim()}. Para que possamos melhorar, por favor, pode responder rapidamente esta pesquisa? https://acompanheseupedido.com/avaliacao/&{orderOfService.orderCode}/&{orderOfService.institutionId} Agradecemos. Att., &{institution.institution}.</textarea>
+	<label>&{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
+</div>
+<div class="container" id="formNotifButtons" style="width: 100%">
+	<div class="panel-body">
+		<h4>Disparar mensagem:</h4>
+		<p>
+           	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por WhatsApp" onclick="sendWhatsAppEvaluation(document.getElementById('evaluation-&{orderOfService.orderCode}').id, document.getElementById('evaluation-&{orderOfService.orderCode}').value, 'evaluationNotificationArea');" />
+           	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por E-mail" onclick="sendEmailNotificationEvaluation(document.getElementById('evaluation-&{orderOfService.orderCode}').id, document.getElementById('evaluation-&{orderOfService.orderCode}').value, 'evaluationNotificationArea');" />
+           	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por Notificação Push" onclick="sendPUSHEvaluation(document.getElementById('evaluation-&{orderOfService.orderCode}').id, document.getElementById('evaluation-&{orderOfService.orderCode}').value, 'evaluationNotificationArea');" />
+		</p>
+	</div>
+	<input type="hidden" id="responseEvaluation" name="response" value="${response}" /> 
+	<input type="hidden" id="statusEvaluation" name="status" value="${status}" />
+	<br />
+	<div id="message-evaluation-&{orderOfService.orderCode}"></div>
+</div>

@@ -33,7 +33,7 @@
 			         		${object.getInstitutionByInstitutionId()}</a>
 				        #{/crud.custom}
 				    #{/crud.tableAll}
-    				<div class="alert alert-info alert-dismissable">
+    				<div class="alert alert-info alert-dismissable" style="margin: 5px">
 						#{crud.paginationAll /}
 	   				</div>
    				</div>
@@ -42,11 +42,4 @@
    			</div>
    		</div>
    	</div>
- 	<script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>
 

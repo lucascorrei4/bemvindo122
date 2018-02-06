@@ -2,13 +2,13 @@
 
 <p class="crudCount">
 #{if _caller.count == 0}
-    &{'crud.listAll.size', _caller.count, 'no.item.added'}
+    &{'crud.list.size', _caller.count, 'no.item.added'}
 #{/if}
 #{if _caller.count == 1}
-    &{'crud.listAll.size', _caller.count, 'item.added'}
+    &{'crud.list.size', _caller.count, 'item.added'}
 #{/if}
 #{if _caller.count > 1}
-   &{'crud.listAll.size', _caller.count, 'items.added'}
+   &{'crud.list.size', _caller.count, 'items.added'}
 #{/if}
 </p>
 

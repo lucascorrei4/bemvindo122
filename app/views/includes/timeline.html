@@ -1,4 +1,5 @@
 <meta charset="utf-8" />
+#{if clientTimeline}
 	<div class="page-header" style="margin-top: 5px">
 		<h1 id="timeline">Timeline de ${clientTimeline.name} ${clientTimeline.lastName}</h1>
 	</div>
@@ -30,3 +31,4 @@
 			</li>
 		#{/list}
 	</ul>
+#{/}

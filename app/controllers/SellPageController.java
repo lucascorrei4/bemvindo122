@@ -4,13 +4,21 @@ import java.io.File;
 
 import models.Parameter;
 import models.SellPage;
+import models.SequenceMailQueue;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
 import util.Utils;
 
 public class SellPageController extends Controller {
 
-	public static void details(String friendlyUrl) {
+	public static void details(String friendlyUrl, long mid) {
+		/* Verifying click on mail link */
+		if (!Utils.isNullOrZero(mid)) {
+			SequenceMailQueue seqMail = SequenceMailQueue.findById(mid);
+			seqMail.setMailRead(true);
+			seqMail.setMailClicked(true);
+			seqMail.save();
+		}
 		SellPage sellPage = SellPage.findByFriendlyUrl(friendlyUrl);
 		Parameter parameter = Parameter.all().first();
 		String title = Utils.removeHTML(sellPage.getMainTitle());

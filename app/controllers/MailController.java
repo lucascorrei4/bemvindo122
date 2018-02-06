@@ -23,6 +23,7 @@ import models.BodyMail;
 import models.Parameter;
 import models.SendTo;
 import models.Sender;
+import models.SequenceMailQueue;
 import models.StatusMail;
 import play.db.jpa.Blob;
 import util.ApplicationConfiguration;
@@ -60,7 +61,7 @@ public class MailController {
 				} else {
 					message.setSubject(Utils.removeHTML(subject));
 				}
-				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML());
+				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML(), 0l);
 				Multipart multipart = new MimeMultipart();
 				MimeBodyPart mimeBodyPart = new MimeBodyPart();
 				mimeBodyPart.setContent(htmlMessage, "text/html");
@@ -82,7 +83,7 @@ public class MailController {
 		return true;
 	}
 	
-	public boolean sendHTMLMail(SendTo sendTo, Sender sender, BodyMail bodyMail, String subject, Blob attachment, Parameter parameter) {
+	public boolean sendHTMLMail(SendTo sendTo, Sender sender, BodyMail bodyMail, String subject, SequenceMailQueue sequenceMailQueue, Parameter parameter) {
 		final String userName = parameter.getMailHostUser();
 		final String password = parameter.getMailHostPassword();
 		String hostName = parameter.getMailHostName();
@@ -90,10 +91,10 @@ public class MailController {
 			Properties properties = new Properties();
 			properties.put("mail.transport.protocol", "smtp");
 			properties.put("mail.smtp.host", hostName);
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.starttls.enable", "true");
 			properties.put("mail.smtp.socketFactory.port", "465");
 			properties.put("mail.smtp.port", parameter.getMailHostPort() == null ? "25" : parameter.getMailHostPort());
-			properties.put("mail.smtp.auth", "true");
-			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			/* Trying connect do smtp server */
 			Authenticator auth = new Authenticator() {
 				public PasswordAuthentication getPasswordAuthentication() {
@@ -111,12 +112,13 @@ public class MailController {
 				} else {
 					message.setSubject(Utils.removeHTML(subject));
 				}
-				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML());
+				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML(), sequenceMailQueue.id);
 				Multipart multipart = new MimeMultipart();
 				MimeBodyPart mimeBodyPart = new MimeBodyPart();
 				mimeBodyPart.setContent(htmlMessage, "text/html");
 				multipart.addBodyPart(mimeBodyPart);
 				/* Finding attachment and adding to body message mail */
+				Blob attachment = sequenceMailQueue.getSequenceMail().getAttachment(); 
 				if (attachment.exists()) {
 					MimeBodyPart attachPart = new MimeBodyPart();
 					try {

@@ -66,9 +66,54 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="alert alert-info alert-dismissable">
+                    <div class="alert alert-warning alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <i class="fa fa-info-circle"></i>${parameter.msgNewUsers.raw()} 
+                        <i class="fa fa-info-circle"></i>${parameter.msgNewUsers.raw()}
+                        <h2>Funcionamento
+                                <small>simples do sistema</small>
+                            </h2> 
+		                <div class="list-group">
+		                    <a href="/admin/clientes" class="list-group-item">
+		                        <i class="fa fa-user-plus fa-fw"></i> 1. Cadastre seus <strong>clientes</strong>.
+		                        <span class="pull-right text-muted small"><em></em>
+		                        </span>
+		                    </a>
+		                    <a href="/admin/servicos" class="list-group-item">
+		                        <i class="fa fa-wrench fa-fw"></i> 2. Cadastre os <strong>serviços</strong> que você presta juntamente com as etapas que você executa para concluí-los.
+		                        <span class="pull-right text-muted small"><em></em>
+		                        </span>
+		                    </a>
+		                    <a href="/admin/ordens-de-servico" class="list-group-item">
+		                        <i class="fa fa-qrcode fa-fw"></i> 3. Gere <strong>ordens de serviço</strong> aos clientes cadastrados.
+		                        <span class="pull-right text-muted small"><em></em>
+		                        </span>
+		                    </a>
+		                    <a href="/admin/atualizar-pedidos" class="list-group-item">
+		                        <i class="fa fa-battery-half fa-fw"></i> 4. <strong>Atualize os pedidos</strong> em andamento.
+		                        <span class="pull-right text-muted small"><em></em>
+		                        </span>
+		                    </a>
+		                    <a href="/admin/timeline" class="list-group-item">
+		                        <i class="fa fa-history fa-fw"></i> <strong>Timeline</strong> (histórico) do cliente.
+		                        <span class="pull-right text-muted small"><em></em>
+		                        </span>
+		                    </a>
+		                    <a href="/admin/atividades" class="list-group-item">
+		                        <i class="fa fa-puzzle-piece fa-fw"></i> Registre uma nova <strong>atividade</strong> ao realizar qualquer contato com o cliente.
+		                        <span class="pull-right text-muted small"><em></em>
+		                        </span>
+		                    </a>
+		                    <a href="/admin/avaliacao" class="list-group-item">
+		                        <i class="fa fa-edit fa-fw"></i> Envie a <strong>avaliação</strong> para o cliente após finalizar o serviço.
+		                        <span class="pull-right text-muted small"><em></em>
+		                        </span>
+		                    </a>
+		                    <a href="/admin/pos-venda" class="list-group-item">
+		                        <i class="fa fa-heartbeat fa-fw"></i> Realize pós-venda alguns dias após a avaliação do cliente. 
+		                        <span class="pull-right text-muted small"><em></em>
+		                        </span>
+		                    </a>
+		                </div>
                     </div>
                 </div>
             </div>
@@ -226,6 +271,15 @@
             
             <div class="row">
                 <div class="col-lg-4">
+                   	<div class="panel panel-default">
+                       <div class="panel-heading">
+                           <i class="fa fa-bar-chart-o fa-fw"></i> NPS - Net Promoter Score
+                       </div>
+                       <div class="panel-body">
+                           <div id="morris-donut-chart"></div>
+                           <a href="/admin/avaliacao" class="btn btn-default btn-block">Veja como funciona!</a>
+                       </div>
+                   	</div>
                 	<div class="panel panel-yellow">
                         <div class="panel-heading">
                            <i class="fa fa-heartbeat fa-2" aria-hidden="true"></i> Últimas ações de Pós-venda
@@ -252,15 +306,12 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.table-responsive -->
                         </div>
-                        <!-- /.panel-body -->
                     </div>
                     <div class="panel panel-info">
                         <div class="panel-heading">
                         	<i class="fa fa-user-plus fa-2" aria-hidden="true"></i> Últimos Clientes
                         </div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -280,9 +331,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- /.table-responsive -->
                         </div>
-                        <!-- /.panel-body -->
                     </div>
                 </div>
                 <div class="col-lg-8">
@@ -363,14 +412,20 @@
     <script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
 
   	<!-- Flot Charts JavaScript -->
-	<script src="@{'/public/templatebootstrap/bower_components/flot/excanvas.min.js'}"></script>
-	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.js'}"></script>
-	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.pie.js'}"></script>
-	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.resize.js'}"></script>
-	<script src="@{'/public/templatebootstrap/bower_components/flot/jquery.flot.time.js'}"></script>
-	<script src="@{'/public/templatebootstrap/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js'}"></script>
-	<script src="@{'/public/templatebootstrap/js/flot-data.js'}"></script>
+	<!-- Flot Charts JavaScript -->
+	<script src="@{'/public/templatebootstrap/bower_components/raphael/raphael.js'}"></script>
+	<script src="@{'/public/templatebootstrap/bower_components/morrisjs/morris.js'}"></script>
+<!-- 	<script src="@{'/public/templatebootstrap/js/morris-data.js'}"></script> -->
 	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
+	<script>
+    	$(function() {
+		    Morris.Donut({
+		        element: 'morris-donut-chart',
+		        data: [{label : "Detratores", value : 1 }, {label: "Promotores", value: 1 }, { label: "Neutros", value: 1 }] ,
+		        resize: true
+		    });
+		});
+    </script>
 	<!--Start of Tawk.to Script-->
 	<script type="text/javascript">
 	<!--Start of Tawk.to Script-->

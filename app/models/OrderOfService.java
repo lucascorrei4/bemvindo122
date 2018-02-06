@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
+import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.ServiceOrderOfServiceSteps;
@@ -50,6 +51,14 @@ public class OrderOfService extends Model {
 
 	@Transient
 	public Float totalOrderOfService = 0f;
+	
+	public int grade;
+	
+	@Lob
+	@MaxSize(100000)
+	public String clientEvaluation;
+
+	public boolean evaluated = false;
 
 	@Transient
 	public String currentStatus;
@@ -187,6 +196,30 @@ public class OrderOfService extends Model {
 	
 	public Institution getInstitutionById(long institutionId) {
 		return (Institution) Institution.findById(Long.valueOf(institutionId));
+	}
+
+	public String getClientEvaluation() {
+		return clientEvaluation;
+	}
+
+	public void setClientEvaluation(String clientEvaluation) {
+		this.clientEvaluation = clientEvaluation;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
+	}
+
+	public boolean isEvaluated() {
+		return evaluated;
+	}
+
+	public void setEvaluated(boolean evaluated) {
+		this.evaluated = evaluated;
 	}
 	
 

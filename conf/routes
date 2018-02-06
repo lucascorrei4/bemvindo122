@@ -31,6 +31,9 @@ POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
 GET    	${ctx}/logo-empresa/{id}		   				 			InstitutionController.getImage
+GET    	${ctx}/pesquisa/cid/{campaing}/uid/{lead}		 			Application.leadSearch
+POST   	${ctx}/pesquisa-obrigado				 					Application.sendAnswer
+GET    	${ctx}/avaliacao/{cod}/{id}						 			Application.clientEvaluation
 
 GET    	${ctx}/logo					   				 				Application.getLogo
 GET    	${ctx}/icon					   				 				Application.getIcon
@@ -79,11 +82,34 @@ GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceCRUD.updateOrder
 POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
 GET		${ctx}/admin/pos-venda										OrderOfServiceCRUD.afterSale
 GET		${ctx}/admin/script-de-pos-venda							OrderOfServiceCRUD.afterSaleScript
+GET		${ctx}/admin/avaliacao										OrderOfServiceCRUD.evaluation
 
 # MonetizzeTransaction
 
 GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
 GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
+
+# LeadSearchAnswer
+
+GET		${ctx}/admin/pesquisa-respostas											LeadSearchAnswerCRUD.list
+GET		${ctx}/admin/pesquisa-respostas/novo									LeadSearchAnswerCRUD.blank
+GET		${ctx}/admin/pesquisa-respostas/{id}									LeadSearchAnswerCRUD.show
+GET		${ctx}/admin/pesquisa-respostas/{id}/{field}							LeadSearchAnswerCRUD.attachment
+GET		${ctx}/admin/pesquisa-respostas/{id}/editar								LeadSearchAnswerCRUD.edit
+POST	${ctx}/admin/pesquisa-respostas											LeadSearchAnswerCRUD.create
+POST	${ctx}/admin/pesquisa-respostas/{id}									LeadSearchAnswerCRUD.save
+DELETE	${ctx}/admin/pesquisa-respostas/{id}									LeadSearchAnswerCRUD.delete
+
+# LeadSearchQuestion
+
+GET		${ctx}/admin/pesquisa-perguntas											LeadSearchQuestionCRUD.list
+GET		${ctx}/admin/pesquisa-perguntas/novo									LeadSearchQuestionCRUD.blank
+GET		${ctx}/admin/pesquisa-perguntas/{id}									LeadSearchQuestionCRUD.show
+GET		${ctx}/admin/pesquisa-perguntas/{id}/{field}							LeadSearchQuestionCRUD.attachment
+GET		${ctx}/admin/pesquisa-perguntas/{id}/editar								LeadSearchQuestionCRUD.edit
+POST	${ctx}/admin/pesquisa-perguntas											LeadSearchQuestionCRUD.create
+POST	${ctx}/admin/pesquisa-perguntas/{id}									LeadSearchQuestionCRUD.save
+DELETE	${ctx}/admin/pesquisa-perguntas/{id}									LeadSearchQuestionCRUD.delete
 
 # Activities
 

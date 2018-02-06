@@ -1,14 +1,11 @@
 package controllers;
 
-import java.io.File;
 import java.util.List;
 
-import controllers.CRUD.ObjectType;
-import models.Article;
+import models.MailList;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
-import play.vfs.VirtualFile;
 
 @CRUD.For(models.MailList.class)
 public class MailListCRUD extends CRUD {
@@ -47,4 +44,10 @@ public class MailListCRUD extends CRUD {
             render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
         }
     }
+	
+	public static void remove(String id) throws Exception {
+		MailList mailList = MailList.find("id = " + Long.valueOf(id)).first();
+		mailList.delete();
+		MailListCRUD.listAll(0, null, null, null, null);
+	}
 }

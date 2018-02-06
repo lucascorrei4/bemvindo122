@@ -185,6 +185,14 @@ public class OrderOfServiceCRUD extends CRUD {
 		render(orderOfService, institution, smsExceedLimit, planSPO02);
 	}
 
+	public static void evaluationNotificationModal(final String id) {
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
+		render(orderOfService, institution, smsExceedLimit, planSPO02);
+	}
+
 	public static void orderByOrderOfServiceId(final String id) {
 		List<OrderOfService> prayOrders = getOrderByOrderOfServiceId(id);
 		render(prayOrders);
@@ -304,6 +312,12 @@ public class OrderOfServiceCRUD extends CRUD {
 	}
 
 	public static void afterSale() {
+		List<OrderOfService> listOrderOfServices = calculateTotalOrderOfService();
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		render(listOrderOfServices, institution);
+	}
+
+	public static void evaluation() {
 		List<OrderOfService> listOrderOfServices = calculateTotalOrderOfService();
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		render(listOrderOfServices, institution);
@@ -593,6 +607,49 @@ public class OrderOfServiceCRUD extends CRUD {
 		render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
 	}
 
+	public static void sendSMSEvaluation() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String message = decodedValue;
+		String sender = null;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		if (!Utils.isNullOrEmpty(destination)) {
+			StatusSMS statusSMS = new StatusSMS();
+			SMSController smsController = new SMSController();
+			String sendResponse = smsController.sendSMS(destination, sender, message, statusSMS);
+			if ("SUCCESS".equals(sendResponse)) {
+				/* Save sms object */
+				statusSMS.setInstitutionId(institution.id);
+				statusSMS.setPostedAt(Utils.getCurrentDateTime());
+				statusSMS.setClientName(orderOfService.client.toString());
+				statusSMS.willBeSaved = true;
+				statusSMS.id = 0l;
+				statusSMS.merge();
+				status = "SUCCESS";
+				response = "SMS enviada com sucesso!";
+				/* Set thanked Order of Service */
+				orderOfService.setThanked(true);
+				orderOfService.willBeSaved = true;
+				orderOfService.merge();
+			} else {
+				status = "ERROR";
+				response = "Erro ao enviar a SMS! Tente novamente!";
+			}
+		} else {
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+		}
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
+		render("OrderOfServiceCRUD/evaluationNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
+	}
+
 	public static void sendWhatsAppThankful() throws IOException {
 		String response = null;
 		String status = null;
@@ -634,6 +691,56 @@ public class OrderOfServiceCRUD extends CRUD {
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
 		if ("thankfulNotificationArea".equals(idUpdate)) {
 			render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02, parameter);
+		} else if ("notificationArea".equals(idUpdate)) {
+			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, parameter);
+		} else if ("accordion".equals(idUpdate)) {
+			List<OrderOfService> listOrderOfService = loadListOrderOfService();
+			verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
+			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
+		}
+	}
+
+	public static void sendWhatsAppEvaluation() throws IOException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String idUpdate = params.get("idUpdate", String.class);
+		String isMobile = params.get("isMobile", String.class);
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String message = value;
+		String sendResponse = null;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		Parameter parameter = Parameter.all().first();
+		if (!Utils.isNullOrEmpty(destination)) {
+			String origin = "true".equals(isMobile) ? "api" : "web";
+			sendResponse = "https://" + origin + ".whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
+			if (destination.length() == 11 && Utils.testUrl(sendResponse)) {
+				status = "SUCCESS";
+				response = sendResponse;
+				/* Set thanked Order of Service */
+				orderOfService.setThanked(true);
+				orderOfService.willBeSaved = true;
+				orderOfService.merge();
+				/* Generate Activity */
+				String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+				String activityDescription = "Mensagem enviada: \"" + message + "\"";
+				User loggedUser = Admin.getLoggedUserInstitution().getUser();
+				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByWhatsApp);
+			} else {
+				status = "ERROR";
+				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp ou você esteja sem internet no momento!";
+			}
+		} else {
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+		}
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
+		if ("evaluationNotificationArea".equals(idUpdate)) {
+			render("OrderOfServiceCRUD/evaluationNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02, parameter);
 		} else if ("notificationArea".equals(idUpdate)) {
 			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, parameter);
 		} else if ("accordion".equals(idUpdate)) {
@@ -794,6 +901,61 @@ public class OrderOfServiceCRUD extends CRUD {
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
 		render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
+	}
+
+	public static void sendPUSHEvaluation() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String decodedValue = Utils.removeAccent(URLDecoder.decode(value, "UTF-8"));
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String message = decodedValue;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		Map<String, String> paramTags = new HashMap<String, String>();
+		paramTags.put("orderCode", orderOfService.orderCode);
+		paramTags.put("message", message);
+		PushNotification send = new PushNotification(STR_PUSH_AUTH_ID, STR_PUSH_APP_ID);
+		String strJsonBody = send.getTags(paramTags);
+		String jsonResponse = send.sentToUserBySpecificTag(strJsonBody);
+		JsonParser parser = new JsonParser();
+		JsonObject obj = parser.parse(jsonResponse).getAsJsonObject();
+		JsonElement jsonElement = obj.get("response");
+		if ("200".equals(jsonElement.getAsString())) {
+			/* Generate Activity */
+			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+			String activityDescription = "Mensagem enviada: \"" + message + "\"";
+			User loggedUser = Admin.getLoggedUserInstitution().getUser();
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.ClientEvaluationPush);
+			/* Save sms object */
+			StatusPUSH statusPUSH = new StatusPUSH();
+			statusPUSH.setInstitutionId(institution.id);
+			statusPUSH.setMessage(message);
+			statusPUSH.setMsgId(obj.get("id").getAsString());
+			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
+			statusPUSH.setClientName(orderOfService.client.toString());
+			statusPUSH.setDestination(orderOfService.orderCode);
+			statusPUSH.setSendDate(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
+			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
+			statusPUSH.setPushSent(true);
+			statusPUSH.willBeSaved = true;
+			statusPUSH.id = 0l;
+			statusPUSH.merge();
+			status = "SUCCESS";
+			response = "Notificação Push enviada com sucesso.";
+			/* Set thanked Order of Service */
+			orderOfService.setThanked(true);
+			orderOfService.willBeSaved = true;
+			orderOfService.merge();
+		} else {
+			status = "ERROR";
+			response = "Erro ao enviar a notificação Push! Tente novamente!";
+		}
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
+		render("OrderOfServiceCRUD/evaluationNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
 	}
 
 	public static void remove(String id) throws Exception {
@@ -1011,6 +1173,73 @@ public class OrderOfServiceCRUD extends CRUD {
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
 		render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
+	}
+
+	public static void sendEmailNotificationEvaluation() throws UnsupportedEncodingException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		/* Institution object */
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		/* OrderOfService object */
+		Parameter parameter = Parameter.all().first();
+		MailController mailController = new MailController();
+		/* SendTo object */
+		SendTo sendTo = new SendTo();
+		sendTo.setDestination(orderOfService.getClient().getMail());
+		sendTo.setName(orderOfService.getClient().getName());
+		sendTo.setSex("");
+		sendTo.setStatus(new StatusMail());
+		/* Sender object */
+		Sender sender = new Sender();
+		sender.setCompany(institution.getInstitution());
+		sender.setFrom(institution.getEmail());
+		sender.setKey(orderOfService.orderCode);
+		/* SendTo object */
+		BodyMail bodyMail = new BodyMail();
+		bodyMail.setTitle1("Ol&aacute;, " + orderOfService.getClient().getName() + "!");
+		bodyMail.setTitle2("Saiba que voc&ecirc; &eacute; importante e &eacute; um prazer te servir. Gratid&atilde;o.<br />");
+		bodyMail.setParagraph1("");
+		bodyMail.setParagraph2("");
+		bodyMail.setParagraph3("");
+		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
+		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
+		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", pode nos avaliar?", parameter)) {
+			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
+			String activityDescription = "Mensagem enviada: " + bodyMail.getTitle2();
+			User loggedUser = Admin.getLoggedUserInstitution().getUser();
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.ClientEvaluationMail);
+			/* Save sms object */
+			StatusMail statusMail = new StatusMail();
+			statusMail.setInstitutionId(institution.id);
+			statusMail.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
+			statusMail.setMessage(bodyMail.getBodyHTML());
+			statusMail.setPostedAt(Utils.getCurrentDateTime());
+			statusMail.setClientName(orderOfService.client.toString());
+			statusMail.setDestination(sendTo.getDestination());
+			statusMail.setSendDate(Utils.getCurrentDateTime());
+			statusMail.setPostedAt(Utils.getCurrentDateTime());
+			statusMail.setMailSent(true);
+			statusMail.willBeSaved = true;
+			statusMail.id = 0l;
+			statusMail.merge();
+			status = "SUCCESS";
+			response = "E-mail enviado com sucesso.";
+			/* Set thanked Order of Service */
+			orderOfService.setThanked(true);
+			orderOfService.willBeSaved = true;
+			orderOfService.merge();
+		} else {
+			status = "ERROR";
+			response = "Erro ao enviar o e-mail! Tente novamente em instantes.";
+		}
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
+		render("OrderOfServiceCRUD/evaluationNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
 	}
 
 }

@@ -2,6 +2,8 @@ package controllers;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import models.Article;
@@ -13,6 +15,7 @@ import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
+import util.SequenceMailTO;
 import util.TO;
 
 @CRUD.For(models.SequenceMail.class)
@@ -47,15 +50,40 @@ public class SequenceMailCRUD extends CRUD {
 		if (order == null) {
 			order = "DESC";
 		}
-		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, (String) request.args.get("where"));
+		List<SequenceMail> objects = SequenceMail.find("order by postedAt, sequence desc group by url, sequence").fetch(20);
 		Long count = type.count(search, searchFields, (String) request.args.get("where"));
 		Long totalCount = type.count(null, null, (String) request.args.get("where"));
-		List<TO> urls = getAllPublishedUrls();
+		List<SequenceMailTO> listGroupedUrls = getGroupedUrls(objects);
 		try {
-			render("SequenceMailCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order, urls);
+			render("SequenceMailCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order, listGroupedUrls);
 		} catch (TemplateNotFoundException e) {
-			render("SequenceMailCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order, urls);
+			render("SequenceMailCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order, listGroupedUrls);
 		}
+	}
+
+	private static List<SequenceMailTO> getGroupedUrls(List<SequenceMail> objects) {
+		List<TO> urls = getAllPublishedUrls();
+		List<SequenceMailTO> listSequenceMailTO = new ArrayList<SequenceMailTO>();
+		List<SequenceMail> listSequenceMail = null;
+		for (TO url : urls) {
+			SequenceMailTO sequenceMailTO = new SequenceMailTO();
+			sequenceMailTO.setUrl(url.getValue());
+			listSequenceMail = new ArrayList<SequenceMail>();
+			for (SequenceMail sequenceMail : objects) {
+				if (url.getValue().equals(sequenceMail.getUrl())) {
+					listSequenceMail.add(sequenceMail);
+				}
+			}
+			Collections.sort(listSequenceMail, new Comparator<SequenceMail>() {
+				public int compare(SequenceMail o1, SequenceMail o2) {
+					return o1.getSequence() - o2.getSequence();
+				}
+			});
+			sequenceMailTO.setListSequenceMail(listSequenceMail);
+			listSequenceMailTO.add(sequenceMailTO);
+
+		}
+		return listSequenceMailTO;
 	}
 
 	public static void blank() throws Exception {

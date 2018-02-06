@@ -15,7 +15,7 @@ public class SequenceMailController {
 	public static void addLeadToSalesFunnel(MailList mailList, String siteDomain) {
 		if (!Utils.isNullOrEmpty(mailList.getUrl())) {
 			String url = returnCleanURL(mailList.getUrl(), siteDomain);
-			List<SequenceMail> sequenceMailList = SequenceMail.find("url = '" + url + "' order by sequence asc").fetch();
+			List<SequenceMail> sequenceMailList = SequenceMail.find("isActive = true and url = '" + url + "' order by sequence asc").fetch();
 			if (Utils.isNullOrEmpty(sequenceMailList)) {
 				return;
 			}

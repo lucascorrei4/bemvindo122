@@ -31,6 +31,8 @@ public class SequenceMailQueue extends Model {
 	
 	public boolean mailRead = false;
 
+	public boolean mailClicked = false;
+
 	@Hidden
 	public String postedAt;
 
@@ -107,5 +109,13 @@ public class SequenceMailQueue extends Model {
 
 	public void setMailRead(boolean mailRead) {
 		this.mailRead = mailRead;
+	}
+
+	public boolean isMailClicked() {
+		return mailClicked;
+	}
+
+	public void setMailClicked(boolean mailClicked) {
+		this.mailClicked = mailClicked;
 	}
 }

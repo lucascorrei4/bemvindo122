@@ -220,6 +220,43 @@
                     <!-- /.panel -->
                 </div>
                 <div class="col-lg-6">
+                	<div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i> Últimas Mensagens Recebidas
+                        </div>
+                        <div class="panel-body">
+                            <ul class="chat">
+                            	#{list listMessages, as:'message'}
+	                                <li class="${message_index % 2 == 0 ? 'left' : 'right'} clearfix" style="background-color: ${message_index % 2 == 0 ? 'white' : '#f9f9f9'}">
+	                                    <span class="chat-img pull-${message_index % 2 == 0 ? 'left' : 'right'}">
+	                                        <img src="@{'public/images/user-contact.png'}" alt="${message.getName()} ${message.getLastName()}" class="img-circle" style="max-width: 30px;" />
+	                                    </span>
+	                                    <div class="chat-body clearfix">
+	                                        <div class="header">
+		                                        <p>
+		                                            <strong class="primary-font" style="text-transform: uppercase">${message.getName()} ${message.getLastName()}</strong>
+		                                        </p>
+	                                            <small class="text-muted">
+	                                                <i class="fa fa-clock-o fa-fw"></i> ${message.getPostedAtParsed()}
+	                                            </small>
+	                                        </div>
+	                                        <p>
+	                                            <strong>Assunto:</strong> ${message.getTitle()}
+	                                        </p>
+	                                        <p>
+	                                            <strong>Mensagem:</strong> ${message.getDescription()}
+	                                        </p>
+	                                    </div>
+	                                </li>
+	                            #{/list}  
+                            </ul>
+                        </div>
+                        <div class="panel-footer">
+                            <span class="pull-left"><a href="/admin/msgadmin">Ver detalhes</a></span>
+                            <span class="pull-right"><a href="/admin/msgadmin"><i class="fa fa-arrow-circle-right"></i></a></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Últimos Leads Capturados
@@ -317,32 +354,30 @@
                 </div>
                 <!-- /.col-lg-6 -->
             </div>
-<!--             <div class="row"> -->
-<!--                 <div class="col-lg-6"> -->
-<!--                     <div class="panel panel-default"> -->
-<!--                         <div class="panel-heading"> -->
-<!--                             <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example -->
-<!--                         </div> -->
-<!--                         <div class="panel-body"> -->
-<!--                             <div id="morris-donut-chart"></div> -->
-<!--                             <a href="#" class="btn btn-default btn-block">View Details</a> -->
-<!--                         </div> -->
-<!--                         /.panel-body -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--                 <div class="col-lg-6"> -->
-<!--                     <div class="panel panel-default"> -->
-<!--                         <div class="panel-heading"> -->
-<!--                             <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example -->
-<!--                         </div> -->
-<!--                         <div class="panel-body"> -->
-<!--                             <div id="morris-donut-chart2"></div> -->
-<!--                             <a href="#" class="btn btn-default btn-block">View Details</a> -->
-<!--                         </div> -->
-<!--                         /.panel-body -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-donut-chart"></div>
+                            <a href="#" class="btn btn-default btn-block">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-donut-chart2"></div>
+                            <a href="#" class="btn btn-default btn-block">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-lg-12">
                <div class="panel panel-default">
                    <div class="panel-heading" style="text-align: center">
@@ -368,7 +403,7 @@
   	<!-- Flot Charts JavaScript -->
 	<script src="@{'/public/templatebootstrap/bower_components/raphael/raphael.js'}"></script>
 	<script src="@{'/public/templatebootstrap/bower_components/morrisjs/morris.js'}"></script>
-	<script src="@{'/public/templatebootstrap/js/morris-data.js'}"></script>
+<!-- 	<script src="@{'/public/templatebootstrap/js/morris-data.js'}"></script> -->
 	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>
 	<!--Start of Tawk.to Script-->
 	<script>

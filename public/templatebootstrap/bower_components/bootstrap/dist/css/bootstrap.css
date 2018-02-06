@@ -8356,7 +8356,7 @@ button.close {
 }
 
 h1.page-header {
-	color: #006936;	
+	color: #31708f;	
 }
 
 .marginTopBotton {
@@ -8365,4 +8365,48 @@ h1.page-header {
 
 .no-margin-top {
 	margin-top: 0;
+}
+
+//colors
+$grey: #cacaca;
+
+// main
+#page_container {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+// search input
+#accordion_search_bar_container {
+  position: relative;
+  &:after { 
+    content: '\e003';
+    font-family: Glyphicons Halflings;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px; 
+  }  
+  #accordion_search_bar {
+    display: block;
+    margin: 10px auto;
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid $grey;
+    border-radius: 25px;
+    outline: 0;
+  }
+}
+
+// make all the line clickable
+.panel-title { 
+  a {
+    display: block;
+  }
+}
+
+ul.dropdown-menu {
+    position: relative;
+    z-index: 10000;
 }

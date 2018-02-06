@@ -16,11 +16,13 @@ public enum ActivitiesEnum {
 	Mail("E-mail enviado (Registrado pelo sistema)", "Mail", "envelope-o"), 
 	WppSent("Mensagem via Whatsapp enviada (Registrado pelo sistema)", "WppSent", "mobile-phone"), 
 	SystemAfterSale("Pós-venda realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSale", "heartbeat"),
-	SystemAfterSaleByMail("Pós-venda via e-mail realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByMail", "heartbeat"),
-	SystemAfterSaleByWhatsApp("Pós-venda via WhatsApp realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByWhatsApp", "heartbeat"),
-	SystemAfterSaleByPush("Pós-venda via Push realizado pelo sistema (Registrado pelo sistema)", "SystemAfterSaleByPush", "heartbeat"),
+	SystemAfterSaleByMail("Pós-venda via e-mail. (Registrado pelo sistema)", "SystemAfterSaleByMail", "heartbeat"),
+	SystemAfterSaleByWhatsApp("Pós-venda via WhatsApp. (Registrado pelo sistema)", "SystemAfterSaleByWhatsApp", "heartbeat"),
+	SystemAfterSaleByPush("Pós-venda via Push realizado. (Registrado pelo sistema)", "SystemAfterSaleByPush", "heartbeat"),
 	PushSent("Notificação Push enviada (Registrado pelo sistema)", "PushSent",	"send-o"), 
 	OSRemoveAction("OS removida (Registrado pelo sistema)", "OSRemoveAction", "ban"),
+	ClientEvaluationMail("Avalição enviada via e-mail. (Registrado pelo sistema)", "ClientEvaluationMail", "edit"),
+	ClientEvaluationPush("Avalição enviada via Push. (Registrado pelo sistema)", "ClientEvaluationPush", "edit"),
 	Default("Outro", "Default", "asterisc"); 
 
 	String label;

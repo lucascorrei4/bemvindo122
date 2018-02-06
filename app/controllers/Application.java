@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,11 +16,15 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import controllers.CRUD.ObjectType;
 import models.Article;
 import models.BodyMail;
+import models.Client;
 import models.FreePage;
 import models.HighlightProduct;
 import models.Institution;
+import models.LeadSearchAnswer;
+import models.LeadSearchQuestion;
 import models.MailList;
 import models.Message;
 import models.MoipNotification;
@@ -34,6 +40,7 @@ import models.StatusMail;
 import models.Step;
 import models.TheSystem;
 import models.User;
+import play.data.binding.Binder;
 import play.data.validation.Error;
 import play.data.validation.Valid;
 import play.mvc.Controller;
@@ -721,4 +728,120 @@ public class Application extends Controller {
 		render("Application/newPass.html", response, status, user, parameter);
 	}
 
+	public static void leadSearch(String campaing, String lead) {
+		boolean pageNotAvailable = true;
+		Parameter parameter = getCurrentParameter();
+		if (Utils.isNullOrEmpty(campaing)) {
+			render(pageNotAvailable, parameter);
+		} else if (Utils.isNullOrEmpty(lead)) {
+			render(pageNotAvailable, parameter);
+		} else {
+			pageNotAvailable = false;
+			LeadSearchQuestion question = LeadSearchQuestion.find("campaing = '" + campaing + "'").first();
+			String leadDecoded = Utils.decode(lead);
+			MailList mailList = MailList.verifyByEmail(leadDecoded);
+			render(pageNotAvailable, parameter, question, mailList);
+		}
+	}
+	
+	public static void sendAnswer() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Parameter parameter = getCurrentParameter();
+		ObjectType type = ObjectType.get(LeadSearchAnswerCRUD.class);
+		notFoundIfNull(type);
+		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
+		constructor.setAccessible(true);
+		LeadSearchAnswer leadSearchAnswer = new LeadSearchAnswer();
+		leadSearchAnswer = (LeadSearchAnswer) constructor.newInstance();
+		Binder.bindBean(params.getRootParamNode(), "object", leadSearchAnswer);
+		String campaing = params.get("object.leadSearchQuestion");
+		String message = null;
+		boolean pageNotAvailable = false;
+		MailList mailList = MailList.verifyByEmail(params.get("object.mailList"));
+		LeadSearchQuestion question = (LeadSearchQuestion) LeadSearchQuestion.find("campaing = '" + campaing + "'").first();
+		validateSearchFields(pageNotAvailable, parameter, question, mailList, message, leadSearchAnswer);
+		leadSearchAnswer.id = 0l;
+		leadSearchAnswer.setLeadSearchQuestion(question);
+		leadSearchAnswer.setInstitutionId(question.getInstitutionId());
+		leadSearchAnswer.setMailList(mailList);
+		leadSearchAnswer.setPostedAt(Utils.getCurrentDateTime());
+		leadSearchAnswer.setActive(true);
+		leadSearchAnswer.setTestimonial("");
+		leadSearchAnswer.willBeSaved = true;
+		leadSearchAnswer.merge();
+		render("@leadSearchThanks", question, leadSearchAnswer, parameter, mailList);
+	}
+	
+	private static void validateSearchFields(boolean pageNotAvailable, Parameter parameter, LeadSearchQuestion question, MailList mailList, String message, LeadSearchAnswer leadSearchAnswer) {
+		boolean error = false;
+		if (Utils.isNullOrEmpty(leadSearchAnswer.getBusiness())) {
+			error = true;
+			message = "Por favor, informe o negócio que você trabalha.";
+ 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getProfession())) {
+ 			error = true;
+ 			message = "Por favor, informe sua profissão.";
+ 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer1())) {
+ 			error = true;
+ 			message = "Por favor, responda a questão #2.";
+ 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer2())) {
+ 			error = true;
+ 			message = "Por favor, responda a questão #3.";
+ 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer3())) {
+ 			error = true;
+ 			message = "Por favor, responda a questão #4.";
+ 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer4())) {
+ 			error = true;
+ 			message = "Por favor, responda a questão #5.";
+ 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer5())) {
+ 			error = true;
+ 			message = "Por favor, responda a questão #6.";
+ 		}
+		if (error) {
+			render("@leadSearch", pageNotAvailable, parameter, question, mailList, message, leadSearchAnswer);
+			return;
+		}
+	}
+
+	public static void leadSearchThanks(LeadSearchQuestion question, LeadSearchAnswer answer) {
+		render(question, answer);
+	}
+
+	public static void saveTestimonial() {
+		String answer = params.get("ansid");
+		String testimonial = params.get("object.testimonial");
+		LeadSearchAnswer leadSearchAnswer = LeadSearchAnswer.findById(Long.valueOf(answer));
+		leadSearchAnswer.setTestimonial(testimonial);
+		leadSearchAnswer.save();
+		render();
+	}
+	
+	public static void clientEvaluation(long id, String cod, String message) {
+		Parameter parameter = getCurrentParameter();
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + cod + "' and institutionId = " + id).first();
+		if (orderOfService == null) {
+			index();
+		}
+		Institution institution = Institution.findById(orderOfService.institutionId);
+		String clientName = orderOfService.getClient().getName();
+		render(orderOfService, parameter, clientName, institution);
+	}
+	
+	public static void saveEvaluation() {
+		Parameter parameter = getCurrentParameter();
+		String orderCode = params.get("orderCode");
+		Long institutionId =  params.get("instid", Long.class);
+		int grade = params.get("optionsRadios", Integer.class);
+		String evaluation = params.get("evaluation");
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institutionId).first();
+		if (Utils.isNullOrEmpty(evaluation)) {
+			Institution institution = Institution.findById(orderOfService.institutionId);
+			String clientName = orderOfService.getClient().getName();
+			String message = "Por favor, deixe um pequeno e sincero comentário.";
+			render("@clientEvaluation", orderOfService, parameter, clientName, institution, message);
+		}
+		orderOfService.setEvaluated(true);
+		orderOfService.setGrade(grade);
+		orderOfService.setClientEvaluation(evaluation);
+		orderOfService.save();
+		render("@clientEvaluationThanks", parameter);
+	}
 }

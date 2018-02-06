@@ -28,7 +28,7 @@
 			#{if flash.success}
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="alert alert-info alert-dismissable">${flash.success}</div>
+						<div class="alert alert-info alert-dismissable" style="margin: 5px">${flash.success}</div>
 					</div>
 				</div>
 			#{/if} 
@@ -39,6 +39,67 @@
 					</div>
 				</div>
 			#{/if}
+			<div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">70%</div>
+                                    <div>Não possuem o cadastro de seus clientes.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">85%</div>
+                                    <div>Nunca fizeram pós-venda.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">94%</div>
+                                    <div>Nunca usaram tecnologias digitais para monitorar seus clientes.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">97%</div>
+                                    <div>Não conhecem o Net Promoter Score.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="col-lg-12">
+    	            <small style="float: right">Fonte: Sebrae e Associações Comerciais</small>
+	            </div>
+            </div>
             <div class="row">
 				<div class="col-lg-12">
 					<h3 class="page-header no-margin-top"">Considerações importantes</h3>
@@ -47,9 +108,26 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="well well-lg">
+                        <h4>Pós-venda <strong>deve ser</strong> parte do processo de atendimento</h4>
+                        <p>Independente do tamanho da empresa, a definição de processos é muito importante. Sem processo, não há organização e resultado.</p>
+                        <p>Não deixe para fazer pós-venda apenas quando as vendas começarem a cair.</p>
+                        <p>Faça com que pós-venda seja parte do processo, ou seja, o processo da venda só termina após realizar o pós-venda.</p>
+                        <div class="alert alert-warning">
+                        	<p><strong>Na prática:</strong> Se as vendas vão bem, é uma excelente oportunidade para realizarem o pós-venda para garantir a pré-venda futura.</p>
+                        	<p>Se as vendas vão mal e a empresa deixa o pós-venda de lado, é sinal que sua empresa não está plantando as vendas futuras.</p>
+	                    </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="well well-lg">
                         <h4>O que <strong>não</strong> é Pós-venda?</h4>
                         <p>Revenda. Pós-venda não é revenda. </p>
                         <p>Jamais entre em contato para realizar uma ação de pós-venda para agradecer e ao mesmo tempo avisar que a nova coleção chegou ou que a tabela de preço está com desconto especial.</p>
+                        <div class="alert alert-warning">
+                        	<p><strong>Na prática:</strong> Faça uma lista dos clientes que você considera mais importantes. Planeje fazer contato de maior qualidade e valor com eles.</p>
+                        	<p>Lembre-se: "Quem não é visto, não é lembrado!"</p>
+                        	<p>Leia a história do <strong>Despachante Sudoeste</strong> abaixo.</p>
+	                    </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -57,13 +135,10 @@
                         <h4>Pós-venda <strong>deve estar</strong> no planejamento semanal</h4>
                         <p>Inclua no calendário da semana.</p>
                         <p>Separe com responsabilidade e compromisso 1 ou 2 dias da semana para realizar pós-venda. Tenha absoluto compromisso em cumprir a execução.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="well well-lg">
-                        <h4>Pós-venda <strong>deve ser</strong> parte do processo de atendimento</h4>
-                        <p>Não deixe para fazer pós-venda apenas quando as vendas começarem a cair.</p>
-                        <p>Faça com que pós-venda seja parte do processo, ou seja, o processo da venda só termina após realizar o pós-venda.</p>
+                        <div class="alert alert-warning">
+                        	<p><strong>Na prática:</strong> Saiba escolher a pessoa responsável para a ação de pós-vendas. Além de boa comunicação, deve ser alguém que saiba a necessidade de estudar o cliente antes do contato.</p>
+                        	<p>É importante saber o histórico de compras do cliente para fazer comentários objetivos.</p>
+	                    </div>
                     </div>
                 </div>
             </div>
@@ -72,22 +147,33 @@
                 <div class="col-lg-4">
                     <div class="well well-lg">
                         <h4>Pós-venda não deve ser feito <strong>apenas</strong> quando se vende algo</h4>
-                        <p>Mesmo que o cliente tenha escolhido o concorrente. </p>
-                        <p>Entre em contato, pergunte se ele(a) está satisfeito com o pedido realizado com o corrente e coloque-se a disposição para oferecer ajuda sobre quaisquer coisas.</p>
+                        <p>Mesmo que o cliente tenha escolhido o concorrente, entre em contato e faça o que o concorrente não fez ou não faz. </p>
+                        <p>Pergunte se ele(a) está satisfeito com o pedido realizado com o corrente e coloque-se a disposição para oferecer ajuda sobre quaisquer coisas.</p>
+                        <div class="alert alert-warning">
+                        	<p><strong>Na prática:</strong> Exceção. Há casos em que o pós-venda pode ser acompanhado de uma oferta útil. Leia a história da <strong>Requinte</strong> abaixo.</p>
+	                    </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="well well-lg">
                         <h4>Ao realizar o pós-venda, <strong>anote</strong> algo incomum ou característica</h4>
-                        <p>Ex.: Se o cliente gosta de pesca, guarde essa informação.</p>
+                        <p>Ex.: Se a conversa com o cliente levou para o assunto pescaria e com isso você descobriu se o cliente gosta de pesca, guarde esta informação.</p>
                         <p>Nó próximo contato, pergunte como vão as pescarias, se ele(a) tem pescado bastante. É um bom início de papo e o cliente tende a se abrir.</p>
+                        <div class="alert alert-warning">
+                        	<p><strong>Na prática:</strong> Se o cliente é um potencial consumidor e merece atenção especial, porque não presenteá-lo com uma isca artificial ou uma vara de fibra de carbono?</p>
+                        	<p>A isca artifical não custará R$ 20,00, seu cliente irá fazer propaganda gratuita da sua empresa e você irá obter retorno exponencial a médio prazo.</p>
+	                    </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="well well-lg">
                         <h4>Evite qualquer tipo de <strong>falsidade ou formalidade</strong></h4>
                         <p>Elogios demais, comentários que soam falsidade devem ser evitados.</p>
-                        <p>Importe-se com o cliente e deixe bem claro a intenção do pós-venda. Faça contato cordial, evite gírias e formalidades demais.</p>
+                        <p>Qualquer tipo de relacionamento deve ser verdadeiro. Logo, importe-se com o cliente e deixe bem claro a intenção do pós-venda.</p>
+                        <div class="alert alert-warning">
+                        	<p><strong>Na prática:</strong> Faça contato cordial, evite gírias e formalidades demais. Não entre em méritos de assuntos polêmicos como religião, política e etc...</p>
+                        	<p>Caso queira comentar algum assunto polêmico, seja sábio(a) e mantenha-se na neutralidade.</p>
+	                    </div>
                     </div>
                 </div>
             </div>
@@ -162,7 +248,7 @@
                                 </div>
                                 <div class="tab-pane fade" id="22">
                                     <h4>Entender os clientes chatos</h4>
-                                    <p>Normalmente a percepção dessas pessoas ajudam a melhorar o produto, serviço ou o processo utilizado em determinada área. Contudo, se é um cliente que suga e cansa a saúde mental de sua equipe. Demita-o.</p>
+                                    <p>Normalmente a percepção dessas pessoas ajuda a melhorar o produto, serviço ou o processo utilizado em determinada área. Contudo, se é um cliente que suga e cansa a saúde mental de sua equipe, demita-o. Sim, demita o seu cliente.</p>
                                 </div>
                                 <div class="tab-pane fade" id="33">
                                     <h4>Respeite a percepção do cliente</h4>
@@ -196,64 +282,83 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><strong>#1 Defina um intervalo de tempo padrão para realizar o pós-venda</strong></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><strong>#1 Defina um intervalo de tempo padrão para realizar o pós-venda.</strong></a>
                                         </h4>
                                     </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div id="collapseOne" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                           	<p>Aqui começa o processo a ser implatado pela sua empresa. É fundamental seguí-lo com responsabilidade e compromisso. Portanto, é importante ter certeza de que a venda foi finalizada e entregue. Após a conclusão, defina um intervalo de tempo ideal para realizarem o contato.</p> 
+                                           	<p>Aqui começa o processo a ser implantado por sua empresa. É fundamental seguí-lo com responsabilidade e compromisso. Portanto, é importante ter certeza de que a venda foi finalizada e entregue. Após a conclusão, defina um intervalo de tempo ideal para realizarem o contato com o cliente.</p> 
                                            	<p>Algumas empresas entram em contato 3 dias após a finalização da venda. Outras, 7 dias. Veja qual o tempo ideal baseado no seu negócio.</p>
-                                            <p>A <a href="/admin/atualizar-pedidos">página de atualizar pedidos</a> possui um cadeado em cada item. Este ícone permite que você saiba se o pedido está aberto ou fechado. Ao clicar em determinado item, é possível saber quais os status das etapas. Certifique-se que todas as fases estejam finalizadas.</p>
+                                        	<div class="alert alert-warning"> 
+	                                            <p>A <a href="/admin/atualizar-pedidos">página de atualizar pedidos</a> possui um ícone em forma de cadeado em cada item. Este ícone permite que você saiba se o pedido está aberto ou fechado. Ao clicar em determinado item, é possível saber quais os status das etapas. Certifique-se que todas as fases estejam finalizadas.</e>
+	                                        </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><strong>#2 Defina quais canais serão realizados o pós-venda</strong></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><strong>#2 Defina quais canais serão utilizados para o pós-venda.</strong></a>
                                         </h4>
                                     </div>
                                     <div id="collapseTwo" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <p>O sistema permite realizar pós-venda por Whatsapp, e-mail e notificação push.</p>
-                                            <p>Na <a href="/admin/pos-venda">página de pós-venda</a> você tem a informação de contato do cliente (fone e e-mail). Mesmo que o pós-venda tenha sido feito por telefone, envie também por e-mail.</p>
-                                            <p>O sistema registrará automaticamente que o e-mail foi enviado e será uma grata surpresa para o cliente.</p>
-                                            <p>Lembre-se há clientes que não gostam de receber telefonemas e outros podem achar um contato por WhatsApp muito invasivo.</p>
+                                            <p>O sistema permite realizar pós-venda por Whatsapp, e-mail e notificação push. Você pode enviar por quantos canais quiser, mas não exagere.</p>
+                                            <p>Na <a href="/admin/pos-venda">página de pós-venda</a> você tem a informação de contato do cliente (fone e e-mail). Mesmo que o pós-venda tenha sido feito por telefone, envie também por e-mail.
+                                            O sistema registrará automaticamente que o e-mail foi enviado e será uma grata surpresa para o cliente.</p>
+                                        	<div class="alert alert-warning"> 
+	                                            <p>Lembre-se que há clientes que não gostam de receber telefonemas e outros podem achar um contato por WhatsApp muito invasivo.</p>
+	                                        </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><strong>#3 Vá além de um simples contato</strong></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><strong>#3 Vá além de um simples contato. (Na prática: como fazer?)</strong></a>
                                         </h4>
                                     </div>
                                     <div id="collapseThree" class="panel-collapse collapse">
                                         <div class="panel-body">
+                                            <p><strong>"Olá, obrigado pela preferência!"</strong>, é uma forma de agradecer muito rasa. Há muitas vantagens ao tentar um diálogo verdadeiro com o cliente.</p>
+                                            <p>Por telefone, tente não parecer um profissional de telemarketing. Tente ser mais natural e sempre pergunte se você está atrapalhando.</p>
                                             <p>Ao realizar o contato por WhatsApp, você pode deixar um áudio também. Chame o cliente pelo nome, agradeça cordialmente e comente acerca de algum benefício do produto que ele adquiriu. Neste contato você tem a chance de coletar alguma informação pessoal do cliente que possa ser usada como isca futuramente.</p>
-                                            <p>Dica: faça uma pesquisa sobre algo curioso ou MUITO interessante baseado no que o cliente comprou e conte ao cliente</p>
+                                            <div class="alert alert-warning">
+	                                            <p><strong>Dica:</strong> Faça uma pesquisa sobre algo curioso ou muito interessante baseado no que o cliente comprou e conte ao cliente.</p>
+    	                                    </div>
                                             <p>Registre tudo. Sempre que você se deparar com uma informação importante durante o contato com o cliente, crie uma <a href="/admin/atividades/novo">atividade comum</a> no sistema.</p>
-                                            <p>Cadastrar atividades é importante para gerar o histórico do cliente. Logo, quando alguém quiser pesquisar algo sobre o cliente, basta consultar a <a href="/admin/timeline">página de timeline do cliente</a> e coletar as informações necessárias.</p>
+                                            <div class="alert alert-warning">
+	                                            <p>Cadastrar atividades é importante para gerar o histórico do cliente. Logo, quando alguém quiser pesquisar algo sobre o cliente, basta consultar a <a href="/admin/timeline">página de timeline do cliente</a> e coletar as informações necessárias.</p>
+    	                                    </div>
+    	                                    <p>Para diminuir a sensação de arrependimento, é fundamental que você mostre para o cliente que ele fez um EXCELENTE NEGÓCIO. Portanto, reforce a impressão dele sobre você e sua empresa.</p>
+											<p>Essa técnica é utilizada sempre após agradecer pela compra e utiliza-se palavras positivas.</p>
+											<p>Exemplos:</p>
+											<blockquote>Tenho certeza que você fez um excelente negócio. Certamente você irá economizar tempo e dinheiro com nosso produto!</blockquote>
+											<blockquote>Fique tranquilo! Sua escolha é a melhor para sua empresa e tenho certeza que irá ficar plenamente satisfeito com nosso serviço!</blockquote>
+											<blockquote>Parabéns pela escolha! Este produto irá agregar muito valor a sua vida e aos seus negócios!</blockquote>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><strong>#4 Deixe o cliente falar</strong></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><strong>#4 Deixe o cliente falar.</strong></a>
                                         </h4>
                                     </div>
                                     <div id="collapseFour" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <p>Pergunte como ele(a) foi atendido e se há alguma observação a ser feita. Registre o que o cliente disser.</p>
                                             <p>Se o feedback do cliente for uma crítica, registre e reflita acerca da melhoria. Caso seja um feedback positivo, esta informação servirá de prova social para você estampar em banners ou no site oficial da empresa.</p>
+                                            <div class="alert alert-warning">
+	                                            <p>Após a compra de um produto ou serviço, é muito comum que o cliente tenha dúvidas em relação ao funcionamento. É muito importante que você esteja disponível para atendê-lo. Portanto, neste momento, o contato de pós-venda pode ser transformado em um tipo de suporte. Caso o cliente encontre as informações que precisa, isso aumentará o grau de confiança e credibilidade entre cliente e empresa.</p>
+	                                        </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><strong>#5 Reforce os canais de comunicação e suporte</strong></a>
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"><strong>#5 Reforce os canais de comunicação e suporte.</strong></a>
                                         </h4>
                                     </div>
                                     <div id="collapseFive" class="panel-collapse collapse">
@@ -271,7 +376,9 @@
                                     <div id="collapseSix" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <p>É importante que você avalie o seu atendimento e os rumos que a conversa/contato com o cliente levou.</p>
-                                            <p>Talvez haja na ação de pós venda realizado uma oportunidade de presentear o cliente (leia abaixo a história da caneta) ou de tomar alguma providência ou até a necessidade de convocar uma rápida reunião acerca de determinado assunto mais grave.</p>
+                                        	<div class="alert alert-warning"> 
+	                                            <p>Talvez haja na ação de pós venda realizada uma oportunidade de presentear o cliente - leia abaixo a história da <strong>Caneta</strong> - ou de tomar alguma providência ou até a necessidade de convocar uma rápida reunião acerca de determinado assunto mais grave.</p>
+	                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -282,7 +389,7 @@
 	         </div>
 	        <div class="row">
 				<div class="col-lg-12">
-					<h3 class="page-header no-margin-top">Exemplos de Pós-venda</h3>
+					<h3 class="page-header no-margin-top">Exemplos de Pós-venda Através de Histórias</h3>
 				</div>
 			</div>
             <div class="row">
@@ -296,11 +403,25 @@
                                             <a data-toggle="collapse" data-parent="#accordion2" href="#collapseDespachante"><strong>Despachante Sudoeste</strong></a>
                                         </h4>
                                     </div>
-                                    <div id="collapseDespachante" class="panel-collapse collapse in">
+                                    <div id="collapseDespachante" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                           	<p>Aqui começa o processo a ser implatado pela sua empresa. É fundamental seguí-lo com responsabilidade e compromisso. Portanto, é importante ter certeza de que a venda foi finalizada e entregue. Após a conclusão, defina um intervalo de tempo ideal para realizarem o contato.</p> 
-                                           	<p>Algumas empresas entram em contato 3 dias após a finalização da venda. Outras, 7 dias. Veja qual o tempo ideal baseado no seu negócio.</p>
-                                            <p>A <a href="/admin/atualizar-pedidos">página de atualizar pedidos</a> possui um cadeado em cada item. Este ícone permite que você saiba se o pedido está aberto ou fechado. Ao clicar em determinado item, é possível saber quais os status das etapas. Certifique-se que todas as fases estejam finalizadas.</p>
+	                                        <blockquote>
+	                                           	<p>Um dos exemplos de pós-venda que mais me chama atenção é de uma empresa Despachante de Anápolis/Goiás chamada Despachante Sudoeste.</p> 
+	                                           	<p>Lembro vagamente, mas meu contato com a empresa foi em 2014. Contratei-a para realizar a transferência de um veículo que eu havia adquirido.</p> 
+	                                           	<p>Durante a abordagem, preenchi uma simples ficha de cliente e a partir de então passei a receber alguns e-mails.</p>
+	                                           	<p>Veja a imagem abaixo:</p>  
+	                                           	<img src="/public/images/sudoeste.JPG" style="max-width: 100%" />
+	                                           	<p></p>
+	                                           	<p>Fiquei surpreso por 2 motivos. Primeiro, jamais imaginei que uma empresa despachante fizesse ações de pós-venda. Segundo, fiquei surpreso com a gentileza e qualidade da informação que me enviavam.</p>
+	                                           	<p>Como mostra a imagem acima, eles tiveram o constante compromisso de me informar acerca de notícias importantes sobre multas, mercado, transferência, IPVA e sempre enviava lembranças em datas comemorativas, inclusive em meu aniversário.</p>
+	                                            <p>Hoje, quando vejo ou penso em Despachante, me vem a mente a Despachante Sudoeste.</p>
+		                                    </blockquote>
+                                            <div class="alert alert-warning"> 
+                                            	<p><strong>Lição:</strong> Esta empresa não era grande, mas pensava como uma grande empresa.</p> 
+                                            	<p>É possível perceber que eles seguiam um rigoroso processo. Os envios eram constantes (veja as datas de envio).</p> 
+                                            	<p>Outro ponto positivo era a qualidade da informação que, por eu ser motorista, obviamente, me interessavam. Informação valiosa e inusitada - chegava quando eu menos esperava.</p>
+                                            	<p><strong>Na prática:</strong> Que tipo de informação você pode ofertar aos seus clientes?</p>
+                                        	</div>
                                         </div>
                                     </div>
                                 </div>
@@ -312,10 +433,27 @@
                                     </div>
                                     <div id="collapseCaneta" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <p>O sistema permite realizar pós-venda por Whatsapp, e-mail e notificação push.</p>
-                                            <p>Na <a href="/admin/pos-venda">página de pós-venda</a> você tem a informação de contato do cliente (fone e e-mail). Mesmo que o pós-venda tenha sido feito por telefone, envie também por e-mail.</p>
-                                            <p>O sistema registrará automaticamente que o e-mail foi enviado e será uma grata surpresa para o cliente.</p>
-                                            <p>Lembre-se há clientes que não gostam de receber telefonemas e outros podem achar um contato por WhatsApp muito invasivo.</p>
+                                        	<blockquote>
+	                                            <p>Não sei onde e quando isso aconteceu...</p>
+	                                            <p>Durante uma amigável conversa de suporte por telefone, o cliente estava bem confortável. Conversa vai, conversa vem, o cliente deu grito inusitado:</p>
+	                                        	<blockquote>
+		                                            <p> - Puuuuuuuxa vida, minha caneta estourou. Sujou minha mão e fez uma lambança na mesa!</p>
+		                                            <p> - Mesmo? Tem pano para limpar ai?</p>
+		                                            <p> - Não aqui, mas no banheiro tem. Um minuto, por favor. Vou ali pegar.</p>
+		                                            <p>1 minuto depois...</p>
+		                                            <p> - Opa, cheguei! To limpando a bagunça aqui. hehehe</p>
+		                                            <p> - Que bom! Chegou a sujar a roupa?</p>
+		                                            <p> - Não, não! Ainda bem, né?</p>
+		                                            <p> - Pois é!</p>
+		                                            <p> - Eita! Então, continuando nossa conversa...</p>
+	                                        	</blockquote>
+	                                            <p>O fato é que após desligarem o telefone, o Analista de Suporte passou o caso para o departamento de pós-venda e alguns dias depois o cliente recebeu uma caneta nova, personalizada, no endereço da empresa.</p>
+	                                            <p>No pacote havia um bilhete que dizia: "A gente se preocupa com você e não queremos que você pare de escrever com caneta! Atenciosamente, Empresa X!"</p>
+                                        	</blockquote>
+                                            <div class="alert alert-warning"> 
+                                            	<p><strong>Lição:</strong> Mantenha um diálogo amigável com o cliente e fique atento ao que pode ser transformado em um simples presente, mas que pode encantar o cliente.</p> 
+                                            	<p><strong>Na prática:</strong> Treine as pessoas responsáveis pelo pós-venda a serem cordiais e ficarem atentas aos detalhes.</p>
+                                        	</div>
                                         </div>
                                     </div>
                                 </div>
@@ -327,10 +465,19 @@
                                     </div>
                                     <div id="collapseRequinte" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <p>Ao realizar o contato por WhatsApp, você pode deixar um áudio também. Chame o cliente pelo nome, agradeça cordialmente e comente acerca de algum benefício do produto que ele adquiriu. Neste contato você tem a chance de coletar alguma informação pessoal do cliente que possa ser usada como isca futuramente.</p>
-                                            <p>Dica: faça uma pesquisa sobre algo curioso ou MUITO interessante baseado no que o cliente comprou e conte ao cliente</p>
-                                            <p>Registre tudo. Sempre que você se deparar com uma informação importante durante o contato com o cliente, crie uma <a href="/admin/atividades/novo">atividade comum</a> no sistema.</p>
-                                            <p>Cadastrar atividades é importante para gerar o histórico do cliente. Logo, quando alguém quiser pesquisar algo sobre o cliente, basta consultar a <a href="/admin/timeline">página de timeline do cliente</a> e coletar as informações necessárias.</p>
+                                            <blockquote>
+	                                            <p>Durante alguns anos prestei serviço para uma <i>startup</i> de desenvolvimento de <i>software</i>. Havíamos construído do zero um <i>software online</i> para gestão de bares e restaurantes.</p>
+	                                            <p>O tempo foi passando e a empresa foi crescendo. Mudamos para um escritório maior e a equipe cresceu também.</p>
+	                                            <p>Com mais gente no escritório, percebemos a necessidade de estocar papel higiênico, papel toalha e detergente para o banheiro.</p>
+	                                            <p>Pesquisamos no Google e encontramos uma empresa chamada 'Requinte' que fornecia estes produtos de higiene e que fazia entrega no endereço do escritório. Compramos repetidas vezes.</p>
+	                                            <p>Esta empresa tinha um processo interessante de <strong>pós-venda e venda</strong> ao mesmo tempo. Entre 20 ou 30 dias após o último pedido realizado, a gente sempre recebia uma ligação deles.</p>
+	                                            <p>Eles sempre perguntavam se estávamos satisfeitos com o último pedido que fizemos e perguntavam se estava acabando o papel higiênico, papel toalha ou detergente.</p>
+                                        	</blockquote>
+                                            <div class="alert alert-warning"> 
+                                            	<p><strong>Lição:</strong> Como o foco da empresa era o desenvolvimento de <i>software</i>, a última coisa que a gente queria se preocupar era se tinha papel higiênico no banheiro.</p> 
+                                            	<p>Logo, é fácil perceber que eles tinham controle acerca do nosso perfil como cliente, tanto do intervalo de tempo que fazíamos pedidos como os produtos que tínhamos costume de comprar.</p> 
+                                            	<p><strong>Na prática:</strong> Fique de olho nas necessidades do seu cliente. Antecipe-se e garanta que seu cliente só terá sua empresa como opção de compra de determinado produto ou serviço.</p>
+                                        	</div>
                                         </div>
                                     </div>
                                 </div>
@@ -342,8 +489,25 @@
                                     </div>
                                     <div id="collapseNoClient" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <p>Pergunte como ele(a) foi atendido e se há alguma observação a ser feita. Registre o que o cliente disser.</p>
-                                            <p>Se o feedback do cliente for uma crítica, registre e reflita acerca da melhoria. Caso seja um feedback positivo, esta informação servirá de prova social para você estampar em banners ou no site oficial da empresa.</p>
+                                             <blockquote>
+                                             	<p>Não sei onde e quando isso aconteceu...</p>
+	                                            <p>Uma empresa tinha costume de receber contatos de prospectos/clientes com solicitações de orçamento. Esta empresa tinha um processo de recolher dados pessoais do cliente e gerar uma ordem de serviço.</p>
+	                                            <p>Algumas vezes o cliente não gostava do orçamento - talvez por preço, condições de pagamento ou qualquer outro motivo - e preferia comprar do concorrente.</p>
+	                                            <p>A grande sacada é que esta empresa aguardava uns 20 ou 30 dias e entrava em contato para saber se o cliente estava satisfeito com a compra feita através do concorrente:</p>
+                                             <blockquote>
+	                                            <p> - Olá, como vai? Aqui é Fulano da Empresa X! Você fez um orçamento comigo há 20 dias, não resolveu comprar da gente, eu sei, mas resolvi entrar em contato para saber se você bem e se está satisfeito com a compra que você fez.</p>
+	                                            <p> - Oi, estou bem e você? Então, deu tudo certo sim.</p>
+	                                            <p> - Que ótimo. Este contato não é pra te vender nada, hehe, eu só quero deixar bem claro que estamos a disposição para te ajudar em qualquer dúvida que você tiver em relação a estes produtos que você comprou. Por exemplo, sabia que o produto x deve ser conservado em temperatura ambiente e longe da luz solar?</p>
+	                                            <p> - Nossa, não sabia.</p>
+	                                            <p> - Pois é. Enfim, não quero tomar o seu tempo. Pra reforçar, quero dizer que estamos a disposição para lhe servir. Muito obrigado e até logo!</p>
+	                                            <p> - Eu que agradeço! Até mais!</p>
+                                        	</blockquote>
+                                        	</blockquote>
+                                            <div class="alert alert-warning"> 
+                                            	<p><strong>Lição:</strong> O cliente jamais esperava um contato semelhante a este. É comum também o cliente/prospecto perceber que o concorrente que vendeu não se importou em dar um retorno ou realizar um pós-venda sequer. Porém, a outra empresa, apesar de não ter efetuado a venda, antecipou-se em fazer.</p> 
+                                            	<p>Certamente o cliente ficou encantado e deve ter contado para as pessoas em redor que recebeu este contato incomum.</p> 
+                                            	<p><strong>Na prática:</strong> Antecipe-se. Vá além. Busque como ser criativo. Conte sempre com a equipe do <strong>Acompanhe Seu Pedido.</strong></p>
+                                        	</div>
                                         </div>
                                     </div>
                                 </div>
@@ -351,18 +515,16 @@
                         </div>
                     </div>
                 </div>
-	         </div>
-	      </div>
-       </div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="panel panel-default">
-							<div class="panel-heading" style="text-align: center">&{'project.name'} © Copyright 2017</div>
-						</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="text-align: center">&{'project.name'} © Copyright 2018</div>
 					</div>
 				</div>
 			</div>
-		</div>
+	    </div>
+	</div>
+</div>
 	<!-- footerCrud -->
 	#{include 'includes/footerCrud.html' /}
 	<script type="text/javascript" src="@{'public/javascripts/functions.js'}"></script>

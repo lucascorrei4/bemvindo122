@@ -15,24 +15,25 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'name', 'mail', 'origin', 'url', 'isActive']}
+			        #{crud.table fields:['postedAt', 'name', 'mail', 'origin', 'url', 'isActive', 'action']}
 				        #{crud.custom 'postedAt'}
 			         		<a href="@{MailListCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
+				        #{crud.custom 'name'}
+			         		<a href="@{MailListCRUD.show(object.id)}">${object.name}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'mail'}
+			         		<a href="@{MailListCRUD.show(object.id)}">${object.mail}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'action'}
+                            <a href="@{MailListCRUD.remove(object.id)}" title="Atenção: Esta ação remove o ítem.">Remover</a>
+				        #{/crud.custom}
 				    #{/crud.table}
-    				<div class="alert alert-info alert-dismissable">
+    				<div class="alert alert-info alert-dismissable" style="margin: 5px">
 						#{crud.paginationAll /}
 	   				</div>
    				</div>
    			</div>
-   				<div class="col-lg-6">
-   			</div>
+   			<div class="col-lg-6"></div>
    		</div>
    	</div>
-   	 <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true
-        });
-    });
-    </script>

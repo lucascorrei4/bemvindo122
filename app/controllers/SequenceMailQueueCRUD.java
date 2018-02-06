@@ -1,14 +1,11 @@
 package controllers;
 
-import java.io.File;
 import java.util.List;
 
-import controllers.CRUD.ObjectType;
-import models.Article;
+import models.SequenceMailQueue;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
-import play.vfs.VirtualFile;
 
 @CRUD.For(models.SequenceMailQueue.class)
 public class SequenceMailQueueCRUD extends CRUD {
@@ -44,7 +41,13 @@ public class SequenceMailQueueCRUD extends CRUD {
         try {
             render(type, objects, count, totalCount, page, orderBy, order);
         } catch (TemplateNotFoundException e) {
-            render("CRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+            render("SequenceMailQueueCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order);
         }
     }
+	
+	public static void remove(String id) throws Exception {
+		SequenceMailQueue sellPage = SequenceMailQueue.find("id = " + Long.valueOf(id)).first();
+		sellPage.delete();
+		SequenceMailQueueCRUD.listAll(0, null, null, null, null);
+	}
 }

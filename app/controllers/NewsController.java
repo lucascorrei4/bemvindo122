@@ -7,6 +7,7 @@ import java.util.List;
 import models.Article;
 import models.HighlightProduct;
 import models.Parameter;
+import models.SequenceMailQueue;
 import models.TheSystem;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -33,7 +34,14 @@ public class NewsController extends Controller {
 		render(bottomNews, sidebarRightNews, highlightArticles, parameter, listTheSystems, theSystem, articleTopAds, articleSidebarRightAds, articleBottomAds, listHightlightProduct);
 	}
 
-	public static void details(String id) {
+	public static void details(String id, long mid) {
+		/* Verifying click on mail link */
+		if (!Utils.isNullOrZero(mid)) {
+			SequenceMailQueue seqMail = SequenceMailQueue.findById(mid);
+			seqMail.setMailRead(true);
+			seqMail.setMailClicked(true);
+			seqMail.save();
+		}
 		Article article = Article.findById(Long.valueOf(id));
 		List<Article> listArticles = Article.find("highlight = false and isActive = true and id <>  " + Long.valueOf(id) + " order by postedAt desc").fetch();
 		List<Article> sidebarRightNews = getArticlesSidebarRightNews(listArticles);

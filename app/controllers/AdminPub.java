@@ -12,6 +12,7 @@ import models.FreePage;
 import models.Institution;
 import models.Invoice;
 import models.MailList;
+import models.Message;
 import models.MonetizzeTransaction;
 import models.OrderOfService;
 import models.Parameter;
@@ -89,11 +90,12 @@ public class AdminPub extends Controller {
 				List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(5);
 				List<MailList> listLast5Leads = MailList.find("order by postedAt desc").fetch(5);
 				List<OrderOfService> listLast20OS = OrderOfService.find("isActive = true order by postedAt desc").fetch(20);
+				List<Message> listMessages = Message.find("order by postedAt desc").fetch(10);
 				Institution institution = Institution.find("byId", connectedUser.getInstitutionId()).first();
 				String institutionName = institution.getInstitution();
 				List<Object> leadsByPage = getleadsByPage();
 				String top3LeadPages = top3LeadPages();
-				render(listSellPages, listFreePage, contLeads, connectedUser, institutionName, institution, parameter, smsExceedLimit, userFreeTrial, leadsByPage, listArticles, contArticles, top3LeadPages, contSequenceMails, contSequenceMails, listLast5Leads, listLast20OS);
+				render(listSellPages, listFreePage, contLeads, connectedUser, institutionName, institution, parameter, smsExceedLimit, userFreeTrial, leadsByPage, listArticles, contArticles, top3LeadPages, contSequenceMails, contSequenceMails, listLast5Leads, listLast20OS, listMessages);
 			} else {
 				/* Redirect to page of information about expired license */
 				render("@Admin.expiredLicense", connectedUser, parameter);

@@ -77,14 +77,14 @@
 		        "sInfoEmpty":     "Não há registros para mostrar.",
 		        "sInfoFiltered":  "(filtrado de um total de _MAX_ registros)",
 		        "sInfoPostFix":   "",
-		        "sSearch":        "Buscar:",
+		        "sSearch":        "Buscar: ",
 		        "sUrl":           "",
 		        "sInfoThousands":  ",",
 		        "sLoadingRecords": "Carregando...",
 		        "oPaginate": {
 		            "sFirst":    "Primeiro",
 		            "sLast":    "Último",
-		            "sNext":    "Próximo",
+		            "sNext":    "Pr&oacute;ximo",
 		            "sPrevious": "Anterior"
 		        },
 		        "oAria": {
@@ -110,4 +110,23 @@ var s1=document.createElement("script"),s0=document.getElementsByTagName("script
 	s0.parentNode.insertBefore(s1,s0);
 })();
 </script>
+<script type="text/javascript">
+   	
+   	(function(){
+   	  var searchTerm, panelContainerId;
+   	  // Create a new contains that is case insensitive
+   	  $.expr[':'].containsCaseInsensitive = function (n, i, m) {
+   	    return jQuery(n).text().toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+   	  };
+   	  
+   	  $('#accordion_search_bar').on('change keyup paste click', function () {
+   	    searchTerm = $(this).val();
+   	    $('#accordion > .panel').each(function () {
+   	      panelContainerId = '#' + $(this).attr('id');
+   	      $(panelContainerId + ':not(:containsCaseInsensitive(' + searchTerm + '))').hide();
+   	      $(panelContainerId + ':containsCaseInsensitive(' + searchTerm + ')').show();
+   	    });
+   	  });
+   	}());
+    </script>
 <!--End of Tawk.to Script-->

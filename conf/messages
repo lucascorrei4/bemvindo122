@@ -85,6 +85,8 @@ true=Sim
 false=Não
 
 #Controllers
+LeadSearchQuestionCRUD=Pesquisa - Perguntas
+LeadSearchAnswerCRUD=Pesquisa - Respostas
 ActivitiesCRUD=Atividades
 FreePageCRUD=Páginas Livre
 SellPageCRUD=Páginas de Vendas
@@ -125,6 +127,8 @@ SequenceMailCRUD=Funil de E-mails
 HighlightProductCRUD=Produtos em Destaque
 
 #Models
+LeadSearchQuestion=Pesquisa - Pergunta
+LeadSearchAnswer=Pesquisa - Resposta
 Activities=Atividade
 SellPage=Página Livre
 SellPage=Página de Vendas
@@ -170,6 +174,24 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+grade=Nota
+thanksTitle=Título Página de Obrigado
+thanksDescription=Descrição Página de Obrigado
+thanksEmbedVideo=Embed Vídeo
+redirectTo=Redirecionar Para
+campaing=Campanha
+question1=Pergunta 1
+commentQuestion1=Comentário 1
+question2=Pergunta 2
+commentQuestion2=Comentário 2
+question3=Pergunta 3
+commentQuestion3=Comentário 3
+question4=Pergunta 4
+commentQuestion4=Comentário 4
+question5=Pergunta 5
+commentQuestion5=Comentário 5
+question6=Pergunta 6
+commentQuestion6=Comentário 6
 view=Ver
 activityDate=Data da Atividade
 type=Tipo
@@ -241,7 +263,7 @@ msgOffer=Msg. da Oferta
 siteIconFontAwesome=Ícone Font Awesome - Mais ícones em: http://fontawesome.io/icons/
 siteMainTitleColor=Cor Título Principal
 siteBackGroundColor=Cor de Fundo
-typeAds=Tipo Ads (Topo 1, Lat. Direita 4, Rodapé 4)
+typeAds=Tipo Ads
 directLink=Link Direto
 siteName=Nome do Site
 siteDomain=Domínio do Site (Informe com http:// e sem a barra final /)
