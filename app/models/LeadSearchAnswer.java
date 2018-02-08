@@ -51,6 +51,7 @@ public class LeadSearchAnswer extends Model {
 	public String postedAt;
 
 	public boolean isActive = true;
+	public boolean isAuthorize = true;
 
 	public String toString() {
 		return mailList.name;
@@ -184,6 +185,14 @@ public class LeadSearchAnswer extends Model {
 
 	public void setTestimonial(String testimonial) {
 		this.testimonial = testimonial;
+	}
+
+	public boolean isAuthorize() {
+		return isAuthorize;
+	}
+
+	public void setAuthorize(boolean isAuthorize) {
+		this.isAuthorize = isAuthorize;
 	}
 
 }

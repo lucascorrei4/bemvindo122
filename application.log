@@ -172,3 +172,638 @@ Caused by: java.lang.ClassCastException: models.Parameter cannot be cast to mode
 	at play.jobs.Job.doJobWithResult(Job.java:50)
 	at play.jobs.Job.call(Job.java:146)
 	... 6 more
+22:09:06,962 ERROR ~ 
+
+@76pk5h453
+Error during job execution (util.ScheduledJobs)
+
+Execution exception (In /app/util/ScheduledJobs.java around line 35)
+ClassCastException occured : models.Parameter cannot be cast to models.Parameter
+
+play.exceptions.JavaExecutionException: models.Parameter cannot be cast to models.Parameter
+	at play.jobs.Job.call(Job.java:155)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassCastException: models.Parameter cannot be cast to models.Parameter
+	at util.ScheduledJobs.verifyIfLeadIsNotInSalesFunnel(ScheduledJobs.java:35)
+	at util.ScheduledJobs.doJob(ScheduledJobs.java:29)
+	at play.jobs.Job.doJobWithResult(Job.java:50)
+	at play.jobs.Job.call(Job.java:146)
+	... 6 more
+22:20:30,589 INFO  ~ Starting C:\Users\luks_\Documents\dev\playapps\seupedido
+22:20:30,604 INFO  ~ Module crud is available (C:\Users\luks_\Documents\dev\play-1.2.4\modules\crud)
+22:20:30,618 INFO  ~ Module secure is available (C:\Users\luks_\Documents\dev\play-1.2.4\modules\secure)
+22:20:33,442 WARN  ~ You're running Play! in DEV mode
+22:20:33,624 INFO  ~ Listening for HTTP on port 9001 (Waiting a first request to start) ...
+22:25:00,517 INFO  ~ Connected to jdbc:mysql://localhost/seupedid_bd?useUnicode=yes&characterEncoding=UTF-8&connectionCollation=utf8_general_ci
+22:25:03,106 INFO  ~ Application 'seupedido' is now started !
+11:41:35,641 INFO  ~ Starting C:\Users\luks_\Documents\dev\playapps\seupedido
+11:41:35,655 INFO  ~ Module crud is available (C:\Users\luks_\Documents\dev\play-1.2.4\modules\crud)
+11:41:35,662 INFO  ~ Module secure is available (C:\Users\luks_\Documents\dev\play-1.2.4\modules\secure)
+11:41:38,678 WARN  ~ You're running Play! in DEV mode
+11:41:38,878 INFO  ~ Listening for HTTP on port 9001 (Waiting a first request to start) ...
+11:43:52,788 INFO  ~ Connected to jdbc:mysql://localhost/seupedid_bd?useUnicode=yes&characterEncoding=UTF-8&connectionCollation=utf8_general_ci
+11:43:56,820 INFO  ~ Application 'seupedido' is now started !
+11:47:41,471 ERROR ~ 
+
+@76ppnl77f
+Internal Server Error (500) for request GET /admin/timeline
+
+Execution exception (In /app/controllers/ActivitiesCRUD.java around line 104)
+NoSuchElementException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.util.NoSuchElementException
+	at java.util.ArrayList$Itr.next(ArrayList.java:834)
+	at controllers.ActivitiesCRUD.timeline(ActivitiesCRUD.java:104)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+14:56:23,440 ERROR ~ 
+
+@76ppnl77m
+Internal Server Error (500) for request GET /admin/pesquisa-perguntas
+
+Template execution error (In /app/views/LeadSearchQuestionCRUD/list.html around line 25)
+Execution error occured in template /app/views/LeadSearchQuestionCRUD/list.html. Exception raised was NullPointerException : Cannot get property 'postedAtParsed' on null object.
+
+play.exceptions.TemplateExecutionException: Cannot get property 'postedAtParsed' on null object
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:86)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:257)
+	at play.templates.Template.render(Template.java:26)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:187)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:24)
+	at play.mvc.Controller.renderTemplate(Controller.java:660)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.LeadSearchQuestionCRUD.list(LeadSearchQuestionCRUD.java:47)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException: Cannot get property 'postedAtParsed' on null object
+	at /app/views/LeadSearchQuestionCRUD/list.html.(line:25)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:232)
+	... 13 more
+14:57:17,856 ERROR ~ 
+
+@76ppnl77n
+Internal Server Error (500) for request GET /admin/pesquisa-respostas
+
+Template execution error (In /app/views/LeadSearchAnswerCRUD/list.html around line 25)
+Execution error occured in template /app/views/LeadSearchAnswerCRUD/list.html. Exception raised was MissingPropertyException : No such property: campaign for class: models.LeadSearchAnswer.
+
+play.exceptions.TemplateExecutionException: No such property: campaign for class: models.LeadSearchAnswer
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:86)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:257)
+	at play.templates.Template.render(Template.java:26)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:187)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:24)
+	at play.mvc.Controller.renderTemplate(Controller.java:660)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.LeadSearchAnswerCRUD.list(LeadSearchAnswerCRUD.java:47)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+Caused by: groovy.lang.MissingPropertyException: No such property: campaign for class: models.LeadSearchAnswer
+	at /app/views/LeadSearchAnswerCRUD/list.html.(line:25)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:232)
+	... 13 more
+15:31:25,188 ERROR ~ 
+
+@76ppnl794
+Internal Server Error (500) for request GET /pesquisa/cid/cpg_01/uid/bHVjYXNjb3JyZWlhZXZhbmdlbGlzdGFAZ21haWwuY29t
+
+Template execution error (In /app/views/Application/leadSearch.html around line 147)
+Execution error occured in template /app/views/Application/leadSearch.html. Exception raised was NullPointerException : Cannot get property 'profession' on null object.
+
+play.exceptions.TemplateExecutionException: Cannot get property 'profession' on null object
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:86)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:257)
+	at play.templates.Template.render(Template.java:26)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:187)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:24)
+	at play.mvc.Controller.renderTemplate(Controller.java:660)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.Application.leadSearch(Application.java:743)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException: Cannot get property 'profession' on null object
+	at /app/views/Application/leadSearch.html.(line:147)
+	at play.templates.JavaExtensions.toString(JavaExtensions.java:76)
+	at play.templates.FastTags._form(FastTags.java:124)
+	at play.templates.FastTags$_form.call(Unknown Source)
+	at /app/views/Application/leadSearch.html.(line:109)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:232)
+	... 13 more
+15:31:57,753 ERROR ~ 
+
+@76ppnl795
+Internal Server Error (500) for request GET /pesquisa/cid/cpg_01/uid/bHVjYXNjb3JyZWlhZXZhbmdlbGlzdGFAZ21haWwuY29t
+
+Template execution error (In /app/views/Application/leadSearch.html around line 152)
+Execution error occured in template /app/views/Application/leadSearch.html. Exception raised was NullPointerException : Cannot get property 'business' on null object.
+
+play.exceptions.TemplateExecutionException: Cannot get property 'business' on null object
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:86)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:257)
+	at play.templates.Template.render(Template.java:26)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:187)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:24)
+	at play.mvc.Controller.renderTemplate(Controller.java:660)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.Application.leadSearch(Application.java:743)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException: Cannot get property 'business' on null object
+	at /app/views/Application/leadSearch.html.(line:152)
+	at play.templates.JavaExtensions.toString(JavaExtensions.java:76)
+	at play.templates.FastTags._form(FastTags.java:124)
+	at play.templates.FastTags$_form.call(Unknown Source)
+	at /app/views/Application/leadSearch.html.(line:109)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:232)
+	... 13 more
+15:33:12,459 ERROR ~ 
+
+@76ppnl796
+Internal Server Error (500) for request POST /application/savetestimonial
+
+Execution exception (In /app/controllers/Application.java around line 812)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at controllers.Application.saveTestimonial(Application.java:812)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+15:35:30,818 ERROR ~ 
+
+@76ppnl797
+Internal Server Error (500) for request POST /application/savetestimonial
+
+Execution exception (In /app/controllers/Application.java around line 812)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at controllers.Application.saveTestimonial(Application.java:812)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+15:40:18,792 ERROR ~ 
+
+@76ppnl798
+Internal Server Error (500) for request POST /application/savetestimonial
+
+Execution exception (In /app/controllers/Application.java around line 812)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at controllers.Application.saveTestimonial(Application.java:812)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+15:54:09,220 ERROR ~ 
+
+@76ppnl799
+Error during job execution (util.ScheduledJobs)
+
+Execution exception (In /app/util/ScheduledJobs.java around line 35)
+ClassCastException occured : models.Parameter cannot be cast to models.Parameter
+
+play.exceptions.JavaExecutionException: models.Parameter cannot be cast to models.Parameter
+	at play.jobs.Job.call(Job.java:155)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassCastException: models.Parameter cannot be cast to models.Parameter
+	at util.ScheduledJobs.verifyIfLeadIsNotInSalesFunnel(ScheduledJobs.java:35)
+	at util.ScheduledJobs.doJob(ScheduledJobs.java:29)
+	at play.jobs.Job.doJobWithResult(Job.java:50)
+	at play.jobs.Job.call(Job.java:146)
+	... 6 more
+16:09:06,809 ERROR ~ 
+
+@76ppnl79a
+Error during job execution (util.ScheduledJobs)
+
+Execution exception (In /app/util/ScheduledJobs.java around line 35)
+ClassCastException occured : models.Parameter cannot be cast to models.Parameter
+
+play.exceptions.JavaExecutionException: models.Parameter cannot be cast to models.Parameter
+	at play.jobs.Job.call(Job.java:155)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassCastException: models.Parameter cannot be cast to models.Parameter
+	at util.ScheduledJobs.verifyIfLeadIsNotInSalesFunnel(ScheduledJobs.java:35)
+	at util.ScheduledJobs.doJob(ScheduledJobs.java:29)
+	at play.jobs.Job.doJobWithResult(Job.java:50)
+	at play.jobs.Job.call(Job.java:146)
+	... 6 more
+16:11:12,820 ERROR ~ 
+
+@76ppnl79b
+Internal Server Error (500) for request POST /pesquisa-obrigado
+
+Template execution error (In /app/views/Application/leadSearchThanks.html around line 108)
+Execution error occured in template /app/views/Application/leadSearchThanks.html. Exception raised was NullPointerException : Cannot get property 'id' on null object.
+
+play.exceptions.TemplateExecutionException: Cannot get property 'id' on null object
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:86)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:257)
+	at play.templates.Template.render(Template.java:26)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:187)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:24)
+	at play.mvc.Controller.renderTemplate(Controller.java:660)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.Application.sendAnswer(Application.java:772)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException: Cannot get property 'id' on null object
+	at /app/views/Application/leadSearchThanks.html.(line:108)
+	at play.templates.JavaExtensions.toString(JavaExtensions.java:76)
+	at play.templates.FastTags._form(FastTags.java:124)
+	at play.templates.FastTags$_form.call(Unknown Source)
+	at /app/views/Application/leadSearchThanks.html.(line:106)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:232)
+	... 13 more
+16:17:51,769 INFO  ~ Starting C:\Users\luks_\Documents\dev\playapps\seupedido
+16:17:51,782 INFO  ~ Module crud is available (C:\Users\luks_\Documents\dev\play-1.2.4\modules\crud)
+16:17:51,789 INFO  ~ Module secure is available (C:\Users\luks_\Documents\dev\play-1.2.4\modules\secure)
+16:17:55,311 WARN  ~ You're running Play! in DEV mode
+16:17:55,524 INFO  ~ Listening for HTTP on port 9001 (Waiting a first request to start) ...
+16:18:38,769 INFO  ~ Connected to jdbc:mysql://localhost/seupedid_bd?useUnicode=yes&characterEncoding=UTF-8&connectionCollation=utf8_general_ci
+16:18:43,307 INFO  ~ Application 'seupedido' is now started !
+16:22:19,429 ERROR ~ 
+
+@770184bb4
+Internal Server Error (500) for request POST /application/savetestimonial
+
+Template not found (In /app/controllers/Application.java around line 824)
+The template Application/saveTestimonial.html does not exist.
+
+play.exceptions.TemplateNotFoundException: Template not found : Application/saveTestimonial.html
+	at play.mvc.Controller.renderTemplate(Controller.java:667)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.Application.saveTestimonial(Application.java:824)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+16:28:48,100 ERROR ~ 
+
+@770184bb5
+Internal Server Error (500) for request POST /application/savetestimonial
+
+Execution exception (In /app/controllers/Application.java around line 822)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at controllers.Application.saveTestimonial(Application.java:822)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+16:45:09,185 ERROR ~ 
+
+@770184bb6
+Error during job execution (util.ScheduledJobs)
+
+Execution exception (In /app/util/ScheduledJobs.java around line 35)
+ClassCastException occured : models.Parameter cannot be cast to models.Parameter
+
+play.exceptions.JavaExecutionException: models.Parameter cannot be cast to models.Parameter
+	at play.jobs.Job.call(Job.java:155)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassCastException: models.Parameter cannot be cast to models.Parameter
+	at util.ScheduledJobs.verifyIfLeadIsNotInSalesFunnel(ScheduledJobs.java:35)
+	at util.ScheduledJobs.doJob(ScheduledJobs.java:29)
+	at play.jobs.Job.doJobWithResult(Job.java:50)
+	at play.jobs.Job.call(Job.java:146)
+	... 6 more
+16:51:50,668 ERROR ~ 
+
+@770184bb8
+Internal Server Error (500) for request POST /application/savetestimonial
+
+Template not found (In /app/controllers/Application.java around line 824)
+The template Application/saveTestimonial.html does not exist.
+
+play.exceptions.TemplateNotFoundException: Template not found : Application/saveTestimonial.html
+	at play.mvc.Controller.renderTemplate(Controller.java:667)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.Application.saveTestimonial(Application.java:824)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+16:51:55,892 ERROR ~ 
+
+@770184bb9
+Internal Server Error (500) for request POST /pesquisa-obrigado
+
+Template compilation error (In /app/views/Application/leadSearchThanks.html around line 138)
+The template /app/views/Application/leadSearchThanks.html does not compile : #{else} is not closed.
+
+play.exceptions.TemplateCompilationException: #{else} is not closed.
+	at play.templates.TemplateCompiler.generate(TemplateCompiler.java:104)
+	at play.templates.TemplateCompiler.compile(TemplateCompiler.java:15)
+	at play.templates.GroovyTemplateCompiler.compile(GroovyTemplateCompiler.java:41)
+	at play.templates.TemplateCompiler.compile(TemplateCompiler.java:28)
+	at play.templates.TemplateLoader.load(TemplateLoader.java:82)
+	at play.templates.TemplateLoader.load(TemplateLoader.java:172)
+	at play.mvc.Controller.renderTemplate(Controller.java:659)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.Application.sendAnswer(Application.java:778)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+16:52:24,232 ERROR ~ 
+
+@770184bba
+Internal Server Error (500) for request POST /application/savetestimonial
+
+Template execution error (In /app/views/Application/leadSearchThanks.html around line 12)
+Execution error occured in template /app/views/Application/leadSearchThanks.html. Exception raised was NullPointerException : Cannot invoke method getSiteTitle() on null object.
+
+play.exceptions.TemplateExecutionException: Cannot invoke method getSiteTitle() on null object
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:86)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:257)
+	at play.templates.Template.render(Template.java:26)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:187)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:24)
+	at play.mvc.Controller.renderTemplate(Controller.java:660)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.Application.saveTestimonial(Application.java:826)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException: Cannot invoke method getSiteTitle() on null object
+	at models.Parameter$getSiteTitle.call(Unknown Source)
+	at /app/views/Application/leadSearchThanks.html.(line:12)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:232)
+	... 13 more
+16:57:07,775 ERROR ~ 
+
+@770184bbb
+Error during job execution (util.ScheduledJobs)
+
+Execution exception (In /app/util/ScheduledJobs.java around line 35)
+ClassCastException occured : models.Parameter cannot be cast to models.Parameter
+
+play.exceptions.JavaExecutionException: models.Parameter cannot be cast to models.Parameter
+	at play.jobs.Job.call(Job.java:155)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassCastException: models.Parameter cannot be cast to models.Parameter
+	at util.ScheduledJobs.verifyIfLeadIsNotInSalesFunnel(ScheduledJobs.java:35)
+	at util.ScheduledJobs.doJob(ScheduledJobs.java:29)
+	at play.jobs.Job.doJobWithResult(Job.java:50)
+	at play.jobs.Job.call(Job.java:146)
+	... 6 more
+17:11:59,499 ERROR ~ 
+
+@770184bbc
+Internal Server Error (500) for request GET /admin/pesquisa-respostas
+
+Template compilation error (In /app/views/LeadSearchAnswerCRUD/list.html around line 72)
+The template /app/views/LeadSearchAnswerCRUD/list.html does not compile : unexpected token:  encontrado 
+
+play.exceptions.TemplateCompilationException: unexpected token:  encontrado 
+	at play.templates.GroovyTemplate.compile(GroovyTemplate.java:174)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:195)
+	at play.templates.Template.render(Template.java:26)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:187)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:24)
+	at play.mvc.Controller.renderTemplate(Controller.java:660)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.LeadSearchAnswerCRUD.list(LeadSearchAnswerCRUD.java:47)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+17:21:04,605 ERROR ~ 
+
+@770184bbd
+Error during job execution (util.ScheduledJobs)
+
+Execution exception (In /app/util/ScheduledJobs.java around line 35)
+ClassCastException occured : models.Parameter cannot be cast to models.Parameter
+
+play.exceptions.JavaExecutionException: models.Parameter cannot be cast to models.Parameter
+	at play.jobs.Job.call(Job.java:155)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassCastException: models.Parameter cannot be cast to models.Parameter
+	at util.ScheduledJobs.verifyIfLeadIsNotInSalesFunnel(ScheduledJobs.java:35)
+	at util.ScheduledJobs.doJob(ScheduledJobs.java:29)
+	at play.jobs.Job.doJobWithResult(Job.java:50)
+	at play.jobs.Job.call(Job.java:146)
+	... 6 more
+17:42:08,789 ERROR ~ 
+
+@770184bbe
+Error during job execution (util.ScheduledJobs)
+
+Execution exception (In /app/util/ScheduledJobs.java around line 35)
+ClassCastException occured : models.Parameter cannot be cast to models.Parameter
+
+play.exceptions.JavaExecutionException: models.Parameter cannot be cast to models.Parameter
+	at play.jobs.Job.call(Job.java:155)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.ClassCastException: models.Parameter cannot be cast to models.Parameter
+	at util.ScheduledJobs.verifyIfLeadIsNotInSalesFunnel(ScheduledJobs.java:35)
+	at util.ScheduledJobs.doJob(ScheduledJobs.java:29)
+	at play.jobs.Job.doJobWithResult(Job.java:50)
+	at play.jobs.Job.call(Job.java:146)
+	... 6 more
+17:45:32,186 ERROR ~ 
+
+@770184bbf
+Internal Server Error (500) for request GET /fp/undefined
+
+Execution exception (In /app/controllers/FreePageController.java around line 24)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at controllers.FreePageController.details(FreePageController.java:24)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+17:46:08,884 ERROR ~ 
+
+@770184bbg
+Internal Server Error (500) for request GET /fp/undefined
+
+Execution exception (In /app/controllers/FreePageController.java around line 24)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at controllers.FreePageController.details(FreePageController.java:24)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+17:47:09,403 ERROR ~ 
+
+@770184bbh
+Internal Server Error (500) for request GET /fp/undefined
+
+Execution exception (In /app/controllers/FreePageController.java around line 24)
+NullPointerException occured : null
+
+play.exceptions.JavaExecutionException
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:231)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException
+	at controllers.FreePageController.details(FreePageController.java:24)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	... 1 more
+22:13:48,802 INFO  ~ Starting C:\Users\luks_\Documents\dev\playapps\seupedido
+22:13:48,814 INFO  ~ Module crud is available (C:\Users\luks_\Documents\dev\play-1.2.4\modules\crud)
+22:13:48,821 INFO  ~ Module secure is available (C:\Users\luks_\Documents\dev\play-1.2.4\modules\secure)
+22:13:51,766 WARN  ~ You're running Play! in DEV mode
+22:13:52,008 INFO  ~ Listening for HTTP on port 9001 (Waiting a first request to start) ...
+22:14:19,700 INFO  ~ Connected to jdbc:mysql://localhost/seupedid_bd?useUnicode=yes&characterEncoding=UTF-8&connectionCollation=utf8_general_ci
+22:14:23,640 INFO  ~ Application 'seupedido' is now started !
+22:15:06,077 ERROR ~ 
+
+@77032ck6n
+Internal Server Error (500) for request POST /pesquisa-obrigado
+
+Template execution error (In /app/views/Application/leadSearchThanks.html around line 136)
+Execution error occured in template /app/views/Application/leadSearchThanks.html. Exception raised was NullPointerException : Cannot get property 'isAuthorize' on null object.
+
+play.exceptions.TemplateExecutionException: Cannot get property 'isAuthorize' on null object
+	at play.templates.BaseTemplate.throwException(BaseTemplate.java:86)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:257)
+	at play.templates.Template.render(Template.java:26)
+	at play.templates.GroovyTemplate.render(GroovyTemplate.java:187)
+	at play.mvc.results.RenderTemplate.<init>(RenderTemplate.java:24)
+	at play.mvc.Controller.renderTemplate(Controller.java:660)
+	at play.mvc.Controller.renderTemplate(Controller.java:640)
+	at play.mvc.Controller.render(Controller.java:695)
+	at controllers.Application.sendAnswer(Application.java:779)
+	at play.mvc.ActionInvoker.invokeWithContinuation(ActionInvoker.java:548)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:502)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:478)
+	at play.mvc.ActionInvoker.invokeControllerMethod(ActionInvoker.java:473)
+	at play.mvc.ActionInvoker.invoke(ActionInvoker.java:161)
+	at Invocation.HTTP Request(Play!)
+Caused by: java.lang.NullPointerException: Cannot get property 'isAuthorize' on null object
+	at /app/views/Application/leadSearchThanks.html.(line:136)
+	at play.templates.JavaExtensions.toString(JavaExtensions.java:76)
+	at play.templates.FastTags._form(FastTags.java:124)
+	at play.templates.FastTags$_form.call(Unknown Source)
+	at /app/views/Application/leadSearchThanks.html.(line:115)
+	at play.templates.GroovyTemplate.internalRender(GroovyTemplate.java:232)
+	... 13 more

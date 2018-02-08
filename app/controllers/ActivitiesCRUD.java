@@ -98,11 +98,14 @@ public class ActivitiesCRUD extends CRUD {
 	
 	public static void timeline(Client clientTimeline) {
 		List<Client> clients = null;
-		if (clientTimeline.id == null) {
+		List<Activity> activities = null;
+		if (Utils.isNullOrZero(clientTimeline.id)) {
 			clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
-			clientTimeline = clients.iterator().next();
+			if (!Utils.isNullOrEmpty(clients)) {
+				clientTimeline = clients.iterator().next();
+				activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch();
+			}
 		}
-		List<Activity> activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch();
 		render(clients, clientTimeline, activities);
 	}
 	

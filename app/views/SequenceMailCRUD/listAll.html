@@ -20,7 +20,7 @@
 			<div class="panel-group" id="accordion" role="tablist"
 				aria-multiselectable="true">
 				#{list items:listGroupedUrls, as:'groupedUrl'}
-					<div class="panel panel-${groupedUrl_index % 2 == 0 ? 'success' : 'primary'}" id="collapse${groupedUrl_index}_container">
+					<div class="panel panel-${groupedUrl_index % 2 == 0 ? 'info' : 'default'}" id="collapse${groupedUrl_index}_container">
 						<div class="panel-heading" role="tab" id="heading${groupedUrl_index}">
 							<h4 class="panel-title">
 								<a role="button" data-toggle="collapse" data-parent="#accordion"

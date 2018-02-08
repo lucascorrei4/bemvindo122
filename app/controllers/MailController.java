@@ -37,13 +37,7 @@ public class MailController {
 		final String password = parameter.getMailHostPassword();
 		String hostName = parameter.getMailHostName();
 		if (validateMailCredentials(userName, password, hostName)) {
-			Properties properties = new Properties();
-			properties.put("mail.transport.protocol", "smtp");
-			properties.put("mail.smtp.host", hostName);
-			properties.put("mail.smtp.socketFactory.port", "465");
-			properties.put("mail.smtp.port", parameter.getMailHostPort() == null ? "25" : parameter.getMailHostPort());
-			properties.put("mail.smtp.auth", "true");
-			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			Properties properties = getSmtpProperties(parameter, hostName);
 			/* Trying connect do smtp server */
 			Authenticator auth = new Authenticator() {
 				public PasswordAuthentication getPasswordAuthentication() {
@@ -83,18 +77,23 @@ public class MailController {
 		return true;
 	}
 	
+	private static Properties getSmtpProperties(Parameter parameter, String hostName){
+		Properties properties = new Properties();
+		properties.put("mail.transport.protocol", "smtp");
+		properties.put("mail.smtp.host", hostName);
+		properties.put("mail.smtp.socketFactory.port", "465");
+		properties.put("mail.smtp.port", parameter.getMailHostPort() == null ? "25" : parameter.getMailHostPort());
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		return properties;
+	}
+	
 	public boolean sendHTMLMail(SendTo sendTo, Sender sender, BodyMail bodyMail, String subject, SequenceMailQueue sequenceMailQueue, Parameter parameter) {
 		final String userName = parameter.getMailHostUser();
 		final String password = parameter.getMailHostPassword();
 		String hostName = parameter.getMailHostName();
 		if (validateMailCredentials(userName, password, hostName)) {
-			Properties properties = new Properties();
-			properties.put("mail.transport.protocol", "smtp");
-			properties.put("mail.smtp.host", hostName);
-			properties.put("mail.smtp.auth", "true");
-			properties.put("mail.smtp.starttls.enable", "true");
-			properties.put("mail.smtp.socketFactory.port", "465");
-			properties.put("mail.smtp.port", parameter.getMailHostPort() == null ? "25" : parameter.getMailHostPort());
+			Properties properties = getSmtpProperties(parameter, hostName);
 			/* Trying connect do smtp server */
 			Authenticator auth = new Authenticator() {
 				public PasswordAuthentication getPasswordAuthentication() {
@@ -1255,8 +1254,8 @@ public class MailController {
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
 		Sender sender = new Sender();
-		sender.setCompany(parameter.getSiteTitle());
-		sender.setFrom(parameter.getSiteMail());
+		sender.setCompany(Utils.isNullOrEmpty(parameter.getMailSenderName()) ? parameter.getSiteTitle() : parameter.getMailSenderName());
+		sender.setFrom(Utils.isNullOrEmpty(parameter.getMailSenderFrom()) ? parameter.getSiteMail() : parameter.getMailSenderFrom());
 		sender.setKey("");
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();

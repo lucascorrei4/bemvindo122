@@ -10,11 +10,11 @@ import util.Utils;
 
 @Entity
 public class Parameter extends Model {
-	
+
 	public String siteName;
 	public String siteDomain;
 	public String siteMail;
-	
+
 	public String siteTitle;
 	public String siteDescription;
 	@Hidden
@@ -40,10 +40,10 @@ public class Parameter extends Model {
 	public String siteMainTitleColor;
 	public Blob homeBackgroundImage;
 	public String footerInfo;
-	
+
 	public String siteIconFontAwesome;
 	public String titleCaptureForm;
-	
+
 	public String messageHighlightProducts;
 
 	@Lob
@@ -54,30 +54,31 @@ public class Parameter extends Model {
 	public String descriptionPrivacyPolicyPage;
 	@Lob
 	public String descriptionTermsConditionsPage;
-	
+
 	@Hidden
 	@Lob
 	public String logoUrl;
 
 	@Lob
 	public String tweet;
-	
+
 	public String googleAnalyticsId;
-	
+
 	public String googleRemarketingId;
 
-	
 	public String googleTagManagerId;
 
 	public String googleShortnerUrlApiId;
-	
+
 	public String facebookPixelId;
-	
+
+	public String mailSenderName;
+	public String mailSenderFrom;
 	public String mailHostName;
 	public String mailHostUser;
 	public String mailHostPassword;
 	public String mailHostPort;
-	
+
 	public Float smsPricePlan = 0f;
 
 	public Float mininumSalary = 0f;
@@ -110,7 +111,7 @@ public class Parameter extends Model {
 	public void setLogoUrl(String logoUrl) {
 		this.logoUrl = logoUrl;
 	}
-	
+
 	public String getTweet() {
 		return tweet;
 	}
@@ -278,7 +279,7 @@ public class Parameter extends Model {
 	public void setMessageHighlightProducts(String messageHighlightProducts) {
 		this.messageHighlightProducts = messageHighlightProducts;
 	}
-	
+
 	public String getGoogleTagManagerId() {
 		return googleTagManagerId;
 	}
@@ -286,7 +287,7 @@ public class Parameter extends Model {
 	public void setGoogleTagManagerId(String googleTagManagerId) {
 		this.googleTagManagerId = googleTagManagerId;
 	}
-	
+
 	public static Parameter getCurrentParameter() {
 		return (Parameter) Parameter.findAll().iterator().next();
 	}
@@ -507,5 +508,20 @@ public class Parameter extends Model {
 		this.mailHostPort = mailHostPort;
 	}
 
+	public String getMailSenderFrom() {
+		return mailSenderFrom;
+	}
+
+	public void setMailSenderFrom(String mailSenderFrom) {
+		this.mailSenderFrom = mailSenderFrom;
+	}
+
+	public String getMailSenderName() {
+		return mailSenderName;
+	}
+
+	public void setMailSenderName(String mailSenderName) {
+		this.mailSenderName = mailSenderName;
+	}
 
 }

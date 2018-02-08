@@ -22,12 +22,17 @@ function newsletterFreePage() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'newsletterfreepage';
-	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
+	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
 	$('#newsletterFreePage').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
+					if ($("#redirectTo").val() !== '') {
+						alert(redirectTo)
+						$('#newsletterFreePage').unbind('load');
+						window.location.href = $("#redirectTo").val();
+					}
 					$("#message").fadeIn();
 					$("#message").css("color", "gray");
 					$("#message").html($("#response").val());

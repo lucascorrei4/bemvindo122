@@ -628,7 +628,8 @@ public class Application extends Controller {
 			String partOf = url.substring(url.indexOf("fp/"));
 			String pageParameter = partOf.split("/")[1];
 			FreePage freePage = FreePage.findByFriendlyUrl(pageParameter);
-			render("includes/formNewsLetterFreePage.html", status, resp, freePage);
+			String redirectTo = freePage.getRedirectTo();
+			render("includes/formNewsLetterFreePage.html", status, resp, freePage, redirectTo);
 			break;
 		}
 	}
@@ -666,8 +667,8 @@ public class Application extends Controller {
 			sendTo.setStatus(new StatusMail());
 			/* Sender object */
 			Sender sender = new Sender();
-			sender.setCompany("Seu Pedido Online");
-			sender.setFrom(parameter.getSiteMail());
+			sender.setCompany(Utils.isNullOrEmpty(parameter.getMailSenderName()) ? parameter.getSiteTitle() : parameter.getMailSenderName());
+			sender.setFrom(Utils.isNullOrEmpty(parameter.getMailSenderFrom()) ? parameter.getSiteMail() : parameter.getMailSenderFrom());
 			sender.setKey("resetpass");
 			/* SendTo object */
 			BodyMail bodyMail = new BodyMail();
@@ -759,7 +760,12 @@ public class Application extends Controller {
 		MailList mailList = MailList.verifyByEmail(params.get("object.mailList"));
 		LeadSearchQuestion question = (LeadSearchQuestion) LeadSearchQuestion.find("campaing = '" + campaing + "'").first();
 		validateSearchFields(pageNotAvailable, parameter, question, mailList, message, leadSearchAnswer);
-		leadSearchAnswer.id = 0l;
+		LeadSearchAnswer answer = getAnswerByQuestionLeadInstitutionId(question.id, mailList.id,question.institutionId);
+		if (answer == null) {
+			leadSearchAnswer.id = 0l;
+		} else {
+			leadSearchAnswer.id = answer.id;
+		}
 		leadSearchAnswer.setLeadSearchQuestion(question);
 		leadSearchAnswer.setInstitutionId(question.getInstitutionId());
 		leadSearchAnswer.setMailList(mailList);
@@ -768,7 +774,13 @@ public class Application extends Controller {
 		leadSearchAnswer.setTestimonial("");
 		leadSearchAnswer.willBeSaved = true;
 		leadSearchAnswer.merge();
-		render("@leadSearchThanks", question, leadSearchAnswer, parameter, mailList);
+		answer = getAnswerByQuestionLeadInstitutionId(question.id, mailList.id, question.institutionId);
+		boolean showThanksMessage = false;
+		render("@leadSearchThanks", question, answer, parameter, mailList, showThanksMessage);
+	}
+	
+	private static LeadSearchAnswer getAnswerByQuestionLeadInstitutionId(Long questionId, Long leadId, Long institutionId) {
+		return (LeadSearchAnswer) LeadSearchAnswer.find("question_id = " + questionId + " and lead_id = " + leadId + " and institutionId = " + institutionId).first();
 	}
 	
 	private static void validateSearchFields(boolean pageNotAvailable, Parameter parameter, LeadSearchQuestion question, MailList mailList, String message, LeadSearchAnswer leadSearchAnswer) {
@@ -806,12 +818,16 @@ public class Application extends Controller {
 	}
 
 	public static void saveTestimonial() {
+		Parameter parameter = getCurrentParameter();
+		boolean showThanksMessage = true;
 		String answer = params.get("ansid");
 		String testimonial = params.get("object.testimonial");
+		boolean authorize = params.get("object.isAuthorize", Boolean.class);
 		LeadSearchAnswer leadSearchAnswer = LeadSearchAnswer.findById(Long.valueOf(answer));
 		leadSearchAnswer.setTestimonial(testimonial);
+		leadSearchAnswer.setAuthorize(authorize);
 		leadSearchAnswer.save();
-		render();
+		render("@leadSearchThanks", showThanksMessage, parameter);
 	}
 	
 	public static void clientEvaluation(long id, String cod, String message) {

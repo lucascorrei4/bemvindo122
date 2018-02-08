@@ -265,8 +265,8 @@ public class Admin extends Controller {
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
 		Sender sender = new Sender();
-		sender.setCompany("Acompanhe Seu Pedido");
-		sender.setFrom(parameter.getSiteMail());
+		sender.setCompany(Utils.isNullOrEmpty(parameter.getMailSenderName()) ? parameter.getSiteTitle() : parameter.getMailSenderName());
+		sender.setFrom(Utils.isNullOrEmpty(parameter.getMailSenderFrom()) ? parameter.getSiteMail() : parameter.getMailSenderFrom());
 		sender.setKey("");
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
@@ -298,8 +298,8 @@ public class Admin extends Controller {
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
 		Sender sender = new Sender();
-		sender.setCompany("Acompanhe Seu Pedido");
-		sender.setFrom(parameter.getSiteMail());
+		sender.setCompany(Utils.isNullOrEmpty(parameter.getMailSenderName()) ? parameter.getSiteTitle() : parameter.getMailSenderName());
+		sender.setFrom(Utils.isNullOrEmpty(parameter.getMailSenderFrom()) ? parameter.getSiteMail() : parameter.getMailSenderFrom());
 		sender.setKey("");
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();

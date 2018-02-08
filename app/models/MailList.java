@@ -39,7 +39,7 @@ public class MailList extends Model {
 	public String postedAt;
 
 	public String toString() {
-		return url;
+		return "Nome: " + name + "; Origem: " + (Utils.isNullOrEmpty(url) ? "Não informada" : url);
 	}
 
 	public String getPostedAt() throws ParseException {

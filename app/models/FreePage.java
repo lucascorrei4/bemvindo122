@@ -37,6 +37,7 @@ public class FreePage extends Model {
 	
 	public boolean showCaptureForm;
 	public String buttonMainTitle;
+	public String redirectTo;
 
 	@Lob
 	@MaxSize(10000000)
@@ -203,6 +204,14 @@ public class FreePage extends Model {
 
 	public void setShowCaptureForm(boolean showCaptureForm) {
 		this.showCaptureForm = showCaptureForm;
+	}
+
+	public String getRedirectTo() {
+		return redirectTo;
+	}
+
+	public void setRedirectTo(String redirectTo) {
+		this.redirectTo = redirectTo;
 	}
 
 }

@@ -73,60 +73,84 @@
 </head>
 <body>
     <div id="wrapper">
-    	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="background-color: #fff;">
-         	<a href="@{Application.index}"> 
-				<img  src="@{Application.getLogo}" style="width: 13em; padding-top: 1em;">
-			</a>
-			<ul class="nav navbar-top-links navbar-right">
-			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-plane fa-fw"></i> <i class="fa fa-caret-down"></i>
-			</a>
-				<ul class="dropdown-menu dropdown-user">
-					<li ><a href="/"><b><i>Pós-vendas Matadores (Reveja)</i></b></a></li>
-					<li class="divider"></li>
-					<li ><a href="/"><i class="fa fa-pencil fa-fw"></i> A História da Caneta</a></li>
-					<li class="divider"></li>
-					<li ><a href="/artigos"><i class="fa fa-paw fa-fw"></i> A História da Cadelinha
-					</a></li>
-				</ul> <!-- /.dropdown-user --></li>
-			</ul>
-    	</nav>
+<!--     	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="background-color: #fff;"> -->
+<!--          	<a href="@{Application.index}">  -->
+<!-- 				<img  src="@{Application.getLogo}" style="width: 13em; padding-top: 1em;"> -->
+<!-- 			</a> -->
+<!-- 			<ul class="nav navbar-top-links navbar-right"> -->
+<!-- 			<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-plane fa-fw"></i> <i class="fa fa-caret-down"></i> -->
+<!-- 			</a> -->
+<!-- 				<ul class="dropdown-menu dropdown-user"> -->
+<!-- 					<li ><a href="/"><b><i>Pós-vendas Matadores (Reveja)</i></b></a></li> -->
+<!-- 					<li class="divider"></li> -->
+<!-- 					<li ><a href="/"><i class="fa fa-pencil fa-fw"></i> A História da Caneta</a></li> -->
+<!-- 					<li class="divider"></li> -->
+<!-- 					<li ><a href="/artigos"><i class="fa fa-paw fa-fw"></i> A História da Cadelinha -->
+<!-- 					</a></li> -->
+<!-- 				</ul> /.dropdown-user</li> -->
+<!-- 			</ul> -->
+<!--     	</nav> -->
 		<div class="container">
 			<div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
-	            <div class="row">
-	                <div class="col-lg-12">
-	                    <h3 class="page-header" style="text-align: center; text-transform: capitalize;">${mailList.name}, ${question.thanksTitle.raw()}</h3>
-	                    #{if question.thanksDescription}
-		                    <h4 style="text-align: center;">${question.thanksDescription.raw()}</h4>
-						#{/if}
-	                </div>
-	            </div>
-	            <div class="row">
-	                <div class="col-lg-12">
-	                    <div class="panel panel-default">
-	                        #{form @saveTestimonial(), enctype:'multipart/form-data'}
-	                        	<input type="hidden" name="object.question" value="${question}">
-	                        	<input type="hidden" name="ansid" value="${leadSearchAnswer.id}">
-			                    #{if question.thanksEmbedVideo}
-									<div class="embed-responsive embed-responsive-16by9" style="margin: 10px">
-									  <iframe class="embed-responsive-item" src="&{question.thanksEmbedVideo}?rel=0&amp;controls=0&amp;showinfo=0"></iframe>
+	            #{if showThanksMessage}
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <h3 class="page-header" style="text-align: center; text-transform: capitalize;">Muito obrigado por colaborar!</h3>
+		                    <h4 style="text-align: center;">Atenciosamente, ${parameter.mailSenderName}</h4>
+		                </div>
+		            </div>
+				#{/if}
+				#{else}
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <h3 class="page-header" style="text-align: center; text-transform: capitalize;">${mailList?.name}, ${question?.thanksTitle.raw()}</h3>
+		                    #{if question?.thanksDescription}
+			                    <h4 style="text-align: center;">${question?.thanksDescription.raw()}</h4>
+							#{/if}
+		                </div>
+		            </div>
+		            <div class="row">
+		                <div class="col-lg-12">
+		                    <div class="panel panel-default">
+		                        #{form @saveTestimonial(), enctype:'multipart/form-data'}
+		                        	<input type="hidden" name="object.question" value="${question}">
+		                        	<input type="hidden" name="ansid" value="${answer.id}">
+				                    #{if question?.thanksEmbedVideo}
+										<div class="embed-responsive embed-responsive-16by9" style="margin: 10px">
+										  <iframe class="embed-responsive-item" src="&{question?.thanksEmbedVideo}?rel=0&amp;controls=0&amp;showinfo=0"></iframe>
+										</div>
+									#{/if}
+			                        <div class="panel-heading">
+			                            <h4>Testemunho</h4>
+			                            <small>Por favor, insira também a cidade e estado em que você mora.</small>
+			                        </div>
+			                        <div class="panel-body">
+										<div class="form-group">
+											<textarea id="object_testimonial" id="object?.testimonial" name="object.testimonial"
+												class="form-control" rows="3"></textarea>
+										</div>
+										<div class="form-group">
+											<label> Você me autoriza utilizar o seu depoimento? </label> 
+											<div class="radio">
+		                                        <label>
+													<input type="radio" name="object.isAuthorize" id="optionsRadiosInline7" value="true" ${object?.isAuthorize?'checked=checked':''}><span title="Autorizo!">Sim</span>
+												</label> 
+											</div>
+											<div class="radio">
+		                                        <label>
+													<input type="radio" name="object.isAuthorize" id="optionsRadiosInline8" value="false" ${!object?.isAuthorize?'checked=checked':''}><span title="Não autorizo!">Não</span>
+												</label> 
+											</div>
+										</div>
+										<div class="form-group" style="float: left">
+											<button type="submit" class="btn btn-primary  btn-lg" name="_save">Salvar</button>
+										</div>
 									</div>
-								#{/if}
-		                        <div class="panel-heading">
-		                            <h4>Testemunho</h4>
-		                        </div>
-		                        <div class="panel-body">
-									<div class="form-group">
-										<textarea id="object_testimonial" id="object.testimonial"
-											class="form-control" rows="3"></textarea>
-									</div>
-									<div class="form-group" style="float: left">
-										<button type="submit" class="btn btn-primary  btn-lg" name="_save">Salvar</button>
-									</div>
-								</div>
-							#{/form}
+								#{/form}
+							</div>
 						</div>
-					</div>
-            	</div>	
+	            	</div>	
+				#{/else}
 	        </div>
 	    </div>
     </div>
