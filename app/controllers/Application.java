@@ -607,6 +607,10 @@ public class Application extends Controller {
 			mailList.merge();
 		}
 
+		String partOf = null;
+		String pageParameter = null;
+		FreePage freePage = null;
+		String redirectTo = null;
 		/* Render page based on origin */
 		switch (FromEnum.getNameByValue(origin)) {
 		case HomePageTop:
@@ -625,11 +629,18 @@ public class Application extends Controller {
 			render("includes/formCapturePageBottom.html", status, resp);
 			break;
 		case NewsletterFreePage:
-			String partOf = url.substring(url.indexOf("fp/"));
-			String pageParameter = partOf.split("/")[1];
-			FreePage freePage = FreePage.findByFriendlyUrl(pageParameter);
-			String redirectTo = freePage.getRedirectTo();
+			partOf = url.substring(url.indexOf("fp/"));
+			pageParameter = partOf.split("/")[1];
+			freePage = FreePage.findByFriendlyUrl(pageParameter);
+			redirectTo = freePage.getRedirectTo();
 			render("includes/formNewsLetterFreePage.html", status, resp, freePage, redirectTo);
+			break;
+		case NewsletterFreePageBootstrap:
+			partOf = url.substring(url.indexOf("fp/"));
+			pageParameter = partOf.split("/")[1];
+			freePage = FreePage.findByFriendlyUrl(pageParameter);
+			redirectTo = freePage.getRedirectTo();
+			render("includes/formNewsLetterFreePageBootstrap.html", status, resp, freePage, redirectTo);
 			break;
 		}
 	}

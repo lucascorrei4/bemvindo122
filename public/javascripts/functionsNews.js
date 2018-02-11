@@ -1,4 +1,4 @@
-function newsletterFreePage() {
+function newsletterFreePageBootstrap() {
 	var name = document.getElementsByName('mailList.name1')[0].value;
 	var mail = document.getElementsByName('mailList.mail1')[0].value;
 	if (name === '') {
@@ -21,7 +21,7 @@ function newsletterFreePage() {
 	var data = new Object();
 	data.name = name;
 	data.mail = mail;
-	data.origin = 'newsletterfreepage';
+	data.origin = 'newsletterfreepagebootstrap';
 	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
 	$('#newsletterFreePage').load('/application/savemaillist', data,
@@ -29,7 +29,6 @@ function newsletterFreePage() {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
 					if ($("#redirectTo").val() !== '') {
-						alert(redirectTo)
 						$('#newsletterFreePage').unbind('load');
 						window.location.href = $("#redirectTo").val();
 					}
@@ -48,6 +47,57 @@ function newsletterFreePage() {
 					}, 8000);
 				}
 			});
+}
+
+function newsletterFreePage() {
+	var name = document.getElementsByName('mailList.name1')[0].value;
+	var mail = document.getElementsByName('mailList.mail1')[0].value;
+	if (name === '') {
+		$('#message').css('color', 'red');
+		$('#message').show();
+		$('#message').html('Favor, insira seu nome.');
+		setTimeout('$("#message").hide()', 10000);
+		return;
+	}
+	if (mail === '') {
+		$('#message').css('color', 'red');
+		$('#message').show();
+		$('#message').html(
+		'Favor, insira seu e-mail no formato nome@provedor.com');
+		setTimeout(function() {
+			$('#message').hide()
+		}, 10000);
+		return;
+	}
+	var data = new Object();
+	data.name = name;
+	data.mail = mail;
+	data.origin = 'newsletterfreepage';
+	var url = [location.protocol, '//', location.host, location.pathname].join('');
+	data.url = url;
+	$('#newsletterFreePage').load('/application/savemaillist', data,
+			function(response, status, xhr) {
+		var status = $("#status").val();
+		if ('SUCCESS' === status) {
+			if ($("#redirectTo").val() !== '') {
+				$('#newsletterFreePage').unbind('load');
+				window.location.href = $("#redirectTo").val();
+			}
+			$("#message").fadeIn();
+			$("#message").css("color", "gray");
+			$("#message").html($("#response").val());
+			setTimeout(function() {
+				$('#message').hide()
+			}, 8000);
+		} else {
+			$("#message").fadeIn();
+			$("#message").css("color", "red");
+			$("#message").html($("#response").val());
+			setTimeout(function() {
+				$('#message').hide()
+			}, 8000);
+		}
+	});
 }
 
 function newsletterTips() {

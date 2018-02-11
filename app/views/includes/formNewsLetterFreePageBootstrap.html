@@ -1,0 +1,16 @@
+<meta charset="utf-8" />	
+	<input id="response" type="hidden" value="${resp}" /> 
+	<input id="status" type="hidden" value="${status}" />
+	<input id="redirectTo" type="hidden" value="${redirectTo}" />
+	<div class="form-group">
+	  	<label>Seu nome</label>
+	  	<input type="text" class="form-control input-lg" name="mailList.name1" placeholder="Seu melhor e-mail" value="${flash['mailList.name1']}">
+  	</div>
+	<div class="form-group">
+	  	<label>Seu e-m@il</label>
+  		<input type="text" class="form-control input-lg" name="mailList.mail1" placeholder="Seu melhor e-mail"  value="${flash['mailList.mail1']}">
+  	</div>
+  	<div class="form-group" style="float: left">
+		<a onclick="newsletterFreePageBootstrap()" class="btn btn-default btn-lg">&{freePage.getButtonMainTitle() == '' ? 'QUERO RECEBER' : freePage.getButtonMainTitle().raw()}</a>
+		<div id="message" style="display: none; text-align: center; font-weight: bold;"></div>
+  	</div>

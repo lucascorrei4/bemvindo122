@@ -174,6 +174,7 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+templateStyle=Estilo do Template
 isAuthorize=Autoriza usar o depoimento
 mailList=Lead
 mailSenderName=Remetente Nome (De:)

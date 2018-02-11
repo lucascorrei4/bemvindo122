@@ -13,6 +13,7 @@ import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import util.FacebookEventEnum;
+import util.FreePageTemplatesEnum;
 import util.Utils;
 
 @Entity
@@ -42,6 +43,8 @@ public class FreePage extends Model {
 	@Lob
 	@MaxSize(10000000)
 	public String subtitle1;
+	
+	public FreePageTemplatesEnum templateStyle = FreePageTemplatesEnum.FreeStyleTheme;
 	
 	@Enumerated(EnumType.STRING)
 	public FacebookEventEnum facebookEvent = FacebookEventEnum.ViewContent;
@@ -212,6 +215,14 @@ public class FreePage extends Model {
 
 	public void setRedirectTo(String redirectTo) {
 		this.redirectTo = redirectTo;
+	}
+
+	public FreePageTemplatesEnum getTemplateStyle() {
+		return templateStyle;
+	}
+
+	public void setTemplateStyle(FreePageTemplatesEnum templateStyle) {
+		this.templateStyle = templateStyle;
 	}
 
 }

@@ -72,7 +72,10 @@ public class ScheduledJobs extends Job {
 			bodyMail.setFooter1("");
 			bodyMail.setImage1(parameter.getSiteDomain() + "/logo");
 			String firstName = sequenceMailQueue.getName().indexOf(" ") > -1 ? sequenceMailQueue.getName().substring(0, sequenceMailQueue.getName().indexOf(" ")) : sequenceMailQueue.getName();
-			String bodyHTML = sequenceMailQueue.getSequenceMail().getDescription().replace("@lead@", firstName).concat(Utils.unsubscribeHTML(parameter.getSiteDomain(), sequenceMailQueue.getMail(), sequenceMailQueue.id)).concat(Utils.sentCredits(parameter.getSiteTitle(), parameter.getSiteDomain()));
+			/* replace @lead@ = Name of lead */
+			/* replace /uid/ = Adding encoded mail to complete search lead URL in opinion search page like: https://acompanheseupedido.com/pesquisa/cid/cpg_01/uid/{mail-encoded} */
+			String bodyHTML = sequenceMailQueue.getSequenceMail().getDescription().replace("@lead@", firstName).replace("/uid/", "/uid/" + Utils.encode(sequenceMailQueue.getMail())).concat(Utils.unsubscribeHTMLSendPulse(parameter.getSiteDomain(), sequenceMailQueue.getMail(), sequenceMailQueue.id))
+					.concat(Utils.sentCredits(parameter.getSiteTitle(), parameter.getSiteDomain()));
 			bodyMail.setBodyHTML(bodyHTML);
 			String subject = sequenceMailQueue.getSequenceMail().getTitle().replace("@lead@", firstName);
 			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, subject, sequenceMailQueue, parameter)) {
