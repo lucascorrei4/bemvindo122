@@ -29,6 +29,7 @@ import play.mvc.With;
 import util.PlansEnum;
 import util.StatusInvoiceEnum;
 import util.StatusPaymentEnum;
+import util.TypeContentPageEnum;
 import util.UserInstitutionParameter;
 import util.Utils;
 import util.VideoHelpEnum;
@@ -104,7 +105,18 @@ public class AdminPub extends Controller {
 	}
 
 	private static List<Object> getleadsByPage() {
-		return JPA.em().createNativeQuery("SELECT count(*), url FROM MailList where url is not null group by url order by COUNT(*) desc limit 10").getResultList();
+		List<Object> leadsByPage = JPA.em().createNativeQuery("SELECT count(*), url, typeContentPage FROM MailList where url is not null group by typeContentPage, url order by COUNT(*) desc limit 20").getResultList();
+		for(int i = 0 ; i < leadsByPage.size() ; i++){
+			Object[] obj = (Object[]) leadsByPage.get(i);
+			if (!Utils.isNullOrEmpty(obj[2])) {
+				if ("TextContent".equals(obj[2])) {
+					obj[2] = "Texto";
+				} else if ("VideoContent".equals(obj[2])) {
+					obj[2] = "Video";
+				}
+			}
+		}
+		return leadsByPage;
 	}
 
 	public static String top3LeadPages() {
@@ -261,6 +273,7 @@ public class AdminPub extends Controller {
 		institutionInvoice = invoice;
 		return institutionInvoice;
 	}
+	
 	public static void main(String[] args) {
 		Integer a = new Integer(3);
 		Integer b = new Integer(3);
@@ -268,5 +281,5 @@ public class AdminPub extends Controller {
 			System.out.println(a==b);
 		}
 	}
-
+	
 }

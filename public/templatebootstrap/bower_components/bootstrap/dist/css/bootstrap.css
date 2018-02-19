@@ -8410,3 +8410,10 @@ ul.dropdown-menu {
     position: relative;
     z-index: 10000;
 }
+
+.div-disabled {
+  	pointer-events: none;
+  	opacity: 0.5;
+  	background: #CCC;
+  	padding: 10px;
+}

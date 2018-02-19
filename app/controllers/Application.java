@@ -8,6 +8,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +20,6 @@ import com.google.gson.JsonParser;
 import controllers.CRUD.ObjectType;
 import models.Article;
 import models.BodyMail;
-import models.Client;
 import models.FreePage;
 import models.HighlightProduct;
 import models.Institution;
@@ -40,18 +40,51 @@ import models.StatusMail;
 import models.Step;
 import models.TheSystem;
 import models.User;
+import play.Play;
+import play.classloading.enhancers.LocalvariablesNamesEnhancer.LocalVariablesNamesTracer;
 import play.data.binding.Binder;
 import play.data.validation.Error;
 import play.data.validation.Valid;
+import play.data.validation.Validation;
+import play.exceptions.PlayException;
+import play.exceptions.TemplateNotFoundException;
+import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.Finally;
+import play.mvc.Http;
+import play.mvc.Scope;
+import play.mvc.Http.Header;
+import play.mvc.Http.Response;
+import play.mvc.results.RenderTemplate;
+import play.templates.Template;
+import play.templates.TemplateLoader;
 import play.vfs.VirtualFile;
 import util.FromEnum;
 import util.MailTemplates;
 import util.ServiceOrderOfServiceSteps;
+import util.TypeContentPageEnum;
 import util.UserInstitutionParameter;
 import util.Utils;
 
 public class Application extends Controller {
+
+	public static void cors() {
+		Http.Header hd = new Http.Header();
+		hd.name = "Access-Control-Allow-Origin";
+		hd.values = new ArrayList<String>();
+		hd.values.add("http://localhost:9001");
+		Http.Response.current().headers.put("Access-Control-Allow-Origin", hd);
+		hd = new Http.Header();
+		hd.name = "Access-Control-Allow-Methods";
+		hd.values = new ArrayList<String>();
+		hd.values.add("POST, GET, PUT, UPDATE, OPTIONS");
+		Http.Response.current().headers.put("Access-Control-Allow-Methods", hd);
+		hd = new Http.Header();
+		hd.name = "Access-Control-Allow-Headers";
+		hd.values = new ArrayList<String>();
+		hd.values.add("Content-Type, Accept, X-Requested-With");
+		Http.Response.current().headers.put("Access-Control-Allow-Headers", hd);
+	}
 
 	public static void index() {
 		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(4);
@@ -582,6 +615,7 @@ public class Application extends Controller {
 		String mail = Utils.getValueFromUrlParam(params[1]);
 		String origin = Utils.getValueFromUrlParam(params[2]);
 		String url = Utils.getValueFromUrlParam(params[3]);
+		String typeContentPage = Utils.getValueFromUrlParam(params[4]);
 		MailList mailList = new MailList();
 		mailList.id = 0l;
 		if (Utils.isNullOrEmpty(name)) {
@@ -593,6 +627,13 @@ public class Application extends Controller {
 		mailList.setMail(mail);
 		mailList.origin = FromEnum.getNameByValue(origin);
 		mailList.setUrl(url);
+		if ("true".equals(typeContentPage)) {
+			mailList.setTypeContentPage(TypeContentPageEnum.TextContent);
+		} else if ("false".equals(typeContentPage)) {
+			mailList.setTypeContentPage(TypeContentPageEnum.VideoContent);
+		} else if ("nd".equals(typeContentPage) || Utils.isNullOrEmpty(typeContentPage)) {
+			mailList.setTypeContentPage(TypeContentPageEnum.NotDefined);
+		}
 		/* Making validations */
 		validation.clear();
 		validation.valid(mailList);
@@ -606,18 +647,25 @@ public class Application extends Controller {
 			mailList.setPostedAt(Utils.getCurrentDateTime());
 			mailList.merge();
 		}
-
-		String partOf = null;
-		String pageParameter = null;
-		FreePage freePage = null;
 		String redirectTo = null;
+		FreePage freePage = null;
+		Parameter parameter = getCurrentParameter();
+		url = (url.charAt(url.length() - 1) == '/' ? (url.substring(0, url.length() - 1)) : url);
+		if (url.equals(parameter.getSiteDomain())) {
+			redirectTo = parameter.getEmbedThankLead();
+		} else if (url.contains("fp/")) {
+			String partOf = url.substring(url.indexOf("fp/"));
+			String pageParameter = partOf.split("/")[1];
+			freePage = FreePage.findByFriendlyUrl(pageParameter);
+			redirectTo = freePage.getRedirectTo();
+		}
 		/* Render page based on origin */
 		switch (FromEnum.getNameByValue(origin)) {
 		case HomePageTop:
-			render("includes/formNewsletterTop.html", status, resp);
+			render("includes/formNewsletterTop.html", status, resp, freePage, redirectTo);
 			break;
 		case HomePageBottom:
-			render("includes/formNewsletterBottom.html", status, resp);
+			render("includes/formNewsletterBottom.html", status, resp, freePage, redirectTo);
 			break;
 		case NewsPage:
 			render("includes/formNewsletterTips.html", status, resp);
@@ -629,17 +677,9 @@ public class Application extends Controller {
 			render("includes/formCapturePageBottom.html", status, resp);
 			break;
 		case NewsletterFreePage:
-			partOf = url.substring(url.indexOf("fp/"));
-			pageParameter = partOf.split("/")[1];
-			freePage = FreePage.findByFriendlyUrl(pageParameter);
-			redirectTo = freePage.getRedirectTo();
 			render("includes/formNewsLetterFreePage.html", status, resp, freePage, redirectTo);
 			break;
 		case NewsletterFreePageBootstrap:
-			partOf = url.substring(url.indexOf("fp/"));
-			pageParameter = partOf.split("/")[1];
-			freePage = FreePage.findByFriendlyUrl(pageParameter);
-			redirectTo = freePage.getRedirectTo();
 			render("includes/formNewsLetterFreePageBootstrap.html", status, resp, freePage, redirectTo);
 			break;
 		}
@@ -755,7 +795,7 @@ public class Application extends Controller {
 			render(pageNotAvailable, parameter, question, mailList);
 		}
 	}
-	
+
 	public static void sendAnswer() throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Parameter parameter = getCurrentParameter();
 		ObjectType type = ObjectType.get(LeadSearchAnswerCRUD.class);
@@ -771,7 +811,7 @@ public class Application extends Controller {
 		MailList mailList = MailList.verifyByEmail(params.get("object.mailList"));
 		LeadSearchQuestion question = (LeadSearchQuestion) LeadSearchQuestion.find("campaing = '" + campaing + "'").first();
 		validateSearchFields(pageNotAvailable, parameter, question, mailList, message, leadSearchAnswer);
-		LeadSearchAnswer answer = getAnswerByQuestionLeadInstitutionId(question.id, mailList.id,question.institutionId);
+		LeadSearchAnswer answer = getAnswerByQuestionLeadInstitutionId(question.id, mailList.id, question.institutionId);
 		if (answer == null) {
 			leadSearchAnswer.id = 0l;
 		} else {
@@ -789,35 +829,35 @@ public class Application extends Controller {
 		boolean showThanksMessage = false;
 		render("@leadSearchThanks", question, answer, parameter, mailList, showThanksMessage);
 	}
-	
+
 	private static LeadSearchAnswer getAnswerByQuestionLeadInstitutionId(Long questionId, Long leadId, Long institutionId) {
 		return (LeadSearchAnswer) LeadSearchAnswer.find("question_id = " + questionId + " and lead_id = " + leadId + " and institutionId = " + institutionId).first();
 	}
-	
+
 	private static void validateSearchFields(boolean pageNotAvailable, Parameter parameter, LeadSearchQuestion question, MailList mailList, String message, LeadSearchAnswer leadSearchAnswer) {
 		boolean error = false;
 		if (Utils.isNullOrEmpty(leadSearchAnswer.getBusiness())) {
 			error = true;
 			message = "Por favor, informe o negócio que você trabalha.";
- 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getProfession())) {
- 			error = true;
- 			message = "Por favor, informe sua profissão.";
- 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer1())) {
- 			error = true;
- 			message = "Por favor, responda a questão #2.";
- 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer2())) {
- 			error = true;
- 			message = "Por favor, responda a questão #3.";
- 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer3())) {
- 			error = true;
- 			message = "Por favor, responda a questão #4.";
- 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer4())) {
- 			error = true;
- 			message = "Por favor, responda a questão #5.";
- 		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer5())) {
- 			error = true;
- 			message = "Por favor, responda a questão #6.";
- 		}
+		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getProfession())) {
+			error = true;
+			message = "Por favor, informe sua profissão.";
+		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer1())) {
+			error = true;
+			message = "Por favor, responda a questão #2.";
+		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer2())) {
+			error = true;
+			message = "Por favor, responda a questão #3.";
+		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer3())) {
+			error = true;
+			message = "Por favor, responda a questão #4.";
+		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer4())) {
+			error = true;
+			message = "Por favor, responda a questão #5.";
+		} else if (Utils.isNullOrEmpty(leadSearchAnswer.getAnswer5())) {
+			error = true;
+			message = "Por favor, responda a questão #6.";
+		}
 		if (error) {
 			render("@leadSearch", pageNotAvailable, parameter, question, mailList, message, leadSearchAnswer);
 			return;
@@ -840,7 +880,7 @@ public class Application extends Controller {
 		leadSearchAnswer.save();
 		render("@leadSearchThanks", showThanksMessage, parameter);
 	}
-	
+
 	public static void clientEvaluation(long id, String cod, String message) {
 		Parameter parameter = getCurrentParameter();
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + cod + "' and institutionId = " + id).first();
@@ -851,11 +891,11 @@ public class Application extends Controller {
 		String clientName = orderOfService.getClient().getName();
 		render(orderOfService, parameter, clientName, institution);
 	}
-	
+
 	public static void saveEvaluation() {
 		Parameter parameter = getCurrentParameter();
 		String orderCode = params.get("orderCode");
-		Long institutionId =  params.get("instid", Long.class);
+		Long institutionId = params.get("instid", Long.class);
 		int grade = params.get("optionsRadios", Integer.class);
 		String evaluation = params.get("evaluation");
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institutionId).first();
@@ -871,4 +911,5 @@ public class Application extends Controller {
 		orderOfService.save();
 		render("@clientEvaluationThanks", parameter);
 	}
+	
 }

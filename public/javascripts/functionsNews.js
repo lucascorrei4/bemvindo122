@@ -1,6 +1,7 @@
 function newsletterFreePageBootstrap() {
 	var name = document.getElementsByName('mailList.name1')[0].value;
 	var mail = document.getElementsByName('mailList.mail1')[0].value;
+	var typeContentPage = document.getElementsByName('abTestVideoOfText')[0].value;
 	if (name === '') {
 		$('#message').css('color', 'red');
 		$('#message').show();
@@ -24,6 +25,7 @@ function newsletterFreePageBootstrap() {
 	data.origin = 'newsletterfreepagebootstrap';
 	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
+	data.typeContentPage = typeContentPage;
 	$('#newsletterFreePage').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
@@ -52,6 +54,7 @@ function newsletterFreePageBootstrap() {
 function newsletterFreePage() {
 	var name = document.getElementsByName('mailList.name1')[0].value;
 	var mail = document.getElementsByName('mailList.mail1')[0].value;
+	var typeContentPage = document.getElementsByName('abTestVideoOfText')[0].value;
 	if (name === '') {
 		$('#message').css('color', 'red');
 		$('#message').show();
@@ -75,6 +78,7 @@ function newsletterFreePage() {
 	data.origin = 'newsletterfreepage';
 	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
+	data.typeContentPage = typeContentPage;
 	$('#newsletterFreePage').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 		var status = $("#status").val();
@@ -126,6 +130,7 @@ function newsletterTips() {
 	data.origin = 'newspage';
 	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
 	data.url = url;
+	data.typeContentPage = "nd";
 	$('#newsletterTips').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
@@ -174,12 +179,18 @@ function newsletterTheSystemTop() {
 	data.origin = 'capturepagetop';
 	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
 	data.url = url;
+	data.typeContentPage = "nd";
 	$('#newsletterTheSystemTop').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
-					$('#newsletterTheSystemTop').unbind('load');
-					window.location.href = action;
+					if ($("#redirectTo").val() !== '') {
+						$('#newsletterTheSystemTop').unbind('load');
+						window.location.href = $("#redirectTo").val();
+					}
+					$("#message").fadeIn();
+					$("#message").css("color", "gray");
+					$("#message").html($("#response").val());
 				} else {
 					$("#message").fadeIn();
 					$("#message").css("color", "red");
@@ -217,12 +228,18 @@ function newsletterTheSystemBottom() {
 	data.origin = 'capturepagebottom';
 	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
 	data.url = url;
+	data.typeContentPage = "nd";
 	$('#newsletterTheSystemBottom').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
-					$('#newsletterTheSystemBottom').unbind('load');
-					window.location.href = "/gratidao";
+					if ($("#redirectTo").val() !== '') {
+						$('#newsletterTheSystemBottom').unbind('load');
+						window.location.href = $("#redirectTo").val();
+					}
+					$("#message2").fadeIn();
+					$("#message2").css("color", "gray");
+					$("#message2").html($("#response2").val());
 				} else {
 					$("#message2").fadeIn();
 					$("#message2").css("color", "red");
@@ -232,4 +249,16 @@ function newsletterTheSystemBottom() {
 					}, 8000);
 				}
 			});
+}
+
+
+function getGeoIp() {
+	$.getJSON("application/cors", function(ok) {
+        console.log(ok);
+    });
+	var geoIp;
+	$.getJSON('//ipapi.co/json/', function(data) {
+		geoIp = JSON.stringify(data, null, 2);
+	});
+	return geoIp;
 }

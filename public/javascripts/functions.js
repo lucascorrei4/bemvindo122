@@ -504,12 +504,18 @@ function newsletterTop() {
 	data.mail = mail;
 	data.origin = 'homepagetop';
 	data.url = window.location.href;
+	data.typeContentPage = "nd";
 	$('#mailListTop').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
-					$('#mailListTop').unbind('load');
-					window.location.href = "/gratidao";
+					if ($("#redirectTo").val() !== '') {
+						$('#mailListTop').unbind('load');
+						window.location.href = $("#redirectTo").val();
+					}
+					$("#message").fadeIn();
+					$("#message").css("color", "gray");
+					$("#message").html($("#response").val());
 				} else {
 					$("#message").fadeIn();
 					$("#message").css("color", "red");
@@ -546,12 +552,18 @@ function newsletterBottom() {
 	data.mail = mail;
 	data.origin = 'homepagebottom';
 	data.url = window.location.href;
+	data.typeContentPage = "nd";
 	$('#mailListBottom').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status2").val();
 				if ('SUCCESS' === status) {
-					$('#mailListBottom').unbind('load');
-					window.location.href = "/gratidao";
+					if ($("#redirectTo2").val() !== '') {
+						$('#mailListBottom').unbind('load');
+						window.location.href = $("#redirectTo2").val();
+					}
+					$("#message2").fadeIn();
+					$("#message2").css("color", "gray");
+					$("#message2").html($("#response2").val());
 				} else {
 					$("#message2").fadeIn();
 					$("#message2").css("color", "red");
@@ -601,3 +613,15 @@ function openPopup(url,w,h) {
 	newwindow.focus();
 	return false;
 }
+
+function getGeoIp() {
+	var geoIp;
+	$.getJSON("application/cors", function(ok) {
+        console.log(ok);
+    });
+	$.getJSON('//ipapi.co/json/', function(data) {
+		geoIp = JSON.stringify(data, null, 2);
+	});
+	return geoIp;
+}
+

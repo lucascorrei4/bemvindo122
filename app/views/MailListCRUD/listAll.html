@@ -15,7 +15,7 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'name', 'mail', 'origin', 'url', 'isActive', 'action']}
+			        #{crud.table fields:['postedAt', 'name', 'mail', 'origin', 'url', 'typeContentPage', 'isActive', 'action']}
 				        #{crud.custom 'postedAt'}
 			         		<a href="@{MailListCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
@@ -24,6 +24,12 @@
 				        #{/crud.custom}
 				        #{crud.custom 'mail'}
 			         		<a href="@{MailListCRUD.show(object.id)}">${object.mail}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'isActive'}
+			         		<a href="@{MailListCRUD.show(object.id)}">${object.isActive?'Sim':'Não'}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'typeContentPage'}
+			         		<a href="@{MailListCRUD.show(object.id)}">${object.typeContentPage?.label}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
                             <a href="@{MailListCRUD.remove(object.id)}" title="Atenção: Esta ação remove o ítem.">Remover</a>

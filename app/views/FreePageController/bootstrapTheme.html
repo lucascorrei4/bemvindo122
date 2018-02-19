@@ -1,49 +1,59 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8">
-   	<!-- Google Tag Manager -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	#{if freePage.noFollow}
+		<meta name="robots" content="nofollow">
+	#{/if}
+     	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=&{parameter.getGoogleAnalyticsId()}"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', '&{parameter.getGoogleAnalyticsId()}');
+	</script>
+	<!-- Google Tag Manager -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+	})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
 	<!-- End Google Tag Manager -->
-	<title>Obrigado por contribuir - &{parameter.getSiteTitle()}</title>
-	<meta name="robots" content="noindex,nofollow">
-	<meta http-equiv="content-type" content="text/html; charset=utf-8; IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Pesquisa">
-	<meta name="author" content="&{parameter.getSiteTitle()}">
-	<meta name="description" content="&{parameter.getSiteDescription()}">
-	<meta property="twitter:title" content="&{parameter.getSiteTitle()}">
-	<meta property="twitter:description" content="&{parameter.getSiteDescription()}">
-	<meta property="og:title" content="&{parameter.getSiteTitle()}">
-	<meta property="og:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
-	<meta property="og:image" content="&{parameter.getSiteDomain()}/logo">
-	
-	<link rel="apple-touch-icon" sizes="57x57" href="&{parameter.getSiteDomain()}/logo">
-	<link rel="apple-touch-icon" sizes="60x60" href="&{parameter.getSiteDomain()}/logo">
-	<link rel="apple-touch-icon" sizes="72x72" href="&{parameter.getSiteDomain()}/logo">
-	<link rel="apple-touch-icon" sizes="76x76" href="&{parameter.getSiteDomain()}/logo">
-	<link rel="apple-touch-icon" sizes="114x114" href="&{parameter.getSiteDomain()}/logo">
-	<link rel="apple-touch-icon" sizes="120x120" href="&{parameter.getSiteDomain()}/logo">
-	<link rel="apple-touch-icon" sizes="144x144" href="&{parameter.getSiteDomain()}/logo">
-	<link rel="apple-touch-icon" sizes="152x152" href="&{parameter.getSiteDomain()}/logo">
-	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="16x16">
-	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="32x32">
-	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="96x96">
-	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="160x160">
-	<link rel="icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" sizes="196x196">
+	<title>&{freePage.getTitleSEO()}</title>
+	<meta name="description" content="&{freePage.getDescriptionSEO()} | &{freePage.getTitleSEO()}">
+	<meta property="twitter:title" content="&{freePage.getTitleSEO()}">
+	<meta property="twitter:description" content="&{freePage.getDescriptionSEO()} | &{freePage.getTitleSEO()}">
+	<meta property="og:title" content="&{freePage.getTitleSEO()}">
+	<meta property="og:description" content="&{freePage.getDescriptionSEO()} | &{freePage.getTitleSEO()}">
+	<meta property="og:image" content="&{parameter.getSiteDomain()}}&{parameter.getSiteLogo()}">
+       <link rel="canonical" href="&{freePage.getCanonicalURL()}">
+       <meta name="author" content="&{parameter.getSiteName()}">
+	<link rel="apple-touch-icon" sizes="57x57" href="&{parameter.getSiteLogo()}">
+	<link rel="apple-touch-icon" sizes="60x60" href="&{parameter.getSiteLogo()}">
+	<link rel="apple-touch-icon" sizes="72x72" href="&{parameter.getSiteLogo()}">
+	<link rel="apple-touch-icon" sizes="76x76" href="&{parameter.getSiteLogo()}">
+	<link rel="apple-touch-icon" sizes="114x114" href="&{parameter.getSiteLogo()}">
+	<link rel="apple-touch-icon" sizes="120x120" href="&{parameter.getSiteLogo()}">
+	<link rel="apple-touch-icon" sizes="144x144" href="&{parameter.getSiteLogo()}">
+	<link rel="apple-touch-icon" sizes="152x152" href="&{parameter.getSiteLogo()}">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteLogo()}" sizes="16x16">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteLogo()}" sizes="32x32">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteLogo()}" sizes="96x96">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteLogo()}" sizes="160x160">
+	<link rel="icon" type="image/png" href="&{parameter.getSiteLogo()}" sizes="196x196">
 	<meta name="msapplication-TileColor" content="#000000">
-	<meta name="msapplication-TileImage" content="&{parameter.getSiteDomain()}/logo">
-	<meta property="twitter:card" content="&{parameter.getSiteTitle()}" />
-	<meta property="twitter:site" content="&{parameter.getSiteDomain()}" />
+	<meta name="msapplication-TileImage" content="&{parameter.getSiteLogo()}">
+	<meta property="twitter:card" content="&{freePage.getTitleSEO()}" />
+	<meta property="twitter:site" content="&{parameter.getSiteDomain()}}" />
 		
 	<meta property="og:type" content="article" />
 	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:site_name" content="&{parameter.getSiteName()}" />
-	<meta property="og:url" content="&{parameter.getSiteDomain()}" />
+	<meta property="og:url" content="&{parameter.getSiteDomain()}}" />
+	<link rel="shortcut icon" type="image/png" href="&{parameter.getSiteLogo()}" />
 	
 	<link rel="shortcut icon" type="image/png" href="&{parameter.getSiteDomain()}/icon" />
     
@@ -70,6 +80,19 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js'}"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js'}/1.4.2/respond.min.js'}"></script>
     <![endif]-->
+    <!-- Facebook Pixel Code -->
+		<script>
+		!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+		n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+		t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+		document,'script','https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '457036137826789'); // Insert your pixel ID here.
+		fbq('track', 'PageView');
+		</script>
+		<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=457036137826789&ev=PageView&noscript=1" /></noscript>
+		<!-- DO NOT MODIFY -->
+	<!-- End Facebook Pixel Code -->
 </head>
 <body>
 		<!-- Google Tag Manager (noscript) -->
@@ -100,40 +123,57 @@
 			<div id="container" style="padding: 2% 10% 2% 10%">
 	            <div class="row">
                     <div class="panel panel-default" style="background: rgba(255, 255, 255, 0.2);">
+                    	<input id="abTestVideoOfText" name="abTestVideoOfText" type="hidden" value="${freePage.alternateVideoText}" />
+                    	<input id="redirectTo" type="hidden" value="${redirectTo}" />
                         <div class="panel-heading" style="background: rgba(255, 255, 255, 0.2);">
 		                    <h2 class="page-header" style="text-align: center; text-transform: capitalize;">&{freePage.getMainTitle().raw()}</h2>
-		                    #{if freePage.getDescription()}
-			                    &{freePage.getDescription().raw()}
+		                    #{if freePage.abTestVideoOfText}
+			                    #{if freePage.alternateVideoText}
+					            	&{freePage.getOptionalDescription().raw()}
+								#{/if}
+								#{else}
+				                    &{freePage.getDescription().raw()}
+								#{/else}
 							#{/if}
+							#{else}
+			                    #{if freePage.getDescription()}
+				                    &{freePage.getDescription().raw()}
+								#{/if}
+							#{/else}
                         </div>
                         <div class="panel-body" style="padding: 20px">
+                        
 							<div class="row">
+								#{if freePage.showCaptureForm}
 	                                <div class="row">
 	                                	<div id="newsletterFreePage" class="col-md-6 col-md-offset-3">
 		                                	#{include 'includes/formNewsLetterFreePageBootstrap.html' /}
 	                                	</div>
-                            		</div>
-	                                <div class="row">
-	                                	<div class="col-md-6 col-md-offset-3">
-		                                	&{freePage.getSubtitle1().raw()}
-	                                	</div>
-                            		</div>
+	                           		</div>
+								#{/if}
+                                <div class="row">
+                                	<div class="col-md-6 col-md-offset-3">
+	                                	&{freePage.getSubtitle1().raw()}
+                                	</div>
+                           		</div>
                             </div>
-							<div class="row" style="text-align: center;">
-							    <div class="col-lg-12">
-							    	<!-- Fb Comments -->
-									<div id="fb-root"></div>
-									<script>(function(d, s, id) {
-									  var js, fjs = d.getElementsByTagName(s)[0];
-									  if (d.getElementById(id)) return;
-									  js = d.createElement(s); js.id = id;
-									  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
-									  fjs.parentNode.insertBefore(js, fjs);
-									}(document, 'script', 'facebook-jssdk'));
-									</script>
-									<div class="fb-comments" data-href="" data-numposts="5" data-width="100%"></div>
+                            #{if freePage.showFacebookComments}
+								<div class="row" style="text-align: center;">
+								    <div class="col-lg-12">
+								    	<!-- Fb Comments -->
+										<div id="fb-root"></div>
+										<script>(function(d, s, id) {
+										  var js, fjs = d.getElementsByTagName(s)[0];
+										  if (d.getElementById(id)) return;
+										  js = d.createElement(s); js.id = id;
+										  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.8";
+										  fjs.parentNode.insertBefore(js, fjs);
+										}(document, 'script', 'facebook-jssdk'));
+										</script>
+										<div class="fb-comments" data-href="" data-numposts="5" data-width="100%"></div>
+									</div>
 								</div>
-							</div>
+							#{/if}
 						</div>
 					</div>
         		</div>

@@ -1,5 +1,6 @@
 package util;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,26 +22,26 @@ import play.jobs.On;
 // Fire every 3 minutes 0 */3 * ? * * 
 // @On("0 0 7-22 ? * * *")
 //@On("0 */5 6-22 ? * * *")
-@On("0 */3 * ? * *")
+@On("0 */5 * ? * *")
 public class ScheduledJobs extends Job {
 
-	public void doJob() {
+	public void doJob() throws ParseException {
 		System.out.println("Running cron at " + Utils.dateNow());
 		verifyIfLeadIsNotInSalesFunnel();
 		sendMailToLead();
 		System.out.println("Finished cron at " + Utils.dateNow());
 	}
 
-	private void verifyIfLeadIsNotInSalesFunnel() {
-		Parameter parameter = (Parameter) Parameter.all().first();
+	private void verifyIfLeadIsNotInSalesFunnel() throws ParseException {
+		Parameter parameter = Parameter.all().first();
 		List<MailList> mailList = new MailList().find("isActive = true order by postedAt desc").fetch();
 		for (MailList mL : mailList) {
-			SequenceMailController.addLeadToSalesFunnel(mL, parameter.getSiteDomain());
+			SequenceMailController.addLeadToSalesFunnel(mL, parameter);
 		}
 	}
 
 	public void sendMailToLead() {
-		List<SequenceMailQueue> sequenceMailQueueList = SequenceMailQueue.find("date(jobDate) = CURRENT_DATE and sent = false").fetch();
+		List<SequenceMailQueue> sequenceMailQueueList = SequenceMailQueue.find("jobDate = CURRENT_TIMESTAMP and sent = false").fetch();
 		for (SequenceMailQueue sequenceMailQueue : sequenceMailQueueList) {
 			if (sendEmailToLead(sequenceMailQueue)) {
 				sequenceMailQueue.setSent(true);

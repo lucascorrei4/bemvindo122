@@ -45,17 +45,53 @@
 								    <p class="help-block">Obrigatório</p>
    								</div>	
 							#{/crud.custom}
+							#{crud.custom 'sendSpecificDay'}
+								<div class="form-group">
+									<label> &{'sendSpecificDay'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.sendSpecificDay" id="optionsRadiosInline1" value="true" ${object.sendSpecificDay?'checked=checked':''}><span title="&{'sendSpecificDay'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.sendSpecificDay" id="optionsRadiosInline2" value="false" ${!object.sendSpecificDay?'checked=checked':''}><span title="&{'sendSpecificDay'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'sendSpecificDayAndTime'}
+								<div id="" class="form-group">
+									<label> &{'sendSpecificDayAndTime'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.sendSpecificDayAndTime" id="optionsRadiosInline3" value="true" ${object.sendSpecificDayAndTime?'checked=checked':''}><span title="&{'sendSpecificDayAndTime'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.sendSpecificDayAndTime" id="optionsRadiosInline4" value="false" ${!object.sendSpecificDayAndTime?'checked=checked':''}><span title="&{'sendSpecificDayAndTime'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'specificDateTime'}
+								<div id="specificDateTime" class="form-group">
+								    <label for="object_specificDateTime"> &{'specificDateTime'}</label>
+									<input id="object_specificDateTime" type="text" class="form-control date_time" name="object.specificDateTime" />
+   								</div>	
+							#{/crud.custom}
 							#{crud.custom 'isActive'}
 								<div class="form-group">
 									<label> Habilitar </label> 
 									<div class="radio">
                                         <label>
-											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline5" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
 										</label> 
 									</div>
 									<div class="radio">
                                         <label>
-											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline46" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
 										</label> 
 									</div>
 								</div>
@@ -66,6 +102,7 @@
 							<button type="submit" class="btn btn-primary  btn-lg" name="_save">&{'crud.save', type.modelName}</button>
 						</div>
 					#{/form}
+					
 				</div>
 			</div>
 		</div>

@@ -10,6 +10,7 @@ import controllers.CRUD.Hidden;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.FromEnum;
+import util.TypeContentPageEnum;
 import util.Utils;
 
 @Entity
@@ -24,6 +25,9 @@ public class MailList extends Model {
 
 	@Required(message = "Campo obrigatório.")
 	public String url;
+
+	@Enumerated(EnumType.STRING)
+	public TypeContentPageEnum typeContentPage = TypeContentPageEnum.VideoContent;
 	
 	public boolean isActive = true;
 
@@ -84,6 +88,22 @@ public class MailList extends Model {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public FromEnum getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(FromEnum origin) {
+		this.origin = origin;
+	}
+
+	public TypeContentPageEnum getTypeContentPage() {
+		return typeContentPage;
+	}
+
+	public void setTypeContentPage(TypeContentPageEnum typeContentPage) {
+		this.typeContentPage = typeContentPage;
 	}
 
 }

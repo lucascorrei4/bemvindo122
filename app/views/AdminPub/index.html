@@ -147,6 +147,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Página</th>
+                                            <th>Tipo de Conteúdo</th>
                                             <th>Qtd. Leads</th>
                                         </tr>
                                     </thead>
@@ -155,6 +156,7 @@
 	                                        <tr>
 	                                            <td>${leadPage_index}</td>
 	                                            <td><a href="${leadPage[1]}" target="_blank">${leadPage[1]}</a></td>
+	                                            <td><a href="${leadPage[1]}" target="_blank">${leadPage[2] == null ? 'Não especificado' : leadPage[2]}</a></td>
 	                                            <td>${leadPage[0]}</td>
 	                                        </tr>
 	                                    #{/list}

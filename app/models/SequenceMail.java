@@ -1,6 +1,7 @@
 package models;
 
 import java.text.ParseException;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -10,6 +11,8 @@ import controllers.CRUD.Hidden;
 import play.data.validation.MaxSize;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
+import util.DaysOfWeekEnum;
+import util.HoursOfDayEnum;
 import util.Utils;
 
 @Entity
@@ -25,7 +28,13 @@ public class SequenceMail extends Model {
 	public Blob attachment = null;
 
 	public Integer sequence;
-
+	
+	public boolean sendSpecificDay = false;
+	public DaysOfWeekEnum dayOfWeek = DaysOfWeekEnum.Sunday; 
+	public HoursOfDayEnum hourOfDay = HoursOfDayEnum.hh05mm00;
+	public boolean sendSpecificDayAndTime = false;
+	public String specificDateTime;
+	
 	public Blob getAttachment() {
 		if (this.attachment == null) {
 			setAttachment(new Blob());
@@ -38,6 +47,9 @@ public class SequenceMail extends Model {
 	}
 
 	public Integer getSequence() {
+		if (this.sequence == null) {
+			setSequence(0);
+		}
 		return sequence;
 	}
 
@@ -132,6 +144,46 @@ public class SequenceMail extends Model {
 
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
+	}
+
+	public boolean isSendSpecificDay() {
+		return sendSpecificDay;
+	}
+
+	public void setSendSpecificDay(boolean sendSpecificDay) {
+		this.sendSpecificDay = sendSpecificDay;
+	}
+
+	public DaysOfWeekEnum getDayOfWeek() {
+		return dayOfWeek;
+	}
+
+	public void setDayOfWeek(DaysOfWeekEnum dayOfWeek) {
+		this.dayOfWeek = dayOfWeek;
+	}
+
+	public HoursOfDayEnum getHourOfDay() {
+		return hourOfDay;
+	}
+
+	public void setHourOfDay(HoursOfDayEnum hourOfDay) {
+		this.hourOfDay = hourOfDay;
+	}
+
+	public String getSpecificDateTime() throws ParseException {
+		return specificDateTime;
+	}
+
+	public void setSpecificDateTime(String specificDateTime) {
+		this.specificDateTime = specificDateTime;
+	}
+
+	public boolean isSendSpecificDayAndTime() {
+		return sendSpecificDayAndTime;
+	}
+
+	public void setSendSpecificDayAndTime(boolean sendSpecificDayAndTime) {
+		this.sendSpecificDayAndTime = sendSpecificDayAndTime;
 	}
 
 }

@@ -45,6 +45,8 @@ import controllers.Admin;
 import models.Institution;
 import models.Service;
 import models.User;
+import play.libs.WS;
+import play.libs.WS.HttpResponse;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
 
@@ -428,16 +430,27 @@ public class Utils extends Controller {
 		Date d = sdf.parse(strDate);
 		return formatDate(d);
 	}
+	
+	public static Date parseStringDateTimeToDate(String dateTime) throws ParseException {
+		Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(dateTime);
+		return date;
+	}
 
 	public static String decode(String s) {
 		return StringUtils.newStringUtf8(Base64.decodeBase64(s));
 	}
 
-	public static void mainssss(String[] args) throws UnsupportedEncodingException {
-		String val1 = String.valueOf(Utils.encode(decodeUrl("teste654321")));
-		String val2 = Utils.encode("teste654321");
-		System.out.println(val1.equals(val2));
-		System.out.println(val1.equalsIgnoreCase(val2));
+	public static void main(String[] args) throws UnsupportedEncodingException, ParseException {
+//		Calendar c = Calendar.getInstance();
+//		c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(06));
+//		c.set(Calendar.MINUTE, Integer.valueOf(30));
+//		c.set(Calendar.SECOND, 0);
+//		c.set(Calendar.MILLISECOND, 0);
+		
+		Calendar calendar = getBrazilCalendar();
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		System.out.println(calendar.getTime());
 	}
 
 	public static String encode(String s) {
@@ -510,10 +523,6 @@ public class Utils extends Controller {
 		return "";
 	}
 
-	public static void main(String[] args) {
-		System.out.println(unsubscribeHTMLSendPulse("https://acompanheseupedido.com", "jao@gmail.com", 12l));
-	}
-
 	public static String escapeSpecialCharacters(String text) {
 		return StringEscapeUtils.escapeHtml(text);
 	}
@@ -532,7 +541,7 @@ public class Utils extends Controller {
 	public static String unsubscribeHTMLSendPulse(String siteDomain, String mail, long sequenceMailQueueId) {
 		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" /><br><br>{{unsubscribe}}";
 	}
-	
+
 	public static String sentCredits(String siteTitle, String siteDomain) {
 		return "<br><br>E-mail enviado por <b><a href=\"" + siteDomain + "\" target=\"_blank\">" + siteTitle + "</a></b>.";
 	}
@@ -554,6 +563,5 @@ public class Utils extends Controller {
 		int code = huc.getResponseCode();
 		return 200 == code;
 	}
-	
 
 }

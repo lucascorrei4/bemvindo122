@@ -3185,7 +3185,7 @@
 			}
 
 				#banner .inner {
-					background: none;
+					background: none !important;
 					display: block;
 					padding: 0 1.5em;
 				}

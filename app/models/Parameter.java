@@ -97,6 +97,9 @@ public class Parameter extends Model {
 	public String embedThankLead;
 	@Lob
 	public String embedFirstStep;
+
+	public int mailSendInterval = 1;
+	
 	@Hidden
 	public long institutionId;
 
@@ -522,6 +525,14 @@ public class Parameter extends Model {
 
 	public void setMailSenderName(String mailSenderName) {
 		this.mailSenderName = mailSenderName;
+	}
+
+	public int getMailSendInterval() {
+		return mailSendInterval;
+	}
+
+	public void setMailSendInterval(int mailSendInterval) {
+		this.mailSendInterval = mailSendInterval;
 	}
 
 }

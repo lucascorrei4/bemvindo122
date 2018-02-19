@@ -33,12 +33,23 @@ public class FreePage extends Model {
 	@MaxSize(10000000)
 	public String description;
 
+	
+	public boolean abTestVideoOfText = false;
+	@Lob
+	@MaxSize(10000000)
+	public String optionalDescription;
+	
+	@Hidden
+	public boolean alternateVideoText = false;
+
 	public Blob backgroundImage;
 	public String backgroundColor;
 	
 	public boolean showCaptureForm;
 	public String buttonMainTitle;
 	public String redirectTo;
+
+	public boolean showFacebookComments = false;
 
 	@Lob
 	@MaxSize(10000000)
@@ -223,6 +234,38 @@ public class FreePage extends Model {
 
 	public void setTemplateStyle(FreePageTemplatesEnum templateStyle) {
 		this.templateStyle = templateStyle;
+	}
+
+	public boolean isAbTestVideoOfText() {
+		return abTestVideoOfText;
+	}
+
+	public void setAbTestVideoOfText(boolean abTestVideoOfText) {
+		this.abTestVideoOfText = abTestVideoOfText;
+	}
+
+	public String getOptionalDescription() {
+		return optionalDescription;
+	}
+
+	public void setOptionalDescription(String optionalDescription) {
+		this.optionalDescription = optionalDescription;
+	}
+
+	public boolean isAlternateVideoText() {
+		return alternateVideoText;
+	}
+
+	public void setAlternateVideoText(boolean alternateVideoText) {
+		this.alternateVideoText = alternateVideoText;
+	}
+
+	public boolean isShowFacebookComments() {
+		return showFacebookComments;
+	}
+
+	public void setShowFacebookComments(boolean showFacebookComments) {
+		this.showFacebookComments = showFacebookComments;
 	}
 
 }

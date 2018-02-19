@@ -11,6 +11,7 @@ import models.FreePage;
 import models.Parameter;
 import models.SellPage;
 import models.SequenceMail;
+import models.SequenceMailQueue;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
@@ -201,6 +202,10 @@ public class SequenceMailCRUD extends CRUD {
 	public static void remove(String id) throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
+		List<SequenceMailQueue> objectQueue = SequenceMailQueue.find("sequenceMail_id = " + id).fetch();
+		for (SequenceMailQueue sequenceMailQueue : objectQueue) {
+			sequenceMailQueue.delete();
+		}
 		SequenceMail object = SequenceMail.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()).first();
 		notFoundIfNull(object);
 		try {
