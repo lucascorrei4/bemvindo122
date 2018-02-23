@@ -616,10 +616,14 @@ public class Application extends Controller {
 		String origin = Utils.getValueFromUrlParam(params[2]);
 		String url = Utils.getValueFromUrlParam(params[3]);
 		String typeContentPage = Utils.getValueFromUrlParam(params[4]);
-		MailList mailList = new MailList();
-		mailList.id = 0l;
+		/* Verify if lead has been registered in current capture page */
+		MailList mailList = MailList.find("mail = '" + mail + "' and url = '" + url + "'").first();
+		if (mailList == null) {
+			mailList = new MailList();
+			mailList.id = 0l;
+		}
 		if (Utils.isNullOrEmpty(name)) {
-			mailList.setName("");
+			mailList.setName("Oi");
 		} else {
 			mailList.setName(name);
 		}
@@ -627,6 +631,7 @@ public class Application extends Controller {
 		mailList.setMail(mail);
 		mailList.origin = FromEnum.getNameByValue(origin);
 		mailList.setUrl(url);
+		/* Verify if the page has A/B Test of Text or Video. If not, set as not defined */
 		if ("true".equals(typeContentPage)) {
 			mailList.setTypeContentPage(TypeContentPageEnum.TextContent);
 		} else if ("false".equals(typeContentPage)) {

@@ -539,7 +539,7 @@ public class Utils extends Controller {
 	}
 
 	public static String unsubscribeHTMLSendPulse(String siteDomain, String mail, long sequenceMailQueueId) {
-		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" /><br><br>{{unsubscribe}}";
+		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" alt=\"Img bar\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"{{unsubscribe}}\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
 	}
 
 	public static String sentCredits(String siteTitle, String siteDomain) {

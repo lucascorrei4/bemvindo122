@@ -33,15 +33,14 @@ public class ScheduledJobs extends Job {
 	}
 
 	private void verifyIfLeadIsNotInSalesFunnel() throws ParseException {
-		Parameter parameter = Parameter.all().first();
 		List<MailList> mailList = new MailList().find("isActive = true order by postedAt desc").fetch();
 		for (MailList mL : mailList) {
-			SequenceMailController.addLeadToSalesFunnel(mL, parameter);
+			SequenceMailController.addLeadToSalesFunnel(mL);
 		}
 	}
 
 	public void sendMailToLead() {
-		List<SequenceMailQueue> sequenceMailQueueList = SequenceMailQueue.find("jobDate = CURRENT_TIMESTAMP and sent = false").fetch();
+		List<SequenceMailQueue> sequenceMailQueueList = SequenceMailQueue.find("jobDate BETWEEN NOW() - INTERVAL 30 MINUTE AND NOW() and sent = false").fetch();
 		for (SequenceMailQueue sequenceMailQueue : sequenceMailQueueList) {
 			if (sendEmailToLead(sequenceMailQueue)) {
 				sequenceMailQueue.setSent(true);

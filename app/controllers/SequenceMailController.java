@@ -15,7 +15,8 @@ import util.Utils;
 
 public class SequenceMailController {
 
-	public static void addLeadToSalesFunnel(MailList mailList, Parameter parameter) throws ParseException {
+	public static void addLeadToSalesFunnel(MailList mailList) throws ParseException {
+		Parameter parameter = Parameter.getCurrentParameter();
 		if (!Utils.isNullOrEmpty(mailList.getUrl())) {
 			String url = returnCleanURL(mailList.getUrl(), parameter.getSiteDomain());
 			List<SequenceMail> sequenceMailList = SequenceMail.find("isActive = true and url = '" + url + "' order by sequence asc").fetch();
@@ -64,7 +65,6 @@ public class SequenceMailController {
 				} else {
 					if (sequenceMailList.get(i).sequence == 1) {
 						Calendar calendar = Utils.getBrazilCalendar();
-						calendar.set(Calendar.MINUTE, 0);
 						calendar.set(Calendar.SECOND, 0);
 						queue.setJobDate(calendar.getTime());
 					} else if (sequenceMailList.get(i).sequence > 1 && parameter.getMailSendInterval() == 1) {
