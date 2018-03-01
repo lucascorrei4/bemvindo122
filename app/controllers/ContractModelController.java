@@ -2,8 +2,8 @@ package controllers;
 
 import java.util.List;
 
-import models.Parameter;
 import models.ContractModel;
+import models.howtodo.Parameter;
 import play.mvc.Controller;
 import util.Utils;
 

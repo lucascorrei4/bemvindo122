@@ -67,7 +67,7 @@ public class Security extends Secure.Security {
 		Cache.set(session.get("username"), sessionParameters);
 	}
 	
-	static boolean enableMenu() {
+	public static boolean enableMenu() {
 		if (Admin.getLoggedUserInstitution().getInstitution() != null && Admin.validateLicenseDate(Admin.getLoggedUserInstitution())) {
 			return true;
 		}

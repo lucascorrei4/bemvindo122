@@ -3,10 +3,10 @@ package controllers;
 import java.io.File;
 import java.util.List;
 
-import models.Article;
 import models.Institution;
-import models.Parameter;
-import models.TheSystem;
+import models.howtodo.Article;
+import models.howtodo.Parameter;
+import models.howtodo.TheSystem;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;

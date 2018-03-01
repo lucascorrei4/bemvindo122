@@ -201,23 +201,29 @@
 	    	</div>
     	#{/if}
     </div>
-    	<div class="row">
-    		<div class="col-lg-12">
-				#{list bottomNews, as:'article'}
-					<div class="col-sm-3">
-						<section>
+	<div class="row">
+		<div class="col-lg-12">
+			#{list bottomNews, as:'article'}
+				<div class="col-sm-3 col-md-3">
+					<div class="thumbnail">
+						<a href="/artigos/${article.id}/${article.getFriendlyUrl()}">
+							<img src="@{howtodo.NewsController.getImage(article.id, '1')}" alt="&{article.getHeadline().raw()}" title="&{article.getHeadline().raw()}" style="max-width: 274px" />
+						</a>
+						<div class="caption">
 							<a href="/artigos/${article.id}/${article.getFriendlyUrl()}">
 								<h3 style="text-transform: uppercase;"><strong>&{article.getTitle()}</strong></h3>
 							</a>
-							<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" class="image featured">
-								<img src="@{NewsController.getImage(article.id, '1')}" alt="&{article.getHeadline().raw()}" title="&{article.getHeadline().raw()}" style="max-width: 274px" />
-							</a>
-						</section>
+							<p>
+								<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" class="btn btn-default" role="button">
+									Saiba mais
+								</a>
+							</p>
+						</div>
 					</div>
-				#{/list}
-			</div>
+				</div>
+			#{/list}
 		</div>
-    <!-- /#wrapper -->
+	</div>
     
     <!-- jQuery -->
     <script src="@{'public/templatebootstrap/bower_components/jquery/dist/jquery.min.js'}"></script>

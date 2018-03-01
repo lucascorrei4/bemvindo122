@@ -1,0 +1,75 @@
+#{extends 'CRUD/layoutPub.html' /}
+#{set title:messages.get('crud.list.title', type.name) /}
+<meta charset="utf-8" />
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-lg-6">
+				#{crud.search /}
+			</div>
+			<div class="col-lg-6">
+				<a href="@{blank()}" class="btn btn-default">&{'crud.add', type.modelName}</a> 
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-12 ${type.name}">
+        <div class="panel panel-default">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+            	<div class="panel-group" id="accordion" role="tablist"	aria-multiselectable="true">
+					#{list items:objects, as:'object'}
+						<div class="panel panel-${object_index % 2 == 0 ? 'info' : 'default'}" id="collapse${object_index}_container">
+							<div class="panel-heading" role="tab" id="heading${object_index}">
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion"
+										href="#collapse${object_index}" aria-expanded="true"
+										aria-controls="collapse${object_index}"> <strong>Data:</strong> ${object.postedAtParsed}; <strong>Campanha:</strong> ${object.leadSearchQuestion}; <strong>Lead:</strong> ${object.mailList.name}, <strong>Idade:</strong> ${object.age}</a>
+								</h4>
+							</div>
+							<div id="collapse${object_index}" class="panel-collapse collapse"
+								role="tabpanel" aria-labelledby="heading${object_index}">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-lg-12">
+											<h4><strong>E-mail:</strong> ${object.mailList.mail}; <strong>URL de Origem:</strong> ${object.mailList.url}</h4> 
+											<h4><strong>Sexo:</strong> ${object.gender}; <strong>Profissão:</strong> ${object.profession}; <strong>Negócio em que atua:</strong> ${object.business}</h4> 
+										</div>
+									</div>
+									<div class="table-responsive">
+										<table class="table table-striped">
+		                                    <thead>
+		                                        <tr>
+		                                            <th>${object.leadSearchQuestion.question1}</th>
+		                                            <th>${object.leadSearchQuestion.question2}</th>
+		                                            <th>${object.leadSearchQuestion.question3}</th>
+		                                            <th>${object.leadSearchQuestion.question4}</th>
+		                                            <th>${object.leadSearchQuestion.question5}</th>
+		                                        </tr>
+		                                    </thead>
+		                                    <tbody>
+			                                        <tr>
+									         			<td><a href="@{howtodo.LeadSearchAnswerCRUD.show(object.id)}">${object.answer1}</a></td>
+									         			<td><a href="@{howtodo.LeadSearchAnswerCRUD.show(object.id)}">${object.answer2}</a></td>
+									         			<td><a href="@{howtodo.LeadSearchAnswerCRUD.show(object.id)}">${object.answer3}</a></td>
+									         			<td><a href="@{howtodo.LeadSearchAnswerCRUD.show(object.id)}">${object.answer4}</a></td>
+									         			<td><a href="@{howtodo.LeadSearchAnswerCRUD.show(object.id)}">${object.answer5}</a></td>
+			                                        </tr>
+		                                    </tbody>
+		                                </table>
+									</div>
+									<div class="row">
+										<div class="col-lg-12">
+											<h4><strong>Testemunho: </strong> ${object.testimonial}</h4> 
+											<h4><strong>Autoriza usar o testemunho? </strong> ${object.isAuthorize ? 'Sim' : 'Não'}</h4> 
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					#{/list}
+				</div>
+   				<div class="alert alert-info alert-dismissable" style="margin: 5px">
+					${objects.size > 1 ? objects.size + ' encontrados' : objects.size + ' encontrado'} 
+   				</div>
+   			</div>
+   		</div>
+   	</div>

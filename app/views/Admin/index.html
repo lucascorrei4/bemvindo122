@@ -273,6 +273,14 @@
                 <div class="col-lg-4">
                    	<div class="panel panel-default">
                        <div class="panel-heading">
+                           <i class="fa fa-bar-chart-o fa-fw"></i> Clientes <strong>TOP 3</strong>
+                       </div>
+                       <div class="panel-body">
+                           <div id="morris-donut-chart-top3"></div>
+                       </div>
+                   	</div>
+                   	<div class="panel panel-default">
+                       <div class="panel-heading">
                            <i class="fa fa-bar-chart-o fa-fw"></i> NPS - Net Promoter Score
                        </div>
                        <div class="panel-body">
@@ -337,7 +345,7 @@
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-clock-o fa-fw"></i> Timeline
+                            <i class="fa fa-clock-o fa-fw"></i> Timeline do Cliente <strong>TOP 1</strong>
                         </div>
                         <div class="panel-body">
                             #{include 'includes/timeline.html' /}
@@ -411,7 +419,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
 
-  	<!-- Flot Charts JavaScript -->
 	<!-- Flot Charts JavaScript -->
 	<script src="@{'/public/templatebootstrap/bower_components/raphael/raphael.js'}"></script>
 	<script src="@{'/public/templatebootstrap/bower_components/morrisjs/morris.js'}"></script>
@@ -420,10 +427,15 @@
 	<script>
     	$(function() {
 		    Morris.Donut({
-		        element: 'morris-donut-chart',
-		        data: [{label : "Detratores", value : 1 }, {label: "Promotores", value: 1 }, { label: "Neutros", value: 1 }] ,
+		        element: 'morris-donut-chart-top3',
+		        data: ${top3Clients.raw()},
 		        resize: true
 		    });
+// 		    Morris.Donut({
+// 		        element: 'morris-donut-chart',
+// 		        data: [{label : "Detratores", value : 1 }, {label: "Promotores", value: 1 }, { label: "Neutros", value: 1 }] ,
+// 		        resize: true
+// 		    });
 		});
     </script>
 	<!--Start of Tawk.to Script-->

@@ -7,7 +7,7 @@
 	
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="C:\Users\luks_\Documents\dev\play-1.2.4\framework\play-1.2.4.jar" sourcepath="C:/users/luks_/documents/dev/play-1.2.4/framework/src" />
-	<classpathentry kind="lib" path="C:\Users\luks_\Documents\dev\playapps\seupedido\lib\gson-2.3.1.jar"/>
+	<classpathentry kind="lib" path="C:\Users\luks_\Documents\dev\playapps\acompanheseupedido\lib\gson-2.3.1.jar"/>
 	<classpathentry kind="lib" path="C:\Users\luks_\Documents\dev\play-1.2.4\framework\lib\activation-1.1.1.jar"/>
 	<classpathentry kind="lib" path="C:\Users\luks_\Documents\dev\play-1.2.4\framework\lib\antlr-2.7.6.jar"/>
 	<classpathentry kind="lib" path="C:\Users\luks_\Documents\dev\play-1.2.4\framework\lib\asm-all-3.3.1.jar"/>

@@ -15,14 +15,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import controllers.howtodo.MailController;
+import controllers.howtodo.SMSController;
 import models.Activity;
-import models.BodyMail;
 import models.Client;
 import models.Institution;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.OrderOfServiceValue;
-import models.Parameter;
 import models.SendTo;
 import models.Sender;
 import models.Service;
@@ -31,19 +31,21 @@ import models.StatusPUSH;
 import models.StatusSMS;
 import models.Step;
 import models.User;
+import models.howtodo.BodyMail;
+import models.howtodo.Parameter;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 import util.ActivitiesEnum;
 import util.ApplicationConfiguration;
-import util.MailTemplates;
 import util.PlansEnum;
 import util.PushNotification;
 import util.ServiceOrderOfServiceSteps;
 import util.StatusEnum;
 import util.Utils;
 import util.VideoHelpEnum;
+import util.howtodo.MailTemplates;
 
 @CRUD.For(models.OrderOfService.class)
 public class OrderOfServiceCRUD extends CRUD {
@@ -349,6 +351,19 @@ public class OrderOfServiceCRUD extends CRUD {
 			order.setCurrentStatus(isOpened ? StatusEnum.InProgress.getLabel() : StatusEnum.Finished.getLabel());
 		}
 		return listOrderOfServices;
+	}
+
+	public static Float calculateTotalOrderOfServiceByClient(Client client) {
+		Float totalGeral = 0f;
+		List<OrderOfService> listOrderOfServices = OrderOfService.find("client_id = " + client.id +" and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch(20);
+		for (OrderOfService order : listOrderOfServices) {
+			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
+			/* Get somatories values */
+			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+				totalGeral += orderOfServiceValue.getTotalPrice();
+			}
+		}
+		return totalGeral;
 	}
 
 	private static void verifyIfOrderAreOpenAndUpdateServicesReferences(List<OrderOfService> listOrderOfService) {

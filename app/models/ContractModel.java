@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 
 import controllers.CRUD.Hidden;
+import models.howtodo.Parameter;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;

@@ -1,15 +1,14 @@
 
 package controllers;
 
-import java.net.URLDecoder;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.sun.mail.imap.protocol.Status;
+import com.google.gson.Gson;
 
+import controllers.howtodo.MailController;
 import models.Activity;
-import models.BodyMail;
 import models.Client;
 import models.Country;
 import models.Institution;
@@ -18,7 +17,6 @@ import models.MonetizzeTransaction;
 import models.OrderOfService;
 import models.OrderOfServiceStep;
 import models.OrderOfServiceValue;
-import models.Parameter;
 import models.SendTo;
 import models.Sender;
 import models.Service;
@@ -26,10 +24,11 @@ import models.StatusMail;
 import models.StatusPUSH;
 import models.StatusSMS;
 import models.User;
+import models.howtodo.BodyMail;
+import models.howtodo.Parameter;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
-import util.MailTemplates;
 import util.PlansEnum;
 import util.StatusEnum;
 import util.StatusInvoiceEnum;
@@ -37,6 +36,9 @@ import util.StatusPaymentEnum;
 import util.UserInstitutionParameter;
 import util.Utils;
 import util.VideoHelpEnum;
+import util.howtodo.MailTemplates;
+import util.howtodo.TO;
+import util.howtodo.TONumeric;
 
 @With(Secure.class)
 public class Admin extends Controller {
@@ -103,19 +105,96 @@ public class Admin extends Controller {
 				boolean smsExceedLimit = isSmsExceedLimit();
 				boolean userFreeTrial = isUserFreeTrial();
 				int allSents = contSentSMSs + contSentPushs + contSentMails;
+				/* Get vip client and show his timeline */
 				Client clientTimeline = null;
 				List<Activity> activities = null;
-				if (!Utils.isNullOrEmpty(listClients)) {
-					clientTimeline = (Client) listClients.iterator().next();
+				String totalSellByClient = null;
+				Float totalGeral = 0f;
+				Float biggerValue = 0f;
+				List<Client> clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
+				if (!Utils.isNullOrEmpty(clients)) {
+					for (Client client : clients) {
+						List<OrderOfService> listOrdOfServices = OrderOfService.find("client_id = " + client.id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch(20);
+						if (!Utils.isNullOrEmpty(listOrdOfServices)) {
+							for (OrderOfService order : listOrdOfServices) {
+								List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
+								/* Get somatories values */
+								for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+									totalGeral += orderOfServiceValue.getTotalPrice();
+								}
+							}
+						}
+						if (totalGeral > biggerValue) {
+							biggerValue = totalGeral;
+							clientTimeline = client;
+						}
+						totalGeral = 0f;
+					}
 					activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch(5);
+					totalSellByClient = Utils.getCurrencyValue(biggerValue);
 				}
+				String top3Clients = null;
+				if (!Utils.isNullOrEmpty(getTop3Clients())) {
+					top3Clients = Utils.toJsonChart(getTop3Clients());
+				} 
 				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices, connectedUser, institutionName, contSentSMSs, institution, contSentPushs, parameter, smsExceedLimit, userFreeTrial, allSents, contSentMails, listOrderOfServicesByMonth,
-						totalOfOrderOfServiceByMonth, clientTimeline, activities);
+						totalOfOrderOfServiceByMonth, clientTimeline, activities, totalSellByClient, top3Clients);
 			} else {
 				/* Redirect to page of information about expired license */
 				render("@Admin.expiredLicense", connectedUser);
 			}
 		}
+
+	}
+
+	private static List<TONumeric> getTop3Clients() {
+		List<TONumeric> listTop3 = new ArrayList<TONumeric>();
+		Float totalGeral = 0f;
+		Float biggerValue1 = 0f;
+		Float biggerValue2 = 0f;
+		Float biggerValue3 = 0f;
+		Client clientTop1 = null;
+		Client clientTop2 = null;
+		Client clientTop3 = null;
+		List<Client> clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
+		if (!Utils.isNullOrEmpty(clients)) {
+			for (Client client : clients) {
+				List<OrderOfService> listOrdOfServices = OrderOfService.find("client_id = " + client.id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch(20);
+				if (!Utils.isNullOrEmpty(listOrdOfServices)) {
+					for (OrderOfService order : listOrdOfServices) {
+						List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
+						/* Get somatories values */
+						for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
+							totalGeral += orderOfServiceValue.getTotalPrice();
+						}
+					}
+				}
+				if (totalGeral > biggerValue1) {
+					biggerValue1 = totalGeral;
+					clientTop1 = client;
+				} else if (totalGeral > biggerValue2) {
+					biggerValue2 = totalGeral;
+					clientTop2 = client;
+				} else if (totalGeral > biggerValue3) {
+					biggerValue3 = totalGeral;
+					clientTop3 = client;
+				}
+				totalGeral = 0f;
+			}
+		}
+		TONumeric top1 = new TONumeric();
+		top1.setLabel(clientTop1.name + "" + clientTop1.lastName);
+		top1.setValue(biggerValue1);
+		listTop3.add(top1);
+		TONumeric top2 = new TONumeric();
+		top2.setLabel(clientTop2.name + "" + clientTop2.lastName);
+		top2.setValue(biggerValue2);
+		listTop3.add(top2);
+		TONumeric top3 = new TONumeric();
+		top3.setLabel(clientTop3.name + "" + clientTop3.lastName);
+		top3.setValue(biggerValue3);
+		listTop3.add(top3);
+		return listTop3;
 	}
 
 	private static List<OrderOfService> calculateTotalOrderOfService(User connectedUser) {

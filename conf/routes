@@ -18,7 +18,6 @@ GET     	${ctx}/novo			                     					Application.index
 POST    	${ctx}/novo			       				 					Application.index
 
 # Home page
-POST    ${ctx}/savemessage											MessageCRUD.saveMessage
 
 POST    ${ctx}/savequickaccount										Application.saveQuickAccount
 GET    	${ctx}/como-funciona										Application.howItWorks
@@ -57,25 +56,185 @@ POST    ${ctx}/monetizze-postback		   				 			MonetizzeController.postback
 # Public Contract Models
 GET    	${ctx}/modelo-de-contrato/{friendlyUrl}						ContractModelController.details
 
+# MonetizzeTransaction
+
+GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
+GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
+
+# ROUTES of HowToDo
+
+POST    ${ctx}/savemessage											howtodo.MessageCRUD.saveMessage
 
 # Public TheSystem
 
-GET    	${ctx}/o-sistema					   				 		TheSystemPagesController.list
-GET    	${ctx}/o-sistema/{friendlyUrl}								TheSystemPagesController.details
+GET    	${ctx}/o-sistema					   				 		howtodo.TheSystemPagesController.list
+GET    	${ctx}/o-sistema/{friendlyUrl}								howtodo.TheSystemPagesController.details
 
 # Public SimplePages
-GET    	${ctx}/spl/{friendlyUrl}									SimplePagesController.details
+GET    	${ctx}/spl/{friendlyUrl}									howtodo.SimplePagesController.details
 
 # Public SellPages
-GET    	${ctx}/pv/{friendlyUrl}										SellPageController.details
+GET    	${ctx}/pv/{friendlyUrl}										howtodo.SellPageController.details
 
 # Public FreePages
-GET    	${ctx}/fp/{friendlyUrl}										FreePageController.details
+GET    	${ctx}/fp/{friendlyUrl}										howtodo.FreePageController.details
 
 # Public News
 
-GET    	${ctx}/artigos					   				 			NewsController.list
-GET    	${ctx}/artigos/{id}/{friendlyUrl}							NewsController.details
+GET    	${ctx}/artigos					   				 			howtodo.NewsController.list
+GET    	${ctx}/artigos/{id}/{friendlyUrl}							howtodo.NewsController.details
+
+# LeadSearchAnswer
+
+GET		${ctx}/admin-howtodo/pesquisa-respostas											howtodo.LeadSearchAnswerCRUD.list
+GET		${ctx}/admin-howtodo/pesquisa-respostas/novo									howtodo.LeadSearchAnswerCRUD.blank
+GET		${ctx}/admin-howtodo/pesquisa-respostas/{id}									howtodo.LeadSearchAnswerCRUD.show
+GET		${ctx}/admin-howtodo/pesquisa-respostas/{id}/{field}							howtodo.LeadSearchAnswerCRUD.attachment
+GET		${ctx}/admin-howtodo/pesquisa-respostas/{id}/editar								howtodo.LeadSearchAnswerCRUD.edit
+POST	${ctx}/admin-howtodo/pesquisa-respostas											howtodo.LeadSearchAnswerCRUD.create
+POST	${ctx}/admin-howtodo/pesquisa-respostas/{id}									howtodo.LeadSearchAnswerCRUD.save
+DELETE	${ctx}/admin-howtodo/pesquisa-respostas/{id}									howtodo.LeadSearchAnswerCRUD.delete
+
+# LeadSearchQuestion
+
+GET		${ctx}/admin-howtodo/pesquisa-perguntas											howtodo.LeadSearchQuestionCRUD.list
+GET		${ctx}/admin-howtodo/pesquisa-perguntas/novo									howtodo.LeadSearchQuestionCRUD.blank
+GET		${ctx}/admin-howtodo/pesquisa-perguntas/{id}									howtodo.LeadSearchQuestionCRUD.show
+GET		${ctx}/admin-howtodo/pesquisa-perguntas/{id}/{field}							howtodo.LeadSearchQuestionCRUD.attachment
+GET		${ctx}/admin-howtodo/pesquisa-perguntas/{id}/editar								howtodo.LeadSearchQuestionCRUD.edit
+POST	${ctx}/admin-howtodo/pesquisa-perguntas											howtodo.LeadSearchQuestionCRUD.create
+POST	${ctx}/admin-howtodo/pesquisa-perguntas/{id}									howtodo.LeadSearchQuestionCRUD.save
+DELETE	${ctx}/admin-howtodo/pesquisa-perguntas/{id}									howtodo.LeadSearchQuestionCRUD.delete
+howtodo.
+
+# FreePage
+
+GET		${ctx}/admin-howtodo/paginas-livre										howtodo.FreePageCRUD.list
+GET		${ctx}/admin-howtodo/paginas-livre/novo									howtodo.FreePageCRUD.blank
+GET		${ctx}/admin-howtodo/paginas-livre/{id}									howtodo.FreePageCRUD.show
+GET		${ctx}/admin-howtodo/paginas-livre/{id}/{field}							howtodo.FreePageCRUD.attachment
+GET		${ctx}/admin-howtodo/paginas-livre/{id}/editar							howtodo.FreePageCRUD.edit
+POST	${ctx}/admin-howtodo/paginas-livre										howtodo.FreePageCRUD.create
+POST	${ctx}/admin-howtodo/paginas-livre/{id}									howtodo.FreePageCRUD.save
+DELETE	${ctx}/admin-howtodo/paginas-livre/{id}									howtodo.FreePageCRUD.delete
+
+# SellPage
+
+GET		${ctx}/admin-howtodo/paginas-de-venda										howtodo.SellPageCRUD.list
+GET		${ctx}/admin-howtodo/paginas-de-venda/novo									howtodo.SellPageCRUD.blank
+GET		${ctx}/admin-howtodo/paginas-de-venda/{id}									howtodo.SellPageCRUD.show
+GET		${ctx}/admin-howtodo/paginas-de-venda/{id}/{field}							howtodo.SellPageCRUD.attachment
+GET		${ctx}/admin-howtodo/paginas-de-venda/{id}/editar							howtodo.SellPageCRUD.edit
+POST	${ctx}/admin-howtodo/paginas-de-venda										howtodo.SellPageCRUD.create
+POST	${ctx}/admin-howtodo/paginas-de-venda/{id}									howtodo.SellPageCRUD.save
+DELETE	${ctx}/admin-howtodo/paginas-de-venda/{id}									howtodo.SellPageCRUD.delete
+
+# HighlightProduct
+
+GET		${ctx}/admin-howtodo/produtos-em-destaque										howtodo.HighlightProductCRUD.list
+GET		${ctx}/admin-howtodo/produtos-em-destaque/novo									howtodo.HighlightProductCRUD.blank
+GET		${ctx}/admin-howtodo/produtos-em-destaque/{id}									howtodo.HighlightProductCRUD.show
+GET		${ctx}/admin-howtodo/produtos-em-destaque/{id}/{field}							howtodo.HighlightProductCRUD.attachment
+GET		${ctx}/admin-howtodo/produtos-em-destaque/{id}/editar							howtodo.HighlightProductCRUD.edit
+POST	${ctx}/admin-howtodo/produtos-em-destaque										howtodo.HighlightProductCRUD.create
+POST	${ctx}/admin-howtodo/produtos-em-destaque/{id}									howtodo.HighlightProductCRUD.save
+DELETE	${ctx}/admin-howtodo/produtos-em-destaque/{id}									howtodo.HighlightProductCRUD.delete
+
+# SequenceMailQueue
+
+GET		${ctx}/admin-howtodo/fila-de-emails-agrupada							howtodo.SequenceMailQueueCRUD.listAllGrouped
+GET		${ctx}/admin-howtodo/fila-de-emails										howtodo.SequenceMailQueueCRUD.listAll
+GET		${ctx}/admin-howtodo/fila-de-emails/novo								howtodo.SequenceMailQueueCRUD.blank
+GET		${ctx}/admin-howtodo/fila-de-emails/{id}								howtodo.SequenceMailQueueCRUD.show
+GET		${ctx}/admin-howtodo/fila-de-emails/{id}/{field}						howtodo.SequenceMailQueueCRUD.attachment
+GET		${ctx}/admin-howtodo/fila-de-emails/{id}/editar							howtodo.SequenceMailQueueCRUD.edit
+POST	${ctx}/admin-howtodo/fila-de-emails										howtodo.SequenceMailQueueCRUD.create
+POST	${ctx}/admin-howtodo/fila-de-emails/{id}								howtodo.SequenceMailQueueCRUD.save
+DELETE	${ctx}/admin-howtodo/fila-de-emails/{id}								howtodo.SequenceMailQueueCRUD.delete
+
+# CampaingMail
+
+GET		${ctx}/admin-howtodo/sequencia-de-emails									howtodo.SequenceMailCRUD.listAll
+GET		${ctx}/admin-howtodo/sequencia-de-emails									howtodo.SequenceMailCRUD.list
+GET		${ctx}/admin-howtodo/sequencia-de-emails/novo								howtodo.SequenceMailCRUD.blank
+GET		${ctx}/admin-howtodo/sequencia-de-emails/{id}								howtodo.SequenceMailCRUD.show
+GET		${ctx}/admin-howtodo/sequencia-de-emails/{id}/{field}						howtodo.SequenceMailCRUD.attachment
+GET		${ctx}/admin-howtodo/sequencia-de-emails/{id}/editar						howtodo.SequenceMailCRUD.edit
+POST	${ctx}/admin-howtodo/sequencia-de-emails									howtodo.SequenceMailCRUD.create
+POST	${ctx}/admin-howtodo/sequencia-de-emails/{id}								howtodo.SequenceMailCRUD.save
+DELETE	${ctx}/admin-howtodo/sequencia-de-emails/{id}								howtodo.SequenceMailCRUD.delete
+
+# MaiBase
+
+GET		${ctx}/admin-howtodo/base-de-emails									howtodo.MailBaseCRUD.list
+GET		${ctx}/admin-howtodo/base-de-emails/novo							howtodo.MailBaseCRUD.blank
+GET		${ctx}/admin-howtodo/base-de-emails/{id}							howtodo.MailBaseCRUD.show
+GET		${ctx}/admin-howtodo/base-de-emails/{id}/{field}					howtodo.MailBaseCRUD.attachment
+GET		${ctx}/admin-howtodo/base-de-emails/{id}/editar						howtodo.MailBaseCRUD.edit
+POST	${ctx}/admin-howtodo/base-de-emails									howtodo.MailBaseCRUD.create
+POST	${ctx}/admin-howtodo/base-de-emails/{id}							howtodo.MailBaseCRUD.save
+DELETE	${ctx}/admin-howtodo/base-de-emails/{id}							howtodo.MailBaseCRUD.delete
+
+# SimplePage
+
+GET		${ctx}/admin-howtodo/pagina-simples									howtodo.SimplePagesCRUD.list
+GET		${ctx}/admin-howtodo/pagina-simples/novo							howtodo.SimplePagesCRUD.blank
+GET		${ctx}/admin-howtodo/pagina-simples/{id}							howtodo.SimplePagesCRUD.show
+GET		${ctx}/admin-howtodo/pagina-simples/{id}/{field}					howtodo.SimplePagesCRUD.attachment
+GET		${ctx}/admin-howtodo/pagina-simples/{id}/editar						howtodo.SimplePagesCRUD.edit
+POST	${ctx}/admin-howtodo/pagina-simples									howtodo.SimplePagesCRUD.create
+POST	${ctx}/admin-howtodo/pagina-simples/{id}							howtodo.SimplePagesCRUD.save
+DELETE	${ctx}/admin-howtodo/pagina-simples/{id}							howtodo.SimplePagesCRUD.delete
+
+# The System
+
+GET		${ctx}/admin-howtodo/o-sistema								howtodo.TheSystemCRUD.list
+GET		${ctx}/admin-howtodo/o-sistema/novo							howtodo.TheSystemCRUD.blank
+GET		${ctx}/admin-howtodo/o-sistema/{id}							howtodo.TheSystemCRUD.show
+GET		${ctx}/admin-howtodo/o-sistema/{id}/{field}					howtodo.TheSystemCRUD.attachment
+GET		${ctx}/admin-howtodo/o-sistema/{id}/editar					howtodo.TheSystemCRUD.edit
+POST	${ctx}/admin-howtodo/o-sistema								howtodo.TheSystemCRUD.create
+POST	${ctx}/admin-howtodo/o-sistema/{id}							howtodo.TheSystemCRUD.save
+DELETE	${ctx}/admin-howtodo/o-sistema/{id}							howtodo.TheSystemCRUD.delete
+
+# Article Services
+
+GET		${ctx}/admin-howtodo/noticias								howtodo.ArticleCRUD.list
+GET		${ctx}/admin-howtodo/noticias/novo							howtodo.ArticleCRUD.blank
+GET		${ctx}/admin-howtodo/noticias/{id}							howtodo.ArticleCRUD.show
+GET		${ctx}/admin-howtodo/noticias/{id}/{field}					howtodo.ArticleCRUD.attachment
+GET		${ctx}/admin-howtodo/noticias/{id}/editar					howtodo.ArticleCRUD.edit
+POST	${ctx}/admin-howtodo/noticias								howtodo.ArticleCRUD.create
+POST	${ctx}/admin-howtodo/noticias/{id}							howtodo.ArticleCRUD.save
+DELETE	${ctx}/admin-howtodo/noticias/{id}							howtodo.ArticleCRUD.delete
+
+# Admin Messages
+
+GET		${ctx}/admin-howtodo/msgadmin									howtodo.MessageCRUD.list
+GET		${ctx}/admin-howtodo/msgadmin/novo								howtodo.MessageCRUD.blank
+GET		${ctx}/admin-howtodo/msgadmin/{id}								howtodo.MessageCRUD.show
+GET		${ctx}/admin-howtodo/msgadmin/{id}/{field}						howtodo.MessageCRUD.attachment
+GET		${ctx}/admin-howtodo/msgadmin/{id}/editar						howtodo.MessageCRUD.edit
+POST	${ctx}/admin-howtodo/msgadmin									howtodo.MessageCRUD.create
+POST	${ctx}/admin-howtodo/msgadmin/{id}								howtodo.MessageCRUD.save
+DELETE	${ctx}/admin-howtodo/msgadmin/{id}								howtodo.MessageCRUD.delete
+
+# Admin Parameter
+
+GET		${ctx}/admin-howtodo/parametros/pagina-inicial					howtodo.ParameterCRUD.showIndexPage
+GET		${ctx}/admin-howtodo/parametros									howtodo.ParameterCRUD.list
+GET		${ctx}/admin-howtodo/parametros/novo							howtodo.ParameterCRUD.blank
+GET		${ctx}/admin-howtodo/parametros/{id}							howtodo.ParameterCRUD.show
+GET		${ctx}/admin-howtodo/parametros/{id}/{field}					howtodo.ParameterCRUD.attachment
+GET		${ctx}/admin-howtodo/parametros/{id}/editar						howtodo.ParameterCRUD.edit
+POST	${ctx}/admin-howtodo/parametros									howtodo.ParameterCRUD.create
+POST	${ctx}/admin-howtodo/parametros/{id}							howtodo.ParameterCRUD.save
+DELETE	${ctx}/admin-howtodo/parametros/{id}							howtodo.ParameterCRUD.delete
+
+GET		${ctx}/admin-howtodo/leads									howtodo.MailListCRUD.listAll
+GET		${ctx}/admin-howtodo/leads									howtodo.MailListCRUD.list
+
+# ROUTES of AcompanheSeuPedido.com 
 
 # Admin Update Order
 GET		${ctx}/admin/atualizar-pedidos								OrderOfServiceCRUD.updateOrder
@@ -83,33 +242,6 @@ POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
 GET		${ctx}/admin/pos-venda										OrderOfServiceCRUD.afterSale
 GET		${ctx}/admin/script-de-pos-venda							OrderOfServiceCRUD.afterSaleScript
 GET		${ctx}/admin/avaliacao										OrderOfServiceCRUD.evaluation
-
-# MonetizzeTransaction
-
-GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
-GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
-
-# LeadSearchAnswer
-
-GET		${ctx}/admin/pesquisa-respostas											LeadSearchAnswerCRUD.list
-GET		${ctx}/admin/pesquisa-respostas/novo									LeadSearchAnswerCRUD.blank
-GET		${ctx}/admin/pesquisa-respostas/{id}									LeadSearchAnswerCRUD.show
-GET		${ctx}/admin/pesquisa-respostas/{id}/{field}							LeadSearchAnswerCRUD.attachment
-GET		${ctx}/admin/pesquisa-respostas/{id}/editar								LeadSearchAnswerCRUD.edit
-POST	${ctx}/admin/pesquisa-respostas											LeadSearchAnswerCRUD.create
-POST	${ctx}/admin/pesquisa-respostas/{id}									LeadSearchAnswerCRUD.save
-DELETE	${ctx}/admin/pesquisa-respostas/{id}									LeadSearchAnswerCRUD.delete
-
-# LeadSearchQuestion
-
-GET		${ctx}/admin/pesquisa-perguntas											LeadSearchQuestionCRUD.list
-GET		${ctx}/admin/pesquisa-perguntas/novo									LeadSearchQuestionCRUD.blank
-GET		${ctx}/admin/pesquisa-perguntas/{id}									LeadSearchQuestionCRUD.show
-GET		${ctx}/admin/pesquisa-perguntas/{id}/{field}							LeadSearchQuestionCRUD.attachment
-GET		${ctx}/admin/pesquisa-perguntas/{id}/editar								LeadSearchQuestionCRUD.edit
-POST	${ctx}/admin/pesquisa-perguntas											LeadSearchQuestionCRUD.create
-POST	${ctx}/admin/pesquisa-perguntas/{id}									LeadSearchQuestionCRUD.save
-DELETE	${ctx}/admin/pesquisa-perguntas/{id}									LeadSearchQuestionCRUD.delete
 
 # Activities
 
@@ -122,128 +254,6 @@ GET		${ctx}/admin/atividades/{id}/editar								ActivitiesCRUD.edit
 POST	${ctx}/admin/atividades											ActivitiesCRUD.create
 POST	${ctx}/admin/atividades/{id}									ActivitiesCRUD.save
 DELETE	${ctx}/admin/atividades/{id}									ActivitiesCRUD.delete
-
-# FreePage
-
-GET		${ctx}/admin/paginas-livre										FreePageCRUD.list
-GET		${ctx}/admin/paginas-livre/novo									FreePageCRUD.blank
-GET		${ctx}/admin/paginas-livre/{id}									FreePageCRUD.show
-GET		${ctx}/admin/paginas-livre/{id}/{field}							FreePageCRUD.attachment
-GET		${ctx}/admin/paginas-livre/{id}/editar							FreePageCRUD.edit
-POST	${ctx}/admin/paginas-livre										FreePageCRUD.create
-POST	${ctx}/admin/paginas-livre/{id}									FreePageCRUD.save
-DELETE	${ctx}/admin/paginas-livre/{id}									FreePageCRUD.delete
-
-# SellPage
-
-GET		${ctx}/admin/paginas-de-venda										SellPageCRUD.list
-GET		${ctx}/admin/paginas-de-venda/novo									SellPageCRUD.blank
-GET		${ctx}/admin/paginas-de-venda/{id}									SellPageCRUD.show
-GET		${ctx}/admin/paginas-de-venda/{id}/{field}							SellPageCRUD.attachment
-GET		${ctx}/admin/paginas-de-venda/{id}/editar							SellPageCRUD.edit
-POST	${ctx}/admin/paginas-de-venda										SellPageCRUD.create
-POST	${ctx}/admin/paginas-de-venda/{id}									SellPageCRUD.save
-DELETE	${ctx}/admin/paginas-de-venda/{id}									SellPageCRUD.delete
-
-# HighlightProduct
-
-GET		${ctx}/admin/produtos-em-destaque										HighlightProductCRUD.list
-GET		${ctx}/admin/produtos-em-destaque/novo									HighlightProductCRUD.blank
-GET		${ctx}/admin/produtos-em-destaque/{id}									HighlightProductCRUD.show
-GET		${ctx}/admin/produtos-em-destaque/{id}/{field}							HighlightProductCRUD.attachment
-GET		${ctx}/admin/produtos-em-destaque/{id}/editar							HighlightProductCRUD.edit
-POST	${ctx}/admin/produtos-em-destaque										HighlightProductCRUD.create
-POST	${ctx}/admin/produtos-em-destaque/{id}									HighlightProductCRUD.save
-DELETE	${ctx}/admin/produtos-em-destaque/{id}									HighlightProductCRUD.delete
-
-# SequenceMailQueue
-
-GET		${ctx}/admin/fila-de-emails										SequenceMailQueueCRUD.listAll
-GET		${ctx}/admin/fila-de-emails/novo								SequenceMailQueueCRUD.blank
-GET		${ctx}/admin/fila-de-emails/{id}								SequenceMailQueueCRUD.show
-GET		${ctx}/admin/fila-de-emails/{id}/{field}						SequenceMailQueueCRUD.attachment
-GET		${ctx}/admin/fila-de-emails/{id}/editar							SequenceMailQueueCRUD.edit
-POST	${ctx}/admin/fila-de-emails										SequenceMailQueueCRUD.create
-POST	${ctx}/admin/fila-de-emails/{id}								SequenceMailQueueCRUD.save
-DELETE	${ctx}/admin/fila-de-emails/{id}								SequenceMailQueueCRUD.delete
-
-# CampaingMail
-
-GET		${ctx}/admin/sequencia-de-emails									SequenceMailCRUD.listAll
-GET		${ctx}/admin/sequencia-de-emails									SequenceMailCRUD.list
-GET		${ctx}/admin/sequencia-de-emails/novo								SequenceMailCRUD.blank
-GET		${ctx}/admin/sequencia-de-emails/{id}								SequenceMailCRUD.show
-GET		${ctx}/admin/sequencia-de-emails/{id}/{field}						SequenceMailCRUD.attachment
-GET		${ctx}/admin/sequencia-de-emails/{id}/editar						SequenceMailCRUD.edit
-POST	${ctx}/admin/sequencia-de-emails									SequenceMailCRUD.create
-POST	${ctx}/admin/sequencia-de-emails/{id}								SequenceMailCRUD.save
-DELETE	${ctx}/admin/sequencia-de-emails/{id}								SequenceMailCRUD.delete
-
-# MaiBase
-
-GET		${ctx}/admin/base-de-emails									MailBaseCRUD.list
-GET		${ctx}/admin/base-de-emails/novo							MailBaseCRUD.blank
-GET		${ctx}/admin/base-de-emails/{id}							MailBaseCRUD.show
-GET		${ctx}/admin/base-de-emails/{id}/{field}					MailBaseCRUD.attachment
-GET		${ctx}/admin/base-de-emails/{id}/editar						MailBaseCRUD.edit
-POST	${ctx}/admin/base-de-emails									MailBaseCRUD.create
-POST	${ctx}/admin/base-de-emails/{id}							MailBaseCRUD.save
-DELETE	${ctx}/admin/base-de-emails/{id}							MailBaseCRUD.delete
-
-# SimplePage
-
-GET		${ctx}/admin/pagina-simples									SimplePagesCRUD.list
-GET		${ctx}/admin/pagina-simples/novo							SimplePagesCRUD.blank
-GET		${ctx}/admin/pagina-simples/{id}							SimplePagesCRUD.show
-GET		${ctx}/admin/pagina-simples/{id}/{field}					SimplePagesCRUD.attachment
-GET		${ctx}/admin/pagina-simples/{id}/editar						SimplePagesCRUD.edit
-POST	${ctx}/admin/pagina-simples									SimplePagesCRUD.create
-POST	${ctx}/admin/pagina-simples/{id}							SimplePagesCRUD.save
-DELETE	${ctx}/admin/pagina-simples/{id}							SimplePagesCRUD.delete
-
-# The System
-
-GET		${ctx}/admin/o-sistema								TheSystemCRUD.list
-GET		${ctx}/admin/o-sistema/novo							TheSystemCRUD.blank
-GET		${ctx}/admin/o-sistema/{id}							TheSystemCRUD.show
-GET		${ctx}/admin/o-sistema/{id}/{field}					TheSystemCRUD.attachment
-GET		${ctx}/admin/o-sistema/{id}/editar					TheSystemCRUD.edit
-POST	${ctx}/admin/o-sistema								TheSystemCRUD.create
-POST	${ctx}/admin/o-sistema/{id}							TheSystemCRUD.save
-DELETE	${ctx}/admin/o-sistema/{id}							TheSystemCRUD.delete
-
-# Article Services
-
-GET		${ctx}/admin/noticias								ArticleCRUD.list
-GET		${ctx}/admin/noticias/novo							ArticleCRUD.blank
-GET		${ctx}/admin/noticias/{id}							ArticleCRUD.show
-GET		${ctx}/admin/noticias/{id}/{field}					ArticleCRUD.attachment
-GET		${ctx}/admin/noticias/{id}/editar					ArticleCRUD.edit
-POST	${ctx}/admin/noticias								ArticleCRUD.create
-POST	${ctx}/admin/noticias/{id}							ArticleCRUD.save
-DELETE	${ctx}/admin/noticias/{id}							ArticleCRUD.delete
-
-# Admin Messages
-
-GET		${ctx}/admin/msgadmin									MessageCRUD.list
-GET		${ctx}/admin/msgadmin/novo								MessageCRUD.blank
-GET		${ctx}/admin/msgadmin/{id}								MessageCRUD.show
-GET		${ctx}/admin/msgadmin/{id}/{field}						MessageCRUD.attachment
-GET		${ctx}/admin/msgadmin/{id}/editar						MessageCRUD.edit
-POST	${ctx}/admin/msgadmin									MessageCRUD.create
-POST	${ctx}/admin/msgadmin/{id}								MessageCRUD.save
-DELETE	${ctx}/admin/msgadmin/{id}								MessageCRUD.delete
-
-# Admin Parameter
-
-GET		${ctx}/admin/parametros									ParameterCRUD.list
-GET		${ctx}/admin/parametros/novo							ParameterCRUD.blank
-GET		${ctx}/admin/parametros/{id}							ParameterCRUD.show
-GET		${ctx}/admin/parametros/{id}/{field}					ParameterCRUD.attachment
-GET		${ctx}/admin/parametros/{id}/editar						ParameterCRUD.edit
-POST	${ctx}/admin/parametros									ParameterCRUD.create
-POST	${ctx}/admin/parametros/{id}							ParameterCRUD.save
-DELETE	${ctx}/admin/parametros/{id}							ParameterCRUD.delete
 
 # Admin Clients
 
@@ -300,13 +310,10 @@ GET		${ctx}/admin/empresa								InstitutionCRUD.list
 GET		${ctx}/admin/empresas-cadastradas					InstitutionCRUD.listAll
 GET		${ctx}/admin/usuarios-cadastrados					UserCRUD.listAll
 
-GET		${ctx}/admin/leads									MailListCRUD.listAll
-GET		${ctx}/admin/leads									MailListCRUD.list
-
 GET		${ctx}/admin/usuario/{id}							UserCRUD.show
 GET		${ctx}/admin/usuario								UserCRUD.list
 
-GET		${ctx}/admin/financeiro/{id}							FinancialCRUD.signature
+GET		${ctx}/admin/financeiro/{id}						FinancialCRUD.signature
 
 # Administration
 GET    	${ctx}/popular                     			PopulateDB.populate
@@ -316,6 +323,14 @@ GET     ${ctx}/admin/{id}                     		Admin.form
 POST    ${ctx}/admin/{id}                     		Admin.save
 GET     ${ctx}/admin/novo                        	Admin.form
 POST    ${ctx}/admin/novo                        	Admin.save
+
+# AdministrationPub
+GET     ${ctx}/primeiros-passos							howtodo.AdminPub.firstStep
+GET     ${ctx}/admin-howtodo/?	                      	howtodo.AdminPub.index
+GET     ${ctx}/admin-howtodo/{id}                     	howtodo.AdminPub.form
+POST    ${ctx}/admin-howtodo/{id}                     	howtodo.AdminPub.save
+GET     ${ctx}/admin-howtodo/novo                       howtodo.AdminPub.form
+POST    ${ctx}/admin-howtodo/novo                       howtodo.AdminPub.save
 
 # Import CRUD routes
 *       ${ctx}/admin                      			module:crud

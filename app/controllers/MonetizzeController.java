@@ -6,15 +6,16 @@ import java.util.Arrays;
 
 import org.apache.ivy.Main;
 
-import models.BodyMail;
+import controllers.howtodo.MailController;
 import models.City;
 import models.MonetizzeTransaction;
-import models.Parameter;
 import models.SendTo;
 import models.Sender;
 import models.Service;
 import models.StatusMail;
 import models.User;
+import models.howtodo.BodyMail;
+import models.howtodo.Parameter;
 import play.mvc.Controller;
 import util.ApplicationConfiguration;
 import util.Utils;

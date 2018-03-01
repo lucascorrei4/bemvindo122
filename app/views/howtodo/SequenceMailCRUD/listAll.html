@@ -1,0 +1,89 @@
+#{extends 'CRUD/layoutPub.html' /}
+#{set title:messages.get('crud.list.title', 'Funis de E-mail') /}
+<meta charset="utf-8" />
+	<div class="col-lg-12 ${type.name}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+				<div class="form-group">
+				    <label for="object_services">
+				        Busca
+				    </label>
+					<div id="accordion_search_bar_container">
+						<input type="search" class="form-control" id="accordion_search_bar" placeholder="Pesquise por algum termo" />
+					</div>
+				</div>
+				<div class="form-group">
+					<a href="@{blank()}" class="btn btn-default btn-lg">Adicionar Novo</a>
+				</div>
+				<div class="alert alert-success alert-dismissable">
+                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                   <strong>Atenção:</strong> Ao excluir um e-mail exclui-se também os e-mails que estão na fila de envio (enviados ou em espera).
+               </div>
+            </div>
+			<div class="panel-body" id="page_container">
+				<div class="panel-group" id="accordion" role="tablist"
+					aria-multiselectable="true">
+					#{list items:listGroupedUrls, as:'groupedUrl'}
+						<div class="panel panel-${groupedUrl_index % 2 == 0 ? 'info' : 'default'}" id="collapse${groupedUrl_index}_container">
+							<div class="panel-heading" role="tab" id="heading${groupedUrl_index}">
+								<h4 class="panel-title">
+									<a role="button" data-toggle="collapse" data-parent="#accordion"
+										href="#collapse${groupedUrl_index}" aria-expanded="true"
+										aria-controls="collapse${groupedUrl_index}"> Página: <strong>${groupedUrl.url}</strong> </a>
+								</h4>
+							</div>
+							<div id="collapse${groupedUrl_index}" class="panel-collapse collapse"
+								role="tabpanel" aria-labelledby="heading${groupedUrl_index}">
+								<div class="panel-body">
+									<div class="table-responsive">
+										<div class="form-group">
+											<a href="@{blank()}" class="btn btn-default btn" style="float: right; margin: 5px">Adicionar Novo</a>
+										</div>
+										<table class="table table-striped">
+		                                    <thead>
+		                                        <tr>
+		                                            <th>Data</th>
+		                                            <th>Ordem</th>
+		                                            <th>Título do E-mail</th>
+		                                            <th>Dia da Semana Específico</th>
+		                                            <th>Data e Hora Específica</th>
+		                                            <th>Ativo para Envio</th>
+		                                            <th>Ações</th>
+		                                        </tr>
+		                                    </thead>
+		                                    <tbody>
+												#{list items:groupedUrl.listSequenceMail, as:'sequenceMail'}
+			                                        <tr>
+									         			<td><a href="@{howtodo.SequenceMailCRUD.show(sequenceMail.id)}">${sequenceMail.postedAtParsed}</a></td>
+									         			<td><a href="@{howtodo.SequenceMailCRUD.show(sequenceMail.id)}">${sequenceMail.sequence}</a>º</td>
+									         			<td><a href="@{howtodo.SequenceMailCRUD.show(sequenceMail.id)}">${sequenceMail.title}</a></td>
+											    		<td><a href="@{howtodo.SequenceMailCRUD.show(sequenceMail.id)}">${sequenceMail.sendSpecificDay? 'Sim' : 'Não'}</a>
+											    		<td><a href="@{howtodo.SequenceMailCRUD.show(sequenceMail.id)}">${sequenceMail.sendSpecificDayAndTime? 'Sim' : 'Não'}</a>
+											    		<td><a href="@{howtodo.SequenceMailCRUD.show(sequenceMail.id)}">${sequenceMail.isActive? 'Sim' : 'Não'}</a>
+											    		<td>
+											    			<div class="dropdown">
+																<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu${sequenceMail.id}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+																  <i class="fa fa-wrench"></i> <span class="caret"></span>
+																</button>
+																<ul class="dropdown-menu" aria-labelledby="dropdownMenu${sequenceMail.id}">
+								                                    <li><a href="@{howtodo.SequenceMailCRUD.show(sequenceMail.id)}">Editar</a>
+								                                    </li>
+								                                    <li class="divider"></li>
+								                                    <li><a href="@{howtodo.SequenceMailCRUD.remove(sequenceMail.id)}">Excluir</a>
+																</ul>
+															</div>
+														</td>
+			                                        </tr>
+												#{/list}
+		                                    </tbody>
+		                                </table>
+									</div>
+								</div>
+							</div>
+						</div>
+					#{/list}
+				</div>
+			</div>
+   		</div>
+   		<div class="col-lg-6"></div>
+   	</div>

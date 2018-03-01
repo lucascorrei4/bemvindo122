@@ -9,9 +9,9 @@ import java.util.Set;
 
 import models.Activity;
 import models.Client;
-import models.HighlightProduct;
-import models.Parameter;
 import models.User;
+import models.howtodo.HighlightProduct;
+import models.howtodo.Parameter;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
@@ -99,14 +99,16 @@ public class ActivitiesCRUD extends CRUD {
 	public static void timeline(Client clientTimeline) {
 		List<Client> clients = null;
 		List<Activity> activities = null;
+		String totalSellByClient = null;
 		if (Utils.isNullOrZero(clientTimeline.id)) {
 			clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
 			if (!Utils.isNullOrEmpty(clients)) {
 				clientTimeline = clients.iterator().next();
 				activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch();
+				totalSellByClient = Utils.getCurrencyValue(OrderOfServiceCRUD.calculateTotalOrderOfServiceByClient(clientTimeline));
 			}
 		}
-		render(clients, clientTimeline, activities);
+		render(clients, clientTimeline, activities, totalSellByClient);
 	}
 	
 	public static void remove(String id) throws Exception {
@@ -143,7 +145,8 @@ public class ActivitiesCRUD extends CRUD {
 		if (!Utils.isNullOrEmpty(clientId)) {
 			Client clientTimeline = Client.findById(Long.valueOf(clientId));
 			List<Activity> activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + "  order by postedAt desc").fetch();
-			render("includes/timeline.html", clientTimeline, activities);
+			String totalSellByClient = Utils.getCurrencyValue(OrderOfServiceCRUD.calculateTotalOrderOfServiceByClient(clientTimeline));
+			render("includes/timeline.html", clientTimeline, activities, totalSellByClient);
 		}
 	}
 	

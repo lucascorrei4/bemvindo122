@@ -49,6 +49,9 @@ import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
+import util.howtodo.TO;
+import util.howtodo.TONumeric;
+import util.howtodo.UrlShortener;
 
 public class Utils extends Controller {
 	public static final String STR_DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
@@ -384,9 +387,9 @@ public class Utils extends Controller {
 		return cal.getTime();
 	}
 
-	public static void mainss(String[] args) {
+	public static void main(String[] args) {
 		System.out.println(new Date());
-		System.out.println(addDays(new Date(), 30));
+		System.out.println(addDays(new Date(), 2-1));
 	}
 
 	public static String transformQueryParamToJson(String queryParam, String prefix) {
@@ -440,7 +443,7 @@ public class Utils extends Controller {
 		return StringUtils.newStringUtf8(Base64.decodeBase64(s));
 	}
 
-	public static void main(String[] args) throws UnsupportedEncodingException, ParseException {
+	public static void maissn(String[] args) throws UnsupportedEncodingException, ParseException {
 //		Calendar c = Calendar.getInstance();
 //		c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(06));
 //		c.set(Calendar.MINUTE, Integer.valueOf(30));
@@ -562,6 +565,12 @@ public class Utils extends Controller {
 		huc.connect();
 		int code = huc.getResponseCode();
 		return 200 == code;
+	}
+	
+	public static String toJsonChart(List<TONumeric> top3Clients) {
+		Gson gson = new Gson();
+		String json = gson.toJson(top3Clients).replaceAll("\"label\"", "label").replaceAll("\"value\"", "value");
+		return json;
 	}
 
 }
