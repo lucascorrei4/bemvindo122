@@ -11,17 +11,32 @@
                	<div class="col-lg-6">
 					#{form action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
+							#{crud.custom 'annonymousSearch'}
+								<div class="form-group">
+									<label> Pesquisa Anônima </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.annonymousSearch" id="optionsRadiosInline1" value="true" ${object.annonymousSearch?'checked=checked':''}><span title="Sim">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.annonymousSearch" id="optionsRadiosInline2" value="false" ${!object.annonymousSearch?'checked=checked':''}><span title="Não">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
 							#{crud.custom 'isActive'}
 								<div class="form-group">
 									<label> Habilitar </label> 
 									<div class="radio">
                                         <label>
-											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline3" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
 										</label> 
 									</div>
 									<div class="radio">
                                         <label>
-											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline4" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
 										</label> 
 									</div>
 								</div>

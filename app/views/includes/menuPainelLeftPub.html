@@ -16,9 +16,15 @@
 				</ul>
 			</li>
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-paper-plane-o fa-fw"></i> Funis de E-mail<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-users fa-fw"></i> Leads<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
+					<li><a href="@{howtodo.MailListCRUD.performance}">Performance</a></li>
 					<li><a href="@{howtodo.MailListCRUD.listAll}">Leads Capturados</a></li>
+				</ul>
+			</li>
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-paper-plane-o fa-fw"></i> E-mails (Funis/Envios)<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
 					<li><a href="@{howtodo.SequenceMailCRUD.listAll}">Sequência de E-mails</a></li>
 					<li><a href="@{howtodo.SequenceMailQueueCRUD.listAll}">Fila de Envios</a></li>
 					<li><a href="@{howtodo.SequenceMailQueueCRUD.listAllGrouped}">Fila de Envios Agrupada</a></li>

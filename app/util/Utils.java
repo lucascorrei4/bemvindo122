@@ -389,7 +389,7 @@ public class Utils extends Controller {
 
 	public static void main(String[] args) {
 		System.out.println(new Date());
-		System.out.println(addDays(new Date(), 2-1));
+		System.out.println(addDays(new Date(), 2 - 1));
 	}
 
 	public static String transformQueryParamToJson(String queryParam, String prefix) {
@@ -433,7 +433,7 @@ public class Utils extends Controller {
 		Date d = sdf.parse(strDate);
 		return formatDate(d);
 	}
-	
+
 	public static Date parseStringDateTimeToDate(String dateTime) throws ParseException {
 		Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(dateTime);
 		return date;
@@ -444,12 +444,12 @@ public class Utils extends Controller {
 	}
 
 	public static void maissn(String[] args) throws UnsupportedEncodingException, ParseException {
-//		Calendar c = Calendar.getInstance();
-//		c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(06));
-//		c.set(Calendar.MINUTE, Integer.valueOf(30));
-//		c.set(Calendar.SECOND, 0);
-//		c.set(Calendar.MILLISECOND, 0);
-		
+		// Calendar c = Calendar.getInstance();
+		// c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(06));
+		// c.set(Calendar.MINUTE, Integer.valueOf(30));
+		// c.set(Calendar.SECOND, 0);
+		// c.set(Calendar.MILLISECOND, 0);
+
 		Calendar calendar = getBrazilCalendar();
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
@@ -474,6 +474,25 @@ public class Utils extends Controller {
 			}
 		}
 		return null;
+	}
+
+	public static String getAllValueParamByKey(String[] params, String key) {
+		for (int i = 0; i < params.length; i++) {
+			if (key.equals(params[i].split("=")[0])) {
+				if ("url".equals(key)) {
+					if (params.length > (i + 1) && params[i + 1] != null && params[i + 1].startsWith("utm")) {
+						return params[i].substring(4).concat("&").concat(params[i + 1]);
+					} else if ("url".equals(key)) {
+						return params[i].substring(4);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public static String splitUrlStringFromParameters(String url, int zeroOrOne) {
+		return (Utils.isNullOrEmpty(url) || Utils.isNullOrEmpty(url.split("\\?")) || url.split("\\?").length == 1) ? url.split("\\?")[0] : url.split("\\?")[zeroOrOne];
 	}
 
 	public static String decodeUrl(String url) throws UnsupportedEncodingException {
@@ -566,7 +585,7 @@ public class Utils extends Controller {
 		int code = huc.getResponseCode();
 		return 200 == code;
 	}
-	
+
 	public static String toJsonChart(List<TONumeric> top3Clients) {
 		Gson gson = new Gson();
 		String json = gson.toJson(top3Clients).replaceAll("\"label\"", "label").replaceAll("\"value\"", "value");

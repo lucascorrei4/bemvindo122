@@ -96,6 +96,21 @@
 									</div>
 								</div>
 							#{/crud.custom}
+							#{crud.custom 'excludeWhoDontReceiveOthersMails'}
+								<div class="form-group">
+									<label> &{'excludeWhoDontReceiveOthersMails'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.excludeWhoDontReceiveOthersMails" id="optionsRadiosInline7" value="true" ${object.excludeWhoDontReceiveOthersMails?'checked=checked':''}><span title="&{'excludeWhoDontReceiveOthersMails'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.excludeWhoDontReceiveOthersMails" id="optionsRadiosInline8" value="false" ${!object.excludeWhoDontReceiveOthersMails?'checked=checked':''}><span title="&{'excludeWhoDontReceiveOthersMails'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
 						#{/crud.form}
 						<div class="form-group" style="float: left">
 							<a href="@{list()}" class="btn btn-default btn-lg">&{'crud.cancel', type.modelName}</a>

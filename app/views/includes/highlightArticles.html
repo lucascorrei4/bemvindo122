@@ -12,7 +12,7 @@
 				<h2 class="mainLead">&{highlightArticle.getTitle().raw()}</h2>
 			#{/else}
 			</a>			
-			<input id="shorten" type="hidden" value=&{parameter.getSiteDomain()}}" />
+			<input id="shorten" type="hidden" value=&{parameter.getSiteDomain()}" />
 			<div id="share"></div>
 			<a href="/artigos/${highlightArticle.id}/${highlightArticle.getFriendlyUrl()}">
 				<h3 style="text-transform: unset; color: #444444">&{highlightArticle.getHeadline().length() > 130 ? highlightArticle.getHeadline().substring(0, 128).concat("...") : highlightArticle.getHeadline().raw()}</h3>

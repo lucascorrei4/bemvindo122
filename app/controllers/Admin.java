@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.util.ArrayList;
@@ -136,7 +135,7 @@ public class Admin extends Controller {
 				String top3Clients = null;
 				if (!Utils.isNullOrEmpty(getTop3Clients())) {
 					top3Clients = Utils.toJsonChart(getTop3Clients());
-				} 
+				}
 				render(listClients, listServices, listOrderOfServices, contClients, contServices, contOrderOfServices, connectedUser, institutionName, contSentSMSs, institution, contSentPushs, parameter, smsExceedLimit, userFreeTrial, allSents, contSentMails, listOrderOfServicesByMonth,
 						totalOfOrderOfServiceByMonth, clientTimeline, activities, totalSellByClient, top3Clients);
 			} else {
@@ -182,18 +181,24 @@ public class Admin extends Controller {
 				totalGeral = 0f;
 			}
 		}
-		TONumeric top1 = new TONumeric();
-		top1.setLabel(clientTop1.name + "" + clientTop1.lastName);
-		top1.setValue(biggerValue1);
-		listTop3.add(top1);
-		TONumeric top2 = new TONumeric();
-		top2.setLabel(clientTop2.name + "" + clientTop2.lastName);
-		top2.setValue(biggerValue2);
-		listTop3.add(top2);
-		TONumeric top3 = new TONumeric();
-		top3.setLabel(clientTop3.name + "" + clientTop3.lastName);
-		top3.setValue(biggerValue3);
-		listTop3.add(top3);
+		if (!Utils.isNullOrEmpty(clientTop1) && !Utils.isNullOrEmpty(clientTop1.name)) {
+			TONumeric top1 = new TONumeric();
+			top1.setLabel(clientTop1.name + " " + clientTop1.lastName);
+			top1.setValue(biggerValue1);
+			listTop3.add(top1);
+		}
+		if (!Utils.isNullOrEmpty(clientTop2) && !Utils.isNullOrEmpty(clientTop2.name)) {
+			TONumeric top2 = new TONumeric();
+			top2.setLabel(clientTop2.name + " " + clientTop2.lastName);
+			top2.setValue(biggerValue2);
+			listTop3.add(top2);
+		}
+		if (!Utils.isNullOrEmpty(clientTop3) && !Utils.isNullOrEmpty(clientTop3.name)) {
+			TONumeric top3 = new TONumeric();
+			top3.setLabel(clientTop3.name + " " + clientTop3.lastName);
+			top3.setValue(biggerValue3);
+			listTop3.add(top3);
+		}
 		return listTop3;
 	}
 

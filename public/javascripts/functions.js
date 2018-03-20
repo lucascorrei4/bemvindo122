@@ -503,8 +503,8 @@ function newsletterTop() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'homepagetop';
-	data.url = window.location.href;
 	data.typeContentPage = "nd";
+	data.url = window.location.href;
 	$('#mailListTop').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
@@ -551,8 +551,8 @@ function newsletterBottom() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'homepagebottom';
-	data.url = window.location.href;
 	data.typeContentPage = "nd";
+	data.url = window.location.href;
 	$('#mailListBottom').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status2").val();

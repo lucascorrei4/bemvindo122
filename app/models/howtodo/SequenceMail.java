@@ -23,7 +23,7 @@ public class SequenceMail extends Model {
 	public String url;
 
 	public String title;
-	
+
 	@Lob
 	@MaxSize(100000)
 	public String description;
@@ -31,17 +31,17 @@ public class SequenceMail extends Model {
 	public Blob attachment = null;
 
 	public Integer sequence;
-	
+
 	public boolean sendSpecificDay = false;
-	public DaysOfWeekEnum dayOfWeek = DaysOfWeekEnum.Sunday; 
+	public DaysOfWeekEnum dayOfWeek = DaysOfWeekEnum.Sunday;
 	public HoursOfDayEnum hourOfDay = HoursOfDayEnum.hh05mm00;
 	public boolean sendSpecificDayAndTime = false;
 	public String specificDateTime;
-	
+
 	@Hidden
 	@Transient
 	List<SequenceMailQueue> listSequenceMailQueue;
-	
+
 	@Hidden
 	@Transient
 	Long totalSent;
@@ -51,7 +51,9 @@ public class SequenceMail extends Model {
 	@Hidden
 	@Transient
 	Long totalClicked;
-	
+
+	public boolean excludeWhoDontReceiveOthersMails = false;
+
 	public Blob getAttachment() {
 		if (this.attachment == null) {
 			setAttachment(new Blob());
@@ -226,7 +228,7 @@ public class SequenceMail extends Model {
 	public void setTotalClicked(Long totalClicked) {
 		this.totalClicked = totalClicked;
 	}
-	
+
 	public List<SequenceMailQueue> getListSequenceMailQueue() {
 		if (this.listSequenceMailQueue == null) {
 			setListSequenceMailQueue(new ArrayList<SequenceMailQueue>());
@@ -237,6 +239,13 @@ public class SequenceMail extends Model {
 	public void setListSequenceMailQueue(List<SequenceMailQueue> listSequenceMailQueue) {
 		this.listSequenceMailQueue = listSequenceMailQueue;
 	}
-	
+
+	public boolean isExcludeWhoDontReceiveOthersMails() {
+		return excludeWhoDontReceiveOthersMails;
+	}
+
+	public void setExcludeWhoDontReceiveOthersMails(boolean excludeWhoDontReceiveOthersMails) {
+		this.excludeWhoDontReceiveOthersMails = excludeWhoDontReceiveOthersMails;
+	}
 
 }

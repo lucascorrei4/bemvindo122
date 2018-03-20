@@ -11,6 +11,9 @@
                	<div class="col-lg-12">
 					#{form id:'form', action:@save(object._key(), 'showSocialMediaPage'), enctype:'multipart/form-data'}
 						#{crud.form}
+							#{crud.custom 'standarHourToSendMails'} #{/crud.custom}
+							#{crud.custom 'mailSendInterval'} #{/crud.custom}
+							#{crud.custom 'freePageIndex'} #{/crud.custom}	
 							#{crud.custom 'siteName'} #{/crud.custom}
 							#{crud.custom 'siteDomain'} #{/crud.custom}
 							#{crud.custom 'siteMail'} #{/crud.custom}

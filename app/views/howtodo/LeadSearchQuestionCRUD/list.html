@@ -16,12 +16,23 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'campaing', 'action']}
+			        #{crud.table fields:['postedAt', 'campaing', 'link', 'annonymousSearch', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{howtodo.LeadSearchQuestionCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'campaing'}
 			         		<a href="@{howtodo.LeadSearchQuestionCRUD.show(object.id)}">${object.campaing}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'link'}
+				        	#{if object.annonymousSearch}
+			         			<a href="/pesquisa/cid/${object.campaing}/uid/" target="_blank">Acessar</a>
+				        	#{/if}
+				        	#{else}
+			         			<a href="/pesquisa/cid/${object.campaing}/uid/" target="_blank">Acessar</a>
+				        	#{/else}
+				        #{/crud.custom}
+			        	#{crud.custom 'annonymousSearch'}
+						    	<a href="@{howtodo.LeadSearchQuestionCRUD.show(object.id)}">${object.annonymousSearch ? 'Sim' : 'Não'}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
 						    	<a href="@{howtodo.LeadSearchQuestionCRUD.show(object.id)}">${object.isActive ? 'Sim' : 'Não'}</a>

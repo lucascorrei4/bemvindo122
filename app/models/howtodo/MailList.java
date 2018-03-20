@@ -20,11 +20,15 @@ public class MailList extends Model {
 	@Required(message = "Campo obrigatório.")
 	public String mail;
 	
+	public String phone;
+	
 	@Enumerated(EnumType.STRING)
 	public FromEnum origin = FromEnum.HomePageTop;
 
 	@Required(message = "Campo obrigatório.")
 	public String url;
+
+	public String urlParameters;
 
 	@Enumerated(EnumType.STRING)
 	public TypeContentPageEnum typeContentPage = TypeContentPageEnum.VideoContent;
@@ -104,6 +108,22 @@ public class MailList extends Model {
 
 	public void setTypeContentPage(TypeContentPageEnum typeContentPage) {
 		this.typeContentPage = typeContentPage;
+	}
+
+	public String getUrlParameters() {
+		return urlParameters;
+	}
+
+	public void setUrlParameters(String urlParameters) {
+		this.urlParameters = urlParameters;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

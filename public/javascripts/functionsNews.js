@@ -1,6 +1,7 @@
 function newsletterFreePageBootstrap() {
 	var name = document.getElementsByName('mailList.name1')[0].value;
 	var mail = document.getElementsByName('mailList.mail1')[0].value;
+	var phone = document.getElementsByName('mailList.phone').length > 0 ? document.getElementsByName('mailList.phone')[0].value : '';
 	var typeContentPage = document.getElementsByName('abTestVideoOfText')[0].value;
 	if (name === '') {
 		$('#message').css('color', 'red');
@@ -23,9 +24,10 @@ function newsletterFreePageBootstrap() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'newsletterfreepagebootstrap';
-	var url = [location.protocol, '//', location.host, location.pathname].join('');
-	data.url = url;
 	data.typeContentPage = typeContentPage;
+	var url = window.location.href;
+	data.url = url;
+	data.phone = phone;
 	$('#newsletterFreePage').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
@@ -76,9 +78,9 @@ function newsletterFreePage() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'newsletterfreepage';
+	data.typeContentPage = typeContentPage;
 	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
-	data.typeContentPage = typeContentPage;
 	$('#newsletterFreePage').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 		var status = $("#status").val();
@@ -128,9 +130,9 @@ function newsletterTips() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'newspage';
-	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
-	data.url = url;
 	data.typeContentPage = "nd";
+	var url = [location.protocol, '//', location.host, location.pathname].join('');
+	data.url = url;
 	$('#newsletterTips').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
@@ -177,9 +179,9 @@ function newsletterTheSystemTop() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'capturepagetop';
-	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
-	data.url = url;
 	data.typeContentPage = "nd";
+	var url = [location.protocol, '//', location.host, location.pathname].join('');
+	data.url = url;
 	$('#newsletterTheSystemTop').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
@@ -226,9 +228,9 @@ function newsletterTheSystemBottom() {
 	data.name = name;
 	data.mail = mail;
 	data.origin = 'capturepagebottom';
-	var url = [location.protocol, '//', location.host, location.pathname].join('');console.log(url);
-	data.url = url;
 	data.typeContentPage = "nd";
+	var url = [location.protocol, '//', location.host, location.pathname].join('');
+	data.url = url;
 	$('#newsletterTheSystemBottom').load('/application/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();

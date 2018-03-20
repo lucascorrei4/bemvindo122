@@ -55,6 +55,7 @@ import play.mvc.Controller;
 import play.mvc.Finally;
 import play.mvc.Http;
 import play.mvc.Scope;
+import play.mvc.Http.Cookie;
 import play.mvc.Http.Header;
 import play.mvc.Http.Response;
 import play.mvc.results.RenderTemplate;
@@ -89,14 +90,43 @@ public class Application extends Controller {
 	}
 
 	public static void index() {
-		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(4);
-		List<Article> listArticles12 = listArticles.subList(0, 2);
-		List<Article> listArticles34 = listArticles.subList(2, listArticles.size());
-		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
-		TheSystem theSystem = new TheSystem();
-		theSystem.setShowTopMenu(true);
 		Parameter parameter = Parameter.all().first();
-		render(listTheSystems, listArticles12, listArticles34, parameter);
+		if (parameter.getFreePageIndex() != null) {
+			FreePage freePage = parameter.getFreePageIndex();
+			String title = Utils.removeHTML(freePage.getMainTitle());
+			String headline = Utils.removeHTML(freePage.getSubtitle1());
+			/* Verify if test A/B of Video or Text is enabled. */
+			/*
+			 * If yes, record a cookie in user navigator to guarantee that he
+			 * will see only one page.
+			 */
+			if (freePage.isAbTestVideoOfText()) {
+				Cookie cookie = Http.Request.current().cookies.get("acp_viewed");
+				if (cookie == null) {
+					if (freePage.isAlternateVideoText()) {
+						freePage.setAlternateVideoText(false);
+						response.setCookie("acp_viewed", "video");
+					} else {
+						freePage.setAlternateVideoText(true);
+						response.setCookie("acp_viewed", "text");
+					}
+					freePage.save();
+				} else if ("text".equals(cookie.value.toString())) {
+					freePage.setAlternateVideoText(true);
+				} else if ("video".equals(cookie.value.toString())) {
+					freePage.setAlternateVideoText(false);
+				}
+			}
+			render("howtodo/FreePageController/details.html", freePage, parameter, title, headline);
+		} else {
+			List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(4);
+			List<Article> listArticles12 = listArticles.subList(0, 2);
+			List<Article> listArticles34 = listArticles.subList(2, listArticles.size());
+			List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+			TheSystem theSystem = new TheSystem();
+			theSystem.setShowTopMenu(true);
+			render(listTheSystems, listArticles12, listArticles34, parameter);
+		}
 	}
 
 	public static void generateServiceCode() {
@@ -606,19 +636,27 @@ public class Application extends Controller {
 		Parameter parameter = getCurrentParameter();
 		render(theSystem, bottomNews, parameter);
 	}
-
+	
+	public static void main(String[] args) {
+		String url ="http://localhost:9002/?src=from-adw&utm_campaing=since-20180302";
+		System.out.println(url.split("\\?")[0]);
+	}
+	
 	public static void saveMailList() throws UnsupportedEncodingException {
 		String resp = null;
 		String status = null;
 		String body = params.get("body", String.class);
 		String decodedParams = URLDecoder.decode(body, "UTF-8");
+		String phone = params.get("phone");
 		String[] params = decodedParams.split("&");
 		String name = Utils.getValueFromUrlParam(params[0]);
 		String mail = Utils.getValueFromUrlParam(params[1]);
 		String origin = Utils.getValueFromUrlParam(params[2]);
-		String url = Utils.getValueFromUrlParam(params[3]);
-		String typeContentPage = Utils.getValueFromUrlParam(params[4]);
+		String typeContentPage = Utils.getValueFromUrlParam(params[3]);
+		String url = Utils.splitUrlStringFromParameters(Utils.getAllValueParamByKey(params, "url"), 0);
+		String urlParameters = Utils.splitUrlStringFromParameters(Utils.getAllValueParamByKey(params, "url"), 1);
 		/* Verify if lead has been registered in current capture page */
+		url = (url.charAt(url.length() - 1) == '/' ? (url.substring(0, url.length() - 1)) : url);
 		MailList mailList = MailList.find("mail = '" + mail + "' and url = '" + url + "'").first();
 		if (mailList == null) {
 			mailList = new MailList();
@@ -631,9 +669,14 @@ public class Application extends Controller {
 		}
 		mailList.setName(name);
 		mailList.setMail(mail);
+		mailList.setPhone(phone);
 		mailList.origin = FromEnum.getNameByValue(origin);
 		mailList.setUrl(url);
-		/* Verify if the page has A/B Test of Text or Video. If not, set as not defined */
+		mailList.setUrlParameters(urlParameters);
+		/*
+		 * Verify if the page has A/B Test of Text or Video. If not, set as not
+		 * defined
+		 */
 		if ("true".equals(typeContentPage)) {
 			mailList.setTypeContentPage(TypeContentPageEnum.TextContent);
 		} else if ("false".equals(typeContentPage)) {
@@ -655,16 +698,22 @@ public class Application extends Controller {
 			mailList.merge();
 		}
 		String redirectTo = null;
+		String partOf = null; 
+		String pageParameter = null;
 		FreePage freePage = null;
 		Parameter parameter = getCurrentParameter();
-		url = (url.charAt(url.length() - 1) == '/' ? (url.substring(0, url.length() - 1)) : url);
-		if (url.equals(parameter.getSiteDomain())) {
-			redirectTo = parameter.getEmbedThankLead();
-		} else if (url.contains("fp/")) {
-			String partOf = url.substring(url.indexOf("fp/"));
-			String pageParameter = partOf.split("/")[1];
-			freePage = FreePage.findByFriendlyUrl(pageParameter);
-			redirectTo = freePage.getRedirectTo();
+		if (Utils.isNullOrEmpty(parameter.getFreePageIndex())) {
+			if (url.equals(parameter.getSiteDomain())) {
+				redirectTo = parameter.getEmbedThankLead();
+			} else if (url.contains("fp/")) {
+				partOf = url.substring(url.indexOf("fp/"));
+				pageParameter = partOf.split("/")[1];
+				freePage = FreePage.findByFriendlyUrl(pageParameter);
+				redirectTo = freePage.getRedirectTo();
+			}
+		} else {
+			freePage = parameter.getFreePageIndex();
+			redirectTo = parameter.getFreePageIndex().getRedirectTo();
 		}
 		/* Render page based on origin */
 		switch (FromEnum.getNameByValue(origin)) {
@@ -918,5 +967,5 @@ public class Application extends Controller {
 		orderOfService.save();
 		render("@clientEvaluationThanks", parameter);
 	}
-	
+
 }

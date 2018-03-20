@@ -10,6 +10,12 @@
 	  	<label>Seu e-m@il</label>
   		<input type="text" class="form-control input-lg" name="mailList.mail1" placeholder="Seu melhor e-mail"  value="${flash['mailList.mail1']}">
   	</div>
+  	#{if freePage.showNumberPhone}
+		<div class="form-group">
+		  	<label>Seu Celular (Para Receber por WhatsApp ou SMS)</label>
+	  		<input type="text" class="form-control input-lg sp_celphones" name="mailList.phone" placeholder="Seu nº de celular"  value="${flash['mailList.phone']}">
+	  	</div>
+  	#{/}
   	<div class="form-group" style=" text-align: center">
 		<a onclick="newsletterFreePageBootstrap()" class="btn btn-danger btn-lg">&{freePage.getButtonMainTitle() == '' ? 'QUERO RECEBER' : freePage.getButtonMainTitle().raw()}</a>
 		<div id="message" style="display: none; text-align: center; font-weight: bold;"></div>

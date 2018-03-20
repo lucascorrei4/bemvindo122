@@ -46,6 +46,7 @@ public class LeadSearchQuestion extends Model {
 	@Hidden
 	public String postedAt;
 
+	public boolean annonymousSearch = false;
 	public boolean isActive = true;
 	
 	@Hidden
@@ -196,6 +197,14 @@ public class LeadSearchQuestion extends Model {
 
 	public void setThanksTitle(String thanksTitle) {
 		this.thanksTitle = thanksTitle;
+	}
+
+	public boolean isAnnonymousSearch() {
+		return annonymousSearch;
+	}
+
+	public void setAnnonymousSearch(boolean annonymousSearch) {
+		this.annonymousSearch = annonymousSearch;
 	}
 
 }

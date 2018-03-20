@@ -42,25 +42,44 @@ public class SequenceMailController {
 		return newUrl;
 	}
 
-	public static void addLeadToSalesFunnel(MailList mailList, List<SequenceMail> sequenceMailList, Parameter parameter) throws ParseException {
+	public static void addLeadToSalesFunnel(MailList lead, List<SequenceMail> sequenceMailList, Parameter parameter) throws ParseException {
 		SequenceMailQueue queue = null;
+		boolean addToQueue = false;
 		for (int i = 0; i < sequenceMailList.size(); i++) {
 			Long sequenceMailId = sequenceMailList.get(i).id;
 			queue = new SequenceMailQueue();
-			queue = SequenceMailQueue.find("name = '" + mailList.getName() + "' and mail = '" + mailList.getMail() + "' and sequenceMail_id = " + sequenceMailId).first();
+			/* Exclude Who Will Receive Other Mails From Same URL Queue */
+			if (sequenceMailList.get(i).isExcludeWhoDontReceiveOthersMails()) {
+				queue = findMailsNotSentYet(lead.getMail());
+				if (queue == null) {
+					queue = findMailsAlreadyInQueue(lead.getMail(), sequenceMailId);
+				} else {
+					continue;
+				}
+			} else {
+				queue = findMailsAlreadyInQueue(lead.getMail(), sequenceMailId);
+			}
 			if (queue == null) {
+				addToQueue = true;
+			} else {
+				addToQueue = false;
+			}
+			if (addToQueue) {
 				queue = new SequenceMailQueue();
 				if (sequenceMailList.get(i).isSendSpecificDay()) {
-					if (sequenceMailList.get(i).isSendSpecificDayAndTime() && !Utils.isNullOrEmpty(sequenceMailList.get(i).getSpecificDateTime())) {
-						queue.setJobDate(Utils.parseStringDateTimeToDate(sequenceMailList.get(i).getSpecificDateTime()));
-					} else if (sequenceMailList.get(i).isSendSpecificDay())  {
-						Calendar c = Calendar.getInstance();
-						c.set(Calendar.DAY_OF_WEEK, Integer.valueOf(sequenceMailList.get(i).getDayOfWeek().getValue()));
-						c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(sequenceMailList.get(i).getHourOfDay().getValue().substring(0, 2)));
-						c.set(Calendar.MINUTE, Integer.valueOf(sequenceMailList.get(i).getHourOfDay().getValue().substring(3, 5)));
-						c.set(Calendar.SECOND, 0);
-						c.set(Calendar.MILLISECOND, 0);
-						queue.setJobDate(c.getTime());
+					Calendar c = Calendar.getInstance();
+					c.set(Calendar.DAY_OF_WEEK, Integer.valueOf(sequenceMailList.get(i).getDayOfWeek().getValue()));
+					c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(sequenceMailList.get(i).getHourOfDay().getValue().substring(0, 2)));
+					c.set(Calendar.MINUTE, Integer.valueOf(sequenceMailList.get(i).getHourOfDay().getValue().substring(3, 5)));
+					c.set(Calendar.SECOND, 0);
+					c.set(Calendar.MILLISECOND, 0);
+					queue.setJobDate(c.getTime());
+				} else if (sequenceMailList.get(i).isSendSpecificDayAndTime() && !Utils.isNullOrEmpty(sequenceMailList.get(i).getSpecificDateTime())) {
+					Date scheduledDate = Utils.parseStringDateTimeToDate(sequenceMailList.get(i).getSpecificDateTime());
+					if (scheduledDate.after(Utils.getBrazilCalendar().getTime())) {
+						queue.setJobDate(scheduledDate);
+					} else {
+						continue;
 					}
 				} else {
 					if (sequenceMailList.get(i).sequence == 1) {
@@ -69,18 +88,20 @@ public class SequenceMailController {
 						queue.setJobDate(calendar.getTime());
 					} else if ((sequenceMailList.get(i).sequence > 1) && (parameter.getMailSendInterval() == 1)) {
 						Calendar calendar = Utils.getBrazilCalendar();
+						calendar.set(Calendar.HOUR_OF_DAY, parameter.getStandarHourToSendMails());
 						calendar.set(Calendar.SECOND, 0);
 						calendar.add(Calendar.DATE, (sequenceMailList.get(i).sequence - 1));
 						queue.setJobDate(calendar.getTime());
 					} else if ((sequenceMailList.get(i).sequence > 1) && (parameter.getMailSendInterval() > 1)) {
 						Calendar calendar = Utils.getBrazilCalendar();
+						calendar.set(Calendar.HOUR_OF_DAY, parameter.getStandarHourToSendMails());
 						calendar.set(Calendar.SECOND, 0);
 						calendar.add(Calendar.DATE, ((sequenceMailList.get(i).sequence - 1) + parameter.getMailSendInterval()));
 						queue.setJobDate(calendar.getTime());
 					}
 				}
-				queue.setName(mailList.getName());
-				queue.setMail(mailList.getMail());
+				queue.setName(lead.getName());
+				queue.setMail(lead.getMail());
 				queue.setSequenceMail(sequenceMailList.get(i));
 				queue.setPostedAt(Utils.getCurrentDateTime());
 				queue.setSent(false);
@@ -88,6 +109,25 @@ public class SequenceMailController {
 				queue.save();
 			}
 		}
+	}
+
+	public static void main(String[] args) throws ParseException {
+		Date scheduledDate = Utils.parseStringDateTimeToDate("09/03/2018 11:33:00");
+		if (scheduledDate.after(Utils.getBrazilCalendar().getTime())) {
+			System.out.println(scheduledDate + " é futuro");
+		} else {
+			System.out.println(scheduledDate + " é passado");
+		}
+	}
+
+	private static SequenceMailQueue findMailsAlreadyInQueue(String mail, Long sequenceMailId) {
+		SequenceMailQueue queue = SequenceMailQueue.find("mail = '" + mail + "' and sequenceMail_id = " + sequenceMailId).first();
+		return queue;
+	}
+
+	private static SequenceMailQueue findMailsNotSentYet(String mail) {
+		SequenceMailQueue queue = SequenceMailQueue.find("sent = false and mail = '" + mail + "'").first();
+		return queue;
 	}
 
 }

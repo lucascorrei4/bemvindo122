@@ -48,15 +48,37 @@ public class MailListCRUD extends CRUD {
 		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, (String) request.args.get("where"));
 		Long count = type.count(search, searchFields, (String) request.args.get("where"));
 		Long totalCount = type.count(null, null, (String) request.args.get("where"));
+		try {
+			render("howtodo/MailListCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order);
+		} catch (TemplateNotFoundException e) {
+			render("howtodo/MailListCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order);
+		}
+	}
+
+	public static void performance(int page, String search, String searchFields, String orderBy, String order) {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		if (page < 1) {
+			page = 1;
+		}
+		if (orderBy == null) {
+			orderBy = "id";
+		}
+		if (order == null) {
+			order = "DESC";
+		}
+		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, (String) request.args.get("where"));
+		Long count = type.count(search, searchFields, (String) request.args.get("where"));
+		Long totalCount = type.count(null, null, (String) request.args.get("where"));
 		List<Object> leadsByPage = AdminPub.getleadsByPage();
 		String rankingLeads = null;
 		if (!Utils.isNullOrEmpty(getListLeadsByPeriod())) {
 			rankingLeads = Utils.toJsonChart(getListLeadsByPeriod());
 		}
 		try {
-			render("howtodo/MailListCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order, leadsByPage, rankingLeads);
+			render("howtodo/MailListCRUD/performance.html", type, objects, count, totalCount, page, orderBy, order, leadsByPage, rankingLeads);
 		} catch (TemplateNotFoundException e) {
-			render("howtodo/MailListCRUD/listAll.html", type, objects, count, totalCount, page, orderBy, order, leadsByPage, rankingLeads);
+			render("howtodo/MailListCRUD/performance.html", type, objects, count, totalCount, page, orderBy, order, leadsByPage, rankingLeads);
 		}
 	}
 
@@ -74,14 +96,13 @@ public class MailListCRUD extends CRUD {
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		Timestamp dateTimeTodayBegin = new Timestamp(cal.getTimeInMillis());
-		System.out.println(cal.getTime());
+		String dateTimeTodayBegin = Utils.getStringDateTime(cal.getTime());
 		/* Today End */
 		cal = Utils.getBrazilCalendar();
 		cal.set(Calendar.HOUR_OF_DAY, 23);
 		cal.set(Calendar.MINUTE, 59);
 		cal.set(Calendar.SECOND, 59);
-		Timestamp dateTimeTodayEnd = new Timestamp(cal.getTimeInMillis());
+		String dateTimeTodayEnd = Utils.getStringDateTime(cal.getTime());
 		listLeads = MailList.find("postedAt > '" + dateTimeTodayBegin + "' and postedAt < '" + dateTimeTodayEnd + "' and isActive = true order by postedAt desc").fetch();
 		to = new TONumeric();
 		to.setLabel("Hoje");
@@ -89,30 +110,49 @@ public class MailListCRUD extends CRUD {
 		allDaysLeads.add(to);
 		/* Yesterday Begin */
 		cal = Utils.getBrazilCalendar();
-		cal.set(Calendar.DAY_OF_MONTH, 0);
+		cal.add(Calendar.DATE, -1);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		Timestamp dateTimeYesterdayBegin = new Timestamp(cal.getTimeInMillis());
+		String dateTimeYesterdayBegin = Utils.getStringDateTime(cal.getTime());
 		/* Yesterday End */
 		cal = Utils.getBrazilCalendar();
-		cal.set(Calendar.DAY_OF_MONTH, 0);
+		cal.add(Calendar.DATE, -1);
 		cal.set(Calendar.HOUR_OF_DAY, 23);
 		cal.set(Calendar.MINUTE, 59);
 		cal.set(Calendar.SECOND, 59);
-		Timestamp dateTimeYesterdayEnd = new Timestamp(cal.getTimeInMillis());
+		String dateTimeYesterdayEnd = Utils.getStringDateTime(cal.getTime());
 		listLeads = MailList.find("postedAt > '" + dateTimeYesterdayBegin + "' and postedAt < '" + dateTimeYesterdayEnd + "' and isActive = true order by postedAt desc").fetch();
 		to = new TONumeric();
 		to.setLabel("Ontem");
 		to.setValue(Float.valueOf(listLeads.size()));
 		allDaysLeads.add(to);
-		/* Last Week Begin */
+		/* Before Yesterday Begin */
 		cal = Utils.getBrazilCalendar();
-		cal.set(Calendar.DAY_OF_MONTH, -6);
+		cal.add(Calendar.DATE, -2);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		Timestamp dateTimeLastWeekBegin = new Timestamp(cal.getTimeInMillis());
+		String dateTimeBeforeYesterdayBegin = Utils.getStringDateTime(cal.getTime());
+		/* Before Yesterday End */
+		cal = Utils.getBrazilCalendar();
+		cal.add(Calendar.DATE, -2);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		String dateTimeBeforeYesterdayEnd = Utils.getStringDateTime(cal.getTime());
+		listLeads = MailList.find("postedAt > '" + dateTimeBeforeYesterdayBegin + "' and postedAt < '" + dateTimeBeforeYesterdayEnd + "' and isActive = true order by postedAt desc").fetch();
+		to = new TONumeric();
+		to.setLabel("Antes de Ontem");
+		to.setValue(Float.valueOf(listLeads.size()));
+		allDaysLeads.add(to);
+		/* Last Week Begin */
+		cal = Utils.getBrazilCalendar();
+		cal.set(Calendar.DATE, -6);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		String dateTimeLastWeekBegin = Utils.getStringDateTime(cal.getTime());
 		listLeads = MailList.find("postedAt > '" + dateTimeLastWeekBegin + "' and postedAt < '" + dateTimeTodayEnd + "' and isActive = true order by postedAt desc").fetch();
 		to = new TONumeric();
 		to.setLabel("Últimos 7 dias");
@@ -120,17 +160,34 @@ public class MailListCRUD extends CRUD {
 		allDaysLeads.add(to);
 		/* Last Month Begin */
 		cal = Utils.getBrazilCalendar();
-		cal.set(Calendar.DAY_OF_MONTH, -30);
+		cal.set(Calendar.DATE, -30);
 		cal.set(Calendar.HOUR_OF_DAY, 0);
 		cal.set(Calendar.MINUTE, 0);
 		cal.set(Calendar.SECOND, 0);
-		Timestamp dateTimeLastMonthBegin = new Timestamp(cal.getTimeInMillis());
+		String dateTimeLastMonthBegin = Utils.getStringDateTime(cal.getTime());
 		listLeads = MailList.find("postedAt > '" + dateTimeLastMonthBegin + "' and postedAt < '" + dateTimeTodayEnd + "' and isActive = true order by postedAt desc").fetch();
 		to = new TONumeric();
 		to.setLabel("Últimos 30 dias");
 		to.setValue(Float.valueOf(listLeads.size()));
 		allDaysLeads.add(to);
 		return allDaysLeads;
+	}
+	
+	public static void main(String[] args) {
+		Calendar cal = Utils.getBrazilCalendar();
+		cal.add(Calendar.DATE, -1);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		String dateTimeYesterdayBegin = Utils.getStringDateTime(cal.getTime());
+		System.out.println(dateTimeYesterdayBegin);
+		cal = Utils.getBrazilCalendar();
+		cal.add(Calendar.DATE, -1);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		String dateTimeYesterdayEnd = Utils.getStringDateTime(cal.getTime());
+		System.out.println(dateTimeYesterdayEnd);
 	}
 
 	public static void remove(String id) throws Exception {

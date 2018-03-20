@@ -77,7 +77,7 @@ GET    	${ctx}/spl/{friendlyUrl}									howtodo.SimplePagesController.details
 GET    	${ctx}/pv/{friendlyUrl}										howtodo.SellPageController.details
 
 # Public FreePages
-GET    	${ctx}/fp/{friendlyUrl}										howtodo.FreePageController.details
+GET    	${ctx}/fp/{friendlyUrl}						howtodo.FreePageController.details
 
 # Public News
 
@@ -231,6 +231,7 @@ POST	${ctx}/admin-howtodo/parametros									howtodo.ParameterCRUD.create
 POST	${ctx}/admin-howtodo/parametros/{id}							howtodo.ParameterCRUD.save
 DELETE	${ctx}/admin-howtodo/parametros/{id}							howtodo.ParameterCRUD.delete
 
+GET		${ctx}/admin-howtodo/performance							howtodo.MailListCRUD.performance
 GET		${ctx}/admin-howtodo/leads									howtodo.MailListCRUD.listAll
 GET		${ctx}/admin-howtodo/leads									howtodo.MailListCRUD.list
 

@@ -175,7 +175,6 @@ public class SequenceMailQueueCRUD extends CRUD {
 	private static List<String> getUrls(List<SequenceMailQueue> objects) {
 		List<String> listUrls = new ArrayList<String>();
 		for (SequenceMailQueue sequenceMailQueue : objects) {
-			System.out.println(sequenceMailQueue.getSequenceMail().id);
 			if (!listUrls.contains(sequenceMailQueue.getSequenceMail().getUrl())) {
 				listUrls.add(sequenceMailQueue.getSequenceMail().getUrl());
 			}

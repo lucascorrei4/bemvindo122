@@ -2,6 +2,7 @@ package models.howtodo;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 import controllers.CRUD.Hidden;
 import play.db.jpa.Blob;
@@ -10,6 +11,8 @@ import util.Utils;
 
 @Entity
 public class Parameter extends Model {
+	@OneToOne
+	public FreePage freePageIndex;
 
 	public String siteName;
 	public String siteDomain;
@@ -99,6 +102,7 @@ public class Parameter extends Model {
 	public String embedFirstStep;
 
 	public int mailSendInterval = 1;
+	public int standarHourToSendMails = 10;
 	
 	@Hidden
 	public long institutionId;
@@ -534,5 +538,22 @@ public class Parameter extends Model {
 	public void setMailSendInterval(int mailSendInterval) {
 		this.mailSendInterval = mailSendInterval;
 	}
+
+	public FreePage getFreePageIndex() {
+		return freePageIndex;
+	}
+
+	public void setFreePageIndex(FreePage freePageIndex) {
+		this.freePageIndex = freePageIndex;
+	}
+
+	public int getStandarHourToSendMails() {
+		return standarHourToSendMails;
+	}
+
+	public void setStandarHourToSendMails(int standarHourToSendMails) {
+		this.standarHourToSendMails = standarHourToSendMails;
+	}
+
 
 }

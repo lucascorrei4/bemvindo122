@@ -105,15 +105,15 @@
 											aria-multiselectable="true">
 											#{list items:groupedUrl.listSequenceMail, as:'sequenceMail'}
 												<div class="panel panel-${sequenceMail_index % 2 == 0 ? 'info' : 'default'}" id="collapse${sequenceMail_index}_container">
-													<div class="panel-heading" role="tab" id="heading2-${sequenceMail_index}">
+													<div class="panel-heading" role="tab" id="heading2-${sequenceMail_index}-${sequenceMail.id}">
 														<h4 class="panel-title">
 															<a role="button" data-toggle="collapse" data-parent="#accordion2"
-																href="#collapse2-${sequenceMail_index}" aria-expanded="true"
-																aria-controls="collapse2-${sequenceMail_index}"> E-mail: <strong>${sequenceMail.title}</strong> </a>
+																href="#collapse2-${sequenceMail_index}-${sequenceMail.id}" aria-expanded="true"
+																aria-controls="collapse2-${sequenceMail_index}-${sequenceMail.id}"> E-mail: <strong>${sequenceMail.title}</strong> </a>
 														</h4>
 													</div>
-													<div id="collapse2-${sequenceMail_index}" class="panel-collapse collapse"
-														role="tabpanel" aria-labelledby="heading2-${sequenceMail_index}">
+													<div id="collapse2-${sequenceMail_index}-${sequenceMail.id}" class="panel-collapse collapse"
+														role="tabpanel" aria-labelledby="heading2-${sequenceMail_index}-${sequenceMail.id}">
 														<div class="panel-body">
 															<div class="table-responsive">
 																<table class="table table-striped">

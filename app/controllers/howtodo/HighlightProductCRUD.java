@@ -46,9 +46,9 @@ public class HighlightProductCRUD extends CRUD {
 		Long count = type.count(search, searchFields, where);
 		Long totalCount = type.count(null, null, where);
 		try {
-			render(type, objects, count, totalCount, page, orderBy, order);
+			render("howtodo/HighlightProductCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		} catch (TemplateNotFoundException e) {
-			render("HighlightProductCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+			render("howtodo/HighlightProductCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
 	}
 	

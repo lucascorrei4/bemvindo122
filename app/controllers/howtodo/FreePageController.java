@@ -15,7 +15,7 @@ import play.vfs.VirtualFile;
 import util.Utils;
 
 public class FreePageController extends Controller {
-	
+
 	@Before
 	@Finally
 	static void CORS() {
@@ -25,23 +25,28 @@ public class FreePageController extends Controller {
 		hd.name = "Access-Control-Allow-Origin";
 		hd.values = new ArrayList<String>();
 		hd.values.add("http://localhost:9001");
-		Http.Response.current().headers.put("Access-Control-Allow-Origin",hd);
+		Http.Response.current().headers.put("Access-Control-Allow-Origin", hd);
 	}
 
 	public static void details(String friendlyUrl, long mid) {
 		/* Verifying click on mail link */
 		if (!Utils.isNullOrZero(mid)) {
 			SequenceMailQueue seqMail = SequenceMailQueue.findById(mid);
-			seqMail.setMailRead(true);
-			seqMail.setMailClicked(true);
-			seqMail.save();
+			if (seqMail != null) {
+				seqMail.setMailRead(true);
+				seqMail.setMailClicked(true);
+				seqMail.save();
+			}
 		}
 		FreePage freePage = FreePage.findByFriendlyUrl(friendlyUrl);
 		Parameter parameter = Parameter.all().first();
 		String title = Utils.removeHTML(freePage.getMainTitle());
 		String headline = Utils.removeHTML(freePage.getSubtitle1());
 		/* Verify if test A/B of Video or Text is enabled. */
-		/* If yes, record a cookie in user navigator to guarantee that he will see only one page. */
+		/*
+		 * If yes, record a cookie in user navigator to guarantee that he will
+		 * see only one page.
+		 */
 		if (freePage.isAbTestVideoOfText()) {
 			Cookie cookie = Http.Request.current().cookies.get("acp_viewed");
 			if (cookie == null) {
@@ -76,7 +81,7 @@ public class FreePageController extends Controller {
 		File f = vf.getRealFile();
 		return f;
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(Utils.isNullOrZero(1l));
 	}

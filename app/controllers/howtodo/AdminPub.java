@@ -1,7 +1,5 @@
 package controllers.howtodo;
 
-
-
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +10,6 @@ import models.Country;
 import models.Institution;
 import models.Invoice;
 import models.MonetizzeTransaction;
-import models.OrderOfService;
 import models.SendTo;
 import models.Sender;
 import models.StatusMail;
@@ -35,7 +32,6 @@ import util.StatusPaymentEnum;
 import util.UserInstitutionParameter;
 import util.Utils;
 import util.VideoHelpEnum;
-import util.howtodo.TypeContentPageEnum;
 
 @With(Secure.class)
 public class AdminPub extends Controller {
@@ -93,13 +89,12 @@ public class AdminPub extends Controller {
 				List<FreePage> listFreePage = FreePage.find("isActive = true order by postedAt desc").fetch(5);
 				List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(5);
 				List<MailList> listLast5Leads = MailList.find("order by postedAt desc").fetch(5);
-				List<OrderOfService> listLast20OS = OrderOfService.find("isActive = true order by postedAt desc").fetch(20);
 				List<Message> listMessages = Message.find("order by postedAt desc").fetch(10);
 				Institution institution = Institution.find("byId", connectedUser.getInstitutionId()).first();
 				String institutionName = institution.getInstitution();
 				List<Object> leadsByPage = getleadsByPage();
 				String top3LeadPages = top3LeadPages();
-				render(listSellPages, listFreePage, contLeads, connectedUser, institutionName, institution, parameter, smsExceedLimit, userFreeTrial, leadsByPage, listArticles, contArticles, top3LeadPages, contSequenceMails, contSequenceMails, listLast5Leads, listLast20OS, listMessages);
+				render(listSellPages, listFreePage, contLeads, connectedUser, institutionName, institution, parameter, smsExceedLimit, userFreeTrial, leadsByPage, listArticles, contArticles, top3LeadPages, contSequenceMails, contSequenceMails, listLast5Leads, listMessages);
 			} else {
 				/* Redirect to page of information about expired license */
 				render("@Admin.expiredLicense", connectedUser, parameter);
@@ -109,7 +104,7 @@ public class AdminPub extends Controller {
 
 	public static List<Object> getleadsByPage() {
 		List<Object> leadsByPage = JPA.em().createNativeQuery("SELECT count(*), url, typeContentPage FROM MailList where url is not null group by typeContentPage, url order by COUNT(*) desc limit 20").getResultList();
-		for(int i = 0 ; i < leadsByPage.size() ; i++){
+		for (int i = 0; i < leadsByPage.size(); i++) {
 			Object[] obj = (Object[]) leadsByPage.get(i);
 			if (!Utils.isNullOrEmpty(obj[2])) {
 				if ("TextContent".equals(obj[2])) {
@@ -131,9 +126,9 @@ public class AdminPub extends Controller {
 			for (int i = 0; i < top3leadsByPage.size(); i++) {
 				json += "{";
 				Object[] x = (Object[]) top3leadsByPage.get(i);
-				json += "label: \"" + String.valueOf(x[1]) + "\",";  
-				json += "value: " + x[0];  
-				if (i < top3leadsByPage.size() -1) {
+				json += "label: \"" + String.valueOf(x[1]) + "\",";
+				json += "value: " + x[0];
+				if (i < top3leadsByPage.size() - 1) {
 					json += "},";
 				}
 			}
@@ -276,13 +271,13 @@ public class AdminPub extends Controller {
 		institutionInvoice = invoice;
 		return institutionInvoice;
 	}
-	
+
 	public static void main(String[] args) {
 		Integer a = new Integer(3);
 		Integer b = new Integer(3);
-		if (a==b) {
-			System.out.println(a==b);
+		if (a == b) {
+			System.out.println(a == b);
 		}
 	}
-	
+
 }

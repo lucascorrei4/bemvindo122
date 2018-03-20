@@ -24,7 +24,7 @@ import util.Utils;
 // Fire every 3 minutes 0 */3 * ? * * 
 // @On("0 0 7-22 ? * * *")
 //@On("0 */5 6-22 ? * * *")
-@On("0 */5 * ? * *")
+@On("0 */1 * ? * *")
 public class ScheduledJobs extends Job {
 
 	public void doJob() throws ParseException {
@@ -59,16 +59,9 @@ public class ScheduledJobs extends Job {
 		}
 	}
 
-	public static void main(String[] args) {
-		Calendar cal = Utils.getBrazilCalendar();
-		cal.add(Calendar.MINUTE, -30);
-		Timestamp dateTimeOlder30Minutes = new Timestamp(cal.getTimeInMillis()); 
-		System.out.println(dateTimeOlder30Minutes);
-	}
-	
 	private static boolean sendEmailToLead(SequenceMailQueue sequenceMailQueue) {
-		if (!Utils.isNullOrEmpty(sequenceMailQueue.getMail()) && Utils.validateEmail(sequenceMailQueue.getMail())) {
-			Parameter parameter = Parameter.all().first();
+		Parameter parameter = Parameter.all().first();
+		if (!Utils.isNullOrEmpty(sequenceMailQueue.getMail()) && Utils.validateEmail(sequenceMailQueue.getMail()) && !parameter.getSiteDomain().contains("localhost:90")) {
 			MailController mailController = new MailController();
 			/* SendTo object */
 			SendTo sendTo = new SendTo();
@@ -100,6 +93,12 @@ public class ScheduledJobs extends Job {
 			}
 		}
 		return false;
+	}
+	
+	
+	public static void main(String[] args) {
+		System.out.println("http://localhost:9002".contains("localhost:90"));
+		
 	}
 
 }

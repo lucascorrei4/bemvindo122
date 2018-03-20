@@ -46,6 +46,7 @@ public class FreePage extends Model {
 	public String backgroundColor;
 	
 	public boolean showCaptureForm;
+	public boolean showNumberPhone;
 	public String buttonMainTitle;
 	public String redirectTo;
 
@@ -266,6 +267,14 @@ public class FreePage extends Model {
 
 	public void setShowFacebookComments(boolean showFacebookComments) {
 		this.showFacebookComments = showFacebookComments;
+	}
+
+	public boolean isShowNumberPhone() {
+		return showNumberPhone;
+	}
+
+	public void setShowNumberPhone(boolean showNumberPhone) {
+		this.showNumberPhone = showNumberPhone;
 	}
 
 }
