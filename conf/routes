@@ -39,6 +39,8 @@ GET    	${ctx}/icon					   				 				Application.getIcon
 GET    	${ctx}/desinscrever-se/{mailLead}				   			Application.unsubscribe
 GET    	${ctx}/hrpx/{id}								   			Application.hrpx
 
+GET    	${ctx}/imagem-fp/{id}			   				 			howtodo.FreePageController.getImage
+
 
 # Essentials Pages
 GET    	${ctx}/contato												Application.contact

@@ -24,7 +24,7 @@ import util.Utils;
 // Fire every 3 minutes 0 */3 * ? * * 
 // @On("0 0 7-22 ? * * *")
 //@On("0 */5 6-22 ? * * *")
-@On("0 */1 * ? * *")
+@On("0 */5 * ? * *")
 public class ScheduledJobs extends Job {
 
 	public void doJob() throws ParseException {

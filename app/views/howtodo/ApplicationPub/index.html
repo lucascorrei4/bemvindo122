@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=&{parameter.getGoogleAnalyticsId()}"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', '&{parameter.getGoogleAnalyticsId()}');
+		</script>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
+		<!-- End Google Tag Manager -->
+		<title>&{parameter.getSiteTitle()}</title>
+		<meta name="robots" content="index,follow">
+		<meta name="description" content="&{parameter.getSiteDescription()}">
+		<meta property="twitter:title" content="&{parameter.getSiteTitle()}">
+		<meta property="twitter:description" content="&{parameter.getSiteDescription()}">
+		<meta property="og:title" content="&{parameter.getSiteTitle()}">
+		<meta property="og:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
+		<meta property="og:image" content="&{parameter.getSiteDomain()}/logo">
+		<meta charset="utf-8" />
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+		#{include 'includes/headerTemplateFollow.html' /}
+		<style type="text/css">
+			header.special::before, header.special::after{
+    			display:none;
+			}
+		</style>
+	</head>
+	<body class="right-sidebar">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div id="page-wrapper">
+			#{include 'includes/menuTemplateFollow.html' /}
+			<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}; background-attachment: fixed; background-image: url('@{howtodo.ApplicationPub.getHomeBackgroundImage()}'); background-position: top center; background-repeat: no-repeat; background-size: cover; color: #fff; cursor: default; padding: 6em 0 3em 0; text-align: center;" >
+				#{include 'includes/imgAdsTop.html' /}
+				<header class="special container" style="margin-bottom: 0">
+					#{if !parameter.getLeftAligmentLogo()}
+						<a href="/" title="&{parameter.getSiteTitle()}">
+							<div class="logo" style="position: relative; background-image: url('@{howtodo.ApplicationPub.getLogo()}'); width:150px; height:150px; border-radius: &{parameter.getLogoRoundedBorder() ? '50&#37' : '0&#37'}; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
+						</a>
+					#{/if}
+					<h2 style="font-family: demo_coneria; text-transform: capitalize; font-size: 2.4em; color: &{parameter.getSiteMainTitleColor() == null ? 'black' : parameter.getSiteMainTitleColor()}; font-weight: 600;">#{verbatim}&{parameter.getSiteName()}#{/verbatim}</h2>
+					<blockquote style="border: none; padding: 0;font-style:italic; color: darkslategray">
+						#{verbatim}&{parameter.getSiteSlogan()}#{/verbatim} 
+					</blockquote>
+				</header>
+				<h3 style="text-align: center; font-weight: 600; margin: 0 auto;">#{verbatim}&{parameter.getMessageHighlightProducts() == null ? 'Ofertas da semana em estoque' : parameter.getMessageHighlightProducts()}#{/verbatim}</h3>				
+				<section class="wrapper style4 container" style="display: ${listHightlightProduct?.size() > 0 ? 'block' : 'none'}">
+					#{include 'includes/highlightProduct.html' /}
+				</section>
+				<section class="wrapper style4 container" style="background-color: rgba(255,255,255,0.5);">
+					<div id="newsletterTips" style="width: 100%">
+						<input id="response" type="hidden" value="${resp}" /> 
+						<input id="status" type="hidden" value="${status}" />
+						<h3 style="margin:0; text-align: center; text-transform: initial; color: white;">&{parameter.getTitleCaptureForm() == null ? 'Inscreva-se em nossa lista de e-mails!' : parameter.getTitleCaptureForm()}</h3>
+						<ul class="buttons" style="display: inherit; justify-content: center; display: block; text-align: center;">
+							<li><input type="text" name="mailList.name1" placeholder="Digite seu nome" value="${flash['mailList.name1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle; background-color: white;" /></li>
+							<li><input type="text" name="mailList.mail1" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle; background-color: white;" /></li>
+							<li><a id="btnNews1" class="button" onclick="newsletterTips()" style="background-color: #F0A939; color: #fff;">QUERO RECEBER</a></li>
+						</ul>
+						<p id="message" style="display: none; text-align: center; font-weight: bold;"></p>
+					</div>
+				</section>
+			</article>
+			<article style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}; color: #fff; cursor: default; padding: 0; text-align: center;">
+				<section class="wrapper style4 container" style="padding-top: 3em">
+					<div class="row 150%">
+						<div class="8u 12u(narrower)">
+							<div class="content">
+								#{include 'includes/highlightArticles.html' /}
+							</div>
+						</div>
+						<div class="4u 12u(narrower)">
+							<div class="sidebar">
+								#{include 'includes/imgAdsSidebar.html' /}
+							</div>
+							<div class="sidebar">
+								#{include 'includes/lastNewsSidebarRight.html' /}
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="wrapper style1 container special">
+					<div class="row">
+						#{include 'includes/imgAdsBottom.html' /}
+					</div>
+				</section>
+				<section class="wrapper style1 container special">
+					<div class="row">
+						#{include 'includes/lastNewsBottom.html' /}
+					</div>
+				</section>
+			</article>
+			#{include 'includes/footerTemplateFollow.html' /}
+		</div>
+	</body>
+</html>

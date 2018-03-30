@@ -23,8 +23,6 @@ public class FreePage extends Model {
 	public String titleSEO;
 	@Required(message = "Campo obrigatório.")
 	public String descriptionSEO;
-	@Required(message = "Campo obrigatório.")
-	public String canonicalURL;
 	public boolean noFollow = false;
 
 	@Required(message = "Campo obrigatório.")
@@ -46,7 +44,8 @@ public class FreePage extends Model {
 	public String backgroundColor;
 	
 	public boolean showCaptureForm;
-	public boolean showNumberPhone;
+	public boolean showNumberPhone = false;
+	public String messageNumberPhone;
 	public String buttonMainTitle;
 	public String redirectTo;
 
@@ -55,6 +54,16 @@ public class FreePage extends Model {
 	@Lob
 	@MaxSize(10000000)
 	public String subtitle1;
+	
+	@Lob
+	@MaxSize(10000000)
+	public String descriptionInactivePage;
+	
+	public Blob image1;
+	public Blob image2;
+	public Blob image3;
+	public Blob image4;
+	public Blob image5;
 	
 	public FreePageTemplatesEnum templateStyle = FreePageTemplatesEnum.FreeStyleTheme;
 	
@@ -181,14 +190,6 @@ public class FreePage extends Model {
 		this.descriptionSEO = descriptionSEO;
 	}
 
-	public String getCanonicalURL() {
-		return canonicalURL;
-	}
-
-	public void setCanonicalURL(String canonicalURL) {
-		this.canonicalURL = canonicalURL;
-	}
-
 	public boolean isNoFollow() {
 		return noFollow;
 	}
@@ -275,6 +276,62 @@ public class FreePage extends Model {
 
 	public void setShowNumberPhone(boolean showNumberPhone) {
 		this.showNumberPhone = showNumberPhone;
+	}
+
+	public String getDescriptionInactivePage() {
+		return descriptionInactivePage;
+	}
+
+	public void setDescriptionInactivePage(String descriptionInactivePage) {
+		this.descriptionInactivePage = descriptionInactivePage;
+	}
+
+	public String getMessageNumberPhone() {
+		return messageNumberPhone;
+	}
+
+	public void setMessageNumberPhone(String messageNumberPhone) {
+		this.messageNumberPhone = messageNumberPhone;
+	}
+	
+	public Blob getImage1() {
+		return image1;
+	}
+
+	public void setImage1(Blob image1) {
+		this.image1 = image1;
+	}
+
+	public Blob getImage2() {
+		return image2;
+	}
+
+	public void setImage2(Blob image2) {
+		this.image2 = image2;
+	}
+
+	public Blob getImage3() {
+		return image3;
+	}
+
+	public void setImage3(Blob image3) {
+		this.image3 = image3;
+	}
+
+	public Blob getImage4() {
+		return image4;
+	}
+
+	public void setImage4(Blob image4) {
+		this.image4 = image4;
+	}
+
+	public Blob getImage5() {
+		return image5;
+	}
+
+	public void setImage5(Blob image5) {
+		this.image5 = image5;
 	}
 
 }

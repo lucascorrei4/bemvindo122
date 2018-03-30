@@ -338,7 +338,7 @@ public class Admin extends Controller {
 		Admin.loggedUserInstitution = loggedUserInstitution;
 	}
 
-	static void sendMailToMe(UserInstitutionParameter userInstitutionParameter, String message) {
+	public static void sendMailToMe(UserInstitutionParameter userInstitutionParameter, String message) {
 		Parameter parameter = Parameter.all().first();
 		MailController mailController = new MailController();
 		/* SendTo object */

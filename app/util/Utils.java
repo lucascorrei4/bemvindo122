@@ -565,7 +565,7 @@ public class Utils extends Controller {
 	}
 
 	public static String sentCredits(String siteTitle, String siteDomain) {
-		return "<br><br>E-mail enviado por <b><a href=\"" + siteDomain + "\" target=\"_blank\">" + siteTitle + "</a></b>.";
+		return "<br><br>E-mail enviado por <b>" + siteTitle + "</b>.";
 	}
 
 	public static String validateHtmlEmail(String bodyHTML, long sequenceMailQueueId) {

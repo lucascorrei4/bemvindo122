@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=&{parameter.getGoogleAnalyticsId()}"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		  gtag('config', '&{parameter.getGoogleAnalyticsId()}');
+		</script>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
+		<!-- End Google Tag Manager -->
+		<title>&{article.getTitleSEO()}</title>
+		<meta name="description" content="&{article.getDescriptionSEO()} | &{article.getTitleSEO()}">
+		<meta property="twitter:title" content="&{article.getTitleSEO()}">
+		<meta property="twitter:description" content="&{article.getDescriptionSEO()} | &{article.getTitleSEO()}">
+		<meta property="og:title" content="&{article.getTitleSEO()}">
+		<meta property="og:description" content="&{article.getDescriptionSEO()} | &{article.getTitleSEO()}">
+		<meta property="og:image" content="&{parameter.getSiteDomain()}}&{parameter.getSiteLogo()}">
+        <link rel="canonical" href="&{article.getCanonicalURL()}">
+        <meta name="author" content="&{parameter.getSiteName()}">
+		<meta name="robots" content="index,follow">
+		<meta charset="utf-8" />
+		#{include 'includes/headerTemplateFollow.html' /}
+		#{if !parameter.getSiteIconFontAwesome()}
+			<style type="text/css">
+				header.special::before, header.special::after{
+	    			display:none;
+				}
+			</style>
+		#{/if}
+	</head>
+	<body class="right-sidebar">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<script>
+		  fbq('track', '&{article.getFacebookEvent().getValue()}');
+		</script>
+		<div id="page-wrapper">
+			<!-- Header -->
+				#{include 'includes/menuTemplateFollow.html' /}
+			<!-- Main -->
+				<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
+					#{include 'includes/imgAdsTop.html' /}
+					<header class="special container" style="margin-bottom: 0">
+						<span class="icon &{parameter.getSiteIconFontAwesome() == null ? 'fa-heartbeat' : parameter.getSiteIconFontAwesome()}"></span>
+						<h1 class="mainLead">&{article.getTitle().raw()}</h1>
+						<p style="font-size: 15px; margin: 0;">Você está em: <a href="/"><strong>&{parameter.getSiteTitle()}</strong></a> > <a href="/artigos"> <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
+						<p style="font-size: 15px; margin: 0;">Publicado em &{article.postedAtParsed}</p>
+					</header>
+					<section class="wrapper style4 container" style="display: &{article.showCaptureForm ? 'block' : 'none'}">
+						<footer id="newsletterTips" style="width: 100%">
+							#{include 'includes/formNewsletterTips.html' /}
+						</footer>
+					</section>
+					<section class="wrapper style4 container" style="padding-top: 3em">	
+						<div class="row 150%">
+							<div class="8u 12u(narrower)">
+								<!-- Content -->
+								<div class="content">
+									<section>
+										<header>
+											<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
+											<h2 style=" font-size: 18px;   text-align: left; text-transform: unset; margin-top: 20px; font-weight: 300">&{article.getHeadline().raw()}</h2>
+										</header>
+										
+										<a href="#" class="image featured"><img src="@{howtodo.ApplicationPub.getImage(article.id, '2')}" alt="&{article.getTitleImage2()}" title="&{article.getTitleImage2()}" style="width: auto; max-width: 100%"></a>
+										<p style="color: #444444">&{article.getDescription().raw()}</p>
+										<p style="color: #444444">&{article.getDescription2().raw()}</p>
+
+										#{if article.getImage3().exists()}
+											<a href="#" class="image featured"><img src="@{howtodo.ApplicationPub.getImage(article.id, '3')}" alt="&{article.getTitleImage3()}" title="&{article.getTitleImage3()}" style="width: auto; max-width: 100%"></a>
+											<p style="color: #444444">&{article.getDescription3().raw()}</p>
+										#{/if}
+
+										#{if article.getImage4().exists()}
+											<a href="#" class="image featured"><img src="@{howtodo.ApplicationPub.getImage(article.id, '4')}" alt="&{article.getTitleImage4()}" title="&{article.getTitleImage4()}" style="width: auto; max-width: 100%"></a>
+											<p style="color: #444444">&{article.getDescription4().raw()}</p>
+										#{/if}
+
+										#{if article.getEmbed()}
+											<iframe width="560" height="315" src="&{article.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+										#{/if}
+
+										#{if article.getImage5().exists()}
+											<a href="#" class="image featured"><img src="@{howtodo.ApplicationPub.getImage(article.id, '5')}" alt="&{article.getTitleImage5()}" title="&{article.getTitleImage5()}" style="width: auto; max-width: 100%"></a>
+											<p style="color: #444444">&{article.getDescription5().raw()}</p>
+										#{/if}
+										
+										#{if article.getComplement()}
+											<p style="color: #444444">&{article.getComplement().raw()}</p>
+										#{/if}
+									</section>
+									<div id="share"></div>
+									<div class="fb-comments" data-href="" data-numposts="5"></div>
+									<!-- Tweet Embed Content  -->
+									<section style="padding-top: 10px;">
+										&{parameter.getTweet().raw()}
+										<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+									</section>
+								</div>
+							</div>
+							<div class="4u 12u(narrower)">
+								<div class="sidebar">
+									#{include 'includes/imgAdsSidebar.html' /}
+								</div>
+								<div class="sidebar">
+									#{include 'includes/lastNewsSidebarRight.html' /}
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="wrapper style1 container special">
+						<div class="row">
+							#{include 'includes/imgAdsBottom.html' /}
+						</div>
+					</section>
+					<section class="wrapper style1 container special">
+						<div class="row">
+							#{include 'includes/lastNewsBottom.html' /}
+						</div>
+					</section>
+				</article>
+			<!-- Footer -->
+			#{include 'includes/footerTemplateFollow.html' /}
+		</div>
+	</body>
+</html>

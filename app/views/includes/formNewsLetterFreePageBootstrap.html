@@ -3,16 +3,17 @@
 	<input id="status" type="hidden" value="${status}" />
 	<input id="redirectTo" type="hidden" value="${redirectTo}" />
 	<div class="form-group">
-	  	<label>Seu nome</label>
+	  	<label>Como você se chama?</label>
 	  	<input type="text" class="form-control input-lg" name="mailList.name1" placeholder="Seu nome" value="${flash['mailList.name1']}">
   	</div>
 	<div class="form-group">
-	  	<label>Seu e-m@il</label>
+	  	<label>Qual o seu e-m@il?</label>
   		<input type="text" class="form-control input-lg" name="mailList.mail1" placeholder="Seu melhor e-mail"  value="${flash['mailList.mail1']}">
   	</div>
   	#{if freePage.showNumberPhone}
 		<div class="form-group">
-		  	<label>Seu Celular (Para Receber por WhatsApp ou SMS)</label>
+		  	<label>Qual o seu telefone?</label>
+		  	<small>&{freePage.getMessageNumberPhone() == '' ? 'Receba conteúdo gratuito diretamente pelo WhatsApp.' : freePage.getMessageNumberPhone().raw()}</small>
 	  		<input type="text" class="form-control input-lg sp_celphones" name="mailList.phone" placeholder="Seu nº de celular"  value="${flash['mailList.phone']}">
 	  	</div>
   	#{/}

@@ -174,6 +174,9 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+id=Id
+messageNumberPhone=Mensagem Nº de Telefone
+descriptionInactivePage=Conteúdo de Página Inativa
 showNumberPhone=Mostrar Nº Telefone
 annonymousSearch=Pesquisa Anônima
 standarHourToSendMails=Hora Padrão de Envio de E-mails
@@ -324,7 +327,7 @@ showBottomNews=Mostrar Artigos Rodapé
 showLeadsForm=Mostrar Form. Leads
 shortenUrl=URL Encurtada (Gerada Automaticamente)
 highlight=Destacar na Pág. Inicial
-image1=Imagem 1 (Thumb - Ideal: 373px x 200 .jpg)
+image1=Imagem 1
 image2=Imagem 2
 tags=Tags Relacionadas
 embed=Embed Vídeo

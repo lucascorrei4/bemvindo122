@@ -1,0 +1,104 @@
+<html lang="${lang}">
+<head>
+<meta charset="utf-8" />
+#{set title:'Primeiros passos' /} #{include 'includes/headCrud.html' /}
+<link href="@{'public/stylesheets/prettify.css'}" rel="stylesheet">
+</head>
+<body>
+	<div id="wrapper">
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+			<!-- Logo navbar -->
+			#{include 'includes/logoNavBar.html' /}
+			<!-- Logo navbar -->
+			<!-- Menu Top Side -->
+			#{include 'includes/menuPainelTop.html' /}
+			<!-- Menu Top Side -->
+			<!-- Menu Left Side -->
+			#{include 'includes/menuPainelLeft.html' /}
+			<!-- Menu Left Side -->
+		</nav>
+		<div id="page-wrapper">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="page-header">Primeiros passos</h1>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<ol class="breadcrumb">
+				<li><a href="@{CRUD.index()}">&{'crud.home'}</a></li>
+				<li><a href="@{CRUD.index()}">Primeiros passos</a></li>
+			</ol>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-6">
+									<h3>
+										Olá, <b>${connectedUser}</b>!
+									<p>
+										Que bom que chegou até <strong>aqui</strong>. Se você precisar de <strong>instrução</strong> para o cadastro abaixo, eu te <strong>explico</strong> como proceder neste vídeo. <strong>Ok?</strong> 
+									</p>
+									<h4>
+										ps.: O <strong>formulário de cadastro</strong> está mais embaixo. 
+									</h4>
+									<p>
+										<iframe width="560" height="315" src="&{parameter.getEmbedFirstStep()}?rel=0" frameborder="0" allowfullscreen style="width: 100%;"></iframe> 
+									</p>
+									<blockquote>
+										<h3>Ajustando as configurações </h3>
+										<p>Este passo é <b>muito</b> importante. </p>
+										<p>Aqui você fará o cadastro da <b>empresa prestadora dos serviços.</b> </p> 
+										<p>Quando estiver pronto, preencha os campos abaixo:</p>
+                   					</blockquote>
+									#{include 'includes/formInstitution.html' /}
+								</div>
+								<div class="col-lg-6">
+									<h3>
+										É bom saber:
+									</h3>
+									<ul>
+		                                <li>As informações que você inserir aqui estarão presentes nas Ordens de Serviço que você emitir;</li>
+		                                <li>As Ordens de Serviços apresentam o endereço completo da sua empresa e podem ser enviadas por e-mail;</li>
+                                        <li>É certo que um bom preenchimento dará mais credibilidade.</li>
+		                            </ul>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+										<div class="panel-heading" style="text-align: center">&{'project.name'} &#169; &{'project.year'} - &{'project.version'}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- JQueryUI JS -->
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<!-- JQueryUI JS -->
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="@{'public/templatebootstrap/bower_components/metisMenu/dist/metisMenu.min.js'}"></script>
+	<!-- Metis Menu Plugin JavaScript -->
+
+	<!-- Custom Theme JavaScript -->
+	<script src="@{'public/templatebootstrap/dist/js/sb-admin-2.js'}"></script>
+	<!-- Custom Theme JavaScript -->
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="@{'public/templatebootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js'}"></script>
+
+	<!-- JQuery Mask -->
+	#{include 'includes/jQueryMask.html' /}
+	<!-- JQuery Mask -->
+
+</body>
+
+</html>
