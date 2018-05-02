@@ -702,16 +702,13 @@ public class Application extends Controller {
 		String pageParameter = null;
 		FreePage freePage = null;
 		Parameter parameter = getCurrentParameter();
-		if (Utils.isNullOrEmpty(parameter.getFreePageIndex())) {
-			if (url.equals(parameter.getSiteDomain())) {
-				redirectTo = parameter.getEmbedThankLead();
-			} else if (url.contains("fp/")) {
-				partOf = url.substring(url.indexOf("fp/"));
-				pageParameter = partOf.split("/")[1];
-				freePage = FreePage.findByFriendlyUrl(pageParameter);
-				redirectTo = freePage.getRedirectTo();
-			}
-		} else {
+		if (url.contains("fp/")) {
+			partOf = url.substring(url.indexOf("fp/"));
+			pageParameter = partOf.split("/")[1];
+			freePage = FreePage.findByFriendlyUrl(pageParameter);
+			redirectTo = freePage.getRedirectTo();
+		} else if (url.equals(parameter.getSiteDomain()) && !Utils.isNullOrEmpty(parameter.getFreePageIndex())) {
+			redirectTo = parameter.getEmbedThankLead();
 			freePage = parameter.getFreePageIndex();
 			redirectTo = parameter.getFreePageIndex().getRedirectTo();
 		}

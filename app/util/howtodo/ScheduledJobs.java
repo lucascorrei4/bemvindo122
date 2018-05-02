@@ -44,12 +44,14 @@ public class ScheduledJobs extends Job {
 	public void sendMailToLead() {
 		/* Brazilian time 15 minutes ago */
 		Calendar cal = Utils.getBrazilCalendar();
-	    cal.add(Calendar.MINUTE, -15);
+	    cal.add(Calendar.MINUTE, -20);
 	    Timestamp dateTimeOlder15Minutes = new Timestamp(cal.getTimeInMillis());
+	    cal = Utils.getBrazilCalendar();
+	    cal.add(Calendar.MINUTE, 6);
+	    Timestamp dateTimeNewer6Minutes = new Timestamp(cal.getTimeInMillis());
 	    /* Brazilian time now */
 	    cal = Utils.getBrazilCalendar();
-	    Timestamp dateTimeNow = new Timestamp(cal.getTimeInMillis());
-		List<SequenceMailQueue> sequenceMailQueueList = SequenceMailQueue.find("sent = false and jobDate BETWEEN '" + dateTimeOlder15Minutes + "' AND '" + dateTimeNow + "'").fetch();
+		List<SequenceMailQueue> sequenceMailQueueList = SequenceMailQueue.find("sent = false and jobDate BETWEEN '" + dateTimeOlder15Minutes + "' AND '" + dateTimeNewer6Minutes + "'").fetch();
 		for (SequenceMailQueue sequenceMailQueue : sequenceMailQueueList) {
 			if (sendEmailToLead(sequenceMailQueue)) {
 				sequenceMailQueue.setSent(true);

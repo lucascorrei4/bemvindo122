@@ -4,6 +4,7 @@ public class Sender {
 	public String key;
 	public String company;
 	public String from;
+	public String replyTo;
 	public String receivedAt;
 
 	@Override
@@ -49,5 +50,13 @@ public class Sender {
 
 	public void setReceivedAt(String receivedAt) {
 		this.receivedAt = receivedAt;
+	}
+
+	public String getReplyTo() {
+		return replyTo;
+	}
+
+	public void setReplyTo(String replyTo) {
+		this.replyTo = replyTo;
 	}
 }

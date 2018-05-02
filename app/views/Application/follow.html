@@ -121,7 +121,7 @@
 	        </div>
         #{/if}
 	    #{if clientName}
-	    	<script charset="UTF-8" src="//cdn.sendpulse.com/9dae6d62c816560a842268bde2cd317d/js/push/0ca74f31896b3ca22ca8d3a5be6a6b9c_1.js" async></script>
+<!-- 	    	<script charset="UTF-8" src="//cdn.sendpulse.com/9dae6d62c816560a842268bde2cd317d/js/push/0ca74f31896b3ca22ca8d3a5be6a6b9c_1.js" async></script> -->
 	        <div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
 	            <div class="row">
 	                <div class="col-lg-12">
@@ -201,29 +201,29 @@
 	    	</div>
     	#{/if}
     </div>
-	<div class="row">
-		<div class="col-lg-12">
-			#{list bottomNews, as:'article'}
-				<div class="col-sm-3 col-md-3">
-					<div class="thumbnail">
-						<a href="/artigos/${article.id}/${article.getFriendlyUrl()}">
-							<img src="@{howtodo.NewsController.getImage(article.id, '1')}" alt="&{article.getHeadline().raw()}" title="&{article.getHeadline().raw()}" style="max-width: 274px" />
-						</a>
-						<div class="caption">
-							<a href="/artigos/${article.id}/${article.getFriendlyUrl()}">
-								<h3 style="text-transform: uppercase;"><strong>&{article.getTitle()}</strong></h3>
-							</a>
-							<p>
-								<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" class="btn btn-default" role="button">
-									Saiba mais
-								</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			#{/list}
-		</div>
-	</div>
+<!-- 	<div class="row"> -->
+<!-- 		<div class="col-lg-12"> -->
+<!-- 			#{list bottomNews, as:'article'} -->
+<!-- 				<div class="col-sm-3 col-md-3"> -->
+<!-- 					<div class="thumbnail"> -->
+<!-- 						<a href="/artigos/${article.id}/${article.getFriendlyUrl()}"> -->
+<!-- 							<img src="@{howtodo.NewsController.getImage(article.id, '1')}" alt="&{article.getHeadline().raw()}" title="&{article.getHeadline().raw()}" style="max-width: 274px" /> -->
+<!-- 						</a> -->
+<!-- 						<div class="caption"> -->
+<!-- 							<a href="/artigos/${article.id}/${article.getFriendlyUrl()}"> -->
+<!-- 								<h3 style="text-transform: uppercase;"><strong>&{article.getTitle()}</strong></h3> -->
+<!-- 							</a> -->
+<!-- 							<p> -->
+<!-- 								<a href="/artigos/${article.id}/${article.getFriendlyUrl()}" class="btn btn-default" role="button"> -->
+<!-- 									Saiba mais -->
+<!-- 								</a> -->
+<!-- 							</p> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			#{/list} -->
+<!-- 		</div> -->
+<!-- 	</div> -->
     
     <!-- jQuery -->
     <script src="@{'public/templatebootstrap/bower_components/jquery/dist/jquery.min.js'}"></script>

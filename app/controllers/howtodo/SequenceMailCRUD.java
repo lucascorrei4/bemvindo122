@@ -57,7 +57,7 @@ public class SequenceMailCRUD extends CRUD {
 		if (order == null) {
 			order = "DESC";
 		}
-		List<SequenceMail> objects = SequenceMail.find("order by postedAt, sequence desc group by url, sequence").fetch(20);
+		List<SequenceMail> objects = SequenceMail.find("order by postedAt, sequence desc group by url, sequence").fetch();
 		Long count = type.count(search, searchFields, (String) request.args.get("where"));
 		Long totalCount = type.count(null, null, (String) request.args.get("where"));
 		List<SequenceMailTO> listGroupedUrls = getGroupedUrls(objects);
@@ -121,9 +121,8 @@ public class SequenceMailCRUD extends CRUD {
 	}
 
 	private static List<TO> getAllPublishedUrls() {
-		List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch();
-		List<FreePage> listFreePages = FreePage.find("isActive = true order by postedAt desc").fetch();
-		List<SellPage> listSellPages = SellPage.find("isActive = true order by postedAt desc").fetch();
+		List<Article> listArticles = Article.find("showCaptureForm = true and isActive = true order by postedAt desc").fetch();
+		List<FreePage> listFreePages = FreePage.find("showCaptureForm = true and isActive = true order by postedAt desc").fetch();
 		List<TO> listTO = new ArrayList<TO>();
 		TO to = new TO();
 		String siteDomain = Parameter.getCurrentParameter().getSiteDomain();
@@ -141,13 +140,6 @@ public class SequenceMailCRUD extends CRUD {
 			String url = "/fp/".concat(freePage.getFriendlyUrl());
 			to = new TO();
 			to.setLabel(freePage.getTitleSEO() + " - " + url);
-			to.setValue(url);
-			listTO.add(to);
-		}
-		for (SellPage sellPage : listSellPages) {
-			String url = "/pv/".concat(sellPage.getFriendlyUrl());
-			to = new TO();
-			to.setLabel(sellPage.getTitleSEO() + " - " + url);
 			to.setValue(url);
 			listTO.add(to);
 		}

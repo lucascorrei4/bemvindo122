@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.Normalizer;
@@ -338,6 +339,11 @@ public class Utils extends Controller {
 		Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 		return pattern.matcher(nfdNormalizedString).replaceAll("");
 	}
+	
+	public static String unescapeHtml(String text) {
+		String str = StringEscapeUtils.unescapeHtml(text); 
+		return str;
+	}
 
 	public static String stringToUrl(String str) {
 		return Utils.removeAccent(str).replace(" ", "-").replaceAll("[^a-zA-Z0-9&-]", "").toLowerCase();
@@ -387,7 +393,7 @@ public class Utils extends Controller {
 		return cal.getTime();
 	}
 
-	public static void main(String[] args) {
+	public static void mainss(String[] args) {
 		System.out.println(new Date());
 		System.out.println(addDays(new Date(), 2 - 1));
 	}
@@ -556,16 +562,16 @@ public class Utils extends Controller {
 	}
 
 	public static String unsubscribeHTML(String siteDomain, String mail, long sequenceMailQueueId) {
-		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" alt=\"Img bar\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"" + siteDomain + "/desinscrever-se/" + Utils.encode(mail)
-				+ "\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
+		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" alt=\"Img bar\" /><br><br><p style=\"margin:0;font-family:Tahoma,Geneva,sans-serif;font-size:16px;\">Caso não queira mais receber nossos e-mails, <a href=\"" + siteDomain + "/desinscrever-se/" + Utils.encode(mail)
+				+ "\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.</p>";
 	}
 
 	public static String unsubscribeHTMLSendPulse(String siteDomain, String mail, long sequenceMailQueueId) {
-		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" alt=\"Img bar\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"{{unsubscribe}}\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
+		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" alt=\"Img bar\" /><br><br><p style=\"margin:0;font-family:Tahoma,Geneva,sans-serif;font-size:16px;\">Caso não queira mais receber nossos e-mails, <a href=\"{{unsubscribe}}\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.</p>";
 	}
 
 	public static String sentCredits(String siteTitle, String siteDomain) {
-		return "<br><br>E-mail enviado por <b>" + siteTitle + "</b>.";
+		return "<br><br><p style=\"margin:0;font-family:Tahoma,Geneva,sans-serif;font-size:16px;\">E-mail enviado por <b>" + siteTitle + "</b>.</p>";
 	}
 
 	public static String validateHtmlEmail(String bodyHTML, long sequenceMailQueueId) {

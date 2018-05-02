@@ -1013,7 +1013,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		/* Sender object */
 		Sender sender = new Sender();
 		sender.setCompany(institution.getInstitution());
-		sender.setFrom(institution.getEmail());
+		sender.setFrom("notificacoes@acompanheseupedido.com");
+		sender.setReplyTo(institution.getEmail());
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
@@ -1079,7 +1080,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		/* Sender object */
 		Sender sender = new Sender();
 		sender.setCompany(institution.getInstitution());
-		sender.setFrom(institution.getEmail());
+		sender.setFrom("notificacoes@acompanheseupedido.com");
+		sender.setReplyTo(institution.getEmail());
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
@@ -1120,7 +1122,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
-		render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
+		render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02, parameter);
 	}
 
 	public static void sendEmailNotificationThankful() throws UnsupportedEncodingException {
@@ -1144,7 +1146,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		/* Sender object */
 		Sender sender = new Sender();
 		sender.setCompany(institution.getInstitution());
-		sender.setFrom(institution.getEmail());
+		sender.setFrom("notificacoes@acompanheseupedido.com");
+		sender.setReplyTo(institution.getEmail());
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
@@ -1211,7 +1214,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		/* Sender object */
 		Sender sender = new Sender();
 		sender.setCompany(institution.getInstitution());
-		sender.setFrom(institution.getEmail());
+		sender.setFrom("notificacoes@acompanheseupedido.com");
+		sender.setReplyTo(institution.getEmail());
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();

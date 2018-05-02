@@ -5,6 +5,15 @@
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+@import url('https://fonts.gstatic.com/');
+@import url('http://fonts.googleapis.com/');
+
+@font-face {
+    font-family: "Oswald";
+    src: url('/public/font/Oswald-Light.ttf') format('truetype');
+}
+
 a {
 	outline: 0 none;
 }

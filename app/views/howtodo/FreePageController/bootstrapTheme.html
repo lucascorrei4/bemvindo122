@@ -46,12 +46,12 @@
 	<meta name="msapplication-TileColor" content="#000000">
 	<meta name="msapplication-TileImage" content="&{parameter.getSiteDomain()}/logo">
 	<meta property="twitter:card" content="&{freePage.getTitleSEO()}" />
-	<meta property="twitter:site" content="&{parameter.getSiteDomain()}" />
+	<meta property="twitter:site" content="&{parameter.getSiteDomain()/fp/${freePage.friendlyUrl}" />
 		
 	<meta property="og:type" content="article" />
 	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:site_name" content="&{parameter.getSiteName()}" />
-	<meta property="og:url" content="&{parameter.getSiteDomain()}" />
+	<meta property="og:url" content="&{parameter.getSiteDomain()/fp/${freePage.friendlyUrl}" />
 	<link rel="shortcut icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" />
 	
 	<link rel="shortcut icon" type="image/png" href="&{parameter.getSiteDomain()}/icon" />
