@@ -2,10 +2,12 @@ package controllers.howtodo;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import controllers.Admin;
 import models.howtodo.Article;
 import models.howtodo.FreePage;
+import models.howtodo.Include;
 import models.howtodo.Parameter;
 import models.howtodo.SequenceMailQueue;
 import play.mvc.Before;
@@ -68,6 +70,10 @@ public class FreePageController extends Controller {
 				freePage.setAlternateVideoText(false);
 			}
 		}
+		freePage.setDescription(replacementInclude(freePage.getDescription()));
+		freePage.setDescriptionInactivePage(replacementInclude(freePage.getDescriptionInactivePage()));
+		freePage.setOptionalDescription(replacementInclude(freePage.getOptionalDescription()));
+		freePage.setSubtitle1(replacementInclude(freePage.getSubtitle1()));
 		render(freePage, parameter, title, headline);
 	}
 
@@ -121,6 +127,23 @@ public class FreePageController extends Controller {
 		} else {
 			getVirtualFile();
 		}
+	}
+	
+	public static String replacementInclude(String field) {
+		String content = field;
+		List<Include> listArticles = Include.findAll();
+		if (!Utils.isNullOrEmpty(listArticles)) {
+			for (Include include : listArticles) {
+				if (content.contains(include.title)) {
+					if (include.isActive) {
+						content = content.replace(include.title, include.code);
+					} else {
+						content = content.replace(include.title, " ");
+					}
+				}
+			}
+		} 
+		return content;
 	}
 
 }

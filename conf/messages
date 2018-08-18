@@ -85,6 +85,7 @@ true=Sim
 false=Não
 
 #Controllers
+IncludeCRUD=Includes
 LeadSearchQuestionCRUD=Pesquisa - Perguntas
 LeadSearchAnswerCRUD=Pesquisa - Respostas
 ActivitiesCRUD=Atividades
@@ -125,6 +126,7 @@ MailBaseCRUD=Base de E-mails
 MonetizzeTransactionCRUD=Transações Monetizze
 SequenceMailCRUD=Funil de E-mails
 HighlightProductCRUD=Produtos em Destaque
+GalleryCRUD=Galerias
 
 #Models
 LeadSearchQuestion=Pesquisa - Pergunta
@@ -172,8 +174,10 @@ Article=Artigo
 MailList=Lead
 TheSystem= O Sistema
 MailBase=Base de E-mail
+Gallery=Galeria
 
 #Labels
+code=Código HTML
 id=Id
 messageNumberPhone=Mensagem Nº de Telefone
 descriptionInactivePage=Conteúdo de Página Inativa
@@ -223,11 +227,31 @@ footerInfo=Rodapé (HTML)
 icon=Ícone do Site
 image4=Imagem 4
 image5=Imagem 5
+image6=Imagem 6
+image7=Imagem 7
+image8=Imagem 8
+image9=Imagem 9
+image10=Imagem 10
+image11=Imagem 11
+image12=Imagem 12
+image13=Imagem 13
+image14=Imagem 14
+image15=Imagem 15
 titleImage1=Título da Imagem 1 (Thumb)
 titleImage2=Título da Imagem 2
 titleImage3=Título da Imagem 3
 titleImage4=Título da Imagem 4
 titleImage5=Título da Imagem 5
+titleImage6=Título da Imagem 6
+titleImage7=Título da Imagem 7
+titleImage8=Título da Imagem 8
+titleImage9=Título da Imagem 9
+titleImage10=Título da Imagem 10
+titleImage11=Título da Imagem 11
+titleImage12=Título da Imagem 12
+titleImage13=Título da Imagem 13
+titleImage14=Título da Imagem 14
+titleImage15=Título da Imagem 15
 description2=Descrição 2
 description3=Descrição 3
 description4=Descrição 4
@@ -272,7 +296,7 @@ buttonMainTitle=Título do Botão Principal
 buttonActionMainTitle=Ação do Botão Principal
 backgroundImage=Imagem de Fundo (Ideal: 1500px x 1000px .jpg)
 backgroundColor=Cor de Fundo
-subtitle1=Subtítulo 1
+subtitle1=Conteúdo (Abaixo Form. Captura)
 description=Descrição
 imageProduct=Imagem do Produto (Ideal: 1000px x 1164px .png)
 subtitle2=Subtítulo 2

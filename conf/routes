@@ -8,7 +8,10 @@
 # ~~~~
 
 # Home page
-GET     ${ctx}/                                       				Application.index
+GET     ${ctx}/                                       				Secure.login
+GET    	${ctx}/acompanhe/?				 							Application.follow
+GET    	${ctx}/acompanhe/{cod}					 					Application.follow
+
 GET     ${ctx}/sitemap.xml                              			staticFile:/public/sitemap.xml
 
 # 301 redirects
@@ -24,8 +27,6 @@ GET    	${ctx}/como-funciona										Application.howItWorks
 GET    	${ctx}/contato												Application.contact
 POST	${ctx}/chalk-moip-response									Application.moipResponse
 POST    ${ctx}/primeiros-passos    				 					Application.saveNewInstitution
-GET    	${ctx}/acompanhe/?				 							Application.follow
-GET    	${ctx}/acompanhe/{cod}					 					Application.follow
 POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
@@ -40,6 +41,7 @@ GET    	${ctx}/desinscrever-se/{mailLead}				   			Application.unsubscribe
 GET    	${ctx}/hrpx/{id}								   			Application.hrpx
 
 GET    	${ctx}/imagem-fp/{id}			   				 			howtodo.FreePageController.getImage
+GET    	${ctx}/galeria/{id}			   				 			    howtodo.GalleryController.getImage
 
 
 # Essentials Pages
@@ -83,8 +85,30 @@ GET    	${ctx}/fp/{friendlyUrl}						howtodo.FreePageController.details
 
 # Public News
 
-GET    	${ctx}/artigos					   				 			howtodo.NewsController.list
+GET    	${ctx}/artigos					   				 			Application.index
 GET    	${ctx}/artigos/{id}/{friendlyUrl}							howtodo.NewsController.details
+
+# Gallery
+
+GET		${ctx}/admin-howtodo/galeria											howtodo.GalleryCRUD.list
+GET		${ctx}/admin-howtodo/galeria/novo										howtodo.GalleryCRUD.blank
+GET		${ctx}/admin-howtodo/galeria/{id}										howtodo.GalleryCRUD.show
+GET		${ctx}/admin-howtodo/galeria/{id}/{field}								howtodo.GalleryCRUD.attachment
+GET		${ctx}/admin-howtodo/galeria/{id}/editar								howtodo.GalleryCRUD.edit
+POST	${ctx}/admin-howtodo/galeria											howtodo.GalleryCRUD.create
+POST	${ctx}/admin-howtodo/galeria/{id}										howtodo.GalleryCRUD.save
+DELETE	${ctx}/admin-howtodo/galeria/{id}										howtodo.GalleryCRUD.delete
+
+# Include
+
+GET		${ctx}/admin-howtodo/includes											howtodo.IncludeCRUD.list
+GET		${ctx}/admin-howtodo/includes/novo										howtodo.IncludeCRUD.blank
+GET		${ctx}/admin-howtodo/includes/{id}										howtodo.IncludeCRUD.show
+GET		${ctx}/admin-howtodo/includes/{id}/{field}								howtodo.IncludeCRUD.attachment
+GET		${ctx}/admin-howtodo/includes/{id}/editar								howtodo.IncludeCRUD.edit
+POST	${ctx}/admin-howtodo/includes											howtodo.IncludeCRUD.create
+POST	${ctx}/admin-howtodo/includes/{id}										howtodo.IncludeCRUD.save
+DELETE	${ctx}/admin-howtodo/includes/{id}										howtodo.IncludeCRUD.delete
 
 # LeadSearchAnswer
 

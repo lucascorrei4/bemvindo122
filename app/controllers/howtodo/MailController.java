@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
-import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import org.apache.log4j.Logger;
 
@@ -27,7 +27,6 @@ import models.howtodo.BodyMail;
 import models.howtodo.Parameter;
 import models.howtodo.SequenceMailQueue;
 import play.db.jpa.Blob;
-import util.ApplicationConfiguration;
 import util.Utils;
 
 public class MailController {
@@ -58,9 +57,9 @@ public class MailController {
 				message.setHeader("Content-Type", encodingOptions);
 				message.setSentDate(Utils.getBrazilCalendar().getTime());
 				if (Utils.isNullOrEmpty(subject)) {
-					message.setSubject(Utils.removeHTML(bodyMail.title2));
+					message.setSubject(MimeUtility.encodeText(Utils.removeHTML(bodyMail.title2), "utf-8", "B"));
 				} else {
-					message.setSubject(Utils.removeHTML(subject));
+					message.setSubject(MimeUtility.encodeText(Utils.removeHTML(subject), "utf-8", "B"));
 				}
 				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML(), 0l);
 				final MimeBodyPart textPart = new MimeBodyPart();

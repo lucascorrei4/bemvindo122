@@ -46,12 +46,12 @@
 	<meta name="msapplication-TileColor" content="#000000">
 	<meta name="msapplication-TileImage" content="&{parameter.getSiteDomain()}/logo">
 	<meta property="twitter:card" content="&{freePage.getTitleSEO()}" />
-	<meta property="twitter:site" content="&{parameter.getSiteDomain()/fp/${freePage.friendlyUrl}" />
+	<meta property="twitter:site" content="&{parameter.getSiteDomain()}/fp/&{freePage.friendlyUrl}" />
 		
 	<meta property="og:type" content="article" />
 	<meta property="og:locale" content="pt_BR" />
 	<meta property="og:site_name" content="&{parameter.getSiteName()}" />
-	<meta property="og:url" content="&{parameter.getSiteDomain()/fp/${freePage.friendlyUrl}" />
+	<meta property="og:url" content="&{parameter.getSiteDomain()}/fp/&{freePage.friendlyUrl}" />
 	<link rel="shortcut icon" type="image/png" href="&{parameter.getSiteDomain()}/logo" />
 	
 	<link rel="shortcut icon" type="image/png" href="&{parameter.getSiteDomain()}/icon" />
@@ -86,7 +86,7 @@
 		n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 		t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 		document,'script','https://connect.facebook.net/en_US/fbevents.js');
-		fbq('init', '457036137826789'); // Insert your pixel ID here.
+		fbq('init', '&{parameter.getFacebookPixelId()}'); // Insert your pixel ID here.
 		fbq('track', 'PageView');
 		</script>
 		<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=457036137826789&ev=PageView&noscript=1" /></noscript>
@@ -108,7 +108,7 @@
                     	#{if freePage.isActive}
 	                    	<input id="abTestVideoOfText" name="abTestVideoOfText" type="hidden" value="${freePage.alternateVideoText}" />
 	                        <div class="panel-heading" style="background: rgba(255, 255, 255, 0.2);">
-			                    <h2 class="page-header" style="text-align: center; text-transform: capitalize;">&{freePage.getMainTitle().raw()}</h2>
+			                    <h1 class="page-header" style="text-align: center; text-transform: capitalize;">&{freePage.getMainTitle().raw()}</h1>
 			                    #{if freePage.abTestVideoOfText}
 				                    #{if freePage.alternateVideoText}
 						            	&{freePage.getOptionalDescription().raw()}

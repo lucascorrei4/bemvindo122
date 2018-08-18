@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import controllers.CRUD.ObjectType;
+import controllers.howtodo.FreePageController;
 import controllers.howtodo.LeadSearchAnswerCRUD;
 import controllers.howtodo.MailController;
 import models.Institution;
@@ -117,7 +118,16 @@ public class Application extends Controller {
 					freePage.setAlternateVideoText(false);
 				}
 			}
-			render("howtodo/FreePageController/details.html", freePage, parameter, title, headline);
+			freePage.setDescription(FreePageController.replacementInclude(freePage.getDescription()));
+			freePage.setDescriptionInactivePage(FreePageController.replacementInclude(freePage.getDescriptionInactivePage()));
+			freePage.setOptionalDescription(FreePageController.replacementInclude(freePage.getOptionalDescription()));
+			freePage.setSubtitle1(FreePageController.replacementInclude(freePage.getSubtitle1()));
+//			render("howtodo/FreePageController/details.html", freePage, parameter, title, headline);
+			try {
+				Secure.login();
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
 		} else {
 			List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(4);
 			List<Article> listArticles12 = listArticles.subList(0, 2);

@@ -1,11 +1,14 @@
 package models.howtodo;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
+
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import controllers.CRUD.Hidden;
 import play.data.validation.MaxSize;
@@ -31,18 +34,17 @@ public class FreePage extends Model {
 	@MaxSize(10000000)
 	public String description;
 
-	
 	public boolean abTestVideoOfText = false;
 	@Lob
 	@MaxSize(10000000)
 	public String optionalDescription;
-	
+
 	@Hidden
 	public boolean alternateVideoText = false;
 
 	public Blob backgroundImage;
 	public String backgroundColor;
-	
+
 	public boolean showCaptureForm;
 	public boolean showNumberPhone = false;
 	public String messageNumberPhone;
@@ -54,19 +56,19 @@ public class FreePage extends Model {
 	@Lob
 	@MaxSize(10000000)
 	public String subtitle1;
-	
+
 	@Lob
 	@MaxSize(10000000)
 	public String descriptionInactivePage;
-	
+
 	public Blob image1;
 	public Blob image2;
 	public Blob image3;
 	public Blob image4;
 	public Blob image5;
-	
+
 	public FreePageTemplatesEnum templateStyle = FreePageTemplatesEnum.FreeStyleTheme;
-	
+
 	@Enumerated(EnumType.STRING)
 	public FacebookEventEnum facebookEvent = FacebookEventEnum.ViewContent;
 
@@ -78,7 +80,7 @@ public class FreePage extends Model {
 	public String shortenUrl;
 
 	public boolean isActive = true;
-	
+
 	public String toString() {
 		return titleSEO;
 	}
@@ -145,7 +147,7 @@ public class FreePage extends Model {
 		}
 		return shortenUrl;
 	}
-	
+
 	public void setShortenUrl(String shortenUrl) {
 		this.shortenUrl = shortenUrl;
 	}
@@ -293,7 +295,7 @@ public class FreePage extends Model {
 	public void setMessageNumberPhone(String messageNumberPhone) {
 		this.messageNumberPhone = messageNumberPhone;
 	}
-	
+
 	public Blob getImage1() {
 		return image1;
 	}
