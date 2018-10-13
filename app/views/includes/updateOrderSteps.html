@@ -14,7 +14,7 @@
 							#{list items:orderOfService.serviceOrderOfServiceSteps, as:'key'}
 								<div class="col-lg-12">
 									<h4 style="text-align: center;">
-										<b>#${key_index} ${key.getService().getTitle()}</b> | Ref.: ${key.reference}  
+										<b>#${key_index} ${key.getService().getTitle()}</b> <span class="label label-default">Ref.: ${key.reference}</span>  
 									</h4>
 									<h5 style="color: gray; text-align: center;">
 										<b>${key.getService().getDescription()}</b>

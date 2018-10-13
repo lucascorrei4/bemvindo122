@@ -122,7 +122,8 @@ public class Application extends Controller {
 			freePage.setDescriptionInactivePage(FreePageController.replacementInclude(freePage.getDescriptionInactivePage()));
 			freePage.setOptionalDescription(FreePageController.replacementInclude(freePage.getOptionalDescription()));
 			freePage.setSubtitle1(FreePageController.replacementInclude(freePage.getSubtitle1()));
-//			render("howtodo/FreePageController/details.html", freePage, parameter, title, headline);
+			// render("howtodo/FreePageController/details.html", freePage,
+			// parameter, title, headline);
 			try {
 				Secure.login();
 			} catch (Throwable e) {
@@ -646,12 +647,12 @@ public class Application extends Controller {
 		Parameter parameter = getCurrentParameter();
 		render(theSystem, bottomNews, parameter);
 	}
-	
+
 	public static void main(String[] args) {
-		String url ="http://localhost:9002/?src=from-adw&utm_campaing=since-20180302";
+		String url = "http://localhost:9002/?src=from-adw&utm_campaing=since-20180302";
 		System.out.println(url.split("\\?")[0]);
 	}
-	
+
 	public static void saveMailList() throws UnsupportedEncodingException {
 		String resp = null;
 		String status = null;
@@ -708,7 +709,7 @@ public class Application extends Controller {
 			mailList.merge();
 		}
 		String redirectTo = null;
-		String partOf = null; 
+		String partOf = null;
 		String pageParameter = null;
 		FreePage freePage = null;
 		Parameter parameter = getCurrentParameter();
@@ -952,7 +953,14 @@ public class Application extends Controller {
 		}
 		Institution institution = Institution.findById(orderOfService.institutionId);
 		String clientName = orderOfService.getClient().getName();
-		render(orderOfService, parameter, clientName, institution);
+		List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps = new ArrayList<ServiceOrderOfServiceSteps>();
+		ServiceOrderOfServiceSteps serviceOrderOfServiceStep = null;
+		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
+		for (OrderOfServiceValue orderServValue : orderOfServiceValues) {
+			configureOrderOfServiceSteps(orderOfService, orderServValue, serviceOrderOfServiceSteps, serviceOrderOfServiceStep);
+		}
+		updateServicesReferences(orderOfService);
+		render(orderOfService, parameter, clientName, institution, serviceOrderOfServiceSteps);
 	}
 
 	public static void saveEvaluation() {
@@ -962,12 +970,6 @@ public class Application extends Controller {
 		int grade = params.get("optionsRadios", Integer.class);
 		String evaluation = params.get("evaluation");
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institutionId).first();
-		if (Utils.isNullOrEmpty(evaluation)) {
-			Institution institution = Institution.findById(orderOfService.institutionId);
-			String clientName = orderOfService.getClient().getName();
-			String message = "Por favor, deixe um pequeno e sincero comentário.";
-			render("@clientEvaluation", orderOfService, parameter, clientName, institution, message);
-		}
 		orderOfService.setEvaluated(true);
 		orderOfService.setGrade(grade);
 		orderOfService.setClientEvaluation(evaluation);

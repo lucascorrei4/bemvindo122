@@ -1,7 +1,7 @@
 package util;
 
 public enum StatusEnum {
-	NotStarted("Não iniciada", "notstarted"), InProgress("Em progresso", "inprogress"), Finished("Finalizada", "finished"), Frozen("Congelada", "frozen");
+	NotStarted("Não iniciada", "notstarted"), InProgress("Em progresso", "inprogress"), Finished("Finalizada", "finished"), Frozen("Congelada", "frozen"), Ignored("Ignorada", "ignored");
 
 	String label;
 	String value;
@@ -39,7 +39,7 @@ public enum StatusEnum {
 		}
 		return null;
 	}
-	
+
 	public static void main(String[] args) {
 		System.out.println(StatusEnum.getNameByValue("simple").getLabel());
 	}

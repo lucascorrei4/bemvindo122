@@ -324,7 +324,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		render(listOrderOfServices, institution);
 	}
-	
+
 	public static void afterSaleScript() {
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		render(institution);
@@ -355,7 +355,7 @@ public class OrderOfServiceCRUD extends CRUD {
 
 	public static Float calculateTotalOrderOfServiceByClient(Client client) {
 		Float totalGeral = 0f;
-		List<OrderOfService> listOrderOfServices = OrderOfService.find("client_id = " + client.id +" and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch(20);
+		List<OrderOfService> listOrderOfServices = OrderOfService.find("client_id = " + client.id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch(20);
 		for (OrderOfService order : listOrderOfServices) {
 			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
 			/* Get somatories values */
@@ -715,6 +715,42 @@ public class OrderOfServiceCRUD extends CRUD {
 		}
 	}
 
+	public static void thankfulDoneByTelephone() throws IOException {
+		String response = null;
+		String status = null;
+		String id = params.get("id", String.class);
+		String value = params.get("value", String.class);
+		String idUpdate = params.get("idUpdate", String.class);
+		String[] paramsSpplited = id.split("-");
+		String orderCode = paramsSpplited[1];
+		String sendResponse = null;
+		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
+		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
+		Parameter parameter = Parameter.all().first();
+		status = "SUCCESS";
+		response = sendResponse;
+		/* Set thanked Order of Service */
+		orderOfService.setThanked(true);
+		orderOfService.willBeSaved = true;
+		orderOfService.merge();
+		/* Generate Activity */
+		String activityTitle = "Pós-venda realizado por telefone";
+		String activityDescription = "Ação de pós-venda realizada por telefone referente a OS (" + orderOfService.getOrderCode() + ")";
+		User loggedUser = Admin.getLoggedUserInstitution().getUser();
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.CallAfterSale);
+		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
+		if ("thankfulNotificationArea".equals(idUpdate)) {
+			render("OrderOfServiceCRUD/thankfulNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02, parameter);
+		} else if ("notificationArea".equals(idUpdate)) {
+			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, parameter);
+		} else if ("accordion".equals(idUpdate)) {
+			List<OrderOfService> listOrderOfService = loadListOrderOfService();
+			verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
+			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
+		}
+	}
+
 	public static void sendWhatsAppEvaluation() throws IOException {
 		String response = null;
 		String status = null;
@@ -764,7 +800,7 @@ public class OrderOfServiceCRUD extends CRUD {
 			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
 		}
 	}
-	
+
 	public static void sendWhatsAppOS() throws IOException {
 		String response = null;
 		String status = null;

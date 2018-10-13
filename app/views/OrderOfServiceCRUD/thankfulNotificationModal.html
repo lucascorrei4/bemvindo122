@@ -8,6 +8,7 @@
 	<div class="panel-body">
 		<h4>Disparar mensagem:</h4>
 		<p>
+           	<input class="btn btn-default marginTopBotton" type="button" value="Feito por Telefone" onclick="thankfulDoneByTelephone(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'thankfulNotificationArea'); window.location.reload(true)" />
            	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por WhatsApp" onclick="sendWhatsAppThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'thankfulNotificationArea');" />
            	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por E-mail" onclick="sendEmailNotificationThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'thankfulNotificationArea');" />
            	<input class="btn btn-default marginTopBotton" type="button" value="Enviar por Notificação Push" onclick="sendPUSHThankful(document.getElementById('sms-&{orderOfService.orderCode}').id, document.getElementById('sms-&{orderOfService.orderCode}').value, 'thankfulNotificationArea');" />

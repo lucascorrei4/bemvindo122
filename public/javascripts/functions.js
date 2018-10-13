@@ -192,6 +192,33 @@ function sendSMSEvaluation(id, value, idUpdate) {
 	});
 }
 
+function thankfulDoneByTelephone(id, value, idUpdate) {
+	var isMobile = checkIsMobile();
+	var data = jQuery.param({
+		id : id,
+		value : value,
+		idUpdate : idUpdate,
+		isMobile : isMobile
+	});
+	messageActionOnClick(id, idUpdate);
+	$('#' + idUpdate).load('/OrderOfServiceCRUD/thankfulDoneByTelephone', data,
+			function(response, status) {
+		var status = $("#statusThankful").val();
+		if ('SUCCESS' === status) {
+			$("#message-" + id).css("color", "cornflowerblue");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#responseThankful").val());
+			$("#message-" + id).fadeIn();
+		} else {
+			$("#message-" + id).css("color", "red");
+			$("#message-" + id).show();
+			$("#message-" + id).html($("#responseThankful").val());
+			setTimeout(function() { $('#message-' + id).hide(); }, 10000);
+		}
+		$("#" + idUpdate + "*").prop("disabled", false);
+	});
+}
+
 function sendWhatsAppThankful(id, value, idUpdate) {
 	var isMobile = checkIsMobile();
 	var data = jQuery.param({

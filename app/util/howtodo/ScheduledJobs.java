@@ -36,21 +36,23 @@ public class ScheduledJobs extends Job {
 
 	private void verifyIfLeadIsNotInSalesFunnel() throws ParseException {
 		List<MailList> mailList = new MailList().find("isActive = true order by postedAt desc").fetch();
-		for (MailList mL : mailList) {
-			SequenceMailController.addLeadToSalesFunnel(mL);
+		if (!Utils.isNullOrEmpty(mailList)) {
+			for (MailList mL : mailList) {
+				SequenceMailController.addLeadToSalesFunnel(mL);
+			}
 		}
 	}
 
 	public void sendMailToLead() {
 		/* Brazilian time 15 minutes ago */
 		Calendar cal = Utils.getBrazilCalendar();
-	    cal.add(Calendar.MINUTE, -20);
-	    Timestamp dateTimeOlder15Minutes = new Timestamp(cal.getTimeInMillis());
-	    cal = Utils.getBrazilCalendar();
-	    cal.add(Calendar.MINUTE, 6);
-	    Timestamp dateTimeNewer6Minutes = new Timestamp(cal.getTimeInMillis());
-	    /* Brazilian time now */
-	    cal = Utils.getBrazilCalendar();
+		cal.add(Calendar.MINUTE, -20);
+		Timestamp dateTimeOlder15Minutes = new Timestamp(cal.getTimeInMillis());
+		cal = Utils.getBrazilCalendar();
+		cal.add(Calendar.MINUTE, 6);
+		Timestamp dateTimeNewer6Minutes = new Timestamp(cal.getTimeInMillis());
+		/* Brazilian time now */
+		cal = Utils.getBrazilCalendar();
 		List<SequenceMailQueue> sequenceMailQueueList = SequenceMailQueue.find("sent = false and jobDate BETWEEN '" + dateTimeOlder15Minutes + "' AND '" + dateTimeNewer6Minutes + "'").fetch();
 		for (SequenceMailQueue sequenceMailQueue : sequenceMailQueueList) {
 			if (sendEmailToLead(sequenceMailQueue)) {
@@ -84,23 +86,29 @@ public class ScheduledJobs extends Job {
 			bodyMail.setImage1(parameter.getSiteDomain() + "/logo");
 			String firstName = sequenceMailQueue.getName().indexOf(" ") > -1 ? sequenceMailQueue.getName().substring(0, sequenceMailQueue.getName().indexOf(" ")) : sequenceMailQueue.getName();
 			/* replace @lead@ = Name of lead */
-			/* replace /uid/ = Adding encoded mail to complete search lead URL in opinion search page like: https://acompanheseupedido.com/pesquisa/cid/cpg_01/uid/{mail-encoded} */
+			/*
+			 * replace /uid/ = Adding encoded mail to complete search lead URL
+			 * in opinion search page like:
+			 * https://acompanheseupedido.com/pesquisa/cid/cpg_01/uid/{mail-
+			 * encoded}
+			 */
 			String bodyHTML = sequenceMailQueue.getSequenceMail().getDescription().replace("@lead@", firstName).replace("/uid/", "/uid/" + Utils.encode(sequenceMailQueue.getMail())).concat(Utils.unsubscribeHTMLSendPulse(parameter.getSiteDomain(), sequenceMailQueue.getMail(), sequenceMailQueue.id))
 					.concat(Utils.sentCredits(parameter.getSiteTitle(), parameter.getSiteDomain()));
 			bodyMail.setBodyHTML(bodyHTML);
 			String subject = sequenceMailQueue.getSequenceMail().getTitle().replace("@lead@", firstName);
 			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, subject, sequenceMailQueue, parameter)) {
-//				mailController.sendMailToMeWithCustomInfo("E-mail disparado ao lead!", "Nome: " + sequenceMailQueue.getName() + " - E-mail: " + sequenceMailQueue.getMail());
+				// mailController.sendMailToMeWithCustomInfo("E-mail disparado
+				// ao lead!", "Nome: " + sequenceMailQueue.getName() + " -
+				// E-mail: " + sequenceMailQueue.getMail());
 				return true;
 			}
 		}
 		return false;
 	}
-	
-	
+
 	public static void main(String[] args) {
 		System.out.println("http://localhost:9002".contains("localhost:90"));
-		
+
 	}
 
 }

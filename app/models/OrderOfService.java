@@ -39,6 +39,7 @@ public class OrderOfService extends Model {
 	public String orderCode;
 
 	@Lob
+	@MaxSize(100000)
 	public String obs;
 
 	@Hidden
