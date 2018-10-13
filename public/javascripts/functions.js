@@ -129,12 +129,42 @@ function sendSMS(id, value, idUpdate) {
 					$("#message-" + id).show();
 					$("#message-" + id).html($("#response").val());
 					$("#message-" + id).fadeIn();
-					$("#collapse" + spplittedName[1]).collapse('show');
+					alert($("#response").val())
+					if('accordion' === idUpdate) {
+						$("#collapse" + spplittedName[1]).collapse('show');
+					}
 				} else {
 					$("#message-" + id).css("color", "red");
 					$("#message-" + id).show();
 					$("#message-" + id).html($("#response").val());
-					$("#collapse" + spplittedName[1]).collapse('show');
+					if('accordion' === idUpdate) {
+						$("#collapse" + spplittedName[1]).collapse('show');
+					}
+				}
+				$("#" + idUpdate + "*").prop("disabled", false);
+			});
+}
+
+function sendSMSCustomerNotification(id, value, idUpdate) {
+	var data = jQuery.param({
+		id : id,
+		value : value,
+		idUpdate : idUpdate
+	});
+	messageActionOnClick(id, idUpdate);
+	$('#' + idUpdate).load('/OrderOfServiceCRUD/sendsms', data,
+			function(response, status) {
+				var status = $("#status-" + id).val();
+				var spplittedName = id.split('-');
+				if ('SUCCESS' === status) {
+					$("#message-" + id).css("color", "cornflowerblue");
+					$("#message-" + id).show();
+					$("#message-" + id).html($("#response-" + id).val());
+					$("#message-" + id).fadeIn();
+				} else {
+					$("#message-" + id).css("color", "red");
+					$("#message-" + id).show();
+					$("#message-" + id).html($("#response-" + id).val());
 				}
 				$("#" + idUpdate + "*").prop("disabled", false);
 			});

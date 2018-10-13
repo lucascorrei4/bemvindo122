@@ -465,6 +465,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		 */
 		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		orderOfServiceStep.setStatus(StatusEnum.getNameByValue(newOrderStatus));
+		orderOfServiceStep.setLastUpdateDate(Utils.getCurrentDateTime());
 		orderOfServiceStep.save();
 		/* Generate Activity */
 		String activityTitle = "Etapa da OS + (" + orderOfServiceStep.getOrderCode() + ") atualizada para \"" + orderOfServiceStep.getStatus().getLabel() + "\"";
@@ -507,6 +508,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		 */
 		OrderOfServiceStep orderOfServiceStep = OrderOfServiceStep.find("id = " + Long.valueOf(orderServiceStepId) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		orderOfServiceStep.setObs(obsParam);
+		orderOfServiceStep.setLastUpdateDate(Utils.getCurrentDateTime());
 		orderOfServiceStep.save();
 		/*
 		 * Creating new object to do new search to see if object was saved
@@ -569,13 +571,14 @@ public class OrderOfServiceCRUD extends CRUD {
 		} else {
 			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
 		}
-		List<OrderOfService> listOrderOfService = loadListOrderOfService();
-		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		if ("accordion".equals(idUpdate)) {
+			List<OrderOfService> listOrderOfService = loadListOrderOfService();
+			verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
 		} else if ("notificationArea".equals(idUpdate)) {
-			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit);
+			Parameter parameter = Parameter.all().first();
+			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, parameter);
 		}
 	}
 

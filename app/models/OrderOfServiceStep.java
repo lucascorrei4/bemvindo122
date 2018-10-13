@@ -31,7 +31,9 @@ public class OrderOfServiceStep extends Model {
 	public String obs;
 
 	private String reference;
-	
+
+	private String lastUpdateDate;
+
 	public Blob image;
 
 	@Hidden
@@ -41,9 +43,9 @@ public class OrderOfServiceStep extends Model {
 
 	@Hidden
 	public long institutionId;
-	
+
 	public String orderCode;
-	
+
 	public String getOrderCode() {
 		return orderCode;
 	}
@@ -69,6 +71,25 @@ public class OrderOfServiceStep extends Model {
 
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
+	}
+
+	public String getLastUpdateDate() throws ParseException {
+		if (this.lastUpdateDate == null) {
+			setLastUpdateDate(Utils.getCurrentDateTime());
+		}
+		return lastUpdateDate;
+	}
+
+	public void setLastUpdateDate(String lastUpdateDate) {
+		this.lastUpdateDate = lastUpdateDate;
+	}
+
+	public String getLastUpdateDateParsed() throws ParseException {
+		if (this.lastUpdateDate != null) {
+			return Utils.parseStringDateTime(lastUpdateDate);
+		} else {
+			return "Não atualizado.";
+		}
 	}
 
 	public boolean isActive() {
