@@ -75,7 +75,7 @@
 								<input id="ember455" class="invoice-due-date no-markers ember-view ember-text-field" type="text" value="Consulta">
 							</div>
 							<div class="col-md-8 no-padding">
-								<input id="ember456" placeholder="${parameter.getSiteDomain()}/acompanhe" class="invoice-due-date-body no-markers ember-view ember-text-field" type="text" value="${parameter.getSiteDomain()}/acompanhe">
+								<input id="ember456" placeholder="${parameter.getAdminDomain() == null ? 'https://admin.acompanheseupedido.com' : parameter.getAdminDomain()}/acompanhe" class="invoice-due-date-body no-markers ember-view ember-text-field" type="text" value="${parameter.getAdminDomain()}/acompanhe">
 							</div>
 						</div>
 					</div>
@@ -197,7 +197,7 @@
 				<div class="row row-m1em" style="margin-top: 200px">
 					<div class="col-md-8">
 						<p
-							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. geral:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>${parameter.getSiteDomain()}/acompanhe. Para acesso exclusivo a determinado item do pedido, utilize o código restrito listado na tabela acima.</b></p>
+							class="invoice-notes-body no-markers ember-view ember-text-area flexible-textarea"><b>Obs. geral:</b> Utilize um leitor de QR Code para acompanhar o seu pedido. Ou, pesquise pelo código <b>${order?.orderCode}</b> no site <b>${parameter.getAdminDomain() == null ? 'https://admin.acompanheseupedido.com' : parameter.getAdminDomain()}/acompanhe. Para acesso exclusivo a determinado item do pedido, utilize o código restrito listado na tabela acima.</b></p>
 					</div>
 					<div class="col-md-4">
 						<div id="qrcode"></div>

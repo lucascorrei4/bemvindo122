@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
 <div class="form-group">
 	<h4>Avaliação para  <strong>&{orderOfService.client.toString()}</strong></h4>
-	<textarea class="form-control" id="evaluation-&{orderOfService.orderCode}" style="height: 100px">Ol&aacute;, &{orderOfService.client.name.trim()}. Para que possamos melhorar, por favor, pode responder rapidamente esta pesquisa? https://acompanheseupedido.com/avaliacao/&{orderOfService.orderCode}/&{orderOfService.institutionId} Agradecemos. Att., &{institution.institution}.</textarea>
+	<textarea class="form-control" id="evaluation-&{orderOfService.orderCode}" style="height: 100px">Ol&aacute;, &{orderOfService.client.name.trim()}. Para que possamos melhorar, por favor, pode responder rapidamente esta pesquisa? &{parameter.adminDomain == null ? 'https://admin.acompanheseupedido.com' : parameter.adminDomain }/avaliacao/&{orderOfService.orderCode}/&{orderOfService.institutionId} Agradecemos. Att., &{institution.institution}.</textarea>
 	<label>&{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
 </div>
 <div class="container" id="formNotifButtons" style="width: 100%">

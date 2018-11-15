@@ -149,7 +149,8 @@ public class Application extends Controller {
 		theSystem.setShowTopMenu(true);
 		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		List<Article> bottomNews = listArticles.subList(0, 3);
-		render(theSystem, bottomNews);
+		Parameter parameter = Parameter.all().first();
+		render(theSystem, bottomNews, parameter);
 	}
 
 	private static boolean validatePassword(String password, String confirmationPassword) {

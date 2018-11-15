@@ -101,7 +101,7 @@
 	                                       #{list listOrderOfServices, as:'order'}
 												<tr>
 													<td>${order.postedAtParsed}</td>
-													<td><a href="/acompanhe?cod=${order.orderCode}#acompanhamento" target="_blank">${order.orderCode}</a></td>
+													<td><a href="/a?c=${order.orderCode}#a" target="_blank">${order.orderCode}</a></td>
 													<td>${order.client?.name} ${order.client?.lastName}</td>
 													<td>${order.getCurrentStatus()}</td>
 													<td>#{if !order.evaluated}<label style="text-align: center;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalEvaluation" onclick="openModalCustomerEvaluation(this);"><i class="btn btn-danger fa fa-meh-o fa-3x" ></i></a></label>#{/if}#{else}<i class="btn btn-info fa fa-thumbs-o-up fa-3x"></i>#{/else} </td>

@@ -129,7 +129,9 @@ public class Admin extends Controller {
 						}
 						totalGeral = 0f;
 					}
-					activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch(5);
+					if (!Utils.isNullOrEmpty(clientTimeline)) {
+						activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch(5);
+					} 
 					totalSellByClient = Utils.getCurrencyValue(biggerValue);
 				}
 				String top3Clients = null;

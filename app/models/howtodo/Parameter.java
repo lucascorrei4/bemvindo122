@@ -103,6 +103,7 @@ public class Parameter extends Model {
 
 	public int mailSendInterval = 1;
 	public int standarHourToSendMails = 10;
+	public String adminDomain;
 	
 	@Hidden
 	public long institutionId;
@@ -157,6 +158,14 @@ public class Parameter extends Model {
 
 	public void setSiteDomain(String siteDomain) {
 		this.siteDomain = siteDomain;
+	}
+
+	public String getAdminDomain() {
+		return adminDomain;
+	}
+	
+	public void setAdminDomain(String adminDomain) {
+		this.adminDomain = adminDomain;
 	}
 
 	public String getSiteMail() {

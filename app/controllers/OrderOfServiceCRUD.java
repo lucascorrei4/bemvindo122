@@ -192,7 +192,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		OrderOfService orderOfService = OrderOfService.find("id = " + Long.valueOf(id) + " and institutionId = " + institution.getId() + " and isActive = true").first();
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
-		render(orderOfService, institution, smsExceedLimit, planSPO02);
+		Parameter parameter = Parameter.all().first();
+		render(orderOfService, institution, smsExceedLimit, planSPO02, parameter);
 	}
 
 	public static void orderByOrderOfServiceId(final String id) {

@@ -106,7 +106,7 @@
 	                        <h3 class="panel-title">Acompanhe</h3>
 	                    </div>
 	                    <div class="panel-body">
-	                    	<form action="/acompanhe?document.getElementById('cod').value;#acompanhamento" method="get">
+	                    	<form action="/a?document.getElementById('cod').value;#a" method="get">
 			                    <fieldset>
 			                        <div class="form-group">
 			                            <input class="form-control" placeholder="Insira o código. Ex.: X012345 * #{error 'orderCode' /}" value="${flash['orderCode']}" id="cod" name="cod">
@@ -134,6 +134,7 @@
 	            <div class="row">
 	                <div class="col-lg-12">
 	                	<a id="acompanhamento"></a>
+	                	<a id="a"></a>
 	                    <h2 class="page-header" style="text-align: center;">Oi, <b>${clientName.trim()}!</b></h2>
 	                    <h5 style="text-align: center;">Acompanhe os detalhes abaixo.</h5>
 	                    <h5 style="text-align: right"><span class="label label-success">${orderOfService.orderCode}</span></h5>

@@ -11,14 +11,16 @@
 GET     ${ctx}/                                       				Secure.login
 GET    	${ctx}/acompanhe/?				 							Application.follow
 GET    	${ctx}/acompanhe/{cod}					 					Application.follow
+GET    	${ctx}/a/?				 									Application.follow
+GET    	${ctx}/a/{c}							 					Application.follow
 
 GET     ${ctx}/sitemap.xml                              			staticFile:/public/sitemap.xml
 
 # 301 redirects
-# GET     	${ctx}/novo			                     					Application.newAccount
-# POST   	${ctx}/novo			       				 					Application.saveNewAccount
-GET     	${ctx}/novo			                     					Application.index
-POST    	${ctx}/novo			       				 					Application.index
+ GET     	${ctx}/novo			                     					Application.newAccount
+ POST   	${ctx}/novo			       				 					Application.saveNewAccount
+# GET     	${ctx}/novo			                     					Application.index
+# POST    	${ctx}/novo			       				 					Application.index
 
 # Home page
 
