@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
 <div class="form-group">
 	<h4>Avisar <strong>&{orderOfService.client.toString()}</strong></h4>
-	<textarea class="form-control " id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Acompanhe a OS &{orderOfService.orderCode} em: &{parameter.siteDomain}/a?c=&{orderOfService.orderCode}#a. Att., &{institution.institution}.</textarea>
+	<textarea class="form-control " id="sms-&{orderOfService.orderCode}">Ola, &{orderOfService.client.name.trim()}. Acompanhe a OS &{orderOfService.orderCode} em: &{parameter.adminDomain == null ? 'https://admin.acompanheseupedido.com' : parameter.adminDomain}/a?cod=&{orderOfService.orderCode}#a. Att., &{institution.institution}.</textarea>
 	<label>&{orderOfService.client.mail}, &{orderOfService.client.phone}</label>
 </div>
 <div class="container" id="formNotifButtons" style="width: 100%">

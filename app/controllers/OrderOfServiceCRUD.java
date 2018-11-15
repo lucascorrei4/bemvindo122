@@ -311,7 +311,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
-		render(listOrderOfService, institution, smsExceedLimit);
+		Parameter parameter = Parameter.all().first();
+		render(listOrderOfService, institution, smsExceedLimit, parameter);
 	}
 
 	public static void afterSale() {
@@ -491,7 +492,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		Parameter parameter = Parameter.all().first();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
 	}
 
 	public static void updateObsOrderStep() {
@@ -534,7 +536,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		Parameter parameter = Parameter.all().first();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
 	}
 
 	public static void sendSMS() throws UnsupportedEncodingException {

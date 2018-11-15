@@ -12,7 +12,7 @@ GET     ${ctx}/                                       				Secure.login
 GET    	${ctx}/acompanhe/?				 							Application.follow
 GET    	${ctx}/acompanhe/{cod}					 					Application.follow
 GET    	${ctx}/a/?				 									Application.follow
-GET    	${ctx}/a/{c}							 					Application.follow
+GET    	${ctx}/a/{cod}							 					Application.follow
 
 GET     ${ctx}/sitemap.xml                              			staticFile:/public/sitemap.xml
 
