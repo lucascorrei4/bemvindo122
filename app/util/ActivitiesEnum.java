@@ -11,6 +11,7 @@ public enum ActivitiesEnum {
 	Problem("Algo ruim aconteceu", "Problem", "thumbs-o-down"), 
 	OSStepUpdated("Etapa da OS atualizada (Registrado pelo sistema)", "OSStepUpdated", "list-alt"), 
 	NewUser("Usuário nasceu no sistema (Registrado pelo sistema)", "NewUser", "user-circle-o"), 
+	NewCompany("Nova empresa de cliente criada no sistema (Registrado pelo sistema)", "NewCompany", "home"), 
 	OS("Ordem de Serviço gerada (Registrado pelo sistema)", "OS", "list-alt"), 
 	OSSearch("Cliente consultou a OS (Registrado pelo sistema)", "OSSearch", "search"), 
 	Mail("E-mail enviado (Registrado pelo sistema)", "Mail", "envelope-o"), 

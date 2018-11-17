@@ -129,7 +129,7 @@ function sendSMS(id, value, idUpdate) {
 					$("#message-" + id).show();
 					$("#message-" + id).html($("#response").val());
 					$("#message-" + id).fadeIn();
-					alert($("#response").val())
+					console.log($("#response").val())
 					if('accordion' === idUpdate) {
 						$("#collapse" + spplittedName[1]).collapse('show');
 					}
@@ -239,6 +239,7 @@ function thankfulDoneByTelephone(id, value, idUpdate) {
 			$("#message-" + id).show();
 			$("#message-" + id).html($("#responseThankful").val());
 			$("#message-" + id).fadeIn();
+			window.location.reload(true)
 		} else {
 			$("#message-" + id).css("color", "red");
 			$("#message-" + id).show();

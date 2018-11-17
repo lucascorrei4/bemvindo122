@@ -576,12 +576,12 @@ public class OrderOfServiceCRUD extends CRUD {
 			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		Parameter parameter = Parameter.all().first();
 		if ("accordion".equals(idUpdate)) {
 			List<OrderOfService> listOrderOfService = loadListOrderOfService();
 			verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
-			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
 		} else if ("notificationArea".equals(idUpdate)) {
-			Parameter parameter = Parameter.all().first();
 			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, parameter);
 		}
 	}
@@ -657,7 +657,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				status = "SUCCESS";
 				response = "SMS enviada com sucesso!";
 				/* Set thanked Order of Service */
-				orderOfService.setThanked(true);
+				orderOfService.setEvaluated(true);
 				orderOfService.willBeSaved = true;
 				orderOfService.merge();
 			} else {
@@ -669,7 +669,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
-		render("OrderOfServiceCRUD/evaluationNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02);
+		Parameter parameter = Parameter.all().first();
+		render("OrderOfServiceCRUD/evaluationNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, planSPO02, parameter);
 	}
 
 	public static void sendWhatsAppThankful() throws IOException {
@@ -780,7 +781,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				status = "SUCCESS";
 				response = sendResponse;
 				/* Set thanked Order of Service */
-				orderOfService.setThanked(true);
+				orderOfService.setEvaluated(true);
 				orderOfService.willBeSaved = true;
 				orderOfService.merge();
 				/* Generate Activity */
@@ -846,7 +847,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		Parameter parameter = Parameter.all().first();
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
 	}
 
 	public static void sendPUSH() throws UnsupportedEncodingException {
@@ -899,10 +901,11 @@ public class OrderOfServiceCRUD extends CRUD {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
+		Parameter parameter = Parameter.all().first();
 		if ("accordion".equals(idUpdate)) {
-			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+			render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
 		} else if ("notificationArea".equals(idUpdate)) {
-			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit);
+			render("OrderOfServiceCRUD/customerNotificationModal.html", orderOfService, response, status, institution, smsExceedLimit, parameter);
 		}
 	}
 
@@ -1099,7 +1102,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
 		verifyIfOrderAreOpenAndUpdateServicesReferences(listOrderOfService);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
-		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit);
+		render("includes/updateOrderSteps.html", listOrderOfService, response, status, institution, smsExceedLimit, parameter);
 	}
 
 	public static void sendEmailNotificationToCustomer() throws UnsupportedEncodingException {
@@ -1292,7 +1295,7 @@ public class OrderOfServiceCRUD extends CRUD {
 			status = "SUCCESS";
 			response = "E-mail enviado com sucesso.";
 			/* Set thanked Order of Service */
-			orderOfService.setThanked(true);
+			orderOfService.setEvaluated(true);
 			orderOfService.willBeSaved = true;
 			orderOfService.merge();
 		} else {

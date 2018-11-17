@@ -295,6 +295,17 @@ POST	${ctx}/admin/clientes								ClientCRUD.create
 POST	${ctx}/admin/clientes/{id}							ClientCRUD.save
 DELETE	${ctx}/admin/clientes/{id}							ClientCRUD.delete
 
+# Admin Company
+
+GET		${ctx}/admin/empresas								CompanyCRUD.list
+GET		${ctx}/admin/empresas/novo							CompanyCRUD.blank
+GET		${ctx}/admin/empresas/{id}							CompanyCRUD.show
+GET		${ctx}/admin/empresas/{id}/{field}					CompanyCRUD.attachment
+GET		${ctx}/admin/empresas/{id}/editar					CompanyCRUD.edit
+POST	${ctx}/admin/empresas								CompanyCRUD.create
+POST	${ctx}/admin/empresas/{id}							CompanyCRUD.save
+DELETE	${ctx}/admin/empresas/{id}							CompanyCRUD.delete
+
 # Admin StatusSMS
 
 GET		${ctx}/admin/smss-enviadas							StatusSmsCRUD.list

@@ -127,6 +127,7 @@ MonetizzeTransactionCRUD=Transações Monetizze
 SequenceMailCRUD=Funil de E-mails
 HighlightProductCRUD=Produtos em Destaque
 GalleryCRUD=Galerias
+CompanyCRUD=Empresas
 
 #Models
 LeadSearchQuestion=Pesquisa - Pergunta
@@ -175,6 +176,7 @@ MailList=Lead
 TheSystem= O Sistema
 MailBase=Base de E-mail
 Gallery=Galeria
+Company=Empresa
 
 #Labels
 code=Código HTML

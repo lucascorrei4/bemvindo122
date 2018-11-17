@@ -24,6 +24,8 @@ public class Client extends Model {
 
 	@Required(message = "Campo obrigatório.")
 	public String lastName;
+	
+	public Company company;
 
 	@Email
 	@Unique
@@ -178,6 +180,14 @@ public class Client extends Model {
 
 	public void setObs(String obs) {
 		this.obs = obs;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 }
