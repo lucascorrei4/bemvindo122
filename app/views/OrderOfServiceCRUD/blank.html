@@ -45,6 +45,22 @@
 									</div>
 								</div>
 							#{/crud.custom}
+							#{crud.custom 'isSendOutExperience'}
+								<div class="form-group">
+									<label> Enviar Experiências de Saída Após Finalizar </label>
+									<small>As mensagens de experiência de saída serão enviadas imediatamente após a finalização de todas as etapas desta atividade.</small> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendOutExperience" id="optionsRadiosInline3" value="true" ${object.isSendOutExperience?'checked=checked':''}><span title="&{'info.isSendOutExperience.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendOutExperience" id="optionsRadiosInline4" value="false" ${!object.isSendOutExperience?'checked=checked':''}><span title="&{'info.isSendOutExperience.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
 							#{crud.custom 'isActive'}
 								<div class="form-group">
 									<label> Ativo </label> 

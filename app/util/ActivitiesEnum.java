@@ -13,6 +13,7 @@ public enum ActivitiesEnum {
 	NewUser("Usuário nasceu no sistema (Registrado pelo sistema)", "NewUser", "user-circle-o"), 
 	NewCompany("Nova empresa de cliente criada no sistema (Registrado pelo sistema)", "NewCompany", "home"), 
 	OS("Ordem de Serviço gerada (Registrado pelo sistema)", "OS", "list-alt"), 
+	MsgExperience("Mensagem de Experiência Criada (Registrado pelo sistema)", "MsgExperience", "heart"), 
 	OSSearch("Cliente consultou a OS (Registrado pelo sistema)", "OSSearch", "search"), 
 	Mail("E-mail enviado (Registrado pelo sistema)", "Mail", "envelope-o"), 
 	WppSent("Mensagem via Whatsapp enviada (Registrado pelo sistema)", "WppSent", "mobile-phone"), 

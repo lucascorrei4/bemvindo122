@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 import controllers.Admin;
 import controllers.CRUD.Hidden;
@@ -25,6 +26,7 @@ public class Client extends Model {
 	@Required(message = "Campo obrigatório.")
 	public String lastName;
 	
+	@ManyToOne
 	public Company company;
 
 	@Email
@@ -53,6 +55,9 @@ public class Client extends Model {
 	public long institutionId;
 
 	public Institution institution;
+
+	public boolean isSendEntryExperience = false;
+	public boolean isSendPeakExperience = false;
 
 	public boolean isActive = true;
 
@@ -188,6 +193,22 @@ public class Client extends Model {
 
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public boolean isSendEntryExperience() {
+		return isSendEntryExperience;
+	}
+
+	public void setSendEntryExperience(boolean isSendEntryExperience) {
+		this.isSendEntryExperience = isSendEntryExperience;
+	}
+
+	public boolean isSendPeakExperience() {
+		return isSendPeakExperience;
+	}
+
+	public void setSendPeakExperience(boolean isSendPeakExperience) {
+		this.isSendPeakExperience = isSendPeakExperience;
 	}
 
 }

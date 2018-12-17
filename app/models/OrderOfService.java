@@ -45,6 +45,7 @@ public class OrderOfService extends Model {
 	@Hidden
 	public String postedAt;
 
+	public boolean isSendOutExperience = false;
 	public boolean isActive = true;
 	
 	@Hidden
@@ -221,6 +222,14 @@ public class OrderOfService extends Model {
 
 	public void setEvaluated(boolean evaluated) {
 		this.evaluated = evaluated;
+	}
+
+	public boolean isSendOutExperience() {
+		return isSendOutExperience;
+	}
+
+	public void setSendOutExperience(boolean isSendOutExperience) {
+		this.isSendOutExperience = isSendOutExperience;
 	}
 	
 

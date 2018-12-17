@@ -1,4 +1,4 @@
-#{extends 'CRUD/layoutPub.html' /}
+#{extends 'CRUD/layout.html' /}
 #{set title:messages.get('crud.blank.title', type.modelName) /}
 <meta charset="utf-8" />
 <div class="col-lg-12">
@@ -11,7 +11,22 @@
                	<div class="col-lg-6">
 					#{form action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
-							#{/crud.form}
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Ativo </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline5" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline6" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
 						<div class="form-group" style="float: left">
 							<a href="@{list()}" class="btn btn-default btn-lg">&{'crud.cancel', type.modelName}</a>
 							<button type="submit" class="btn btn-primary  btn-lg" name="_save">&{'crud.save', type.modelName}</button>

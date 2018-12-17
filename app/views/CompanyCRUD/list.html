@@ -1,4 +1,4 @@
-#{extends 'CRUD/layoutPub.html' /}
+#{extends 'CRUD/layout.html' /}
 #{set title:messages.get('crud.list.title', type.name) /}
 <meta charset="utf-8" />
 	<div class="row">
@@ -18,10 +18,10 @@
             	<div class="dataTable_wrapper">
 			        #{crud.table fields:['postedAt', 'name']}
 			       		#{crud.custom 'postedAt'}
-			         		<a href="@{howtodo.CompanyCRUD.show(object.id)}">${object.postedAtParsed}</a>
+			         		<a href="@{CompanyCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
 			       		#{crud.custom 'name'}
-			         		<a href="@{howtodo.CompanyCRUD.show(object.id)}">${object.name}</a>
+			         		<a href="@{CompanyCRUD.show(object.id)}">${object.name}</a>
 				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable" style="margin: 5px">

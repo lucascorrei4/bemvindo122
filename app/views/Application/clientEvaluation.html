@@ -89,9 +89,8 @@
 			<div id="page-wrapper" style="margin: 0; border: 1px solid #e7e7e7; padding: 0 10px;">
 	            <div class="row">
 	                <div class="col-lg-12">
-	                    <h3 class="page-header" style="text-align: center;">&{clientName}, nós da <i>${institution}</i> precisamos saber se você está contente.</h3>
+	                    <h3 class="page-header" style="text-align: center;">&{clientName.trim()}, nós da <i>${institution}</i> precisamos saber se você está contente.</h3>
 	                    <h4 style="text-align: center;">O que você achou de: </h4>
-	                    
 	                   #{list items:serviceOrderOfServiceSteps, as:'key'}
 							<div class="panel-heading"> 
 									<div class="col-lg-12">

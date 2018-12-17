@@ -16,12 +16,15 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['postedAt', 'name', 'phone', 'mail', 'birthdate', 'action']}
+			        #{crud.table fields:['postedAt', 'name', 'phone', 'company', 'birthdate', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{ClientCRUD.show(object.id)}">${object.postedAtParsed}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'name'}
 			         		<a href="@{ClientCRUD.show(object.id)}">${object.name} ${object.lastName}</a>
+				        #{/crud.custom}
+				        #{crud.custom 'company'}
+			         		<a href="@{ClientCRUD.show(object.id)}">${object.company?.name}</a>
 				        #{/crud.custom}
 			        	#{crud.custom 'isActive'}
 						    	<a href="@{ClientCRUD.show(object.id)}">${object.isActive ? 'Sim' : 'Não'}</a>

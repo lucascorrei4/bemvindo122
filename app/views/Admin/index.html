@@ -59,7 +59,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Olá, <b>${connectedUser.name}</b>!</h1>
                     <h5 style="text-align: right"><i>Conectado a</i> <b>${institutionName}</b></h5>
-                    <label style="float: right; display: &{videohelp == null ? 'none' : 'block'}"><a data-toggle="modal" data-target="#modalVideoHelpIndex" >Quer ajuda?</a></label>
+                    <!-- label style="float: right; display: &{videohelp == null ? 'none' : 'block'}"><a data-toggle="modal" data-target="#modalVideoHelpIndex" >Quer ajuda?</a></label -->
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -79,7 +79,7 @@
 		                        </span>
 		                    </a>
 		                    <a href="/admin/servicos" class="list-group-item">
-		                        <i class="fa fa-wrench fa-fw"></i> 2. Cadastre os <strong>serviços</strong> que você presta juntamente com as etapas que você executa para concluí-los.
+		                        <i class="fa fa-wrench fa-fw"></i> 2. Cadastre os <strong>serviços/processos</strong> que você presta/executa juntamente com as etapas que você executa para concluí-los.
 		                        <span class="pull-right text-muted small"><em></em>
 		                        </span>
 		                    </a>
@@ -124,7 +124,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-handshake-o fa-4x"></i>
+                                    <i class="fa fa-handshake-o fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
 	                                #{if contClients == 0}
@@ -158,7 +158,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-file-text-o fa-4x"></i>
+                                    <i class="fa fa-file-text-o fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     #{if contOrderOfServices == 0}
@@ -192,7 +192,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-cogs fa-4x"></i>
+                                    <i class="fa fa-cogs fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                    #{if contServices == 0}

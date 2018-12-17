@@ -345,6 +345,17 @@ POST	${ctx}/admin/ordens-de-servico								OrderOfServiceCRUD.create
 POST	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceCRUD.save
 DELETE	${ctx}/admin/ordens-de-servico/{id}							OrderOfServiceCRUD.delete
 
+# Admin Order of Services
+
+GET		${ctx}/admin/msg-de-experiencia									ExperienceCRUD.list
+GET		${ctx}/admin/msg-de-experiencia/novo							ExperienceCRUD.blank
+GET		${ctx}/admin/msg-de-experiencia/{id}							ExperienceCRUD.show
+GET		${ctx}/admin/msg-de-experiencia/{id}/{field}					ExperienceCRUD.attachment
+GET		${ctx}/admin/msg-de-experiencia/{id}/editar						ExperienceCRUD.edit
+POST	${ctx}/admin/msg-de-experiencia									ExperienceCRUD.create
+POST	${ctx}/admin/msg-de-experiencia/{id}							ExperienceCRUD.save
+DELETE	${ctx}/admin/msg-de-experiencia/{id}							ExperienceCRUD.delete
+
 GET		${ctx}/admin/empresa/{id}							InstitutionCRUD.show
 GET		${ctx}/admin/empresa								InstitutionCRUD.list
 GET		${ctx}/admin/empresas-cadastradas					InstitutionCRUD.listAll

@@ -30,6 +30,38 @@
 									<input id="object_birthdate" class="form-control datemask" type="text" size="50" name="object.birthdate" value="${object.birthdate}">
 								</div>
 							#{/crud.custom}
+							#{crud.custom 'isSendEntryExperience'}
+								<div class="form-group">
+									<label> Habilitar Envio das Experiências de Entrada </label>
+									<small>As mensagens de experiência de entrada serão enviadas imediatamente após o cadastro do cliente.</small> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendEntryExperience" id="optionsRadiosInline3" value="true" ${object.isSendEntryExperience?'checked=checked':''}><span title="&{'info.isSendEntryExperience.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendEntryExperience" id="optionsRadiosInline4" value="false" ${!object.isSendEntryExperience?'checked=checked':''}><span title="&{'info.isSendEntryExperience.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isSendPeakExperience'}
+								<div class="form-group">
+									<label> Habilitar Envio das Experiências de Pico </label>
+									<small>As mensagens de experiência de pico serão enviadas após o envio das mensagens de entrada e saída.</small> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendPeakExperience" id="optionsRadiosInline5" value="true" ${object.isSendPeakExperience?'checked=checked':''}><span title="&{'info.isSendPeakExperience.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendPeakExperience" id="optionsRadiosInline6" value="false" ${!object.isSendPeakExperience?'checked=checked':''}><span title="&{'info.isSendPeakExperience.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
 							#{crud.custom 'isActive'}
 								<div class="form-group">
 									<label> Ativo </label> 

@@ -961,7 +961,11 @@ public class Application extends Controller {
 			configureOrderOfServiceSteps(orderOfService, orderServValue, serviceOrderOfServiceSteps, serviceOrderOfServiceStep);
 		}
 		updateServicesReferences(orderOfService);
-		render(orderOfService, parameter, clientName, institution, serviceOrderOfServiceSteps);
+		if (orderOfService.isEvaluated()) {
+			render("@clientEvaluationThanks", parameter);
+		} else {
+			render(orderOfService, parameter, clientName, institution, serviceOrderOfServiceSteps);
+		}
 	}
 
 	public static void saveEvaluation() {

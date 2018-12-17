@@ -5,6 +5,14 @@
 			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
 			
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-heart fa-fw"></i> Msg. Experiências<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ExperienceCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Nova</a></li>
+					<li><a href="@{ExperienceCRUD.list}"><i class="fa fa-user-plus fa-fw"></i> Lista de Msgs</a></li>
+				</ul>
+			</li>
+			
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
 				<a href="#"><i class="fa fa-user-plus fa-fw"></i> 1º Clientes<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="@{ClientCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Novo</a></li>

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import models.Activity;
 import models.Client;
+import models.Company;
 import models.User;
 import models.howtodo.HighlightProduct;
 import models.howtodo.Parameter;
@@ -22,12 +23,12 @@ import util.Utils;
 @CRUD.For(models.Activity.class)
 public class ActivitiesCRUD extends CRUD {
 	public static int AUTOCOMPLETE_MAX = 10;
-	
+
 	@Before
 	static void globals() {
 		if (Admin.getLoggedUserInstitution() == null || Admin.getLoggedUserInstitution().getUser() == null) {
 			Application.index();
-		} 
+		}
 		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(Admin.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
 		renderArgs.put("logged", Admin.getLoggedUserInstitution().getUser().id);
 		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
@@ -36,7 +37,7 @@ public class ActivitiesCRUD extends CRUD {
 		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
 		renderArgs.put("planSPO02", PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()));
 	}
-	
+
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
@@ -59,14 +60,14 @@ public class ActivitiesCRUD extends CRUD {
 			render("ActivitiesCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
 	}
-	
+
 	public static void main(String[] args) {
-		String [] list = "[client.name] [title]".split("[ ]");
+		String[] list = "[client.name] [title]".split("[ ]");
 		for (String string : list) {
 			System.out.println(string);
 		}
 	}
-	
+
 	public static void blank() throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
@@ -81,7 +82,7 @@ public class ActivitiesCRUD extends CRUD {
 			render("ActivitiesCRUD/blank.html", type, object, users, clients);
 		}
 	}
-	
+
 	public static void show(String id) throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
@@ -95,7 +96,7 @@ public class ActivitiesCRUD extends CRUD {
 			render("ActivitiesCRUD/show.html", type, object, users, clients);
 		}
 	}
-	
+
 	public static void timeline(Client clientTimeline) {
 		List<Client> clients = null;
 		List<Activity> activities = null;
@@ -110,7 +111,7 @@ public class ActivitiesCRUD extends CRUD {
 		}
 		render(clients, clientTimeline, activities, totalSellByClient);
 	}
-	
+
 	public static void remove(String id) throws Exception {
 		Activity activities = Activity.find("id = " + Long.valueOf(id)).first();
 		activities.setActive(false);
@@ -118,7 +119,7 @@ public class ActivitiesCRUD extends CRUD {
 		activities.save();
 		ActivitiesCRUD.list(0, null, null, null, null);
 	}
-	
+
 	public static void getClientsJSON() {
 		List<Client> listClients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch();
 		renderJSON(listClients);
@@ -126,21 +127,41 @@ public class ActivitiesCRUD extends CRUD {
 
 	public static void listClientsAutoComplete(final String[] term) {
 		List<Client> listClients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch();
+		List<Company> listCompanies = Company.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by postedAt desc").fetch();
 		List<Client> filteredClients = new ArrayList<Client>();
-		String aux = term[0];
-		if (aux != null) {
-			for (Client member : listClients) {
-				if (member.name.toLowerCase().startsWith(aux.toLowerCase())) {
-					filteredClients.add(member);
+		for (String keyword : term) {
+			if (!Utils.isNullOrEmpty(keyword)) {
+				for (Client member : listClients) {
+					if (member.name.toLowerCase().startsWith(keyword.toLowerCase()) && !filteredClients.contains(member)) {
+						filteredClients.add(member);
+					}
+					if (filteredClients.size() == AUTOCOMPLETE_MAX) {
+						break;
+					}
 				}
-				if (filteredClients.size() == AUTOCOMPLETE_MAX) {
-					break;
+			}
+		}
+		if (Utils.isNullOrEmpty(filteredClients)) {
+			for (String keyword : term) {
+				if (!Utils.isNullOrEmpty(keyword)) {
+					for (Company company : listCompanies) {
+						if (company.name.toLowerCase().startsWith(keyword.toLowerCase())) {
+							for (Client member : listClients) {
+								if (member.getCompany().id == company.id && !filteredClients.contains(member)) {
+									filteredClients.add(member);
+								}
+							}
+							if (filteredClients.size() == AUTOCOMPLETE_MAX) {
+								break;
+							}
+						}
+					}
 				}
 			}
 		}
 		renderJSON(filteredClients);
 	}
-	
+
 	public static void searchClient(final String clientId) {
 		if (!Utils.isNullOrEmpty(clientId)) {
 			Client clientTimeline = Client.findById(Long.valueOf(clientId));
@@ -149,7 +170,7 @@ public class ActivitiesCRUD extends CRUD {
 			render("includes/timeline.html", clientTimeline, activities, totalSellByClient);
 		}
 	}
-	
+
 	public static void getImage(long id) {
 		final Activity activity = Activity.findById(id);
 		notFoundIfNull(activity);
@@ -158,7 +179,7 @@ public class ActivitiesCRUD extends CRUD {
 			return;
 		}
 	}
-	
+
 	public static boolean generateActivity(String title, String description, Client client, long institutionId, User collaborator, ActivitiesEnum type) {
 		Activity activity = new Activity();
 		activity.setTitle(title);
@@ -176,6 +197,4 @@ public class ActivitiesCRUD extends CRUD {
 		return true;
 	}
 
-	
-	
 }

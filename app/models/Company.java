@@ -17,12 +17,26 @@ public class Company extends Model {
 	@Hidden
 	public long institutionId;
 
-	public String getName() {
+	public boolean isActive = true;
+
+	@Hidden
+	public String postedAt;
+
+	public String toString() {
 		return name;
 	}
 	
-	@Hidden
-	public String postedAt;
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -50,6 +64,10 @@ public class Company extends Model {
 
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
+	}
+	
+	public String getPostedAtParsed() throws ParseException {
+		return Utils.parseStringDateTime(postedAt);
 	}
 
 }
