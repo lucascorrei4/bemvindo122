@@ -5,6 +5,9 @@ import java.util.List;
 
 import controllers.CRUD.ObjectType;
 import models.Client;
+import models.Company;
+import models.OrderOfService;
+import models.Service;
 import models.User;
 import play.data.binding.Binder;
 import play.db.Model;
@@ -53,16 +56,31 @@ public class ClientCRUD extends CRUD {
 		}
 	}
 	
+	public static void blank() throws Exception {
+		ObjectType type = ObjectType.get(getControllerClass());
+		notFoundIfNull(type);
+		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
+		constructor.setAccessible(true);
+		Client object = (Client) constructor.newInstance();
+		List<Company> companies = Company.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name asc").fetch();
+		try {
+			render(type, object, companies);
+		} catch (TemplateNotFoundException e) {
+			render("CRUD/blank.html", type, object, companies);
+		}
+	}
+	
 	public static void show(String id) throws Exception {
 		ObjectType type = ObjectType.get(getControllerClass());
 		notFoundIfNull(type);
 		// Filtro pelo usuário conectado para proteger os dados dos demais usuários
 		Client object = Client.find("id = " + id + " and institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId()).first();
+		List<Company> companies = Company.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name asc").fetch();
 		notFoundIfNull(object);
 		try {
-			render(type, object);
+			render(type, object, companies);
 		} catch (TemplateNotFoundException e) {
-			render("CRUD/show.html", type, object);
+			render("CRUD/show.html", type, object, companies);
 		}
 	}
 	
