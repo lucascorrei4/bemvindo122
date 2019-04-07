@@ -426,7 +426,7 @@ public class Application extends Controller {
 					orderOfService = OrderOfService.findById(orderOfServiceValue.getOrderOfServiceId());
 					orderOfService.setOrderCode(orderOfServiceValue.getOrderCode());
 				}
-				clientName = orderOfService.getClient().getName();
+				clientName = orderOfService.getVisitor().getName();
 				Institution institution = Institution.find("id", orderOfService.institutionId).first();
 				String company = institution.getInstitution();
 				List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps = new ArrayList<ServiceOrderOfServiceSteps>();
@@ -953,7 +953,7 @@ public class Application extends Controller {
 			index();
 		}
 		Institution institution = Institution.findById(orderOfService.institutionId);
-		String clientName = orderOfService.getClient().getName();
+		String clientName = orderOfService.getVisitor().getName();
 		List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps = new ArrayList<ServiceOrderOfServiceSteps>();
 		ServiceOrderOfServiceSteps serviceOrderOfServiceStep = null;
 		List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + orderOfService.getId()).fetch();
@@ -977,7 +977,6 @@ public class Application extends Controller {
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institutionId).first();
 		orderOfService.setEvaluated(true);
 		orderOfService.setGrade(grade);
-		orderOfService.setClientEvaluation(evaluation);
 		orderOfService.save();
 		render("@clientEvaluationThanks", parameter);
 	}

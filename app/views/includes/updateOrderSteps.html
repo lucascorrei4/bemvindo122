@@ -5,7 +5,7 @@
 			<div class="panel ${orderOfService_index % 2 == 0 ? 'panel-info' : 'panel-warning'}">
 				<div class="panel-heading">
 					<h4 class="panel-title">
-						<i class="fa &{orderOfService.getCurrentStatus() == 'Finalizada' ? 'fa-lock' : 'fa-unlock'} fa-fw fa-lg"></i> <input type="text" value="&{orderOfService?.orderCode}" onclick="this.select()" readonly="readonly" style="font-weight: bold; width: 100px;" /> <a data-toggle="collapse" data-parent="#accordion" href="#collapse&{orderOfService?.orderCode}" aria-expanded="false" class="collapsed">Em: <strong>${orderOfService?.postedAtParsed}</strong>; Para: <strong>&{orderOfService?.client?.toString()}</strong>, &{orderOfService?.client?.phone}, &{orderOfService?.client?.mail}.</a>
+						<i class="fa &{orderOfService?.getCurrentStatus() == 'Finalizada' ? 'fa-lock' : 'fa-unlock'} fa-fw fa-lg"></i> <input type="text" value="&{orderOfService?.orderCode}" onclick="this.select()" readonly="readonly" style="font-weight: bold; width: 100px;" /> <a data-toggle="collapse" data-parent="#accordion" href="#collapse&{orderOfService?.orderCode}" aria-expanded="false" class="collapsed">Em: <strong>${orderOfService?.postedAtParsed}</strong>; Para: <strong>&{orderOfService?.visitor?.toString()}</strong>, &{orderOfService?.visitor?.phone}, &{orderOfService?.visitor?.mail}.</a>
 					</h4>
 				</div>
 				<div class="panel-body">
@@ -48,14 +48,14 @@
 											                                </div>
 											                                <div class="form-group">
 											                                	<label>Observação</label>
-											                                    <textarea class="form-control" id="obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" placeholder="Caso haja algum imprevisto nesta fase, deixe o seu cliente informado.">&{orderServiceStep.obs}</textarea>
+											                                    <textarea class="form-control" id="obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}" placeholder="Caso haja algum imprevisto nesta fase, deixe o seu visitante informado.">&{orderServiceStep.obs}</textarea>
 											                                </div>
 											                                <div class="form-group">
 											                                    <input id="btnSaveObs" class="btn btn-default" type="button" value="Salvar observação" onclick="updateObsOrderStep(document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').id, document.getElementById('obs-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}').value, '#collapseTwo${orderServiceStep_index}-${orderServiceStep.id}');" />
 											                                </div>
 											                                <div class="form-group">
-											                                	<h4>Notificar <strong>&{orderOfService.client.toString()}</strong></h4>
-											                                    <textarea class="form-control" id="sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}">Oi, &{orderOfService.client.name.trim()}. Status atual do pedido &{orderOfService.orderCode}: Fase ${orderServiceStep_index}, &{orderServiceStep.step.title}, &{orderServiceStep.status.label}. Clique e acompanhe em &{parameter.adminDomain == null ? 'https://admin.acompanheseupedido.com' : parameter.adminDomain}/a?cod=&{orderOfService.orderCode}#a Att., &{institution.institution}.</textarea>
+											                                	<h4>Notificar <strong>&{orderOfService.visitor.toString()}</strong></h4>
+											                                    <textarea class="form-control" id="sms-&{orderOfService.orderCode}-&{orderServiceStep.id}-&{orderServiceStep.step.id}">Oi, &{orderOfService.visitor.name.trim()}. Status atual do pedido &{orderOfService.orderCode}: Fase ${orderServiceStep_index}, &{orderServiceStep.step.title}, &{orderServiceStep.status.label}. Clique e acompanhe em &{parameter.adminDomain == null ? 'https://admin.acompanheseupedido.com' : parameter.adminDomain}/a?cod=&{orderOfService.orderCode}#a Att., &{institution.institution}.</textarea>
 											                                </div>
 																			<h4>Disparar mensagem por:</h4>
 																			<p>

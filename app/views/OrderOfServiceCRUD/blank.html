@@ -11,22 +11,22 @@
                	<div class="col-lg-8">
 					#{form id:'formgeneorder', action:@create(), enctype:'multipart/form-data'}
 						#{crud.form}
-							#{crud.custom 'client'}
+							#{crud.custom 'visitor'}
 								<div class="form-group">
-									<label for="object_client"> Cliente </label>
-							        #{select id:'object_client', name:'object.client.id', items:clients, valueProperty:'id', labelProperty:'toString', class:'form-control' /}
+									<label for="object_visitor"> Visitante </label>
+							        #{select id:'object_visitor', name:'object.visitor?.id', items:visitors, valueProperty:'id', labelProperty:'toString', class:'form-control' /}
 									<p class="help-block"> Obrigatório. </p>
 								</div>							
 							#{/crud.custom}
-							#{crud.custom 'clientEvaluation'}#{/crud.custom}
+							#{crud.custom 'visitorEvaluation'}#{/crud.custom}
 							#{crud.custom 'evaluated'}#{/crud.custom}
 							#{crud.custom 'grade'}#{/crud.custom}
 							#{crud.custom 'orderCode'}
 								<div class="form-group">
 								    <label for="object_services">
-								        Selecione um serviço e adicione na lista abaixo
+								        Selecione o(s) processo(s) de interação para adicionar na lista abaixo
 								    </label>
-							        #{select id:'services', name:'services', items:services, valueProperty:'id', labelProperty:'nameBasePrice', class:'form-control' /}
+							        #{select id:'services', name:'services', items:services, valueProperty:'id', labelProperty:toString, class:'form-control' /}
 								    <p class="help-block">
 								    </p>
    								</div>
@@ -38,26 +38,10 @@
 								</div>
 								<div class="form-group">
 				                    <div class="panel panel-default">
-				                    	<div class="panel-heading">Serviços adicionados</div>
+				                    	<div class="panel-heading">Processos adicionados</div>
 										<div class="panel-body">
 											#{include 'includes/orderofservicevalue.html' /}
 										</div>
-									</div>
-								</div>
-							#{/crud.custom}
-							#{crud.custom 'isSendOutExperience'}
-								<div class="form-group">
-									<label> Enviar Experiências de Saída Após Finalizar </label>
-									<small>As mensagens de experiência de saída serão enviadas imediatamente após a finalização de todas as etapas desta atividade.</small> 
-									<div class="radio">
-                                        <label>
-											<input type="radio" name="object.isSendOutExperience" id="optionsRadiosInline3" value="true" ${object.isSendOutExperience?'checked=checked':''}><span title="&{'info.isSendOutExperience.true'}">Sim</span>
-										</label> 
-									</div>
-									<div class="radio">
-                                        <label>
-											<input type="radio" name="object.isSendOutExperience" id="optionsRadiosInline4" value="false" ${!object.isSendOutExperience?'checked=checked':''}><span title="&{'info.isSendOutExperience.false'}">Não</span>
-										</label> 
 									</div>
 								</div>
 							#{/crud.custom}

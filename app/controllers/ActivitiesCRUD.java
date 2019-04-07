@@ -3,16 +3,14 @@ package controllers;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import models.Activity;
 import models.Client;
 import models.Company;
+import models.Member;
 import models.User;
-import models.howtodo.HighlightProduct;
-import models.howtodo.Parameter;
+import models.Visitor;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
@@ -97,19 +95,17 @@ public class ActivitiesCRUD extends CRUD {
 		}
 	}
 
-	public static void timeline(Client clientTimeline) {
-		List<Client> clients = null;
+	public static void timeline(Visitor visitorTimeline) {
+		List<Visitor> visitors = null;
 		List<Activity> activities = null;
-		String totalSellByClient = null;
-		if (Utils.isNullOrZero(clientTimeline.id)) {
-			clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
-			if (!Utils.isNullOrEmpty(clients)) {
-				clientTimeline = clients.iterator().next();
-				activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + clientTimeline.id + " order by postedAt desc").fetch();
-				totalSellByClient = Utils.getCurrencyValue(OrderOfServiceCRUD.calculateTotalOrderOfServiceByClient(clientTimeline));
+		if (Utils.isNullOrZero(visitorTimeline.id)) {
+			visitors = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
+			if (!Utils.isNullOrEmpty(visitors)) {
+				visitorTimeline = visitors.iterator().next();
+				activities = Activity.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true and client_id = " + visitorTimeline.id + " order by postedAt desc").fetch();
 			}
 		}
-		render(clients, clientTimeline, activities, totalSellByClient);
+		render(visitors, visitorTimeline, activities, "");
 	}
 
 	public static void remove(String id) throws Exception {
@@ -185,6 +181,40 @@ public class ActivitiesCRUD extends CRUD {
 		activity.setTitle(title);
 		activity.setDescription(description);
 		activity.setClient(client);
+		activity.setType(type);
+		activity.setCollaborator(collaborator);
+		activity.setInstitutionId(institutionId);
+		activity.setActivityDate(Utils.formatDateSimple(new Date()));
+		activity.setPostedAt(Utils.getCurrentDateTime());
+		activity.setGeneratedSale(false);
+		activity.setActive(true);
+		activity.willBeSaved = true;
+		activity.save();
+		return true;
+	}
+
+	public static boolean generateActivity(String title, String description, Member member, long institutionId, User collaborator, ActivitiesEnum type) {
+		Activity activity = new Activity();
+		activity.setTitle(title);
+		activity.setDescription(description);
+		activity.setMember(member);
+		activity.setType(type);
+		activity.setCollaborator(collaborator);
+		activity.setInstitutionId(institutionId);
+		activity.setActivityDate(Utils.formatDateSimple(new Date()));
+		activity.setPostedAt(Utils.getCurrentDateTime());
+		activity.setGeneratedSale(false);
+		activity.setActive(true);
+		activity.willBeSaved = true;
+		activity.save();
+		return true;
+	}
+
+	public static boolean generateActivity(String title, String description, Visitor visitor, long institutionId, User collaborator, ActivitiesEnum type) {
+		Activity activity = new Activity();
+		activity.setTitle(title);
+		activity.setDescription(description);
+		activity.setVisitor(visitor);
 		activity.setType(type);
 		activity.setCollaborator(collaborator);
 		activity.setInstitutionId(institutionId);

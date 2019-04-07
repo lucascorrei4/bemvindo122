@@ -25,7 +25,7 @@ import util.Utils;
 public class OrderOfService extends Model {
 	@Required
 	@ManyToOne
-	public Client client;
+	public Visitor visitor;
 
 	@Transient
 	public List<Service> services = new ArrayList<Service>();
@@ -45,7 +45,6 @@ public class OrderOfService extends Model {
 	@Hidden
 	public String postedAt;
 
-	public boolean isSendOutExperience = false;
 	public boolean isActive = true;
 	
 	@Hidden
@@ -56,10 +55,6 @@ public class OrderOfService extends Model {
 	
 	public int grade;
 	
-	@Lob
-	@MaxSize(100000)
-	public String clientEvaluation;
-
 	public boolean evaluated = false;
 
 	@Transient
@@ -75,14 +70,6 @@ public class OrderOfService extends Model {
 	@Transient
 	public List<ServiceOrderOfServiceSteps> serviceOrderOfServiceSteps = new ArrayList<ServiceOrderOfServiceSteps>();
 	
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
 	public boolean isActive() {
 		return isActive;
 	}
@@ -200,14 +187,6 @@ public class OrderOfService extends Model {
 		return (Institution) Institution.findById(Long.valueOf(institutionId));
 	}
 
-	public String getClientEvaluation() {
-		return clientEvaluation;
-	}
-
-	public void setClientEvaluation(String clientEvaluation) {
-		this.clientEvaluation = clientEvaluation;
-	}
-
 	public int getGrade() {
 		return grade;
 	}
@@ -224,13 +203,12 @@ public class OrderOfService extends Model {
 		this.evaluated = evaluated;
 	}
 
-	public boolean isSendOutExperience() {
-		return isSendOutExperience;
+	public Visitor getVisitor() {
+		return visitor;
 	}
 
-	public void setSendOutExperience(boolean isSendOutExperience) {
-		this.isSendOutExperience = isSendOutExperience;
+	public void setVisitor(Visitor visitor) {
+		this.visitor = visitor;
 	}
-	
 
 }

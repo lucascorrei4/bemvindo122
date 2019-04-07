@@ -1,10 +1,7 @@
 <meta charset="utf-8" />
-#{if clientTimeline}
+#{if visitorTimeline}
 	<div class="page-header" style="margin-top: 5px">
-		<h1 id="timeline">Timeline de ${clientTimeline.name} ${clientTimeline.lastName}</h1>
-		#{if totalSellByClient}
-			<h3 id="timeline">Este cliente já consumiu: <strong>R$ ${totalSellByClient}</strong></h3>
-		#{/}
+		<h1 id="timeline">Timeline de ${visitorTimeline.name} ${visitorTimeline.lastName}</h1>
 	</div>
 	<ul class="timeline">
 		#{list items:activities, as:'act'}

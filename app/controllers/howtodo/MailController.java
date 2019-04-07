@@ -37,7 +37,7 @@ public class MailController {
 		final String password = parameter.getMailHostPassword();
 		String hostName = parameter.getMailHostName();
 		if (validateMailCredentials(userName, password, hostName)) {
-			Properties properties = getSmtpProperties(parameter, hostName);
+			Properties properties = getSmtpPropertiesSimple(parameter, hostName);
 			/* Trying connect do smtp server */
 			Authenticator auth = new Authenticator() {
 				public PasswordAuthentication getPasswordAuthentication() {
@@ -97,12 +97,20 @@ public class MailController {
 		return properties;
 	}
 
+	private static Properties getSmtpPropertiesSimple(Parameter parameter, String hostName) {
+		Properties properties = new Properties();
+		properties.put("mail.host", hostName);
+		properties.put("mail.transport.protocol", "smtp");
+		properties.put("mail.smtp.auth", "true");
+		return properties;
+	}
+
 	public boolean sendHTMLMail(SendTo sendTo, Sender sender, BodyMail bodyMail, String subject, SequenceMailQueue sequenceMailQueue, Parameter parameter) {
 		final String userName = parameter.getMailHostUser();
 		final String password = parameter.getMailHostPassword();
 		String hostName = parameter.getMailHostName();
 		if (validateMailCredentials(userName, password, hostName)) {
-			Properties properties = getSmtpProperties(parameter, hostName);
+			Properties properties = getSmtpPropertiesSimple(parameter, hostName);
 			/* Trying connect do smtp server */
 			Authenticator auth = new Authenticator() {
 				public PasswordAuthentication getPasswordAuthentication() {

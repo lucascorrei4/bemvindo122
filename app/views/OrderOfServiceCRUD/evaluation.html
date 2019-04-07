@@ -104,11 +104,11 @@
 													<td><a href="/a?cod=${order.orderCode}#a" target="_blank">${order.orderCode}</a></td>
 													<td>${order.client?.name} ${order.client?.lastName}</td>
 													<td>${order.getCurrentStatus()}</td>
-													<td>#{if !order.evaluated}<label style="text-align: center;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalEvaluation" onclick="openModalCustomerEvaluation(this);"><i class="btn btn-danger fa fa-meh-o fa-3x" ></i></a></label>#{/if}#{else}<i class="btn btn-info fa fa-thumbs-o-up fa-3x"></i>#{/else} </td>
+													<td>#{if !order.evaluated}<label style="text-align: center;"><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalEvaluation" onclick="openModalCustomerEvaluation(this);"><i class="btn btn-danger fa fa-meh-o fa-2x" ></i></a></label>#{/if}#{else}<i class="btn btn-info fa fa-thumbs-o-up fa-2x"></i>#{/else} </td>
 													<td>${order.obs}</td>
 													<td>${!order.evaluated ? 'N/A' : order.grade}</td>
 													<td>${order.clientEvaluation}</td>
-													<td><a href="/admin/ordens-de-servico?search=${order.orderCode}"><i class="btn btn-primary fa fa-search fa-3x"></i></a></td>
+													<td><a href="/admin/ordens-de-servico?search=${order.orderCode}"><i class="btn btn-primary fa fa-search fa-2x"></i></a></td>
 												</tr>
 											#{/list}
 	                                    </tbody>

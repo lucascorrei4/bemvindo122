@@ -25,7 +25,7 @@ public class Client extends Model {
 
 	@Required(message = "Campo obrigatório.")
 	public String lastName;
-	
+
 	@ManyToOne
 	public Company company;
 
@@ -40,10 +40,10 @@ public class Client extends Model {
 	public String phone2;
 
 	public String birthdate;
-	
+
 	@Enumerated(EnumType.STRING)
 	public GenderEnum gender = GenderEnum.M;
-	
+
 	@Lob
 	@MaxSize(100000)
 	public String obs;
@@ -55,9 +55,6 @@ public class Client extends Model {
 	public long institutionId;
 
 	public Institution institution;
-
-	public boolean isSendEntryExperience = false;
-	public boolean isSendPeakExperience = false;
 
 	public boolean isActive = true;
 
@@ -74,8 +71,7 @@ public class Client extends Model {
 	}
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
@@ -158,7 +154,7 @@ public class Client extends Model {
 	public void setInstitution(Institution institution) {
 		this.institution = institution;
 	}
-	
+
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
 	}
@@ -193,22 +189,6 @@ public class Client extends Model {
 
 	public void setCompany(Company company) {
 		this.company = company;
-	}
-
-	public boolean isSendEntryExperience() {
-		return isSendEntryExperience;
-	}
-
-	public void setSendEntryExperience(boolean isSendEntryExperience) {
-		this.isSendEntryExperience = isSendEntryExperience;
-	}
-
-	public boolean isSendPeakExperience() {
-		return isSendPeakExperience;
-	}
-
-	public void setSendPeakExperience(boolean isSendPeakExperience) {
-		this.isSendPeakExperience = isSendPeakExperience;
 	}
 
 }

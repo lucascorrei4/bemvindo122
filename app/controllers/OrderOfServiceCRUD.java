@@ -31,6 +31,7 @@ import models.StatusPUSH;
 import models.StatusSMS;
 import models.Step;
 import models.User;
+import models.Visitor;
 import models.howtodo.BodyMail;
 import models.howtodo.Parameter;
 import play.data.binding.Binder;
@@ -74,12 +75,12 @@ public class OrderOfServiceCRUD extends CRUD {
 		Constructor<?> constructor = type.entityClass.getDeclaredConstructor();
 		constructor.setAccessible(true);
 		OrderOfService object = (OrderOfService) constructor.newInstance();
-		List<Client> clients = Client.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
+		List<Visitor> visitors = Visitor.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by name, lastName asc").fetch();
 		List<Service> services = Service.find("institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId() + " and isActive = true order by title asc").fetch();
 		try {
-			render(type, object, services, clients);
+			render(type, object, services, visitors);
 		} catch (TemplateNotFoundException e) {
-			render("CRUD/blank.html", type, object, services, clients);
+			render("CRUD/blank.html", type, object, services, visitors);
 		}
 	}
 
@@ -159,11 +160,6 @@ public class OrderOfServiceCRUD extends CRUD {
 		Float subTotalGeral = 0f;
 		Float discountGeral = 0f;
 		Float totalGeral = 0f;
-		for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-			subTotalGeral += orderOfServiceValue.getSubTotal();
-			discountGeral += orderOfServiceValue.getDiscount();
-			totalGeral += orderOfServiceValue.getTotalPrice();
-		}
 		String subTotalGeralCurrency = Utils.getCurrencyValue(subTotalGeral);
 		String totalGeralCurrency = Utils.getCurrencyValue(totalGeral);
 		String discountGeralCurrency = Utils.getCurrencyValue(discountGeral);
@@ -233,7 +229,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String activityTitle = "Nova OS (" + orderOfService.getOrderCode() + ")";
 		String activityDescription = "Observação da OS: \"" + orderOfService.getObs() + "\"";
 		User loggedUser = Admin.getLoggedUserInstitution().getUser();
-		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OS);
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OS);
 		if (params.get("_save") != null) {
 			redirect(request.controller + ".list");
 		}
@@ -265,16 +261,11 @@ public class OrderOfServiceCRUD extends CRUD {
 				Service service = Service.findById(Long.valueOf(jObject.get("serviceId").getAsString()));
 				orderOfServiceValue.setService(service);
 				orderOfServiceValue.setReference(jObject.get("reference").getAsString().replace(",", "."));
-				orderOfServiceValue.setQtd(Float.valueOf(jObject.get("qtd").getAsString().replace(",", ".")));
-				orderOfServiceValue.setUnitPrice(Float.valueOf(jObject.get("basePrice").getAsString().replace(",", ".")));
-				orderOfServiceValue.setDiscount(Float.valueOf(jObject.get("discount").getAsString().replace(",", ".")));
 				/*
 				 * Saving subtotal without discount even it was calculated in
 				 * files orderofservicevalue.html and scriptOrderOfService.html
 				 * subtotal = unitprice * qtd
 				 */
-				Float subTotalWithoutDiscount = (orderOfServiceValue.getUnitPrice() * orderOfServiceValue.getQtd());
-				orderOfServiceValue.setSubTotal(subTotalWithoutDiscount);
 				orderOfServiceValue.setInstitutionId(orderOfService.getInstitutionId());
 				orderOfServiceValue.setOrderCode(getOrderOfServiceRandomCode());
 				orderOfServiceValue.willBeSaved = true;
@@ -338,9 +329,6 @@ public class OrderOfServiceCRUD extends CRUD {
 			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
 			/* Get somatories values */
 			Float totalGeral = 0f;
-			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-				totalGeral += orderOfServiceValue.getTotalPrice();
-			}
 			order.setTotalOrderOfService(totalGeral);
 			List<OrderOfServiceStep> listOrderOfServiceStep = OrderOfServiceStep.find("orderOfService_id = " + Long.valueOf(order.id) + " and institutionId = " + order.getInstitutionId() + " and isActive = true").fetch();
 			boolean isOpened = false;
@@ -361,9 +349,6 @@ public class OrderOfServiceCRUD extends CRUD {
 		for (OrderOfService order : listOrderOfServices) {
 			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
 			/* Get somatories values */
-			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-				totalGeral += orderOfServiceValue.getTotalPrice();
-			}
 		}
 		return totalGeral;
 	}
@@ -474,7 +459,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String activityDescription = "Observação da etapa da OS: \"" + orderOfServiceStep.getObs() + "\"; Ref.: " + (Utils.isNullOrEmpty(orderOfServiceStep.getReference()) ? "\"Nenhuma\"" : "\"" + orderOfServiceStep.getReference() + "\"");
 		User loggedUser = Admin.getLoggedUserInstitution().getUser();
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
-		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSStepUpdated);
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSStepUpdated);
 		/*
 		 * Creating new object to do new search to see if object was saved
 		 * correctly
@@ -526,7 +511,7 @@ public class OrderOfServiceCRUD extends CRUD {
 			String activityDescription = "Descrição: \"" + obsParam + "\"";
 			User loggedUser = Admin.getLoggedUserInstitution().getUser();
 			OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
-			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSStepUpdated);
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSStepUpdated);
 			status = "SUCCESS";
 			response = "Observação do pedido ".concat(orderCode).concat(" inserida com sucesso!");
 		} else {
@@ -553,7 +538,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String sender = null;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
-		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.visitor.phone);
 		if (!Utils.isNullOrEmpty(destination)) {
 			StatusSMS statusSMS = new StatusSMS();
 			SMSController smsController = new SMSController();
@@ -562,7 +547,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				/* Save sms object */
 				statusSMS.setInstitutionId(institution.id);
 				statusSMS.setPostedAt(Utils.getCurrentDateTime());
-				statusSMS.setClientName(orderOfService.client.toString());
+				statusSMS.setClientName(orderOfService.visitor.toString());
 				statusSMS.willBeSaved = true;
 				statusSMS.id = 0l;
 				statusSMS.merge();
@@ -573,7 +558,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				response = "Erro ao enviar a SMS! Tente novamente!";
 			}
 		} else {
-			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.visitor.toString();
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		Parameter parameter = Parameter.all().first();
@@ -598,7 +583,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String sender = null;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
-		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.visitor.phone);
 		if (!Utils.isNullOrEmpty(destination)) {
 			StatusSMS statusSMS = new StatusSMS();
 			SMSController smsController = new SMSController();
@@ -607,7 +592,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				/* Save sms object */
 				statusSMS.setInstitutionId(institution.id);
 				statusSMS.setPostedAt(Utils.getCurrentDateTime());
-				statusSMS.setClientName(orderOfService.client.toString());
+				statusSMS.setClientName(orderOfService.visitor.toString());
 				statusSMS.willBeSaved = true;
 				statusSMS.id = 0l;
 				statusSMS.merge();
@@ -622,7 +607,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				response = "Erro ao enviar a SMS! Tente novamente!";
 			}
 		} else {
-			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.visitor.toString();
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
@@ -641,7 +626,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String sender = null;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
-		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.visitor.phone);
 		if (!Utils.isNullOrEmpty(destination)) {
 			StatusSMS statusSMS = new StatusSMS();
 			SMSController smsController = new SMSController();
@@ -650,7 +635,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				/* Save sms object */
 				statusSMS.setInstitutionId(institution.id);
 				statusSMS.setPostedAt(Utils.getCurrentDateTime());
-				statusSMS.setClientName(orderOfService.client.toString());
+				statusSMS.setClientName(orderOfService.visitor.toString());
 				statusSMS.willBeSaved = true;
 				statusSMS.id = 0l;
 				statusSMS.merge();
@@ -665,7 +650,7 @@ public class OrderOfServiceCRUD extends CRUD {
 				response = "Erro ao enviar a SMS! Tente novamente!";
 			}
 		} else {
-			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.visitor.toString();
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
@@ -686,7 +671,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String sendResponse = null;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
-		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.visitor.phone);
 		Parameter parameter = Parameter.all().first();
 		if (!Utils.isNullOrEmpty(destination)) {
 			String origin = "true".equals(isMobile) ? "api" : "web";
@@ -702,13 +687,13 @@ public class OrderOfServiceCRUD extends CRUD {
 				String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 				String activityDescription = "Mensagem enviada: \"" + message + "\"";
 				User loggedUser = Admin.getLoggedUserInstitution().getUser();
-				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByWhatsApp);
+				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getVisitor(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByWhatsApp);
 			} else {
 				status = "ERROR";
 				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp ou você esteja sem internet no momento!";
 			}
 		} else {
-			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.visitor.toString();
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
@@ -745,7 +730,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String activityTitle = "Pós-venda realizado por telefone";
 		String activityDescription = "Ação de pós-venda realizada por telefone referente a OS (" + orderOfService.getOrderCode() + ")";
 		User loggedUser = Admin.getLoggedUserInstitution().getUser();
-		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.CallAfterSale);
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getVisitor(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.CallAfterSale);
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
 		if ("thankfulNotificationArea".equals(idUpdate)) {
@@ -772,7 +757,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String sendResponse = null;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
-		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.visitor.phone);
 		Parameter parameter = Parameter.all().first();
 		if (!Utils.isNullOrEmpty(destination)) {
 			String origin = "true".equals(isMobile) ? "api" : "web";
@@ -788,13 +773,13 @@ public class OrderOfServiceCRUD extends CRUD {
 				String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 				String activityDescription = "Mensagem enviada: \"" + message + "\"";
 				User loggedUser = Admin.getLoggedUserInstitution().getUser();
-				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByWhatsApp);
+				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getVisitor(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByWhatsApp);
 			} else {
 				status = "ERROR";
 				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp ou você esteja sem internet no momento!";
 			}
 		} else {
-			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.visitor.toString();
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		boolean planSPO02 = PlansEnum.isPlanSPO02(Admin.getInstitutionInvoice().getPlan().getValue()) || PlansEnum.isPlanBETA(Admin.getInstitutionInvoice().getPlan().getValue());
@@ -821,7 +806,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String sendResponse = null;
 		Institution institution = Institution.findById(Admin.getLoggedUserInstitution().getInstitution().getId());
 		OrderOfService orderOfService = OrderOfService.find("orderCode = '" + orderCode + "' and institutionId = " + institution.getId() + " and isActive = true").first();
-		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.client.phone);
+		String destination = Utils.replacePhoneNumberCaracteres(orderOfService.visitor.phone);
 		if (!Utils.isNullOrEmpty(destination)) {
 			String origin = "true".equals(isMobile) ? "api" : "web";
 			sendResponse = "https://" + origin + ".whatsapp.com/send?phone=".concat("55").concat(destination).concat("&text=").concat(message.replace(" ", "%20"));
@@ -836,13 +821,13 @@ public class OrderOfServiceCRUD extends CRUD {
 				String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 				String activityDescription = "Mensagem enviada: \"" + message + "\"";
 				User loggedUser = Admin.getLoggedUserInstitution().getUser();
-				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getClient(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.WppSent);
+				ActivitiesCRUD.generateActivity(activityTitle, activityDescription, orderOfService.getVisitor(), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.WppSent);
 			} else {
 				status = "ERROR";
 				response = "Erro ao enviar a mensagem! Talvez este cliente não tenha Whatsapp ou você esteja sem internet no momento!";
 			}
 		} else {
-			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.client.toString();
+			response = "Não há nenhum número de telefone cadastrado para " + orderOfService.visitor.toString();
 		}
 		boolean smsExceedLimit = Admin.isSmsExceedLimit();
 		List<OrderOfService> listOrderOfService = loadListOrderOfService();
@@ -877,14 +862,14 @@ public class OrderOfServiceCRUD extends CRUD {
 			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 			String activityDescription = "Mensagem enviada: \"" + message + "\"";
 			User loggedUser = Admin.getLoggedUserInstitution().getUser();
-			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.PushSent);
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.PushSent);
 			/* Save sms object */
 			StatusPUSH statusPUSH = new StatusPUSH();
 			statusPUSH.setInstitutionId(institution.id);
 			statusPUSH.setMessage(message);
 			statusPUSH.setMsgId(obj.get("id").getAsString());
 			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
-			statusPUSH.setClientName(orderOfService.client.toString());
+			statusPUSH.setClientName(orderOfService.visitor.toString());
 			statusPUSH.setDestination(orderOfService.orderCode);
 			statusPUSH.setSendDate(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
 			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
@@ -934,14 +919,14 @@ public class OrderOfServiceCRUD extends CRUD {
 			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 			String activityDescription = "Mensagem enviada: \"" + message + "\"";
 			User loggedUser = Admin.getLoggedUserInstitution().getUser();
-			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByPush);
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByPush);
 			/* Save sms object */
 			StatusPUSH statusPUSH = new StatusPUSH();
 			statusPUSH.setInstitutionId(institution.id);
 			statusPUSH.setMessage(message);
 			statusPUSH.setMsgId(obj.get("id").getAsString());
 			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
-			statusPUSH.setClientName(orderOfService.client.toString());
+			statusPUSH.setClientName(orderOfService.visitor.toString());
 			statusPUSH.setDestination(orderOfService.orderCode);
 			statusPUSH.setSendDate(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
 			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
@@ -989,14 +974,14 @@ public class OrderOfServiceCRUD extends CRUD {
 			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 			String activityDescription = "Mensagem enviada: \"" + message + "\"";
 			User loggedUser = Admin.getLoggedUserInstitution().getUser();
-			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.ClientEvaluationPush);
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.ClientEvaluationPush);
 			/* Save sms object */
 			StatusPUSH statusPUSH = new StatusPUSH();
 			statusPUSH.setInstitutionId(institution.id);
 			statusPUSH.setMessage(message);
 			statusPUSH.setMsgId(obj.get("id").getAsString());
 			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
-			statusPUSH.setClientName(orderOfService.client.toString());
+			statusPUSH.setClientName(orderOfService.visitor.toString());
 			statusPUSH.setDestination(orderOfService.orderCode);
 			statusPUSH.setSendDate(Utils.getCurrentDateTimeByFormat("dd/MM/yyyy HH:mm:ss"));
 			statusPUSH.setPostedAt(Utils.getCurrentDateTime());
@@ -1029,7 +1014,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		String activityTitle = "OS de código (" + orderOfService.getOrderCode() + ") removida";
 		String activityDescription = "Nenhuma descrição adicional.";
 		User loggedUser = Admin.getLoggedUserInstitution().getUser();
-		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSRemoveAction);
+		ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.OSRemoveAction);
 		OrderOfServiceCRUD.list(0, null, null, null, null);
 	}
 
@@ -1052,8 +1037,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		MailController mailController = new MailController();
 		/* SendTo object */
 		SendTo sendTo = new SendTo();
-		sendTo.setDestination(orderOfService.getClient().getMail());
-		sendTo.setName(orderOfService.getClient().getName());
+		sendTo.setDestination(orderOfService.getVisitor().getMail());
+		sendTo.setName(orderOfService.getVisitor().getName());
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
@@ -1064,7 +1049,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
-		String clientName = Utils.escapeSpecialCharacters(orderOfService.getClient().getName());
+		String clientName = Utils.escapeSpecialCharacters(orderOfService.getVisitor().getName());
 		String institutionName = Utils.escapeSpecialCharacters(institution.getInstitution());
 		bodyMail.setTitle1("Ol&aacute;, " + clientName + "!");
 		bodyMail.setTitle2("Seu pedido foi atualizado!");
@@ -1078,14 +1063,14 @@ public class OrderOfServiceCRUD extends CRUD {
 			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 			String activityDescription = "Mensagem enviada: \"Seu pedido foi atualizado!\"";
 			User loggedUser = Admin.getLoggedUserInstitution().getUser();
-			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.Mail);
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.Mail);
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
 			statusMail.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
 			statusMail.setMessage(bodyMail.getBodyHTML());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());
-			statusMail.setClientName(orderOfService.client.toString());
+			statusMail.setClientName(orderOfService.visitor.toString());
 			statusMail.setDestination(sendTo.getDestination());
 			statusMail.setSendDate(Utils.getCurrentDateTime());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());
@@ -1119,8 +1104,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		MailController mailController = new MailController();
 		/* SendTo object */
 		SendTo sendTo = new SendTo();
-		sendTo.setDestination(orderOfService.getClient().getMail());
-		sendTo.setName(orderOfService.getClient().getName());
+		sendTo.setDestination(orderOfService.getVisitor().getMail());
+		sendTo.setName(orderOfService.getVisitor().getName());
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
@@ -1131,7 +1116,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
-		String clientName = Utils.escapeSpecialCharacters(orderOfService.getClient().getName());
+		String clientName = Utils.escapeSpecialCharacters(orderOfService.getVisitor().getName());
 		String institutionName = Utils.escapeSpecialCharacters(institution.getInstitution());
 		bodyMail.setTitle1("Ol&aacute;, " + clientName + "!");
 		bodyMail.setTitle2("Acompanhe seu pedido pelo c&oacute;digo <br />" + orderOfService.getOrderCode() + " <br /> Clique abaixo: <br /> <a href=\"" + parameter.getSiteDomain() + "/acompanhe\" target=\"_blank\">" + parameter.getSiteDomain() + "/acompanhe</a>");
@@ -1141,18 +1126,18 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setFooter1("Atenciosamente, " + institutionName + ".");
 		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
 		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
-		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", seu código de acompanhamento. :)", parameter)) {
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getVisitor().getName() + ", seu código de acompanhamento. :)", parameter)) {
 			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 			String activityDescription = "Mensagem enviada: " + bodyMail.getTitle2();
 			User loggedUser = Admin.getLoggedUserInstitution().getUser();
-			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.Mail);
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.Mail);
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
 			statusMail.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
 			statusMail.setMessage(bodyMail.getBodyHTML());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());
-			statusMail.setClientName(orderOfService.client.toString());
+			statusMail.setClientName(orderOfService.visitor.toString());
 			statusMail.setDestination(sendTo.getDestination());
 			statusMail.setSendDate(Utils.getCurrentDateTime());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());
@@ -1185,8 +1170,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		MailController mailController = new MailController();
 		/* SendTo object */
 		SendTo sendTo = new SendTo();
-		sendTo.setDestination(orderOfService.getClient().getMail());
-		sendTo.setName(orderOfService.getClient().getName());
+		sendTo.setDestination(orderOfService.getVisitor().getMail());
+		sendTo.setName(orderOfService.getVisitor().getName());
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
@@ -1197,7 +1182,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
-		bodyMail.setTitle1("Ol&aacute;, " + orderOfService.getClient().getName() + "!");
+		bodyMail.setTitle1("Ol&aacute;, " + orderOfService.getVisitor().getName() + "!");
 		bodyMail.setTitle2("Saiba que voc&ecirc; &eacute; importante e &eacute; um prazer te servir. Gratid&atilde;o.<br />");
 		bodyMail.setParagraph1("");
 		bodyMail.setParagraph2("");
@@ -1205,18 +1190,18 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
 		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
 		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
-		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", viemos te agradecer. :)", parameter)) {
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getVisitor().getName() + ", viemos te agradecer. :)", parameter)) {
 			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 			String activityDescription = "Mensagem enviada: " + bodyMail.getTitle2();
 			User loggedUser = Admin.getLoggedUserInstitution().getUser();
-			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByMail);
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.SystemAfterSaleByMail);
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
 			statusMail.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
 			statusMail.setMessage(bodyMail.getBodyHTML());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());
-			statusMail.setClientName(orderOfService.client.toString());
+			statusMail.setClientName(orderOfService.visitor.toString());
 			statusMail.setDestination(sendTo.getDestination());
 			statusMail.setSendDate(Utils.getCurrentDateTime());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());
@@ -1253,8 +1238,8 @@ public class OrderOfServiceCRUD extends CRUD {
 		MailController mailController = new MailController();
 		/* SendTo object */
 		SendTo sendTo = new SendTo();
-		sendTo.setDestination(orderOfService.getClient().getMail());
-		sendTo.setName(orderOfService.getClient().getName());
+		sendTo.setDestination(orderOfService.getVisitor().getMail());
+		sendTo.setName(orderOfService.getVisitor().getName());
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
@@ -1265,7 +1250,7 @@ public class OrderOfServiceCRUD extends CRUD {
 		sender.setKey(orderOfService.orderCode);
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
-		bodyMail.setTitle1("Ol&aacute;, " + orderOfService.getClient().getName() + "!");
+		bodyMail.setTitle1("Ol&aacute;, " + orderOfService.getVisitor().getName() + "!");
 		bodyMail.setTitle2("Saiba que voc&ecirc; &eacute; importante e &eacute; um prazer te servir. Gratid&atilde;o.<br />");
 		bodyMail.setParagraph1("");
 		bodyMail.setParagraph2("");
@@ -1273,18 +1258,18 @@ public class OrderOfServiceCRUD extends CRUD {
 		bodyMail.setFooter1("Atenciosamente, " + institution.getInstitution() + ".");
 		bodyMail.setImage1(parameter.getSiteDomain() + "/logo-empresa/" + institution.getId());
 		bodyMail.setBodyHTML(MailTemplates.getHTMLTemplateSimple(bodyMail, parameter));
-		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getClient().getName() + ", pode nos avaliar?", parameter)) {
+		if (mailController.sendHTMLMail(sendTo, sender, bodyMail, orderOfService.getVisitor().getName() + ", pode nos avaliar?", parameter)) {
 			String activityTitle = "Msg. referente a OS (" + orderOfService.getOrderCode() + ")";
 			String activityDescription = "Mensagem enviada: " + bodyMail.getTitle2();
 			User loggedUser = Admin.getLoggedUserInstitution().getUser();
-			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getClient().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.ClientEvaluationMail);
+			ActivitiesCRUD.generateActivity(activityTitle, activityDescription, (Client) Client.findById(orderOfService.getVisitor().id), orderOfService.getInstitutionId(), loggedUser, ActivitiesEnum.ClientEvaluationMail);
 			/* Save sms object */
 			StatusMail statusMail = new StatusMail();
 			statusMail.setInstitutionId(institution.id);
 			statusMail.setSubject(Utils.removeHTML(bodyMail.title2) + " Acompanhe!");
 			statusMail.setMessage(bodyMail.getBodyHTML());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());
-			statusMail.setClientName(orderOfService.client.toString());
+			statusMail.setClientName(orderOfService.visitor.toString());
 			statusMail.setDestination(sendTo.getDestination());
 			statusMail.setSendDate(Utils.getCurrentDateTime());
 			statusMail.setPostedAt(Utils.getCurrentDateTime());

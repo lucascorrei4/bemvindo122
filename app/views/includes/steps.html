@@ -12,8 +12,8 @@
 		<tbody>
 			#{list steps, as:'step'}
 				<tr>
-					<td><input name="step.title" value="${step.title}" onclick="this.select();" style="width: 150px" class="title" accesskey="${step.id}"></td>
-					<td><input name="step.description" value="${step.description}" onclick="this.select();" style="width: 300px" class="description"></td>
+					<td><input name="step.title" value="${step.title}" onclick="this.select();" style="width: 100%" class="title" accesskey="${step.id}"></td>
+					<td><input name="step.description" value="${step.description}" onclick="this.select();" style="width: 100%" class="description"></td>
 					<td><input name="step.estimatedDuration" value="${step.estimatedDuration}" onclick="this.select();" style="width: 60px" class="duration number"></td>
 					<td><button id="removerItem" type="button" class="btn btn-danger btn-circle" value="${step.id}"  data-toggle="modal" data-target="#removeModal" onclick="$(this).closest('tr').remove(); setTimeout(function() { resetTable() }, 500);">
 							<i class="fa fa-times"></i>

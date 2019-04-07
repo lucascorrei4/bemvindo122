@@ -22,12 +22,7 @@ public class Service extends Model {
 	@Hidden
 	public String postedAt;
 
-	public String basePrice = "0,00";
-
 	public boolean isActive = true;
-
-	@Transient
-	public String nameBasePrice;
 
 	@Transient
 	public String reference;
@@ -84,18 +79,6 @@ public class Service extends Model {
 
 	public void setPostedAt(String postedAt) {
 		this.postedAt = postedAt;
-	}
-
-	public String getBasePrice() {
-		return basePrice;
-	}
-
-	public void setBasePrice(String basePrice) {
-		this.basePrice = basePrice;
-	}
-
-	public String getNameBasePrice() {
-		return title + " R$ " + basePrice;
 	}
 
 	public String getPostedAtParsed() throws ParseException {

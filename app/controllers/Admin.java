@@ -118,9 +118,6 @@ public class Admin extends Controller {
 							for (OrderOfService order : listOrdOfServices) {
 								List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
 								/* Get somatories values */
-								for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-									totalGeral += orderOfServiceValue.getTotalPrice();
-								}
 							}
 						}
 						if (totalGeral > biggerValue) {
@@ -165,9 +162,6 @@ public class Admin extends Controller {
 					for (OrderOfService order : listOrdOfServices) {
 						List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
 						/* Get somatories values */
-						for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-							totalGeral += orderOfServiceValue.getTotalPrice();
-						}
 					}
 				}
 				if (totalGeral > biggerValue1) {
@@ -212,9 +206,6 @@ public class Admin extends Controller {
 			List<OrderOfServiceValue> orderOfServiceValues = OrderOfServiceValue.find("orderOfServiceId = " + Long.valueOf(order.id)).fetch();
 			/* Get somatories values */
 			Float totalGeral = 0f;
-			for (OrderOfServiceValue orderOfServiceValue : orderOfServiceValues) {
-				totalGeral += orderOfServiceValue.getTotalPrice();
-			}
 			order.setTotalOrderOfService(totalGeral);
 			List<OrderOfServiceStep> listOrderOfServiceStep = OrderOfServiceStep.find("orderOfService_id = " + Long.valueOf(order.id) + " and institutionId = " + order.getInstitutionId() + " and isActive = true").fetch();
 			boolean isOpened = false;

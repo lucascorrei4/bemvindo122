@@ -8,6 +8,7 @@
 
 @import url('https://fonts.gstatic.com/');
 @import url('http://fonts.googleapis.com/');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
 @font-face {
     font-family: "Oswald";
@@ -1523,7 +1524,7 @@ html {
 }
 
 body {
-	font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-family: 'Titillium Web', sans-serif;;
 	font-size: 1.5em;
 	line-height: 1.42857143;
 	color: #333;
@@ -8364,7 +8365,7 @@ button.close {
 }
 
 h1.page-header {
-	color: #f79f1f;	
+	color: #30336b;	
 }
 
 .marginTopBotton {

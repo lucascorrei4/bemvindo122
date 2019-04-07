@@ -84,12 +84,12 @@
 		                        </span>
 		                    </a>
 		                    <a href="/admin/ordens-de-servico" class="list-group-item">
-		                        <i class="fa fa-qrcode fa-fw"></i> 3. Gere <strong>ordens de serviço</strong> aos clientes cadastrados.
+		                        <i class="fa fa-qrcode fa-fw"></i> 3. Gere <strong>ordens de serviço / processos</strong> aos clientes cadastrados.
 		                        <span class="pull-right text-muted small"><em></em>
 		                        </span>
 		                    </a>
 		                    <a href="/admin/atualizar-pedidos" class="list-group-item">
-		                        <i class="fa fa-battery-half fa-fw"></i> 4. <strong>Atualize os pedidos</strong> em andamento.
+		                        <i class="fa fa-battery-half fa-fw"></i> 4. <strong>Atualize os pedidos / processos</strong> em andamento.
 		                        <span class="pull-right text-muted small"><em></em>
 		                        </span>
 		                    </a>
@@ -124,7 +124,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-handshake-o fa-3x"></i>
+                                    <i class="fa fa-handshake-o fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
 	                                #{if contClients == 0}
@@ -158,7 +158,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-file-text-o fa-3x"></i>
+                                    <i class="fa fa-file-text-o fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     #{if contOrderOfServices == 0}
@@ -168,11 +168,11 @@
 									#{if contOrderOfServices > 0}
 										#{if contOrderOfServices == 1}
 											<div class="huge">1</div>
-		                                    <div>OS</div>
+		                                    <div>OS / Processo</div>
 										#{/if}
 										#{else}
 											<div class="huge">&{contOrderOfServices}</div>
-		                                    <div>OSs</div>
+		                                    <div>OSs / Processos</div>
 										#{/else}
 									#{/if}
                                 </div>
@@ -192,7 +192,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-cogs fa-3x"></i>
+                                    <i class="fa fa-cogs fa-2x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                    #{if contServices == 0}
@@ -202,11 +202,11 @@
 									#{if contServices > 0}
 										#{if contServices == 1}
 											<div class="huge">1</div>
-		                                    <div>Serviço/Processo</div>
+		                                    <div>Serviço / Processo</div>
 										#{/if}
 										#{else}
 											<div class="huge">&{contServices}</div>
-		                                    <div>Serviços/Processos</div>
+		                                    <div>Serviços / Processos</div>
 										#{/else}
 									#{/if}
                                 </div>
@@ -226,7 +226,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-4">
-                                    <i class="fa fa-money fa-3x"></i>
+                                    <i class="fa fa-money fa-2x"></i>
                                 </div>
                                 <div class="col-xs-8 text-right">
 									<h3><strong>&{totalOfOrderOfServiceByMonth}</strong></h3>
@@ -270,123 +270,15 @@
             </div>
             
             <div class="row">
-                <div class="col-lg-4">
-                   	<div class="panel panel-default">
-                       <div class="panel-heading">
-                           <i class="fa fa-bar-chart-o fa-fw"></i> Clientes <strong>TOP 3</strong>
-                       </div>
-                       <div class="panel-body">
-                           <div id="morris-donut-chart-top3"></div>
-                       </div>
-                   	</div>
-                   	<div class="panel panel-default">
-                       <div class="panel-heading">
-                           <i class="fa fa-bar-chart-o fa-fw"></i> NPS - Net Promoter Score
-                       </div>
-                       <div class="panel-body">
-                           <div id="morris-donut-chart"></div>
-                           <a href="/admin/avaliacao" class="btn btn-default btn-block">Veja como funciona!</a>
-                       </div>
-                   	</div>
-                	<div class="panel panel-yellow">
-                        <div class="panel-heading">
-                           <i class="fa fa-heartbeat fa-2" aria-hidden="true"></i> Últimas ações de Pós-venda
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Código</th>
-                                            <th>Cliente</th>
-                                            <th>Feito?</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                       #{list listOrderOfServices, as:'order'}
-											<tr>
-												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
-												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
-												<td>#{if !order.isThanked}<label><a href="#" data-toggle="modal" data-order-id="${order.id}" data-target="#modalThankful" onclick="openModalCustomerThankful(this);"><i class="fa fa-meh-o fa-3x"></i></a></label>#{/if}#{else}<i class="fa fa-thumbs-o-up fa-3x"></i>#{/else} </td>
-											</tr>
-										#{/list}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                        	<i class="fa fa-user-plus fa-2" aria-hidden="true"></i> Últimos Clientes
-                        </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Data</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-	                                    #{list listClients, as:'client'}
-											<tr>
-												<td><a href="/admin/clientes">&{client.getName()} ${client.lastName} </a></td>
-												<td><a href="/admin/clientes">&{client.getPostedAtParsed()}</a></td>
-											</tr>
-										#{/list}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-clock-o fa-fw"></i> Timeline do Cliente <strong>TOP 1</strong>
+                            <i class="fa fa-clock-o fa-fw"></i> Timeline do Visitante 
                         </div>
                         <div class="panel-body">
                             #{include 'includes/timeline.html' /}
                         </div>
                     </div>
-                </div>
-        		<div class="col-lg-12">
-                     <div class="panel panel-green">
-                         <div class="panel-heading">
-                             <h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Previsão de Faturamento do Mês: <label style="font-weight: bold"> R$ &{totalOfOrderOfServiceByMonth}</label></h3>
-                         </div>
-                         <div class="panel-body">
-                             <div class="table-responsive">
-                                 <table class="table table-bordered table-hover table-striped">
-                                     <thead>
-                                         <tr>
-                                             <th>OS #</th>
-                                             <th>Data</th>
-                                             <th>Cliente</th>
-                                             <th>Status</th>
-                                             <th>Valor (R$)</th>
-                                         </tr>
-                                     </thead>
-                                     <tbody>
-	                                     #{list listOrderOfServicesByMonth, as:'order'}
-											<tr>
-												<td><a href="@{OrderOfServiceCRUD.list}">${order.orderCode}</a></td>
-												<td><a href="@{OrderOfServiceCRUD.list}">${order.getPostedAtParsed()} </a></td>
-												<td><a href="@{OrderOfServiceCRUD.list}">${order.client?.name} ${order.client?.lastName} </a></td>
-												<td><a href="@{OrderOfServiceCRUD.list}">${order.getCurrentStatus()} </a></td>
-												<td><a href="@{OrderOfServiceCRUD.list}">${order.getTotalPriceCurrency()} </a></td>
-											</tr>
-										#{/list}
-                                     </tbody>
-                                 </table>
-                             </div>
-                             <div class="text-right">
-                                 <a href="@{OrderOfServiceCRUD.updateOrder}"> <i class="fa fa-arrow-circle-right"></i></a>
-                             </div>
-                         </div>
-                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -428,7 +320,7 @@
     	$(function() {
 		    Morris.Donut({
 		        element: 'morris-donut-chart-top3',
-		        data: ${top3Clients.raw()},
+		        data: ${top3Clients?.raw()},
 		        resize: true
 		    });
 // 		    Morris.Donut({

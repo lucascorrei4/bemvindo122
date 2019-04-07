@@ -2,88 +2,105 @@
 <div class="navbar-default sidebar" role="navigation" style="top: 24px;">
 	<div class="sidebar-nav navbar-collapse">
 		<ul class="nav" id="side-menu">
-			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
+			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw" style="color: #30336b"></i> Início</a></li>
 			
-			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-heart fa-fw"></i> Msg. Experiências<span class="fa arrow"></span></a>
+			<!--  li style="display: ${enableUser == 'false' ? 'none' : 'block'};"-->
+			<li style="display: none">
+				<a href="#"><i class="fa fa-heart fa-fw" style="color: #30336b" style="color: #30336b"></i> Experiências E/S<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="@{ExperienceCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Nova</a></li>
-					<li><a href="@{ExperienceCRUD.list}"><i class="fa fa-user-plus fa-fw"></i> Lista de Msgs</a></li>
+					<li><a href="@{ExperienceCRUD.blank}"><i class="fa fa-plus-circle fa-fw" style="color: #30336b"></i> Criar Nova</a></li>
+					<li><a href="@{ExperienceCRUD.list}"><i class="fa fa-user-plus fa-fw" style="color: #30336b"></i> Lista de Experiências</a></li>
+					<li><a href="@{ExperienceCRUD.list}"><i class="fa fa-send fa-fw" style="color: #30336b"></i> Ativar Disparos Cliente</a></li>
 				</ul>
-			</li>
-			
-			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-user-plus fa-fw"></i> 1º Clientes<span class="fa arrow"></span></a>
-				<ul class="nav nav-second-level">
-					<li><a href="@{ClientCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Novo</a></li>
-					<li><a href="@{ClientCRUD.list}"><i class="fa fa-user-plus fa-fw"></i> Lista de Clientes</a></li>
-					<li><a href="@{CompanyCRUD.blank}"><i class="fa fa-building fa-fw"></i> Nova Empresa Cliente</a></li>
-				</ul>
-			</li>
-
-			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-wrench fa-fw"></i> 2º Serviços/Processos<span class="fa arrow"></span></a>
-				<ul class="nav nav-second-level">
-					<li><a href="@{ServiceCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Novo</a></li>
-					<li><a href="@{ServiceCRUD.list}"><i class="fa fa-wrench fa-fw"></i> Lista de Serviços/Processos</a></li>
-				</ul>
-			</li>
-
-			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-qrcode fa-fw"></i> 3º Gerar OS<span class="fa arrow"></span></a>
-				<ul class="nav nav-second-level">
-					<li><a href="@{OrderOfServiceCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Nova</a></li>
-					<li><a href="@{OrderOfServiceCRUD.list}"><i class="fa fa-qrcode fa-fw"></i> Lista de OSs</a></li>
-				</ul>
-			</li>
-
-			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.updateOrder}"><i class="fa fa-battery-half fa-fw"></i> 4º. Atualizar Andamento</a>
 			</li>
 			
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{ActivitiesCRUD.timeline}"><i class="fa fa-history fa-fw"></i> Timeline do Cliente</a>
-			</li>
-
-			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-puzzle-piece fa-fw"></i> Atividades<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-user-plus fa-fw" style="color: #30336b"></i> Pedidos de Oração<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="@{ActivitiesCRUD.blank}"><i class="fa fa-plus-circle fa-fw"></i> Criar Nova</a></li>
-					<li><a href="@{ActivitiesCRUD.list}"><i class="fa fa-puzzle-piece fa-fw"></i> Lista de Atividades</a></li>
+					<li><a href="@{PrayOrderCRUD.blank}"><i class="fa fa-plus-circle fa-fw" style="color: #30336b"></i> Criar Novo</a></li>
+					<li><a href="@{PrayOrderCRUD.list}"><i class="fa fa-user-plus fa-fw" style="color: #30336b"></i> Lista de Pedidos</a></li>
 				</ul>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.afterSale}"><i class="fa fa-heartbeat fa-fw"></i> Pós-venda</a>
+				<a href="#"><i class="fa fa-user-plus fa-fw" style="color: #30336b"></i> 1º Visitantes<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{VisitorCRUD.blank}"><i class="fa fa-plus-circle fa-fw" style="color: #30336b"></i> Criar Novo</a></li>
+					<li><a href="@{VisitorCRUD.list}"><i class="fa fa-user-plus fa-fw" style="color: #30336b"></i> Lista de Visitantes</a></li>
+				</ul>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.evaluation}"><i class="fa fa-edit fa-fw"></i> Avaliação NPS</a>
+				<a href="#"><i class="fa fa-user-plus fa-fw" style="color: #30336b"></i> 2º Membros<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{MemberCRUD.blank}"><i class="fa fa-plus-circle fa-fw" style="color: #30336b"></i> Criar Novo</a></li>
+					<li><a href="@{MemberCRUD.list}"><i class="fa fa-user-plus fa-fw" style="color: #30336b"></i> Lista de Membros</a></li>
+				</ul>
 			</li>
 
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="@{OrderOfServiceCRUD.afterSaleScript}"><i class="fa fa-map-signs fa-fw"></i> Script de Pós-venda</a>
+				<a href="#"><i class="fa fa-wrench fa-fw" style="color: #30336b"></i> 3º Processos de Interação<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ServiceCRUD.blank}"><i class="fa fa-plus-circle fa-fw" style="color: #30336b"></i> Criar Novo</a></li>
+					<li><a href="@{ServiceCRUD.list}"><i class="fa fa-wrench fa-fw" style="color: #30336b"></i> Lista de Processos</a></li>
+				</ul>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-qrcode fa-fw" style="color: #30336b"></i> 4º Vincular Processo<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{OrderOfServiceCRUD.blank}"><i class="fa fa-plus-circle fa-fw" style="color: #30336b"></i> Criar Nova</a></li>
+					<li><a href="@{OrderOfServiceCRUD.list}"><i class="fa fa-qrcode fa-fw" style="color: #30336b"></i> Lista de OSs</a></li>
+				</ul>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{OrderOfServiceCRUD.updateOrder}"><i class="fa fa-battery-half fa-fw" style="color: #30336b"></i> 5º. Atualizar Andamento</a>
+			</li>
+			
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{ActivitiesCRUD.timeline}"><i class="fa fa-history fa-fw" style="color: #30336b"></i> Timeline do Visitante</a>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-puzzle-piece fa-fw" style="color: #30336b"></i> Atividades<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{ActivitiesCRUD.blank}"><i class="fa fa-plus-circle fa-fw" style="color: #30336b"></i> Criar Nova</a></li>
+					<li><a href="@{ActivitiesCRUD.list}"><i class="fa fa-puzzle-piece fa-fw" style="color: #30336b"></i> Lista de Atividades</a></li>
+				</ul>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{OrderOfServiceCRUD.afterSale}"><i class="fa fa-heartbeat fa-fw" style="color: #30336b"></i> Pós-venda</a>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{OrderOfServiceCRUD.evaluation}"><i class="fa fa-edit fa-fw" style="color: #30336b"></i> Avaliação NPS</a>
+			</li>
+
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="@{OrderOfServiceCRUD.afterSaleScript}"><i class="fa fa-map-signs fa-fw" style="color: #30336b"></i> Script de Pós-venda</a>
 			</li>
 
 
 			<li style="display: none">
-				<a href="#"><i class="fa fa-plane fa-fw"></i> Notificações Enviadas<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-plane fa-fw" style="color: #30336b"></i> Notificações Enviadas<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
-					<li><a href="@{StatusPushCRUD.list}"><i class="fa fa-paper-plane fa-fw"></i> Push Enviadas</a></li>
-					<li style="display: none;"><a href="@{StatusSmsCRUD.list}"><i class="fa fa-paper-plane-o fa-fw"></i> SMSs Enviadas</a></li>
-					<li><a href="@{StatusMailCRUD.list}"><i class="fa fa-mail-forward fa-fw"></i> E-mails Enviados</a></li>
+					<li><a href="@{StatusPushCRUD.list}"><i class="fa fa-paper-plane fa-fw" style="color: #30336b"></i> Push Enviadas</a></li>
+					<li style="display: none;"><a href="@{StatusSmsCRUD.list}"><i class="fa fa-paper-plane-o fa-fw" style="color: #30336b"></i> SMSs Enviadas</a></li>
+					<li><a href="@{StatusMailCRUD.list}"><i class="fa fa-mail-forward fa-fw" style="color: #30336b"></i> E-mails Enviados</a></li>
 				</ul>
 			</li>
 			
 			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-gears fa-fw"></i> Configurações<span class="fa arrow"></span></a>
+				<a href="#"><i class="fa fa-gears fa-fw" style="color: #30336b"></i> Configurações<span class="fa arrow"></span></a>
 				<ul class="nav nav-second-level">
 					<li><a href="/admin/empresa/${id}">Dados da Empresa</a></li>
 					<li><a href="/admin/usuario/${idu}">Meus dados</a></li>
 				</ul>
 			</li>
-<!-- 			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};"><a href="@{howtodo.AdminPub.index}" target="_blank"><i class="fa fa-sitemap fa-fw"></i> ( Área Pública )</a></li> -->
-			<li><a href="@{Secure.logout()}"><i class="fa fa-power-off fa-fw"></i> Sair</a></li>
+<!-- 			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};"><a href="@{howtodo.AdminPub.index}" target="_blank"><i class="fa fa-sitemap fa-fw" style="color: #30336b"></i> ( Área Pública )</a></li> -->
+			<li><a href="@{Secure.logout()}"><i class="fa fa-power-off fa-fw" style="color: #30336b"></i> Sair</a></li>
 		</ul>
 	</div>
 </div>

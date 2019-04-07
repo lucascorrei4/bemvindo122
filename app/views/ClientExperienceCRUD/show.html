@@ -1,0 +1,97 @@
+#{extends 'CRUD/layout.html' /}
+#{set title:messages.get('crud.show.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            &{'crud.show.title', type.modelName}
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-8">
+					#{form action:@save(object._key()), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'phone'}
+								<div class="form-group">
+									<label for="object_phone"> Celular* </label>
+									<input id="object_phone" class="form-control sp_celphones" type="text" size="50" name="object.phone" value="${object.phone}">
+									<p class="help-block">Formato de telefone válido: (99) 99999-9999. Obrigatório</p>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'phone2'}
+								<div class="form-group">
+									<label for="object_phone2"> Telefone 2 </label>
+									<input id="object_phone2" class="form-control sp_celphones" type="text" size="50" name="object.phone" value="${object.phone2}">
+									<p class="help-block">Formato de telefone válido: (99) 99999-9999.</p>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'birthdate'}
+								<div class="form-group">
+									<label for="object_birthdate"> Data de nascimento </label>
+									<input id="object_birthdate" class="form-control datemask" type="text" size="50" name="object.birthdate" value="${object.birthdate}">
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'company'}
+								<div class="form-group">
+									<label for="object_company"> Empresa </label>
+							        #{select id:'object_company', name:'object.company.id', items:companies, valueProperty:'id', labelProperty:'toString', class:'form-control', value: object.company.id /}
+									<p class="help-block"> </p>
+								</div>							
+							#{/crud.custom}
+							#{crud.custom 'isSendEntryExperience'}
+								<div class="form-group">
+									<label> Habilitar Envio das Experiências de Entrada </label>
+									<small>As mensagens de experiência de entrada serão enviadas imediatamente após o cadastro do cliente.</small> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendEntryExperience" id="optionsRadiosInline3" value="true" ${object.isSendEntryExperience?'checked=checked':''}><span title="&{'info.isSendEntryExperience.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendEntryExperience" id="optionsRadiosInline4" value="false" ${!object.isSendEntryExperience?'checked=checked':''}><span title="&{'info.isSendEntryExperience.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isSendPeakExperience'}
+								<div class="form-group">
+									<label> Habilitar Envio das Experiências de Pico </label>
+									<small>As mensagens de experiência de pico serão enviadas após o envio das mensagens de entrada e saída.</small> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendPeakExperience" id="optionsRadiosInline5" value="true" ${object.isSendPeakExperience?'checked=checked':''}><span title="&{'info.isSendPeakExperience.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isSendPeakExperience" id="optionsRadiosInline6" value="false" ${!object.isSendPeakExperience?'checked=checked':''}><span title="&{'info.isSendPeakExperience.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Ativo </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline1" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline2" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: right">
+							<input type="submit" name="_save" value="&{'crud.save', type.modelName}" class="btn btn-primary  btn-lg" />
+						</div>
+					#{/form}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

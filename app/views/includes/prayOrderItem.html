@@ -1,0 +1,23 @@
+<meta charset="utf-8" />
+<div class="table-responsive">
+	<table class="table table-hover" id="stepsTable">
+		<thead>
+			<tr>
+				<th>Título</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			#{list prayOrderItems, as:'prayOrderItem'}
+				<tr>
+					<td><input name="prayOrderItem.title" value="${prayOrderItem.title}" onclick="this.select();" style="width: 100%" class="title" accesskey="${prayOrderItem.id}"></td>
+					<td><button id="removerItem" type="button" class="btn btn-danger btn-circle" value="${prayOrderItem.id}"  data-toggle="modal" data-target="#removeModal" onclick="$(this).closest('tr').remove(); setTimeout(function() { resetTable() }, 500);">
+							<i class="fa fa-times"></i>
+						</button></td>
+				</tr>
+			#{/list}
+		</tbody>
+	</table>
+	<input type="hidden" id="steps" name="steps" value="" />
+	
+</div>

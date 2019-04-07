@@ -27,6 +27,14 @@ public class Activity extends Model {
 	@JoinColumn(name="client_id")
 	public Client client;
 
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="member_id")
+	public Member member;
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="visitor_id")
+	public Visitor visitor;
+
 	@Required
 	@Enumerated(EnumType.STRING)
 	public ActivitiesEnum type = ActivitiesEnum.PhoneCallToHim;
@@ -158,5 +166,21 @@ public class Activity extends Model {
 
 	public void setActivityDate(String activityDate) {
 		this.activityDate = activityDate;
+	}
+
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	public Visitor getVisitor() {
+		return visitor;
+	}
+
+	public void setVisitor(Visitor visitor) {
+		this.visitor = visitor;
 	}
 }

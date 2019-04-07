@@ -272,6 +272,39 @@ GET		${ctx}/admin/pos-venda										OrderOfServiceCRUD.afterSale
 GET		${ctx}/admin/script-de-pos-venda							OrderOfServiceCRUD.afterSaleScript
 GET		${ctx}/admin/avaliacao										OrderOfServiceCRUD.evaluation
 
+# Visitors
+
+GET		${ctx}/admin/visitantes											VisitorCRUD.list
+GET		${ctx}/admin/visitantes/novo									VisitorCRUD.blank
+GET		${ctx}/admin/visitantes/{id}									VisitorCRUD.show
+GET		${ctx}/admin/visitantes/{id}/{field}							VisitorCRUD.attachment
+GET		${ctx}/admin/visitantes/{id}/editar								VisitorCRUD.edit
+POST	${ctx}/admin/visitantes											VisitorCRUD.create
+POST	${ctx}/admin/visitantes/{id}									VisitorCRUD.save
+DELETE	${ctx}/admin/visitantes/{id}									VisitorCRUD.delete
+
+# Members
+
+GET		${ctx}/admin/membros										MemberCRUD.list
+GET		${ctx}/admin/membros/novo									MemberCRUD.blank
+GET		${ctx}/admin/membros/{id}									MemberCRUD.show
+GET		${ctx}/admin/membros/{id}/{field}							MemberCRUD.attachment
+GET		${ctx}/admin/membros/{id}/editar							MemberCRUD.edit
+POST	${ctx}/admin/membros										MemberCRUD.create
+POST	${ctx}/admin/membros/{id}									MemberCRUD.save
+DELETE	${ctx}/admin/membros/{id}									MemberCRUD.delete
+
+# Pray Orders
+
+GET		${ctx}/admin/pedidos-de-oracao										PrayOrderCRUD.list
+GET		${ctx}/admin/pedidos-de-oracao/novo									PrayOrderCRUD.blank
+GET		${ctx}/admin/pedidos-de-oracao/{id}									PrayOrderCRUD.show
+GET		${ctx}/admin/pedidos-de-oracao/{id}/{field}							PrayOrderCRUD.attachment
+GET		${ctx}/admin/pedidos-de-oracao/{id}/editar							PrayOrderCRUD.edit
+POST	${ctx}/admin/pedidos-de-oracao										PrayOrderCRUD.create
+POST	${ctx}/admin/pedidos-de-oracao/{id}									PrayOrderCRUD.save
+DELETE	${ctx}/admin/pedidos-de-oracao/{id}									PrayOrderCRUD.delete
+
 # Activities
 
 GET		${ctx}/admin/timeline											ActivitiesCRUD.timeline

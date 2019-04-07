@@ -22,19 +22,19 @@ import util.Utils;
 @Entity
 public class Experience extends Model {
 
+	@Enumerated(EnumType.STRING)
+	public ExperienceEnum experienceType = ExperienceEnum.Entrada;
+
 	@Required(message = "Campo obrigatório.")
 	@Lob
 	@MaxSize(100000)
 	public String msg;
-	
-	@Enumerated(EnumType.STRING)
-	public ExperienceEnum experienceType = ExperienceEnum.Entrada;
-	
+
 	@ManyToOne
 	public Service serviceVinculation;
 
 	public Integer sendInterval = 1;
-	
+
 	@Lob
 	@MaxSize(100000)
 	public String obs;
@@ -62,8 +62,7 @@ public class Experience extends Model {
 	}
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
@@ -100,7 +99,7 @@ public class Experience extends Model {
 	public void setInstitution(Institution institution) {
 		this.institution = institution;
 	}
-	
+
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
 	}
