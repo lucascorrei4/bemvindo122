@@ -8,6 +8,7 @@ import java.util.List;
 
 import controllers.howtodo.MailController;
 import controllers.howtodo.SequenceMailController;
+import models.Member;
 import models.SendTo;
 import models.Sender;
 import models.StatusMail;
@@ -24,14 +25,37 @@ import util.Utils;
 // Fire every 3 minutes 0 */3 * ? * * 
 // @On("0 0 7-22 ? * * *")
 //@On("0 */5 6-22 ? * * *")
-@On("0 */5 * ? * *")
+@On("0 */2 * ? * *")
 public class ScheduledJobs extends Job {
 
 	public void doJob() throws ParseException {
 		System.out.println("Running cron at " + Utils.dateNow());
 		verifyIfLeadIsNotInSalesFunnel();
 		sendMailToLead();
+
+		/* Member */
+		verifyBirthdayMember();
+
+		/* Visitor */
+		verifyBirthdayVisitor();
+		verifyMarriageVisitor();
+
 		System.out.println("Finished cron at " + Utils.dateNow());
+	}
+
+	private void verifyBirthdayMember() {
+		String dateNow = Utils.dateNow().substring(0, 5);
+		System.out.println(dateNow);
+		List<Member> memberList = new Member().find("isActive = true and birthdate <> '' and substring(birthdate,1,5) = '" + dateNow + "' order by postedAt desc").fetch();
+		System.out.println(memberList.size());
+	}
+
+	private void verifyBirthdayVisitor() {
+
+	}
+
+	private void verifyMarriageVisitor() {
+
 	}
 
 	private void verifyIfLeadIsNotInSalesFunnel() throws ParseException {
